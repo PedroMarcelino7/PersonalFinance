@@ -1,20 +1,14 @@
 import styles from './Pots.module.scss'
 
 // Images
-import DetailsArrow from '../../assets/images/icon-caret-right.svg'
 import Pot from '../../assets/images/icon-pot.svg'
+import SummaryTitle from '../SummaryTitle/SummaryTitle'
 
 const Pots = () => {
     return (
         <div className={styles.pots}>
-            <div className={styles.pots_header}>
-                <h2 className={styles.pots_header_title}>Pots</h2>
 
-                <div className={styles.pots_details_box}>
-                    <h3 className={styles.pots_details_title}>See Details</h3>
-                    <img className={styles.pots_details_arrow} src={DetailsArrow} alt="" />
-                </div>
-            </div>
+            <SummaryTitle title={'Pots'} />
 
             <div className={styles.infos}>
                 <div className={styles.total_box}>
@@ -31,7 +25,7 @@ const Pots = () => {
 
                 <div className={styles.details_container}>
                     <div className={styles.details_box}>
-                        <div className={styles.detail}  style={{borderColor: '#277C78'}}>
+                        <div className={styles.detail} style={{ borderColor: '#277C78' }}>
                             <div className={styles.detail_box}>
                                 <h6 className={styles.detail_title}>Savings</h6>
 
@@ -39,7 +33,7 @@ const Pots = () => {
                             </div>
                         </div>
 
-                        <div className={styles.detail}  style={{borderColor: '#82C9D7'}}>
+                        <div className={styles.detail} style={{ borderColor: '#82C9D7' }}>
                             <div className={styles.detail_box}>
                                 <h6 className={styles.detail_title}>Gift</h6>
 
@@ -49,7 +43,7 @@ const Pots = () => {
                     </div>
 
                     <div className={styles.details_box}>
-                        <div className={styles.detail}  style={{borderColor: '#626070'}}>
+                        <div className={styles.detail} style={{ borderColor: '#626070' }}>
                             <div className={styles.detail_box}>
                                 <h6 className={styles.detail_title}>Concert Ticket</h6>
 
@@ -57,7 +51,7 @@ const Pots = () => {
                             </div>
                         </div>
 
-                        <div className={styles.detail}  style={{borderColor: '#F2CDAC'}}>
+                        <div className={styles.detail} style={{ borderColor: '#F2CDAC' }}>
                             <div className={styles.detail_box}>
                                 <h6 className={styles.detail_title}>New Laptop</h6>
 

@@ -1,5 +1,8 @@
-import Pots from '../../components/Pots/Pots'
 import styles from './Overview.module.scss'
+
+// Components
+import Pots from '../../components/Pots/Pots'
+import Transactions from '../../components/Transactions/Transactions'
 
 const Overview = () => {
     return (
@@ -24,6 +27,7 @@ const Overview = () => {
             <div className={styles.summary}>
                 <div className={styles.section}>
                     <Pots />
+                    <Transactions />
                 </div>
                 <div className={styles.section}>
 
