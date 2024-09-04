@@ -6,7 +6,7 @@ import SummaryTitle from '../SummaryTitle/SummaryTitle'
 
 const Pots = () => {
     return (
-        <div className={styles.pots}>
+        <div className='summary_card'>
 
             <SummaryTitle title={'Pots'} />
 

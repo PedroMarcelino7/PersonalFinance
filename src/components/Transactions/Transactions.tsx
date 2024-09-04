@@ -2,7 +2,7 @@ import styles from './Transactions.module.scss'
 
 const Transactions = () => {
     return (
-        <div>
+        <div className={styles.transactions}>
             Transactions
         </div>
     )
