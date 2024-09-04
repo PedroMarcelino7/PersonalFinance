@@ -1,0 +1,53 @@
+.transactions_box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .transaction {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+        }
+
+        .details {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 8px;
+
+            h3 {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+
+            h4 {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #686868;
+            }
+        }
+    }
+
+    .divisor {
+        width: 100%;
+        height: 1px;
+        background-color: #E5E5E5;
+    }
+}

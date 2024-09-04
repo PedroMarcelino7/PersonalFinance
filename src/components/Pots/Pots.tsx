@@ -8,7 +8,7 @@ const Pots = () => {
     return (
         <div className='summary_card'>
 
-            <SummaryTitle title={'Pots'} />
+            <SummaryTitle title={'Pots'} redirect={'See Details'} />
 
             <div className={styles.infos}>
                 <div className={styles.total_box}>
