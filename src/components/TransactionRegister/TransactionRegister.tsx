@@ -12,8 +12,8 @@ type Props = {
 const TransactionRegister = ({ name, balance, date }: Props) => {
     const formatBalance = (balance: number): string => {
         return balance < 0
-            ? `-$${Math.abs(balance)}`
-            : `+$${Math.abs(balance)}`
+            ? `-$${Math.abs(balance).toFixed(2)}`
+            : `+$${Math.abs(balance).toFixed(2)}`
     }
 
     return (

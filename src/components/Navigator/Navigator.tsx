@@ -8,6 +8,7 @@ import Transactions from '../../assets/images/icon-nav-transactions.svg'
 import Budgets from '../../assets/images/icon-nav-budgets.svg'
 import Pots from '../../assets/images/icon-nav-pots.svg'
 import RecurringBills from '../../assets/images/icon-nav-recurring-bills.svg'
+import { NavLink } from 'react-router-dom'
 
 const Navigator = () => {
     return (
@@ -17,26 +18,26 @@ const Navigator = () => {
             </div>
 
             <div className={styles.navigation_buttons_box}>
-                <div className={`${styles.navigation_button} ${styles.selected}`}>
+                <NavLink to={'/overview'} className={`${styles.navigation_button} ${styles.selected}`}>
                     <img src={Overview} alt="" />
                     <h3>Overview</h3>
-                </div>
-                <div className={styles.navigation_button}>
+                </NavLink>
+                <NavLink to={'/transactions'} className={styles.navigation_button}>
                     <img src={Transactions} alt="" />
                     <h3>Transactions</h3>
-                </div>
-                <div className={styles.navigation_button}>
+                </NavLink>
+                <NavLink to={'/budgets'} className={styles.navigation_button}>
                     <img src={Budgets} alt="" />
                     <h3>Budgets</h3>
-                </div>
-                <div className={styles.navigation_button}>
+                </NavLink>
+                <NavLink to={'/pots'} className={styles.navigation_button}>
                     <img src={Pots} alt="" />
                     <h3>Pots</h3>
-                </div>
-                <div className={styles.navigation_button}>
+                </NavLink>
+                <NavLink to={'/recurring-bills'} className={styles.navigation_button}>
                     <img src={RecurringBills} alt="" />
                     <h3>Recurring Bills</h3>
-                </div>
+                </NavLink>
             </div>
 
             <div className={styles.navigation_footer_box}>
