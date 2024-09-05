@@ -3,6 +3,7 @@ import styles from './Overview.module.scss'
 // Components
 import Pots from '../../components/Pots/Pots'
 import Transactions from '../../components/Transactions/Transactions'
+import RecurringBills from '../../components/RecurringBills/RecurringBills'
 
 const Overview = () => {
     return (
@@ -25,12 +26,12 @@ const Overview = () => {
             </div>
 
             <div className={styles.summary}>
-                <div className={styles.section}>
+                <div className={styles.section} style={{width: '55%'}}>
                     <Pots />
                     <Transactions />
                 </div>
-                <div className={styles.section}>
-
+                <div className={styles.section} style={{width: '45%'}}>
+                    <RecurringBills />
                 </div>
             </div>
         </div>
