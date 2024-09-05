@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
 import styles from './PageContainer.module.scss'
+
+import { ReactNode } from 'react'
 
 type Props = {
     title: string,

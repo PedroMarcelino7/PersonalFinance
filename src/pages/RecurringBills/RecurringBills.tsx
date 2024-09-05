@@ -1,10 +1,15 @@
 import styles from './RecurringBills.module.scss'
 
+// Components
+import PageContainer from '../../components/PageContainer/PageContainer'
+
 const RecurringBills = () => {
     return (
-        <div>
-            RecurringBills
-        </div>
+        <PageContainer title='Recurring Bills'>
+            <div>
+
+            </div>
+        </PageContainer>
     )
 }
 

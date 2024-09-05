@@ -1,0 +1,51 @@
+.transactions_container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 32px;
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .search_box {
+            input {
+                padding-block: 12px;
+                padding-inline: 20px;
+                border-radius: 10px;
+                font-size: 1rem;
+                color: #000;
+                border: 1px solid #686868;
+
+                &::placeholder {
+                    color: #686868;
+                }
+            }
+        }
+
+        .filters {
+            display: flex;
+            gap: 24px;
+
+            .filter {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                h3 {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: #686868;
+                }
+
+                select {
+                    padding-block: 12px;
+                    padding-inline: 20px;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

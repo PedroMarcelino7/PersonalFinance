@@ -1,10 +1,15 @@
 import styles from './Pots.module.scss'
 
+// Components
+import PageContainer from '../../components/PageContainer/PageContainer'
+
 const Pots = () => {
     return (
-        <div>
-            Pots
-        </div>
+        <PageContainer title='Pots'>
+            <div>
+
+            </div>
+        </PageContainer>
     )
 }
 

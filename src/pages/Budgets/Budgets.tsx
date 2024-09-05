@@ -1,10 +1,15 @@
 import styles from './Budgets.module.scss'
 
+// Components
+import PageContainer from '../../components/PageContainer/PageContainer'
+
 const Budgets = () => {
     return (
-        <div>
-            Budgets
-        </div>
+        <PageContainer title='Budgets'>
+            <div>
+
+            </div>
+        </PageContainer>
     )
 }
 
