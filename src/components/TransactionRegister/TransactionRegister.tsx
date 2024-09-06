@@ -1,31 +1,29 @@
 import styles from './TransactionRegister.module.scss'
 
-// Images
-import ProfilePicture_1 from '../../assets/images/avatars/emma-richardson.jpg'
-
 type Props = {
     name: string,
-    balance: number,
-    date: string
+    amount: number,
+    date: string,
+    avatar: string
 }
 
-const TransactionRegister = ({ name, balance, date }: Props) => {
-    const formatBalance = (balance: number): string => {
-        return balance < 0
-            ? `-$${Math.abs(balance).toFixed(2)}`
-            : `+$${Math.abs(balance).toFixed(2)}`
+const TransactionRegister = ({ name, amount, date, avatar }: Props) => {
+    const formatAmount = (amount: number): string => {
+        return amount < 0
+            ? `-$${Math.abs(amount).toFixed(2)}`
+            : `+$${Math.abs(amount).toFixed(2)}`
     }
 
     return (
         <div className={styles.transaction}>
             <div className={styles.profile}>
-                <img src={ProfilePicture_1} alt="" />
+                <img src={avatar} alt={name} />
                 <h2>{name}</h2>
             </div>
 
             <div className={styles.details}>
-                <div className={styles.balance}>
-                    <h3>{formatBalance(balance)}</h3>
+                <div className={styles.amount}>
+                    <h3>{formatAmount(amount)}</h3>
                 </div>
 
                 <div className={styles.date}>

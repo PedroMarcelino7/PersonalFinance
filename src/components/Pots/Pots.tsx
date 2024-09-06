@@ -1,9 +1,10 @@
 import styles from './Pots.module.scss'
 
+import { useEffect, useState } from 'react'
+
 // Images
 import Pot from '../../assets/images/icon-pot.svg'
 import SummaryTitle from '../SummaryTitle/SummaryTitle'
-import { useEffect, useState } from 'react'
 
 interface Pot {
     name: string,

@@ -36,7 +36,7 @@ const Overview = () => {
             <div className={styles.summary}>
                 <div className={styles.section} style={{ width: '55%' }}>
                     <Pots data={data.pots} />
-                    <Transactions />
+                    <Transactions data={data.transactions} />
                 </div>
                 <div className={styles.section} style={{ width: '45%' }}>
                     <RecurringBills />
