@@ -1,10 +1,10 @@
 .transactions_box {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 
     .divisor {
         width: 100%;
+        margin-block: 20px;
         height: 1px;
         background-color: #E5E5E5;
     }
