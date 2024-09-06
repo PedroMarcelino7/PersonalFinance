@@ -24,7 +24,6 @@ const Pots = ({ data }: Props) => {
 
         data.forEach((pot) => {
             total = total + pot.total
-            console.log('Total:', total)
         })
 
         setTotal(total)
@@ -54,37 +53,37 @@ const Pots = ({ data }: Props) => {
 
                 <div className={styles.details_container}>
                     <div className={styles.details_box}>
-                        <div className={styles.detail} style={{ borderColor: '#277C78' }}>
+                        <div className={styles.detail} style={{ borderColor: `${data[0].theme}` }}>
                             <div className={styles.detail_box}>
-                                <h6 className={styles.detail_title}>Savings</h6>
+                                <h6 className={styles.detail_title}>{data[0].name}</h6>
 
-                                <h5 className={styles.detail_balance}>$159</h5>
+                                <h5 className={styles.detail_balance}>${data[0].total.toFixed(2)}</h5>
                             </div>
                         </div>
 
-                        <div className={styles.detail} style={{ borderColor: '#82C9D7' }}>
+                        <div className={styles.detail} style={{ borderColor: `${data[1].theme}` }}>
                             <div className={styles.detail_box}>
-                                <h6 className={styles.detail_title}>Gift</h6>
+                                <h6 className={styles.detail_title}>{data[1].name}</h6>
 
-                                <h5 className={styles.detail_balance}>$40</h5>
+                                <h5 className={styles.detail_balance}>${data[1].total.toFixed(2)}</h5>
                             </div>
                         </div>
                     </div>
 
                     <div className={styles.details_box}>
-                        <div className={styles.detail} style={{ borderColor: '#626070' }}>
+                        <div className={styles.detail} style={{ borderColor: `${data[2].theme}` }}>
                             <div className={styles.detail_box}>
-                                <h6 className={styles.detail_title}>Concert Ticket</h6>
+                                <h6 className={styles.detail_title}>{data[2].name}</h6>
 
-                                <h5 className={styles.detail_balance}>$110</h5>
+                                <h5 className={styles.detail_balance}>${data[2].total.toFixed(2)}</h5>
                             </div>
                         </div>
 
-                        <div className={styles.detail} style={{ borderColor: '#F2CDAC' }}>
+                        <div className={styles.detail} style={{ borderColor: `${data[3].theme}` }}>
                             <div className={styles.detail_box}>
-                                <h6 className={styles.detail_title}>New Laptop</h6>
+                                <h6 className={styles.detail_title}>{data[3].name}</h6>
 
-                                <h5 className={styles.detail_balance}>$10</h5>
+                                <h5 className={styles.detail_balance}>${data[3].total.toFixed(2)}</h5>
                             </div>
                         </div>
                     </div>
