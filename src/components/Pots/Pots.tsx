@@ -3,8 +3,37 @@ import styles from './Pots.module.scss'
 // Images
 import Pot from '../../assets/images/icon-pot.svg'
 import SummaryTitle from '../SummaryTitle/SummaryTitle'
+import { useEffect, useState } from 'react'
 
-const Pots = () => {
+interface Pot {
+    name: string,
+    target: number,
+    theme: string,
+    total: number
+}
+
+interface Props {
+    data: Pot[]
+}
+
+const Pots = ({ data }: Props) => {
+    const [total, setTotal] = useState<number>(0)
+
+    const getTotal = () => {
+        let total = 0
+
+        data.forEach((pot) => {
+            total = total + pot.total
+            console.log('Total:', total)
+        })
+
+        setTotal(total)
+    }
+
+    useEffect(() => {
+        getTotal()
+    }, [])
+
     return (
         <div className='summary_card'>
 
@@ -19,7 +48,7 @@ const Pots = () => {
                     <div className={styles.total_infos}>
                         <h5 className={styles.total_title}>Total Saved</h5>
 
-                        <h4 className={styles.total_balance}>$850</h4>
+                        <h4 className={styles.total_balance}>${total.toFixed(2)}</h4>
                     </div>
                 </div>
 
