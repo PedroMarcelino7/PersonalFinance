@@ -1,7 +1,11 @@
 .transactions_container {
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: 10px;
     padding: 32px;
+    height: 100%;
 
     .navbar {
         display: flex;
@@ -44,6 +48,131 @@
                     border-radius: 10px;
                     font-size: 1rem;
                     font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .table_box {
+        width: 100%;
+        height: 100%;
+        padding-block: 12px;
+        padding-inline: 16px;
+        margin-block: 24px;
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                tr {
+                    border-bottom: 1px solid #F2F2F2;
+
+                    th {
+                        padding-bottom: 24px;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        color: #686868;
+                        text-align: start;
+
+                        &:last-child {
+                            text-align: end;
+                        }
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    border-bottom: 1px solid #F2F2F2;
+
+                    &:last-child {
+                        border: none;
+                    }
+
+                    td {
+                        padding-block: 16px;
+
+                        .profile {
+                            display: flex;
+                            align-items: center;
+                            gap: 16px;
+
+                            img {
+                                width: 40px;
+                                height: 40px;
+                                border-radius: 50%;
+                            }
+
+                            h2 {
+                                font-size: 1rem;
+                                font-weight: 600;
+                            }
+                        }
+
+                        &:last-child {
+                            text-align: end;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .button {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #686868;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.5s;
+
+            h3 {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #686868;
+                line-height: 0;
+            }
+
+            &:hover {
+                background-color: #201F24;
+
+                h3 {
+                    color: #F2F2F2;
+                }
+            }
+        }
+
+        .pages {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+
+            button {
+                width: 40px;
+                height: 40px;
+                background-color: #fff;
+                border: 1px solid #686868;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.5s;
+
+                &:hover {
+                    background-color: #686868;
+                    color: #F2F2F2;
+                }
+
+                &.selected {
+                    background-color: #201F24;
+                    color: #F2F2F2;
                 }
             }
         }
