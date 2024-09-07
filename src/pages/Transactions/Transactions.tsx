@@ -4,11 +4,19 @@ import styles from './Transactions.module.scss'
 import PageContainer from '../../components/PageContainer/PageContainer'
 
 // Images
-import ProfilePicture from '../../assets/images/avatars/emma-richardson.jpg'
 import PrevArrow from '../../assets/images/icon-caret-left.svg'
 import NextArrow from '../../assets/images/icon-caret-right.svg'
 
+// Data
+import data from '../../data.ts'
+
 const Transactions = () => {
+    const formatAmount = (amount: number): string => {
+        return amount < 0
+            ? `-$${Math.abs(amount).toFixed(2)}`
+            : `+$${Math.abs(amount).toFixed(2)}`
+    }
+
     return (
         <PageContainer title='Transactions'>
             <div className={styles.transactions_container}>
@@ -47,39 +55,21 @@ const Transactions = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div className={styles.profile}>
-                                        <img src={ProfilePicture} alt="" />
-                                        <h2>Emma Richardson</h2>
-                                    </div>
-                                </td>
-                                <td>General</td>
-                                <td>19 Aug 2024</td>
-                                <td>+$75.50</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className={styles.profile}>
-                                        <img src={ProfilePicture} alt="" />
-                                        <h2>Emma Richardson</h2>
-                                    </div>
-                                </td>
-                                <td>General</td>
-                                <td>19 Aug 2024</td>
-                                <td>+$75.50</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className={styles.profile}>
-                                        <img src={ProfilePicture} alt="" />
-                                        <h2>Emma Richardson</h2>
-                                    </div>
-                                </td>
-                                <td>General</td>
-                                <td>19 Aug 2024</td>
-                                <td>+$75.50</td>
-                            </tr>
+                            {
+                                data.transactions.map((transaction, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <div className={styles.profile}>
+                                                <img src={transaction.avatar} alt={transaction.name} />
+                                                <h2>{transaction.name}</h2>
+                                            </div>
+                                        </td>
+                                        <td>{transaction.category}</td>
+                                        <td>{transaction.date.slice(0, 10)}</td>
+                                        <td>{formatAmount(transaction.amount)}</td>
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </table>
                 </div>

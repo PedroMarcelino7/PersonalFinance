@@ -25,8 +25,8 @@ const Transactions = ({ data }: Props) => {
             <div className={styles.transactions_box}>
                 {
                     data.map((transaction, index) => (
-                        <div>
-                            <TransactionRegister key={index}
+                        <div key={index}>
+                            <TransactionRegister
                                 name={transaction.name}
                                 amount={transaction.amount}
                                 date={transaction.date.slice(0, 10)}

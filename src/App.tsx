@@ -11,15 +11,20 @@ import Transactions from './pages/Transactions/Transactions'
 import Budgets from './pages/Budgets/Budgets'
 import Pots from './pages/Pots/Pots'
 import RecurringBills from './pages/RecurringBills/RecurringBills'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 
 function App() {
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register'
+
   return (
     <div className='App'>
       <BrowserRouter>
-        <Navigator />
+        {!isAuthPage && <Navigator />}
 
         <Routes>
-          <Route path='*' element={<Overview />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/overview' element={<Overview />} />
           <Route path='/transactions' element={<Transactions />} />
           <Route path='/budgets' element={<Budgets />} />
