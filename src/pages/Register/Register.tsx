@@ -52,7 +52,7 @@ const Register = () => {
                         <button type="submit">Create Account</button>
                     </form>
 
-                    <h3>Already have an account? <span>Login!</span></h3>
+                    <h3>Already have an account? <a href='/login'>Login!</a></h3>
                 </div>
             </div>
         </div>

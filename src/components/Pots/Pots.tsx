@@ -37,7 +37,7 @@ const Pots = ({ data }: Props) => {
     return (
         <div className='summary_card'>
 
-            <SummaryTitle title={'Pots'} redirect={'See Details'} />
+            <SummaryTitle title='Pots' redirect='See Details' />
 
             <div className={styles.infos}>
                 <div className={styles.total_box}>

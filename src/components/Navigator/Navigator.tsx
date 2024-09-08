@@ -18,23 +18,53 @@ const Navigator = () => {
             </div>
 
             <div className={styles.navigation_buttons_box}>
-                <NavLink to={'/overview'} className={`${styles.navigation_button} ${styles.selected}`}>
+                <NavLink to={'/overview'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? `${styles.navigation_button} ${styles.selected}`
+                            : styles.navigation_button
+                    }
+                >
                     <img src={Overview} alt="" />
                     <h3>Overview</h3>
                 </NavLink>
-                <NavLink to={'/transactions'} className={styles.navigation_button}>
+                <NavLink to={'/transactions'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? `${styles.navigation_button} ${styles.selected}`
+                            : styles.navigation_button
+                    }
+                >
                     <img src={Transactions} alt="" />
                     <h3>Transactions</h3>
                 </NavLink>
-                <NavLink to={'/budgets'} className={styles.navigation_button}>
+                <NavLink to={'/budgets'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? `${styles.navigation_button} ${styles.selected}`
+                            : styles.navigation_button
+                    }
+                >
                     <img src={Budgets} alt="" />
                     <h3>Budgets</h3>
                 </NavLink>
-                <NavLink to={'/pots'} className={styles.navigation_button}>
+                <NavLink to={'/pots'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? `${styles.navigation_button} ${styles.selected}`
+                            : styles.navigation_button
+                    }
+                >
                     <img src={Pots} alt="" />
                     <h3>Pots</h3>
                 </NavLink>
-                <NavLink to={'/recurring-bills'} className={styles.navigation_button}>
+                <NavLink to={'/recurring-bills'}
+                    className={({ isActive }) =>
+                        isActive
+                            ? `${styles.navigation_button} ${styles.selected}`
+                            : styles.navigation_button
+                    }
+                >
                     <img src={RecurringBills} alt="" />
                     <h3>Recurring Bills</h3>
                 </NavLink>

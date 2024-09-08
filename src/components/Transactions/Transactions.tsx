@@ -20,7 +20,7 @@ interface Props {
 const Transactions = ({ data }: Props) => {
     return (
         <div className='summary_card'>
-            <SummaryTitle title={'Transactions'} redirect={'View All'} />
+            <SummaryTitle title='Transactions' redirect='View All' />
 
             <div className={styles.transactions_box}>
                 {
