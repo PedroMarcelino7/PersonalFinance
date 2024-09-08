@@ -35,6 +35,50 @@
                     font-size: 1.25rem;
                 }
             }
+
+            .options {
+                width: 35px;
+                height: 20px;
+                position: relative;
+                cursor: pointer;
+                
+                .image_box {
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    transition: all 0.5s;
+
+                    &:hover {
+                        transform: scale(1.25);
+                    }
+                }
+
+                .dropdown {
+                    display: flex;
+                    flex-direction: column;
+                    width: 150px;
+                    padding: 16px;
+                    border-radius: 10px;
+                    gap: 10px;
+                    position: absolute;
+                    top: 30px;
+                    right: 0;
+                    background-color: #fff;
+                    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+                    z-index: 1000;
+                    transition: all 0.5s;
+
+                    h6 {
+                        font-size: 1.25rem;
+                        font-weight: 400;
+                        cursor: pointer;
+
+                        span {
+                            color: #C94736;
+                        }
+                    }
+                }
+            }
         }
 
         .total_container {
