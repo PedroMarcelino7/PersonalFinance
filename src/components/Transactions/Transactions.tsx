@@ -2,7 +2,6 @@ import styles from './Transactions.module.scss'
 
 // Components
 import SummaryTitle from '../SummaryTitle/SummaryTitle'
-import TransactionRegister from '../TransactionRegister/TransactionRegister'
 
 interface Transaction {
     amount: number,
@@ -67,6 +66,12 @@ const Transactions = ({ data }: Props) => {
         return `${day} ${month} ${year}`
     }
 
+    const formatAmount = (amount: number): string => {
+        return amount < 0
+            ? `-$${Math.abs(amount).toFixed(2)}`
+            : `+$${Math.abs(amount).toFixed(2)}`
+    }
+
     return (
         <div className='summary_card'>
             <SummaryTitle title='Transactions' redirect='View All' />
@@ -75,12 +80,23 @@ const Transactions = ({ data }: Props) => {
                 {
                     data.map((transaction, index) => (
                         <div key={index}>
-                            <TransactionRegister
-                                name={transaction.name}
-                                amount={transaction.amount}
-                                date={formatDate(transaction.date)}
-                                avatar={transaction.avatar}
-                            />
+                            <div className={styles.transaction}>
+                                <div className={styles.profile}>
+                                    <img src={transaction.avatar} alt={transaction.name} />
+                                    <h2>{transaction.name}</h2>
+                                </div>
+
+                                <div className={styles.details}>
+                                    <div className={styles.amount} style={{ color: transaction.amount < 0 ? '#C94736' : '#277C78' }}>
+                                        <h3>{formatAmount(transaction.amount)}</h3>
+                                    </div>
+
+                                    <div className={styles.date}>
+                                        <h4>{formatDate(transaction.date)}</h4>
+                                    </div>
+                                </div>
+                            </div>
+
                             {index < data.length - 1 && <div className={styles.divisor}></div>}
                         </div>
                     ))
