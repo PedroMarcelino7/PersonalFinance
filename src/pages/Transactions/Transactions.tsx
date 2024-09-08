@@ -11,6 +11,55 @@ import NextArrow from '../../assets/images/icon-caret-right.svg'
 import data from '../../data.ts'
 
 const Transactions = () => {
+    const formatDate = (date: string): string => {
+        let day = date.slice(8, 10)
+        let month = date.slice(5, 7)
+        let year = date.slice(0, 4)
+
+        switch (month) {
+            case '01':
+                month = 'Jan'
+                break;
+            case '02':
+                month = 'Feb'
+                break;
+            case '03':
+                month = 'Mar'
+                break;
+            case '04':
+                month = 'Apr'
+                break;
+            case '05':
+                month = 'May'
+                break;
+            case '06':
+                month = 'Jun'
+                break;
+            case '07':
+                month = 'Jul'
+                break;
+            case '08':
+                month = 'Aug'
+                break;
+            case '09':
+                month = 'Sep'
+                break;
+            case '10':
+                month = 'Oct'
+                break;
+            case '11':
+                month = 'Nov'
+                break;
+            case '12':
+                month = 'Dec'
+                break;
+            default:
+                break;
+        }
+
+        return `${day} ${month} ${year}`
+    }
+
     const formatAmount = (amount: number): string => {
         return amount < 0
             ? `-$${Math.abs(amount).toFixed(2)}`
@@ -65,7 +114,7 @@ const Transactions = () => {
                                             </div>
                                         </td>
                                         <td>{transaction.category}</td>
-                                        <td>{transaction.date.slice(0, 10)}</td>
+                                        <td>{formatDate(transaction.date)}</td>
                                         <td
                                             style={{
                                                 color: transaction.amount < 0 ? '#C94736' : '#277C78',

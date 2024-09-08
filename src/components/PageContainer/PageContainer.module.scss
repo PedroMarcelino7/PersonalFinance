@@ -5,9 +5,32 @@
     padding-block: 32px;
     padding-inline: 40px;
 
-    .title {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 32px;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .button {
+            color: #F8F4F0;
+            padding: 16px;
+            background-color: #201F24;
+            border: none;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+
+            span {
+                font-size: 1rem;
+                font-weight: 600;
+            }
+        }
     }
 }

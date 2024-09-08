@@ -5,7 +5,7 @@ import PageContainer from '../../components/PageContainer/PageContainer'
 
 const Pots = () => {
     return (
-        <PageContainer title='Pots'>
+        <PageContainer title='Pots' button='Add New Pot'>
             <div>
 
             </div>
