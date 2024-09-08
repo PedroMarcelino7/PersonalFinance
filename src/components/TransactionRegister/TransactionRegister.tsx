@@ -22,7 +22,7 @@ const TransactionRegister = ({ name, amount, date, avatar }: Props) => {
             </div>
 
             <div className={styles.details}>
-                <div className={styles.amount}>
+                <div className={styles.amount} style={{ color: amount < 0 ? '#C94736' : '#277C78' }}>
                     <h3>{formatAmount(amount)}</h3>
                 </div>
 

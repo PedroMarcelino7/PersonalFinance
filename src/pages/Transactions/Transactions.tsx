@@ -66,7 +66,14 @@ const Transactions = () => {
                                         </td>
                                         <td>{transaction.category}</td>
                                         <td>{transaction.date.slice(0, 10)}</td>
-                                        <td>{formatAmount(transaction.amount)}</td>
+                                        <td
+                                            style={{
+                                                color: transaction.amount < 0 ? '#C94736' : '#277C78',
+                                                fontWeight: 600
+                                            }}
+                                        >
+                                            {formatAmount(transaction.amount)}
+                                        </td>
                                     </tr>
                                 ))
                             }
