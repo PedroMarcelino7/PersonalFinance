@@ -2,6 +2,9 @@ import styles from './Pots.module.scss'
 
 // Components
 import PageContainer from '../../components/PageContainer/PageContainer'
+import AddNewPotModal from '../../components/PotModal/AddNewPot/AddNewPotModal'
+import EditPotModal from '../../components/PotModal/EditPot/EditPotModal'
+import DeletePotModal from '../../components/PotModal/DeletePot/DeletePotModal'
 
 // Images
 import Options from '../../assets/images/icon-ellipsis.svg'
@@ -9,11 +12,12 @@ import Options from '../../assets/images/icon-ellipsis.svg'
 // Data
 import data from '../../data'
 import { useState } from 'react'
-import PotModal from '../../components/PotModal/PotModal'
 
 const Pots = () => {
     const [showDropdown, setShowDropdown] = useState<number | null>(null)
-    const [showAddNewPotModal, setShowAddNewPotModal] = useState<boolean>(true)
+    const [showAddNewPotModal, setShowAddNewPotModal] = useState<boolean>(false)
+    const [showEditPotModal, setShowEditPotModal] = useState<boolean>(false)
+    const [showDeletePotModal, setShowDeletePotModal] = useState<boolean>(false)
 
     const getProgress = (total: number, target: number): number => {
         return (100 * total) / target
@@ -23,9 +27,36 @@ const Pots = () => {
         setShowDropdown(showDropdown === index ? null : index)
     }
 
+    const handleShowAddNewPotModal = () => {
+        setShowDropdown(null)
+        setShowAddNewPotModal(true)
+    }
+
+    const handleCloseAddNewPotModal = () => {
+        setShowAddNewPotModal(false)
+    }
+
+    const handleShowEditPotModal = () => {
+        setShowDropdown(null)
+        setShowEditPotModal(true)
+    }
+
+    const handleCloseEditPotModal = () => {
+        setShowEditPotModal(false)
+    }
+
+    const handleShowDeletePotModal = () => {
+        setShowDropdown(null)
+        setShowDeletePotModal(true)
+    }
+
+    const handleCloseDeletePotModal = () => {
+        setShowDeletePotModal(false)
+    }
+
     return (
         <>
-            <PageContainer title='Pots' button='Add New Pot'>
+            <PageContainer title='Pots' button='Add New Pot' onClick={handleShowAddNewPotModal}>
                 <div className={styles.pots}>
                     {data.pots.map((pot, index) => (
                         <div className={styles.pot} key={index}>
@@ -42,9 +73,9 @@ const Pots = () => {
 
                                     {showDropdown === index && (
                                         <div className={styles.dropdown}>
-                                            <h6>Edit Pot</h6>
+                                            <h6 onClick={handleShowEditPotModal}>Edit Pot</h6>
                                             <hr />
-                                            <h6><span>Delete Pot</span></h6>
+                                            <h6 onClick={handleShowDeletePotModal}><span>Delete Pot</span></h6>
                                         </div>
                                     )}
                                 </div>
@@ -85,7 +116,9 @@ const Pots = () => {
                     ))}
                 </div>
 
-                {showAddNewPotModal && <PotModal />}
+                {showAddNewPotModal && <AddNewPotModal closeModal={handleCloseAddNewPotModal} />}
+                {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} />}
+                {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} />}
             </PageContainer>
         </>
     )

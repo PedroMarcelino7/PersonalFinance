@@ -1,16 +1,20 @@
-import styles from './PotModal.module.scss'
+import styles from './AddNewPotModal.module.scss'
 
 // Images
-import Close from '../../assets/images/icon-close-modal.svg'
+import Close from '../../../assets/images/icon-close-modal.svg'
 
-const PotModal = () => {
+interface Props {
+    closeModal: () => void
+}
+
+const AddNewPotModal = ({ closeModal }: Props) => {
     return (
         <div className={styles.modal_container}>
             <div className={styles.modal_box}>
                 <div className={styles.header}>
                     <h1>Add New Pot</h1>
 
-                    <img src={Close} alt="" />
+                    <img onClick={closeModal} src={Close} alt="" />
                 </div>
 
                 <div className={styles.description}>
@@ -46,4 +50,4 @@ const PotModal = () => {
     )
 }
 
-export default PotModal
+export default AddNewPotModal
