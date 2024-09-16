@@ -23,7 +23,7 @@ const DeletePotModal = ({ closeModal }: Props) => {
 
                 <form action="">
                     <button type='submit' style={{ backgroundColor: '#C94736' }}>Yes, Confirm Deletion</button>
-                    <button onClick={closeModal} type='button' style={{ backgroundColor: 'transparent', color: '#686868' }}>No, Go Back</button>
+                    <button type='button' style={{ backgroundColor: 'transparent', color: '#686868' }} onClick={closeModal}>No, Go Back</button>
                 </form>
             </div>
         </div>

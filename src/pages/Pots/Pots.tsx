@@ -13,11 +13,19 @@ import Options from '../../assets/images/icon-ellipsis.svg'
 import data from '../../data'
 import { useState } from 'react'
 
+interface Pot {
+    name: string;
+    target: number;
+    total: number;
+    theme: string;
+}
+
 const Pots = () => {
     const [showDropdown, setShowDropdown] = useState<number | null>(null)
     const [showAddNewPotModal, setShowAddNewPotModal] = useState<boolean>(false)
     const [showEditPotModal, setShowEditPotModal] = useState<boolean>(false)
     const [showDeletePotModal, setShowDeletePotModal] = useState<boolean>(false)
+    const [potToEdit, setPotToEdit] = useState<Pot | null>(null)
 
     const getProgress = (total: number, target: number): number => {
         return (100 * total) / target
@@ -36,7 +44,8 @@ const Pots = () => {
         setShowAddNewPotModal(false)
     }
 
-    const handleShowEditPotModal = () => {
+    const handleShowEditPotModal = (pot: Pot) => {
+        setPotToEdit(pot)
         setShowDropdown(null)
         setShowEditPotModal(true)
     }
@@ -73,7 +82,7 @@ const Pots = () => {
 
                                     {showDropdown === index && (
                                         <div className={styles.dropdown}>
-                                            <h6 onClick={handleShowEditPotModal}>Edit Pot</h6>
+                                            <h6 onClick={() => handleShowEditPotModal(pot)}>Edit Pot</h6>
                                             <hr />
                                             <h6 onClick={handleShowDeletePotModal}><span>Delete Pot</span></h6>
                                         </div>
@@ -117,7 +126,7 @@ const Pots = () => {
                 </div>
 
                 {showAddNewPotModal && <AddNewPotModal closeModal={handleCloseAddNewPotModal} />}
-                {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} />}
+                {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />}
                 {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} />}
             </PageContainer>
         </>
