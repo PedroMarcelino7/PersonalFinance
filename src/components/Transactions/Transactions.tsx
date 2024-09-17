@@ -4,16 +4,16 @@ import styles from './Transactions.module.scss'
 import SummaryTitle from '../SummaryTitle/SummaryTitle'
 
 interface Transaction {
-    amount: number,
-    avatar: string,
-    category: string,
-    date: string,
-    name: string,
-    recurring: boolean
+    TRA_AMOUNT: number,
+    TRA_AVATAR: string,
+    TRA_CATEGORY: string,
+    TRA_DATE: string,
+    TRA_NAME: string,
+    TRA_RECURRING: boolean
 }
 
 interface Props {
-    data: Transaction[]
+    data: Transaction | null
 }
 
 const Transactions = ({ data }: Props) => {

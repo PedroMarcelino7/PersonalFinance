@@ -33,6 +33,51 @@ app.get('/get/balance', (req, res) => {
     });
 });
 
+app.get('/get/budgets', (req, res) => {
+    const query = `
+        SELECT * FROM BUDGETS
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching budgets:", err);
+            return res.status(500).send(err);
+        }
+
+        res.json(results);
+    });
+});
+
+app.get('/get/pots', (req, res) => {
+    const query = `
+        SELECT * FROM POTS
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching pots:", err);
+            return res.status(500).send(err);
+        }
+
+        res.json(results);
+    });
+});
+
+app.get('/get/transactions', (req, res) => {
+    const query = `
+        SELECT * FROM TRANSACTIONS
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching transactions:", err);
+            return res.status(500).send(err);
+        }
+
+        res.json(results);
+    });
+});
+
 app.post('/', (req, res) => {
     const { current, id } = req.body;
 
