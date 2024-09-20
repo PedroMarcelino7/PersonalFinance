@@ -44,14 +44,29 @@ const Pots = ({ data }: Props) => {
 
                 <div className={styles.details_container}>
                     <div className={styles.details_box}>
-                        {data?.map((pot) => (
-                            <div className={styles.detail} style={{ borderColor: `${pot.POT_THEME}` }}>
-                                <div className={styles.detail_box}>
-                                    <h6 className={styles.detail_title}>{pot.POT_NAME}</h6>
+                        {data?.map((pot, index) => (
+                            index < 2
+                                ? <div key={index} className={styles.detail} style={{ borderColor: `${pot.POT_THEME}` }}>
+                                    <div className={styles.detail_box}>
+                                        <h6 className={styles.detail_title}>{pot.POT_NAME}</h6>
 
-                                    <h5 className={styles.detail_balance}>${pot.POT_TOTAL.toFixed(2)}</h5>
+                                        <h5 className={styles.detail_balance}>${pot.POT_TOTAL.toFixed(2)}</h5>
+                                    </div>
                                 </div>
-                            </div>
+                                : ''
+                        ))}
+                    </div>
+                    <div className={styles.details_box}>
+                        {data?.map((pot, index) => (
+                            index < 4 && index >= 2
+                                ? <div key={index} className={styles.detail} style={{ borderColor: `${pot.POT_THEME}` }}>
+                                    <div className={styles.detail_box}>
+                                        <h6 className={styles.detail_title}>{pot.POT_NAME}</h6>
+
+                                        <h5 className={styles.detail_balance}>${pot.POT_TOTAL.toFixed(2)}</h5>
+                                    </div>
+                                </div>
+                                : ''
                         ))}
                     </div>
 
