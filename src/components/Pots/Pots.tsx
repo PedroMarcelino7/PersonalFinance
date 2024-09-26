@@ -6,6 +6,7 @@ import SummaryTitle from '../SummaryTitle/SummaryTitle'
 import { useEffect, useState } from 'react'
 
 interface Pots {
+    POT_ID: number,
     POT_NAME: string,
     POT_TARGET: number
     POT_THEME: string,
@@ -57,7 +58,7 @@ const Pots = ({ data }: Props) => {
                         ))}
                     </div>
                     <div className={styles.details_box}>
-                        {data?.map((pot, index) => (
+                        {pots?.map((pot, index) => (
                             index < 4 && index >= 2
                                 ? <div key={index} className={styles.detail} style={{ borderColor: `${pot.POT_THEME}` }}>
                                     <div className={styles.detail_box}>

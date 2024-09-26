@@ -4,8 +4,11 @@ import styles from './AddNewPotModal.module.scss';
 // Images
 import Close from '../../../assets/images/icon-close-modal.svg';
 
-// Data
-import data from '../../../data';
+interface NewPot {
+    name: string,
+    target: number,
+    theme: string
+}
 
 interface Props {
     closeModal: () => void;
@@ -22,18 +25,41 @@ const AddNewPotModal = ({ closeModal }: Props) => {
         const newPot = {
             name: name,
             target: parseFloat(target),
-            total: 0,
             theme: theme
         };
 
-        console.log(newPot)
-
-        data.pots.push(newPot);
-
-        alert('Pot added successfully!');
+        addNewPot(newPot)
 
         closeModal();
     };
+
+    const addNewPot = async (newPot: NewPot) => {
+        console.log(newPot)
+
+        try {
+            const response = await fetch(`http://localhost:3001/post/pots`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: newPot.name,
+                    target: newPot.target,
+                    theme: newPot.theme
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+
+            console.log('Success:', result);
+        } catch (err: any) {
+            console.log('Error:', err)
+        }
+    }
 
     return (
         <div className={styles.modal_container}>

@@ -78,16 +78,16 @@ app.get('/get/transactions', (req, res) => {
     });
 });
 
-app.post('/', (req, res) => {
-    const { current, id } = req.body;
+app.post('/post/pots', (req, res) => {
+    const { name, target, theme } = req.body;
 
     const query = `
-        UPDATE BALANCE
-        SET BAL_CURRENT = ?
-        WHERE ACTIVITY_ID = ?
+        INSERT INTO
+        POTS (POT_NAME, POT_TARGET, POT_THEME)
+        VALUES (?, ?, ?)
     `;
 
-    const values = [current, id];
+    const values = [name, target, theme];
 
     connection.query(query, values, (err, results) => {
         if (err) {

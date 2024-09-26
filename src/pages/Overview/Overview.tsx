@@ -21,6 +21,7 @@ interface Budget {
 }
 
 interface Pot {
+    POT_ID: number,
     POT_NAME: string,
     POT_TARGET: number
     POT_THEME: string,

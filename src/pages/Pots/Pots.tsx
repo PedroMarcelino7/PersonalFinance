@@ -1,5 +1,7 @@
 import styles from './Pots.module.scss'
 
+import { useEffect, useState } from 'react'
+
 // Components
 import PageContainer from '../../components/PageContainer/PageContainer'
 import AddNewPotModal from '../../components/PotModal/AddNewPot/AddNewPotModal'
@@ -9,15 +11,12 @@ import DeletePotModal from '../../components/PotModal/DeletePot/DeletePotModal'
 // Images
 import Options from '../../assets/images/icon-ellipsis.svg'
 
-// Data
-import data from '../../data'
-import { useState } from 'react'
-
 interface Pot {
-    name: string;
-    target: number;
-    total: number;
-    theme: string;
+    POT_ID: number;
+    POT_NAME: string;
+    POT_TARGET: number;
+    POT_THEME: string;
+    POT_TOTAL: number;
 }
 
 const Pots = () => {
@@ -63,16 +62,46 @@ const Pots = () => {
         setShowDeletePotModal(false)
     }
 
+    // POTS DATA
+    const [pots, setPots] = useState<Pot[] | null>(null)
+
+    const getPots = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/get/pots`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log(result)
+            setPots(result)
+
+            console.log('Get Pots:', result);
+        } catch (err: any) {
+            console.log('Error', err)
+        }
+    }
+
+    useEffect(() => {
+        getPots()
+    }, [])
+
     return (
         <>
             <PageContainer title='Pots' button='Add New Pot' onClick={handleShowAddNewPotModal}>
                 <div className={styles.pots}>
-                    {data.pots.map((pot, index) => (
+                    {pots && pots.map((pot, index) => (
                         <div className={styles.pot} key={index}>
                             <div className={styles.pot_header}>
                                 <div className={styles.pot_name_box}>
-                                    <div className={styles.circle} style={{ backgroundColor: `${pot.theme}` }}></div>
-                                    <h1 className={styles.pot_name}>{pot.name}</h1>
+                                    <div className={styles.circle} style={{ backgroundColor: `${pot.POT_THEME}` }}></div>
+                                    <h1 className={styles.pot_name}>{pot.POT_NAME}</h1>
                                 </div>
 
                                 <div className={styles.options}>
@@ -93,21 +122,21 @@ const Pots = () => {
                             <div className={styles.total_container}>
                                 <div className={styles.total_box}>
                                     <h3>Total Saved</h3>
-                                    <h2>${pot.total.toFixed(2)}</h2>
+                                    <h2>${pot.POT_TOTAL.toFixed(2)}</h2>
                                 </div>
 
                                 <div className={styles.progress_box}>
                                     <div className={styles.progress_bar}>
                                         <div className={styles.progress}
                                             style={{
-                                                width: `${getProgress(pot.total, pot.target).toFixed(1)}%`,
-                                                backgroundColor: `${pot.theme}`
+                                                width: `${getProgress(pot.POT_TOTAL, pot.POT_TARGET)}%`,
+                                                backgroundColor: `${pot.POT_THEME}`
                                             }}></div>
                                     </div>
 
                                     <div className={styles.progress_count}>
-                                        <h4>{getProgress(pot.total, pot.target).toFixed(1)}%</h4>
-                                        <h5>Target of ${pot.target}</h5>
+                                        <h4>{getProgress(pot.POT_TOTAL, pot.POT_TARGET).toFixed(2)}%</h4>
+                                        <h5>Target of ${pot.POT_TARGET.toFixed(2)}</h5>
                                     </div>
                                 </div>
                             </div>
