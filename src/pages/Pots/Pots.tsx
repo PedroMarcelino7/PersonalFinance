@@ -25,6 +25,7 @@ const Pots = () => {
     const [showEditPotModal, setShowEditPotModal] = useState<boolean>(false)
     const [showDeletePotModal, setShowDeletePotModal] = useState<boolean>(false)
     const [potToEdit, setPotToEdit] = useState<Pot | null>(null)
+    const [potToDelete, setPotToDelete] = useState<Pot | null>(null)
 
     const getProgress = (total: number, target: number): number => {
         return (100 * total) / target
@@ -53,7 +54,8 @@ const Pots = () => {
         setShowEditPotModal(false)
     }
 
-    const handleShowDeletePotModal = () => {
+    const handleShowDeletePotModal = (pot: Pot) => {
+        setPotToDelete(pot)
         setShowDropdown(null)
         setShowDeletePotModal(true)
     }
@@ -113,7 +115,7 @@ const Pots = () => {
                                         <div className={styles.dropdown}>
                                             <h6 onClick={() => handleShowEditPotModal(pot)}>Edit Pot</h6>
                                             <hr />
-                                            <h6 onClick={handleShowDeletePotModal}><span>Delete Pot</span></h6>
+                                            <h6 onClick={() => handleShowDeletePotModal(pot)}><span>Delete Pot</span></h6>
                                         </div>
                                     )}
                                 </div>
@@ -155,8 +157,8 @@ const Pots = () => {
                 </div>
 
                 {showAddNewPotModal && <AddNewPotModal closeModal={handleCloseAddNewPotModal} />}
-                {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />}
-                {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} />}
+                {/* {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />} */}
+                {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} potToDelete={potToDelete} />}
             </PageContainer>
         </>
     )

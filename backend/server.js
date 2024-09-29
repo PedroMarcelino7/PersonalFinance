@@ -51,6 +51,7 @@ app.get('/get/budgets', (req, res) => {
 app.get('/get/pots', (req, res) => {
     const query = `
         SELECT * FROM POTS
+        WHERE POT_STATUS = 1
     `;
 
     connection.query(query, (err, results) => {
@@ -92,6 +93,27 @@ app.post('/post/pots', (req, res) => {
     connection.query(query, values, (err, results) => {
         if (err) {
             console.error("Error updating balance:", err);
+            return res.status(500).send(err);
+        }
+
+        res.status(201).json(results);
+    });
+});
+
+app.post('/delete/pots', (req, res) => {
+    const { id } = req.body;
+
+    const query = `
+        UPDATE POTS
+        SET POT_STATUS = 0
+        WHERE POT_ID = ?;
+    `;
+
+    const values = [id];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error("Error deleting pot:", err);
             return res.status(500).send(err);
         }
 
