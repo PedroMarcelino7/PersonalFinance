@@ -121,6 +121,27 @@ app.post('/delete/pots', (req, res) => {
     });
 });
 
+app.post('/update/pots', (req, res) => {
+    const { id, name, target, theme } = req.body;
+
+    const query = `
+        UPDATE POTS
+        SET POT_NAME = ?, POT_TARGET = ?, POT_THEME = ?
+        WHERE POT_ID = ?;
+    `;
+
+    const values = [name, target, theme, id];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error("Error updating pot:", err);
+            return res.status(500).send(err);
+        }
+
+        res.status(201).json(results);
+    });
+});
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

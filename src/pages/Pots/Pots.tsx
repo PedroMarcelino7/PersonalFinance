@@ -157,7 +157,7 @@ const Pots = () => {
                 </div>
 
                 {showAddNewPotModal && <AddNewPotModal closeModal={handleCloseAddNewPotModal} />}
-                {/* {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />} */}
+                {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />}
                 {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} potToDelete={potToDelete} />}
             </PageContainer>
         </>

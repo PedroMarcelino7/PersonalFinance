@@ -18,7 +18,7 @@ interface Pot {
 
 const DeletePotModal = ({ closeModal, potToDelete }: Props) => {
 
-    const deletePot = async (id: number | undefined) => {
+    const handleSubmit = async (id: number | undefined) => {
         console.log('Id to delete:', id)
         try {
             const response = await fetch(`http://localhost:3001/delete/pots`, {
@@ -59,7 +59,7 @@ const DeletePotModal = ({ closeModal, potToDelete }: Props) => {
 
                 <form onSubmit={(e) => {
                     e.preventDefault()
-                    deletePot(potToDelete?.POT_ID)
+                    handleSubmit(potToDelete?.POT_ID)
                 }}>
                     <button type='submit' style={{ backgroundColor: '#C94736' }}>Yes, Confirm Deletion</button>
                     <button type='button' style={{ backgroundColor: 'transparent', color: '#686868' }} onClick={closeModal}>No, Go Back</button>
