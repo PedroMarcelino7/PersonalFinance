@@ -19,35 +19,48 @@ interface Pot {
 }
 
 const WithdrawModal = ({ closeModal, potToEdit }: Props) => {
-    const [name, setName] = useState<string | undefined>(potToEdit?.POT_NAME)
-    const [target, setTarget] = useState<number | undefined>(potToEdit?.POT_TARGET)
-    const [theme, setTheme] = useState<string | undefined>(potToEdit?.POT_THEME)
+    const [withdraw, setWithdraw] = useState<number>(0)
+    const [newTotal, setNewTotal] = useState<number | undefined>(potToEdit?.POT_TOTAL)
 
-    const getProgress = (total: number | undefined, target: number | undefined): number => {
-        if (total !== undefined && target !== undefined) {
-            return (100 * total) / target
+    const getProgress = (): number => {
+        const offset = getWithdrawProgress()
+
+        if (potToEdit?.POT_TOTAL !== undefined && potToEdit?.POT_TARGET !== undefined) {
+            return ((100 * potToEdit?.POT_TOTAL) / potToEdit?.POT_TARGET) - offset
         } else {
             return 0
         }
     }
 
-    useEffect(() => {
-        console.log('Withdraw:', potToEdit)
-    }, [])
+    const getWithdrawProgress = () => {
+        if (potToEdit?.POT_TARGET !== undefined) {
+            return (withdraw * 100) / potToEdit?.POT_TARGET
+        } else {
+            return 0
+        }
+    }
 
-    const handleSubmit = async (id: number | undefined) => {
-        console.log('Withdraw:', id)
+    const handleSetWithdraw = (withdraw: number) => {
+        let newTotalHandler = potToEdit?.POT_TOTAL
+
+        newTotalHandler !== undefined && newTotal !== undefined && setNewTotal(newTotalHandler - withdraw)
+        setWithdraw(withdraw)
+    }
+
+    useEffect(() => {
+        console.log('newTotal:', newTotal)
+    }, [newTotal])
+
+    const handleSubmit = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/update/pots`, {
+            const response = await fetch(`http://localhost:3001/withdraw/pots`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id,
-                    name,
-                    target,
-                    theme
+                    id: potToEdit?.POT_ID,
+                    total: newTotal
                 })
             })
 
@@ -83,30 +96,38 @@ const WithdrawModal = ({ closeModal, potToEdit }: Props) => {
                     <div className={styles.progress_bar}>
                         <div className={styles.new_progress}
                             style={{
-                                width: `5%`,
+                                width: `${getProgress().toFixed(2)}%`,
                                 backgroundColor: `#201F24`
                             }}></div>
 
-                        <div className={styles.old_progress}
-                            style={{
-                                width: `10%`,
-                                backgroundColor: `#C94736`
-                            }}></div>
+                        {withdraw !== 0 &&
+                            <div className={styles.old_progress}
+                                style={{
+                                    width: `calc(${getWithdrawProgress().toFixed(2)}% + 2px)`,
+                                    marginLeft: `calc(${getProgress().toFixed(2)}% + 2px)`,
+                                    backgroundColor: `#C94736`
+                                }}></div>
+                        }
                     </div>
 
                     <div className={styles.progress_count}>
-                        <h4>{getProgress(potToEdit?.POT_TOTAL, potToEdit?.POT_TARGET).toFixed(2)}%</h4>
+                        <h4>{getProgress().toFixed(2)}%</h4>
                         <h5>Target of ${potToEdit?.POT_TARGET.toFixed(2)}</h5>
                     </div>
                 </div>
 
                 <form onSubmit={(e) => {
                     e.preventDefault()
-                    handleSubmit(potToEdit?.POT_ID)
+                    handleSubmit()
                 }}>
                     <div className={styles.input_box}>
                         <label htmlFor="">Amount to Withdraw</label>
-                        <input type="text" value={target} onChange={(e) => setTarget(parseInt(e.target.value))} placeholder='e.g. 2000' />
+                        <input
+                            type="number"
+                            value={withdraw}
+                            onChange={(e) => handleSetWithdraw(parseInt(e.target.value) || 0)}
+                            placeholder='e.g. 1000'
+                        />
                     </div>
 
                     <button type='submit'>Confirm Withdraw</button>

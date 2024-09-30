@@ -69,8 +69,7 @@
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                     position: absolute;
-                    z-index: 1000;
-                    border-right: 2px solid #fff;
+                    z-index: 999;
                 }
 
                 .old_progress {
@@ -80,7 +79,7 @@
                     border-top-left-radius: 0;
                     border-bottom-left-radius: 0;
                     position: absolute;
-                    z-index: 999;
+                    z-index: 1000;
                 }
             }
 
