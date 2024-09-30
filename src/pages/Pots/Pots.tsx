@@ -10,6 +10,7 @@ import DeletePotModal from '../../components/PotModal/DeletePot/DeletePotModal'
 
 // Images
 import Options from '../../assets/images/icon-ellipsis.svg'
+import WithdrawModal from '../../components/PotModal/Withdraw/WithdrawModal'
 
 interface Pot {
     POT_ID: number;
@@ -24,6 +25,7 @@ const Pots = () => {
     const [showAddNewPotModal, setShowAddNewPotModal] = useState<boolean>(false)
     const [showEditPotModal, setShowEditPotModal] = useState<boolean>(false)
     const [showDeletePotModal, setShowDeletePotModal] = useState<boolean>(false)
+    const [showWithdrawModal, setShowWithdrawModal] = useState<boolean>(false)
     const [potToEdit, setPotToEdit] = useState<Pot | null>(null)
     const [potToDelete, setPotToDelete] = useState<Pot | null>(null)
 
@@ -52,6 +54,15 @@ const Pots = () => {
 
     const handleCloseEditPotModal = () => {
         setShowEditPotModal(false)
+    }
+
+    const handleShowWithdrawModal = (pot: Pot) => {
+        setPotToEdit(pot)
+        setShowWithdrawModal(true)
+    }
+
+    const handleCloseWithdrawModal = () => {
+        setShowWithdrawModal(false)
     }
 
     const handleShowDeletePotModal = (pot: Pot) => {
@@ -148,7 +159,11 @@ const Pots = () => {
                                     <span>+</span> Add Money
                                 </button>
 
-                                <button type='button' className={styles.button}>
+                                <button
+                                    type='button'
+                                    className={styles.button}
+                                    onClick={() => handleShowWithdrawModal(pot)}
+                                >
                                     Withdraw
                                 </button>
                             </div>
@@ -159,6 +174,7 @@ const Pots = () => {
                 {showAddNewPotModal && <AddNewPotModal closeModal={handleCloseAddNewPotModal} />}
                 {showEditPotModal && <EditPotModal closeModal={handleCloseEditPotModal} potToEdit={potToEdit} />}
                 {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} potToDelete={potToDelete} />}
+                {showWithdrawModal && <WithdrawModal closeModal={handleCloseWithdrawModal} potToEdit={potToEdit} />}
             </PageContainer>
         </>
     )

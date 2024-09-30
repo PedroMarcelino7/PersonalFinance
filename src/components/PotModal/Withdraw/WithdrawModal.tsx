@@ -1,6 +1,6 @@
-import styles from './EditPotModal.module.scss'
+import styles from './WithdrawModal.module.scss'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Images
 import Close from '../../../assets/images/icon-close-modal.svg'
@@ -18,13 +18,25 @@ interface Pot {
     POT_TOTAL: number;
 }
 
-const EditPotModal = ({ closeModal, potToEdit }: Props) => {
+const WithdrawModal = ({ closeModal, potToEdit }: Props) => {
     const [name, setName] = useState<string | undefined>(potToEdit?.POT_NAME)
     const [target, setTarget] = useState<number | undefined>(potToEdit?.POT_TARGET)
     const [theme, setTheme] = useState<string | undefined>(potToEdit?.POT_THEME)
 
+    const getProgress = (total: number | undefined, target: number | undefined): number => {
+        if (total !== undefined && target !== undefined) {
+            return (100 * total) / target
+        } else {
+            return 0
+        }
+    }
+
+    useEffect(() => {
+        console.log('Withdraw:', potToEdit)
+    }, [])
+
     const handleSubmit = async (id: number | undefined) => {
-        console.log('Id to update:', id)
+        console.log('Withdraw:', id)
         try {
             const response = await fetch(`http://localhost:3001/update/pots`, {
                 method: 'POST',
@@ -56,13 +68,36 @@ const EditPotModal = ({ closeModal, potToEdit }: Props) => {
         <div className={styles.modal_container}>
             <div className={styles.modal_box}>
                 <div className={styles.header}>
-                    <h1>Edit Pot</h1>
+                    <h1>Withdraw from '{potToEdit?.POT_NAME}'</h1>
 
                     <img onClick={closeModal} src={Close} alt="" />
                 </div>
 
-                <div className={styles.description}>
-                    <p>If your saving targets change, feel free to update your pots.</p>
+                <div className={styles.new_amount_box}>
+                    <h3>New Amount</h3>
+
+                    <h2>${potToEdit?.POT_TOTAL.toFixed(2)}</h2>
+                </div>
+
+                <div className={styles.progress_box}>
+                    <div className={styles.progress_bar}>
+                        <div className={styles.new_progress}
+                            style={{
+                                width: `5%`,
+                                backgroundColor: `#201F24`
+                            }}></div>
+
+                        <div className={styles.old_progress}
+                            style={{
+                                width: `10%`,
+                                backgroundColor: `#C94736`
+                            }}></div>
+                    </div>
+
+                    <div className={styles.progress_count}>
+                        <h4>{getProgress(potToEdit?.POT_TOTAL, potToEdit?.POT_TARGET).toFixed(2)}%</h4>
+                        <h5>Target of ${potToEdit?.POT_TARGET.toFixed(2)}</h5>
+                    </div>
                 </div>
 
                 <form onSubmit={(e) => {
@@ -70,35 +105,15 @@ const EditPotModal = ({ closeModal, potToEdit }: Props) => {
                     handleSubmit(potToEdit?.POT_ID)
                 }}>
                     <div className={styles.input_box}>
-                        <label htmlFor="">Pot Name</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder='e.g. Rainy Days' />
-                        <span>30 characters left.</span>
-                    </div>
-
-                    <div className={styles.input_box}>
-                        <label htmlFor="">Target</label>
+                        <label htmlFor="">Amount to Withdraw</label>
                         <input type="text" value={target} onChange={(e) => setTarget(parseInt(e.target.value))} placeholder='e.g. 2000' />
                     </div>
 
-                    <div className={styles.input_box}>
-                        <label htmlFor="">Theme</label>
-                        <select
-                            value={theme}
-                            onChange={(e) => setTheme(e.target.value)}
-                        >
-                            <option value={potToEdit?.POT_THEME}>Actual Theme</option>
-                            <option value={'#ff0000'}>Red</option>
-                            <option value={'#00ff00'}>Green</option>
-                            <option value={'#0000ff'}>Blue</option>
-                        </select>
-                    </div>
-
-
-                    <button type='submit'>Save Changes</button>
+                    <button type='submit'>Confirm Withdraw</button>
                 </form>
             </div>
         </div>
     )
 }
 
-export default EditPotModal
+export default WithdrawModal

@@ -1,0 +1,141 @@
+.modal_container {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    overflow: hidden;
+
+    .modal_box {
+        width: 550px;
+        padding: 32px;
+        border-radius: 10px;
+        background-color: #F8F4F0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+                cursor: pointer;
+            }
+        }
+
+        .new_amount_box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h3 {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #686868;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+                font-weight: 600;
+                color: #201F24;
+            }
+        }
+
+        .progress_box {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+
+            .progress_bar {
+                width: 100%;
+                height: 10px;
+                border-radius: 10px;
+                background-color: #fff;
+                overflow: hidden;
+                position: relative;
+
+                .new_progress {
+                    width: 0;
+                    height: 100%;
+                    border-radius: 10px;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                    position: absolute;
+                    z-index: 1000;
+                    border-right: 2px solid #fff;
+                }
+
+                .old_progress {
+                    width: 0;
+                    height: 100%;
+                    border-radius: 10px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    position: absolute;
+                    z-index: 999;
+                }
+            }
+
+            .progress_count {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                h4 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: #686868;
+                }
+
+                h5 {
+                    font-size: 1rem;
+                    font-weight: 400;
+                    color: #686868;
+                }
+            }
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .input_box {
+                display: flex;
+                flex-direction: column;
+
+                label {
+                    font-size: 1rem;
+                }
+
+                input {
+                    padding-block: 12px;
+                    padding-inline: 20px;
+                    border-radius: 10px;
+                    border: 1px solid #686868;
+                    margin-block: 4px;
+                }
+            }
+
+            button {
+                width: 100%;
+                padding: 16px;
+                color: #F8F4F0;
+                font-weight: 400;
+                font-size: 1rem;
+                border: none;
+                border-radius: 10px;
+                background-color: #201F24;
+                cursor: pointer;
+            }
+        }
+    }
+}
