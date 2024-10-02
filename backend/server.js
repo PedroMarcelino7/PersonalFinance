@@ -163,6 +163,27 @@ app.post('/withdraw/pots', (req, res) => {
     });
 });
 
+app.post('/add/pots', (req, res) => {
+    const { id, total } = req.body;
+
+    const query = `
+        UPDATE POTS
+        SET POT_TOTAL = ?
+        WHERE POT_ID = ?;
+    `;
+
+    const values = [total, id];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error("Error updating pot:", err);
+            return res.status(500).send(err);
+        }
+
+        res.status(201).json(results);
+    });
+});
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
