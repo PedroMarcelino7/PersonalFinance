@@ -3,7 +3,13 @@ import styles from './Toast.module.scss'
 // Images
 import CloseButton from '../../assets/images/icon-close-toast.svg'
 
-const Toast = () => {
+interface Props {
+    title: string,
+    description: string,
+    theme: string
+}
+
+const Toast = ({ title, description, theme }: Props) => {
     return (
         <div className={styles.toast_container}>
             <div className={styles.toast_box}>
