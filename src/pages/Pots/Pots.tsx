@@ -12,6 +12,7 @@ import AddMoneyModal from '../../components/PotModal/AddMoney/AddMoneyModal'
 
 // Images
 import Options from '../../assets/images/icon-ellipsis.svg'
+import Toast from '../../components/Toast/Toast'
 
 interface Pot {
     POT_ID: number;
@@ -191,6 +192,7 @@ const Pots = () => {
                 {showDeletePotModal && <DeletePotModal closeModal={handleCloseDeletePotModal} potToDelete={potToDelete} />}
                 {showWithdrawModal && <WithdrawModal closeModal={handleCloseWithdrawModal} potToEdit={potToEdit} />}
                 {showAddMoneyModal && <AddMoneyModal closeModal={handleCloseAddMoneyModal} potToEdit={potToEdit} />}
+                <Toast title='Teste' description='teste teste teste teste teste teste teste teste teste' theme='#ff0000' />
             </PageContainer>
         </>
     )
