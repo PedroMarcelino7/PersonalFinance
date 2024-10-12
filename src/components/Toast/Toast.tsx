@@ -25,7 +25,6 @@ const Toast = ({ title, description, theme }: Props) => {
     }
 
     useEffect(() => {
-        // console.log(width)
         progressBar()
     }, [width])
 

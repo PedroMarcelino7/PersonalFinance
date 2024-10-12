@@ -65,11 +65,17 @@ app.get('/get/pots', (req, res) => {
 });
 
 app.get('/get/transactions', (req, res) => {
+    const { limit, offset } = req.query;
+
     const query = `
         SELECT * FROM TRANSACTIONS
+        ORDER BY TRA_DATE
+        LIMIT ? OFFSET ?;
     `;
 
-    connection.query(query, (err, results) => {
+    const values = [parseInt(limit), parseInt(offset)];
+
+    connection.query(query, values, (err, results) => {
         if (err) {
             console.error("Error fetching transactions:", err);
             return res.status(500).send(err);
@@ -78,6 +84,8 @@ app.get('/get/transactions', (req, res) => {
         res.json(results);
     });
 });
+
+
 
 app.post('/post/pots', (req, res) => {
     const { name, target, theme } = req.body;

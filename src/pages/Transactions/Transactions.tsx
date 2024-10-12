@@ -1,5 +1,7 @@
 import styles from './Transactions.module.scss'
 
+import { useEffect, useState } from 'react'
+
 // Components
 import PageContainer from '../../components/PageContainer/PageContainer'
 
@@ -7,10 +9,18 @@ import PageContainer from '../../components/PageContainer/PageContainer'
 import PrevArrow from '../../assets/images/icon-caret-left.svg'
 import NextArrow from '../../assets/images/icon-caret-right.svg'
 
-// Data
-import data from '../../data.ts'
+interface Transaction {
+    TRA_AMOUNT: number,
+    TRA_AVATAR: string,
+    TRA_CATEGORY: string,
+    TRA_DATE: string,
+    TRA_NAME: string,
+    TRA_RECURRING: boolean
+}
 
 const Transactions = () => {
+    const [transactions, setTransactions] = useState<Transaction[] | null>(null)
+
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
         let month = date.slice(5, 7)
@@ -66,6 +76,32 @@ const Transactions = () => {
             : `+$${Math.abs(amount).toFixed(2)}`
     }
 
+    const getTransactions = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/get/transactions?limit=8&offset=0`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log(result);
+            setTransactions(result);
+        } catch (err: any) {
+            console.log('Error', err);
+        }
+    };
+
+    useEffect(() => {
+        getTransactions();
+    }, []);
+
+
     return (
         <PageContainer title='Transactions'>
             <div className={styles.transactions_container}>
@@ -104,24 +140,24 @@ const Transactions = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                data.transactions.map((transaction, index) => (
+                            {transactions &&
+                                transactions.map((transaction, index) => (
                                     <tr key={index}>
                                         <td>
                                             <div className={styles.profile}>
-                                                <img src={transaction.avatar} alt={transaction.name} />
-                                                <h2>{transaction.name}</h2>
+                                                <img src={transaction.TRA_AVATAR} alt={transaction.TRA_NAME} />
+                                                <h2>{transaction.TRA_NAME}</h2>
                                             </div>
                                         </td>
-                                        <td>{transaction.category}</td>
-                                        <td>{formatDate(transaction.date)}</td>
+                                        <td>{transaction.TRA_CATEGORY}</td>
+                                        <td>{formatDate(transaction.TRA_DATE)}</td>
                                         <td
                                             style={{
-                                                color: transaction.amount < 0 ? '#C94736' : '#277C78',
+                                                color: transaction.TRA_AMOUNT < 0 ? '#C94736' : '#277C78',
                                                 fontWeight: 600
                                             }}
                                         >
-                                            {formatAmount(transaction.amount)}
+                                            {formatAmount(transaction.TRA_AMOUNT)}
                                         </td>
                                     </tr>
                                 ))
@@ -137,8 +173,8 @@ const Transactions = () => {
                     </div>
 
                     <div className={styles.pages}>
-                        <button>1</button>
-                        <button className={styles.selected}>2</button>
+                        <button className={styles.selected}>1</button>
+                        <button>2</button>
                         <button>3</button>
                         <button>4</button>
                         <button>5</button>
