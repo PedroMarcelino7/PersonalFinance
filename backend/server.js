@@ -85,7 +85,20 @@ app.get('/get/transactions', (req, res) => {
     });
 });
 
+app.get('/get/transactions/quantity', (req, res) => {
+    const query = `
+        SELECT COUNT(*) AS QUANTITY FROM TRANSACTIONS
+    `;
 
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error("Error fetching transactions quantity:", err);
+            return res.status(500).send(err);
+        }
+
+        res.json({ quantity: results[0].QUANTITY });
+    });
+});
 
 app.post('/post/pots', (req, res) => {
     const { name, target, theme } = req.body;

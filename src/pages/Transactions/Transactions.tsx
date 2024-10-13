@@ -20,6 +20,9 @@ interface Transaction {
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState<Transaction[] | null>(null)
+    const [pagesQuantity, setPagesQuantity] = useState<number>(0)
+    const [offset, setOffset] = useState<number>(0)
+    const [limit, setLimit] = useState<number>(7)
 
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
@@ -78,7 +81,7 @@ const Transactions = () => {
 
     const getTransactions = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/get/transactions?limit=8&offset=0`, {
+            const response = await fetch(`http://localhost:3001/get/transactions?limit=${limit}&offset=${offset}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,8 +100,32 @@ const Transactions = () => {
         }
     };
 
+    const calculatePagesQuantity = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/get/transactions/quantity`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+
+            const result = await response.json();
+            console.log('Quantity', result);
+
+            setPagesQuantity(Math.ceil(result.quantity / 7));
+
+            getTransactions()
+        } catch (err: any) {
+            console.log('Error', err);
+        }
+    }
+
     useEffect(() => {
-        getTransactions();
+        calculatePagesQuantity();
     }, []);
 
 
@@ -173,11 +200,16 @@ const Transactions = () => {
                     </div>
 
                     <div className={styles.pages}>
-                        <button className={styles.selected}>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
+                        {
+                            Array.from({ length: pagesQuantity }).map((_, index) => (
+                                <button
+                                    key={index}
+                                    // className={styles.selected}
+                                >
+                                    {index + 1}
+                                </button>
+                            ))
+                        }
                     </div>
 
                     <div className={styles.button}>
