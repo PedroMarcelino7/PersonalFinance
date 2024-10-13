@@ -23,6 +23,7 @@ const Transactions = () => {
     const [pagesQuantity, setPagesQuantity] = useState<number>(0)
     const [offset, setOffset] = useState<number>(0)
     const [limit, setLimit] = useState<number>(7)
+    const [actualPage, setActualPage] = useState<number>(1)
 
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
@@ -100,7 +101,7 @@ const Transactions = () => {
         }
     };
 
-    const calculatePagesQuantity = async () => {
+    const getPagesQuantity = async () => {
         try {
             const response = await fetch(`http://localhost:3001/get/transactions/quantity`, {
                 method: 'GET',
@@ -125,7 +126,7 @@ const Transactions = () => {
     }
 
     useEffect(() => {
-        calculatePagesQuantity();
+        getPagesQuantity();
     }, []);
 
 
@@ -194,7 +195,12 @@ const Transactions = () => {
                 </div>
 
                 <div className={styles.pagination}>
-                    <div className={styles.button}>
+                    <div
+                        className={styles.button}
+                        onClick={() => {
+                            actualPage - 1 <= 0 ? '' : setActualPage(actualPage - 1)
+                        }}
+                    >
                         <img src={PrevArrow} alt="" />
                         <h3>Prev</h3>
                     </div>
@@ -204,7 +210,8 @@ const Transactions = () => {
                             Array.from({ length: pagesQuantity }).map((_, index) => (
                                 <button
                                     key={index}
-                                    // className={styles.selected}
+                                    className={index + 1 === actualPage ? `${styles.selected}` : ''}
+                                    onClick={() => setActualPage(index + 1)}
                                 >
                                     {index + 1}
                                 </button>
@@ -212,7 +219,12 @@ const Transactions = () => {
                         }
                     </div>
 
-                    <div className={styles.button}>
+                    <div
+                        className={styles.button}
+                        onClick={() => {
+                            actualPage + 1 > pagesQuantity ? '' : setActualPage(actualPage + 1)
+                        }}
+                    >
                         <h3>Next</h3>
                         <img src={NextArrow} alt="" />
                     </div>
