@@ -21,9 +21,8 @@ interface Transaction {
 const Transactions = () => {
     const [transactions, setTransactions] = useState<Transaction[] | null>(null)
     const [pagesQuantity, setPagesQuantity] = useState<number>(0)
-    const [offset, setOffset] = useState<number>(0)
-    const [limit, setLimit] = useState<number>(7)
     const [actualPage, setActualPage] = useState<number>(1)
+    const limit = 7
 
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
@@ -81,6 +80,8 @@ const Transactions = () => {
     }
 
     const getTransactions = async () => {
+        const offset = (actualPage - 1) * limit
+
         try {
             const response = await fetch(`http://localhost:3001/get/transactions?limit=${limit}&offset=${offset}`, {
                 method: 'GET',
@@ -94,8 +95,9 @@ const Transactions = () => {
             }
 
             const result = await response.json();
-            console.log(result);
+            console.log('Transactions', result);
             setTransactions(result);
+
         } catch (err: any) {
             console.log('Error', err);
         }
@@ -117,7 +119,9 @@ const Transactions = () => {
             const result = await response.json();
             console.log('Quantity', result);
 
-            setPagesQuantity(Math.ceil(result.quantity / 7));
+            console.log('Actual page', actualPage)
+
+            setPagesQuantity(Math.ceil(result.quantity / limit));
 
             getTransactions()
         } catch (err: any) {
@@ -129,6 +133,9 @@ const Transactions = () => {
         getPagesQuantity();
     }, []);
 
+    useEffect(() => {
+        getPagesQuantity()
+    }, [actualPage])
 
     return (
         <PageContainer title='Transactions'>
