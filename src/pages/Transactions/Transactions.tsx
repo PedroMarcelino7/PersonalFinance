@@ -8,6 +8,7 @@ import PageContainer from '../../components/PageContainer/PageContainer'
 // Images
 import PrevArrow from '../../assets/images/icon-caret-left.svg'
 import NextArrow from '../../assets/images/icon-caret-right.svg'
+import DropdownArrow from '../../assets/images/icon-caret-down.svg'
 
 interface Transaction {
     TRA_AMOUNT: number,
@@ -23,6 +24,7 @@ const Transactions = () => {
     const [pagesQuantity, setPagesQuantity] = useState<number>(0)
     const [actualPage, setActualPage] = useState<number>(1)
     const limit = 8
+    const [showDropdown, setShowDropdown] = useState<boolean>(false)
 
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
@@ -149,14 +151,45 @@ const Transactions = () => {
                         <div className={styles.filter}>
                             <h3>Sort by</h3>
 
-                            <div className={styles.dropdown}>
-                                <h2>Latest</h2>
-                                <h2 className={styles.expanded}>Oldest</h2>
-                                <h2 className={styles.expanded}>A to Z</h2>
-                                <h2 className={styles.expanded}>Z to A</h2>
-                                <h2 className={styles.expanded}>Highest</h2>
-                                <h2 className={styles.expanded}>Lowest</h2>
-                            </div>
+                            {
+                                showDropdown
+                                    ? <div className={`${styles.dropdown} ${styles.expanded}`}>
+                                        <div className={styles.dropdown_option}>
+                                            <h2>Latest</h2>
+                                        </div>
+                                        <div className={styles.dropdown_option}>
+                                            <h2 className={styles.expanded}>
+                                                Oldest
+                                            </h2>
+                                        </div>
+                                        <div className={styles.dropdown_option}>
+                                            <h2 className={styles.expanded}>
+                                                A to Z
+                                            </h2>
+                                        </div>
+                                        <div className={styles.dropdown_option}>
+                                            <h2 className={styles.expanded}>
+                                                Z to A
+                                            </h2>
+                                        </div>
+                                        <div className={styles.dropdown_option}>
+                                            <h2 className={styles.expanded}>
+                                                Highest
+                                            </h2>
+                                        </div>
+                                        <div className={styles.dropdown_option}>
+                                            <h2 className={styles.expanded}>
+                                                Lowest
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    : <div className={styles.dropdown} onClick={() => setShowDropdown(true)}>
+                                        <div className={styles.dropdown_option}>
+                                            <h2>Latest</h2>
+                                            <img src={DropdownArrow} alt="" />
+                                        </div>
+                                    </div>
+                            }
                         </div>
 
                         <div className={styles.filter}>
