@@ -50,6 +50,26 @@
                     font-weight: 600;
                 }
             }
+
+            .dropdown {
+                padding-inline: 20px;
+                border-radius: 10px;
+                border: 1px solid #686868;
+                cursor: pointer;
+                
+                h2 {
+                    font-size: 1rem;
+                    padding-block: 12px;
+                    padding-right: 15px;
+                    font-weight: 400;
+                    color: #201F24;
+                }
+
+                .expanded {
+                    border-top: 1px solid #F2F2F2;
+                    padding-block: 12px;
+                }
+            }
         }
     }
 

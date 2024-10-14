@@ -22,7 +22,7 @@ const Transactions = () => {
     const [transactions, setTransactions] = useState<Transaction[] | null>(null)
     const [pagesQuantity, setPagesQuantity] = useState<number>(0)
     const [actualPage, setActualPage] = useState<number>(1)
-    const limit = 7
+    const limit = 8
 
     const formatDate = (date: string): string => {
         let day = date.slice(8, 10)
@@ -149,9 +149,14 @@ const Transactions = () => {
                         <div className={styles.filter}>
                             <h3>Sort by</h3>
 
-                            <select name="" id="">
-                                <option value="">Latest</option>
-                            </select>
+                            <div className={styles.dropdown}>
+                                <h2>Latest</h2>
+                                <h2 className={styles.expanded}>Oldest</h2>
+                                <h2 className={styles.expanded}>A to Z</h2>
+                                <h2 className={styles.expanded}>Z to A</h2>
+                                <h2 className={styles.expanded}>Highest</h2>
+                                <h2 className={styles.expanded}>Lowest</h2>
+                            </div>
                         </div>
 
                         <div className={styles.filter}>
