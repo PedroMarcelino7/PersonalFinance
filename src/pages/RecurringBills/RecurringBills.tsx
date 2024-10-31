@@ -19,6 +19,25 @@ const RecurringBills = () => {
               <h2>$384.98</h2>
             </div>
           </div>
+
+          <div className={styles.summary_container}>
+            <h1>Summary</h1>
+
+            <div className={styles.summary_box}>
+              <h3>Paid bills</h3>
+              <h2>4 ($190.00)</h2>
+
+              <hr />
+
+              <h3>Total Upcoming</h3>
+              <h2>4 ($194.98)</h2>
+
+              <hr />
+
+              <h3>Due Soon</h3>
+              <h2>2 ($59.98)</h2>
+            </div>
+          </div>
         </div>
       </div>
     </PageContainer>
