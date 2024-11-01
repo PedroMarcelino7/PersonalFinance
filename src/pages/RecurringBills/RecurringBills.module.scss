@@ -44,6 +44,40 @@
       flex-direction: column;
       gap: 20px;
       border-radius: 12px;
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      .summary_box {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .summary_section {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          h3 {
+            color: #686868;
+            font-size: 1rem;
+            font-weight: 100;
+          }
+
+          h2 {
+            color: #201f24;
+            font-size: 1rem;
+          }
+
+          &.summary_footer {
+            h3,
+            h2 {
+              color: #c94736;
+            }
+          }
+        }
+      }
     }
   }
 }
