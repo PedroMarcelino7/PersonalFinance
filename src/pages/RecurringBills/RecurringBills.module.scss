@@ -1,4 +1,8 @@
 .recurring_bills {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+
   .left_container {
     width: 25%;
     display: flex;
@@ -76,6 +80,32 @@
               color: #c94736;
             }
           }
+        }
+      }
+    }
+  }
+
+  .right_container {
+    width: 75%;
+
+    .bills_container {
+      width: 100%;
+      background-color: #fff;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      border-radius: 12px;
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        .search {
+          padding-block: 12px;
+          padding-inline: 20px;
+          border-radius: 8px;
+          border: 1px solid #686868;
         }
       }
     }

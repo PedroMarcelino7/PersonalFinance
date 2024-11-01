@@ -38,9 +38,26 @@ const RecurringBills = () => {
 
               <hr />
 
-              <div className={`${styles.summary_section} ${styles.summary_footer}`}>
+              <div
+                className={`${styles.summary_section} ${styles.summary_footer}`}
+              >
                 <h3>Due Soon</h3>
                 <h2>2 ($59.98)</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.right_container}>
+          <div className={styles.bills_container}>
+            <div className={styles.header}>
+              <input className={styles.search} type="text" placeholder="Search bills" />
+
+              <div>
+                <h3>Sort By</h3>
+                <select name="" id="">
+                  <option value="">Latest</option>
+                </select>
               </div>
             </div>
           </div>
