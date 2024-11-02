@@ -51,14 +51,45 @@ const RecurringBills = () => {
         <div className={styles.right_container}>
           <div className={styles.bills_container}>
             <div className={styles.header}>
-              <input className={styles.search} type="text" placeholder="Search bills" />
+              <input
+                className={styles.search}
+                type="text"
+                placeholder="Search bills"
+              />
 
-              <div>
+              <div className={styles.sort_box}>
                 <h3>Sort By</h3>
                 <select name="" id="">
                   <option value="">Latest</option>
                 </select>
               </div>
+            </div>
+
+            <div className={styles.table_box}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Bill Title</th>
+                    <th>Due Date</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div className={styles.profile}>
+                        <img src={""} alt={"a"} />
+                        <h2>Spark Electric Solutions</h2>
+                      </div>
+                    </td>
+                    <td>
+                      <h3>Monthly-2nd</h3>
+                      <img src={""} alt={"a"} />
+                    </td>
+                    <td>$100.00</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
