@@ -1,0 +1,33 @@
+.box {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #686868;
+    cursor: pointer;
+  }
+
+  .input {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 100%;
+      padding-block: 10px;
+      padding-inline: 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      border: 1px solid #868686;
+    }
+
+    .icon {
+      position: absolute;
+      right: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+}
