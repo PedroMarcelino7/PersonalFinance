@@ -6,8 +6,16 @@ import LabeledInput from "../../components/Inputs/LabeledInput/LabeledInput";
 // Images
 import Logo from "../../assets/images/logo-large.svg";
 import EyeIcon from "../../assets/images/icon-show-password.svg";
+import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
+import { useState } from "react";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className={styles.authentication_container}>
       <div className={styles.image_container}>
@@ -42,9 +50,10 @@ const Login = () => {
 
             <LabeledInput
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
-              icon={EyeIcon}
+              icon={showPassword ? EyeSlashedIcon : EyeIcon}
+              onIconClick={handleShowPassword}
             />
 
             <button type="submit">Login</button>
