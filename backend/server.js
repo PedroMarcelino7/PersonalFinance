@@ -18,6 +18,27 @@ app.use(cors({
 
 app.use(express.json());
 
+app.post('/user/register', (req, res) => {
+    const { name, email, password } = req.body;
+
+    const query = `
+        INSERT INTO
+        USERS (USER_NAME, USER_EMAIL, USER_PASSWORD)
+        VALUES (?, ?, ?)
+    `;
+
+    const values = [name, email, password];
+
+    connection.query(query, values, (err, results) => {
+        if (err) {
+            console.error("Error on user register:", err);
+            return res.status(500).send(err);
+        }
+
+        res.status(201).json(results);
+    });
+});
+
 app.get('/get/balance', (req, res) => {
     const query = `
         SELECT * FROM BALANCE

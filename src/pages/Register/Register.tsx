@@ -11,9 +11,39 @@ import { useState } from "react";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3001/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log("User registered:", result);
+    } catch (error: any) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
@@ -45,24 +75,33 @@ const Register = () => {
         <div className={styles.formulary_box}>
           <h1>Sign Up</h1>
 
-          <form>
-            <LabeledInput label="Name" type="text" name="name" />
+          <form onSubmit={handleSubmit}>
+            <LabeledInput
+              label="Name"
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
 
-            <LabeledInput label="E-mail" type="email" name="email" />
+            <LabeledInput
+              label="E-mail"
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
             <LabeledInput
               label="Create Password"
               type={showPassword ? "text" : "password"}
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               icon={showPassword ? EyeSlashedIcon : EyeIcon}
               onIconClick={handleShowPassword}
+              validationLabel={"Password must be at least 8 characters."}
             />
-
-            <div className={styles.input_box}>
-              <label htmlFor="">Create Password</label>
-              <input type="password" />
-              <span>Password must be at least 8 characters.</span>
-            </div>
 
             <button type="submit">Create Account</button>
           </form>

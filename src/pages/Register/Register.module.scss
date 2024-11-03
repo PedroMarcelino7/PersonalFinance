@@ -1,115 +1,108 @@
 .authentication_container {
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  .image_container {
+    width: 45%;
+    height: 100%;
+    padding: 20px;
     display: flex;
 
-    .image_container {
-        width: 45%;
-        height: 100%;
-        padding: 20px;
-        display: flex;
+    .image_background {
+      width: 100%;
+      background-image: url(../../assets/images/illustration-authentication.svg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 10px;
+      position: relative;
 
-        .image_background {
-            width: 100%;
-            background-image: url(../../assets/images/illustration-authentication.svg);
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 10px;
-            position: relative;
-
-            .image_box {
-                width: 100%;
-                height: 100%;
-                padding: 40px;
-                position: absolute;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-
-                .image_footer {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 24px;
-
-                    h2 {
-                        font-size: 2rem;
-                        color: #F2F2F2;
-                    }
-
-                    p {
-                        font-size: 0.9rem;
-                        font-weight: 400;
-                        color: #F2F2F2;
-                    }
-                }
-            }
-        }
-    }
-
-    .formulary {
+      .image_box {
         width: 100%;
         height: 100%;
+        padding: 40px;
+        position: absolute;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
 
-        .formulary_box {
-            width: 560px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-            border-radius: 10px;
-            background-color: #fff;
+        .image_footer {
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
 
-            form {
-                display: flex;
-                flex-direction: column;
-                gap: 16px;
+          h2 {
+            font-size: 2rem;
+            color: #f2f2f2;
+          }
 
-                .input_box {
-                    display: flex;
-                    flex-direction: column;
-
-                    input {
-                        padding-block: 12px;
-                        padding-inline: 20px;
-                        border-radius: 10px;
-                        border: 1px solid #868686;
-                    }
-
-                    span {
-                        font-size: 0.85rem;
-                        color: #868686;
-                        text-align: end;
-                    }
-                }
-
-                button {
-                    width: 100%;
-                    margin-top: 16px;
-                    background-color: #201F24;
-                    color: #F2F2F2;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 16px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                }
-            }
-
-            h3 {
-                text-align: center;
-                font-size: 1rem;
-                font-weight: 400;
-
-                a {
-                    color: #201F24;
-                    font-weight: 600;
-                    text-decoration: underline;
-                }
-            }
+          p {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #f2f2f2;
+          }
         }
+      }
     }
+  }
+
+  .formulary {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .formulary_box {
+      width: 560px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      border-radius: 10px;
+      background-color: #fff;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .input_box {
+          display: flex;
+          flex-direction: column;
+
+          .input_alert {
+            font-size: 0.85rem;
+            color: #868686;
+            text-align: end;
+          }
+        }
+
+        button {
+          width: 100%;
+          margin-top: 16px;
+          background-color: #201f24;
+          color: #f2f2f2;
+          border: none;
+          border-radius: 10px;
+          padding: 16px;
+          font-size: 1rem;
+          cursor: pointer;
+        }
+      }
+
+      h3 {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 400;
+
+        a {
+          color: #201f24;
+          font-weight: 600;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
