@@ -21,14 +21,25 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
+  const handleSubmit = () => {
     setLoading(true);
 
     userRegister();
 
+    setName("");
+    setEmail("");
+    setPassword("");
     setLoading(false);
+  };
+
+  const handleValidation = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (password.length < 8) {
+      alert("Senha deve ter mais de 8 caracteres");
+    } else {
+      handleSubmit();
+    }
   };
 
   const userRegister = async () => {
@@ -90,7 +101,7 @@ const Register = () => {
         <div className={styles.formulary_box}>
           <h1>Sign Up</h1>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleValidation}>
             <LabeledInput
               label="Name"
               type="text"

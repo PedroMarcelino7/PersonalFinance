@@ -8,12 +8,48 @@ import Logo from "../../assets/images/logo-large.svg";
 import EyeIcon from "../../assets/images/icon-show-password.svg";
 import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
 import { useState } from "react";
+import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    alert(email);
+    alert(password);
+  };
+
+  const userLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+
+      console.log("User logged:", result);
+    } catch (error: any) {
+      console.log("Error: ", error);
+    }
   };
 
   return (
@@ -45,8 +81,14 @@ const Login = () => {
         <div className={styles.formulary_box}>
           <h1>Login</h1>
 
-          <form>
-            <LabeledInput label="E-mail" type="email" name="email" />
+          <form onSubmit={handleSubmit}>
+            <LabeledInput
+              label="E-mail"
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
             <LabeledInput
               label="Password"
@@ -54,9 +96,11 @@ const Login = () => {
               name="password"
               icon={showPassword ? EyeSlashedIcon : EyeIcon}
               onIconClick={handleShowPassword}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
 
-            <button type="submit">Login</button>
+            <DefaultButton type="submit" text="Login" loading={loading} />
           </form>
 
           <h3>
