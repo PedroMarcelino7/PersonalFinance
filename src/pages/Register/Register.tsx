@@ -15,14 +15,23 @@ const Register = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
+    setLoading(true);
+
+    userRegister();
+
+    setLoading(false);
+  };
+
+  const userRegister = async () => {
     try {
       const response = await fetch("http://localhost:3001/user/register", {
         method: "POST",
@@ -41,6 +50,7 @@ const Register = () => {
       }
 
       const result = await response.json();
+
       console.log("User registered:", result);
     } catch (error: any) {
       console.log("Error: ", error);
@@ -108,7 +118,11 @@ const Register = () => {
               validationLabel={"Password must be at least 8 characters."}
             />
 
-            <DefaultButton text="Create Account" type="submit" />
+            <DefaultButton
+              text={"Create Account"}
+              type={"submit"}
+              loading={loading}
+            />
           </form>
 
           <h3>
