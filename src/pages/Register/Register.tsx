@@ -8,6 +8,7 @@ import Logo from "../../assets/images/logo-large.svg";
 import EyeIcon from "../../assets/images/icon-show-password.svg";
 import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
 import { useState } from "react";
+import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -50,7 +51,7 @@ const Register = () => {
     <div className={styles.authentication_container}>
       <div className={styles.image_container}>
         <div className={styles.image_background}>
-          <image className={styles.image_box}>
+          <div className={styles.image_box}>
             <div>
               <img className={styles.logo} src={Logo} alt="" />
             </div>
@@ -67,8 +68,12 @@ const Register = () => {
                 Track transactions, set budgets, adn add to savings pots easily.
               </p>
             </div>
-          </image>
+          </div>
         </div>
+      </div>
+
+      <div className={styles.mobile_header}>
+        <img src={Logo} alt="" />
       </div>
 
       <div className={styles.formulary}>
@@ -103,7 +108,7 @@ const Register = () => {
               validationLabel={"Password must be at least 8 characters."}
             />
 
-            <button type="submit">Create Account</button>
+            <DefaultButton text="Create Account" type="submit" />
           </form>
 
           <h3>
