@@ -10,37 +10,39 @@ import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
 import { useState } from "react";
 import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
-interface User {
-  USER_ID: number;
-  USER_NAME: string;
-  USER_EMAIL: string;
-  USER_PASSWORD: string;
-}
+// interface User {
+//   USER_ID: number;
+//   USER_NAME: string;
+//   USER_EMAIL: string;
+//   USER_PASSWORD: string;
+// }
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     setLoading(true);
 
-    userToLogin(email);
+    const user = await userToLogin(email);
 
-    if (email !== userInfo?.USER_EMAIL) {
+    console.log(user?.USER_EMAIL);
+
+    if (!user || email !== user.USER_EMAIL) {
       alert("email errado");
-    } else if (password !== userInfo.USER_PASSWORD) {
+    } else if (password !== user.USER_PASSWORD) {
       alert("senha incorreta");
     } else {
       alert("login efetuado");
+      sessionStorage.setItem("userId", user.USER_ID.toString());
     }
 
     setLoading(false);
@@ -64,11 +66,12 @@ const Login = () => {
 
       const result = await response.json();
 
-      setUserInfo(result[0]);
-
       console.log("User to login:", result);
+
+      return result[0];
     } catch (error: any) {
       console.log("Error: ", error);
+      return undefined;
     }
   };
 
@@ -76,7 +79,7 @@ const Login = () => {
     <div className={styles.authentication_container}>
       <div className={styles.image_container}>
         <div className={styles.image_background}>
-          <image className={styles.image_box}>
+          <div className={styles.image_box}>
             <div>
               <img className={styles.logo} src={Logo} alt="" />
             </div>
@@ -93,7 +96,7 @@ const Login = () => {
                 Track transactions, set budgets, adn add to savings pots easily.
               </p>
             </div>
-          </image>
+          </div>
         </div>
       </div>
 
