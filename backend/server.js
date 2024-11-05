@@ -39,16 +39,16 @@ app.post('/user/register', (req, res) => {
     });
 });
 
-app.post('/user/login', (req, res) => {
-    const { email, password } = req.body;
+app.get('/user/login', (req, res) => {
+    const { email } = req.query;
 
     const query = `
-        INSERT INTO
-        USERS (USER_EMAIL, USER_PASSWORD)
-        VALUES (?, ?)
+        SELECT * 
+        FROM USERS
+        WHERE USER_EMAIL = ?
     `;
 
-    const values = [email, password];
+    const values = [email];
 
     connection.query(query, values, (err, results) => {
         if (err) {

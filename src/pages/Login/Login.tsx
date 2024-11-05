@@ -23,22 +23,24 @@ const Login = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    alert(email);
-    alert(password);
+    setLoading(true);
+
+    userLogin(email);
+
+    setLoading(false);
   };
 
-  const userLogin = async () => {
+  const userLogin = async (email: string) => {
     try {
-      const response = await fetch("http://localhost:3001/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
+      const response = await fetch(
+        `http://localhost:3001/user/login?email=${email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
@@ -46,7 +48,7 @@ const Login = () => {
 
       const result = await response.json();
 
-      console.log("User logged:", result);
+      console.log("User to login:", result);
     } catch (error: any) {
       console.log("Error: ", error);
     }
@@ -100,7 +102,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <DefaultButton type="submit" text="Login" loading={loading} />
+            <DefaultButton text={"Login"} type={"submit"} loading={loading} />
           </form>
 
           <h3>
