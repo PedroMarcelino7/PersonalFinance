@@ -1,0 +1,57 @@
+.container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  .box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-inline: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-radius: 7px;
+    background-color: #fff;
+    overflow: hidden;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+
+      img {
+        cursor: pointer;
+      }
+    }
+
+    .description {
+      p {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+
+    .loading_bar_box {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background-color: #ccc;
+
+      .loading_bar {
+        width: 70%;
+        height: 100%;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        background-color: green;
+      }
+    }
+  }
+}

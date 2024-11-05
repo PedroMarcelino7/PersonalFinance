@@ -1,14 +1,15 @@
 import styles from "./Login.module.scss";
 
+import { useState } from "react";
+
 // Components
 import LabeledInput from "../../components/Inputs/LabeledInput/LabeledInput";
+import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
 // Images
 import Logo from "../../assets/images/logo-large.svg";
 import EyeIcon from "../../assets/images/icon-show-password.svg";
 import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
-import { useState } from "react";
-import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
 // interface User {
 //   USER_ID: number;
