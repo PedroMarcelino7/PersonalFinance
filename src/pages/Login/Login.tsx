@@ -10,11 +10,19 @@ import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
 import { useState } from "react";
 import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
 
+interface User {
+  USER_ID: number;
+  USER_NAME: string;
+  USER_EMAIL: string;
+  USER_PASSWORD: string;
+}
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -25,12 +33,20 @@ const Login = () => {
 
     setLoading(true);
 
-    userLogin(email);
+    userToLogin(email);
+
+    if (email !== userInfo?.USER_EMAIL) {
+      alert("email errado");
+    } else if (password !== userInfo.USER_PASSWORD) {
+      alert("senha incorreta");
+    } else {
+      alert("login efetuado");
+    }
 
     setLoading(false);
   };
 
-  const userLogin = async (email: string) => {
+  const userToLogin = async (email: string) => {
     try {
       const response = await fetch(
         `http://localhost:3001/user/login?email=${email}`,
@@ -47,6 +63,8 @@ const Login = () => {
       }
 
       const result = await response.json();
+
+      setUserInfo(result[0]);
 
       console.log("User to login:", result);
     } catch (error: any) {
