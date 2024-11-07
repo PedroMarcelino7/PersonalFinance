@@ -13,7 +13,6 @@ import Pots from "./pages/Pots/Pots";
 import RecurringBills from "./pages/RecurringBills/RecurringBills";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
-import Success from "./components/Toasts/FormValidationToast/Success";
 
 function App() {
   const isAuthPage =
@@ -34,7 +33,6 @@ function App() {
           <Route path="/recurring-bills" element={<RecurringBills />} />
         </Routes>
       </BrowserRouter>
-      <Success title="Teste" description="Usuário Pedro Marcelino logado com sucesso!" />
     </div>
   );
 }

@@ -7,8 +7,9 @@ import LabeledInput from "../../components/Inputs/LabeledInput/LabeledInput";
 import Logo from "../../assets/images/logo-large.svg";
 import EyeIcon from "../../assets/images/icon-show-password.svg";
 import EyeSlashedIcon from "../../assets/images/icon-hide-password.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DefaultButton from "../../components/Buttons/DefaultButton/DefaultButton";
+import Success from "../../components/Toasts/FormValidationToast/Success";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -16,6 +17,7 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -38,6 +40,7 @@ const Register = () => {
     if (password.length < 8) {
       alert("Senha deve ter mais de 8 caracteres");
     } else {
+      setShowToast(true);
       handleSubmit();
     }
   };
@@ -67,6 +70,13 @@ const Register = () => {
       console.log("Error: ", error);
     }
   };
+
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => setShowToast(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   return (
     <div className={styles.authentication_container}>
@@ -141,6 +151,13 @@ const Register = () => {
           </h3>
         </div>
       </div>
+
+      {showToast && (
+        <Success
+          title={"Registro"}
+          description={`Usuário ${name} registrado com sucesso!`}
+        />
+      )}
     </div>
   );
 };
