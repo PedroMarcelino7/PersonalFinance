@@ -41,6 +41,7 @@ export const NavigationButton = styled.div`
     border-bottom-right-radius: 10px;
     border-left: 5px solid transparent;
     cursor: pointer;
+    transition: all 0.5s;
     
     h2 {
         color: var(--light-gray);
@@ -53,6 +54,23 @@ export const NavigationButton = styled.div`
 
         h2 {
             color: var(--dark);
+        }
+
+        &:hover {
+            transform: scale(1.05);
+            transform: translateX(10px);
+
+            h2 {
+                color: #000; 
+            }
+        }
+    }
+
+    &:hover {
+        transform: scale(1.05);
+
+        h2 {
+            color: #fff; 
         }
     }
 `

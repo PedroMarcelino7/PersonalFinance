@@ -1,8 +1,11 @@
 import React from 'react'
+import PageContainer from '../../components/pageContainer/pageContainer'
 
 const Transactions = () => {
     return (
-        <div>Transactions</div>
+        <PageContainer name="Transactions">
+            <h2>Transactions</h2>
+        </PageContainer>
     )
 }
 

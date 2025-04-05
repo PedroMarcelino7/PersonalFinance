@@ -1,8 +1,11 @@
 import React from 'react'
+import PageContainer from '../../components/pageContainer/pageContainer'
 
 const Budgets = () => {
     return (
-        <div>Budgets</div>
+        <PageContainer name="Budgets">
+            <h2>Budgets</h2>
+        </PageContainer>
     )
 }
 
