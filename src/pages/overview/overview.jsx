@@ -1,8 +1,10 @@
 import React from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Card, CardContext, CardTitleBox, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ResumeBox } from './styles'
+import { BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ResumeBox } from './styles'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
+import { useNavigate } from 'react-router-dom'
+import Chart from '../../components/chart/chart'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -11,6 +13,8 @@ const resumeData = [
 ]
 
 const Overview = () => {
+    const navigate = useNavigate()
+
     return (
         <PageContainer name="Overview">
             <Container>
@@ -30,7 +34,7 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Pots</h2>
 
-                                <DetailsButtonBox>
+                                <DetailsButtonBox onClick={() => navigate('/pots')}>
                                     <h5>See Details</h5>
 
                                     <img src={ArrowIcon} alt="" />
@@ -64,9 +68,19 @@ const Overview = () => {
 
                                                 <h5>$159.00</h5>
                                             </Distribution>
-                                        </PotDistributionBox>
 
-                                        <PotDistributionBox>
+                                            <Distribution>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </Distribution>
+
+                                            <Distribution>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </Distribution>
+
                                             <Distribution>
                                                 <h6>Savings</h6>
 
@@ -114,7 +128,16 @@ const Overview = () => {
                             </CardTitleBox>
 
                             <CardContext>
-                                a
+                                <BudgetsContainer>
+                                    <ChartContainer>
+                                        <Chart />
+
+                                        <ChartOverall>
+                                            <h2>$338.00</h2>
+                                            <h3>of $975 limit</h3>
+                                        </ChartOverall>
+                                    </ChartContainer>
+                                </BudgetsContainer>
                             </CardContext>
                         </Card>
 

@@ -135,9 +135,9 @@ export const PotDistributionContainer = styled.div`
 `
 
 export const PotDistributionBox = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 `
 
 export const Distribution = styled.div`
@@ -156,5 +156,37 @@ export const Distribution = styled.div`
     h5 {
         font-size: 1rem;
         color: var(--dark);
+    }
+`
+
+export const BudgetsContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const ChartContainer = styled.div`
+    position: relative;
+`
+
+export const ChartOverall = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h2 {
+        font-size: 1.75rem;
+        color: var(--dark);
+    }
+
+    h3 {
+        font-size: 0.75rem;
+        color: var(--gray);
+        font-weight: lighter;
     }
 `
