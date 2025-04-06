@@ -120,7 +120,7 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Budgets</h2>
 
-                                <DetailsButtonBox>
+                                <DetailsButtonBox onClick={() => navigate('/budgets')}>
                                     <h5>See Details</h5>
 
                                     <img src={ArrowIcon} alt="" />
@@ -134,7 +134,7 @@ const Overview = () => {
 
                                         <ChartOverall>
                                             <h2>$338.00</h2>
-                                            <h3>of $975 limit</h3>
+                                            <h3>of $975.00 limit</h3>
                                         </ChartOverall>
                                     </ChartContainer>
                                 </BudgetsContainer>
