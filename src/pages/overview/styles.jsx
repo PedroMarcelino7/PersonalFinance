@@ -162,10 +162,12 @@ export const Distribution = styled.div`
 export const BudgetsContainer = styled.div`
     display: flex;
     align-items: center;
+    gap: 4rem;
 `
 
 export const ChartContainer = styled.div`
     position: relative;
+    z-index: 0;
 `
 
 export const ChartOverall = styled.div`
@@ -174,10 +176,11 @@ export const ChartOverall = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    border-radius: 50%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    pointer-events: none;
+    z-index: -1;
 
     h2 {
         font-size: 1.75rem;
@@ -189,4 +192,83 @@ export const ChartOverall = styled.div`
         color: var(--gray);
         font-weight: lighter;
     }
+`
+
+export const ChartLegendContainer = styled.div`
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
+
+export const ChartLegendBox = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+`
+
+export const ChartLegend = styled.div`
+    border-left: 3px solid red;
+    padding-left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h6 {
+        font-size: 0.75rem;
+        color: var(--gray);
+        font-weight: lighter;
+    }
+
+    h5 {
+        font-size: 1rem;
+        color: var(--dark);
+    }
+`
+
+export const TransactionsBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+`
+
+export const TransactionsItem = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+export const TransactionDetails = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0.5rem;
+
+    h5 {
+        font-size: 1rem;
+        color: ${({ color }) => color};
+    }
+
+    h6 {
+        font-size: 0.75rem;
+        font-weight: lighter;
+        color: var(--gray);
+    }
+`
+
+export const PersonBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    h4 {
+        font-size: 0.75rem;
+        color: var(--dark);
+    }
+`
+
+export const ProfilePicture = styled.img`
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 `

@@ -1,10 +1,12 @@
 import React from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ResumeBox } from './styles'
+import { BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
 import { useNavigate } from 'react-router-dom'
 import Chart from '../../components/chart/chart'
+
+import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -102,7 +104,7 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Transactions</h2>
 
-                                <DetailsButtonBox>
+                                <DetailsButtonBox onClick={() => navigate('/transactions')}>
                                     <h5>See Details</h5>
 
                                     <img src={ArrowIcon} alt="" />
@@ -110,7 +112,85 @@ const Overview = () => {
                             </CardTitleBox>
 
                             <CardContext>
-                                a
+                                <TransactionsBox>
+                                    <TransactionsItem>
+                                        <PersonBox>
+                                            <ProfilePicture src={Avatar} alt="" />
+
+                                            <h4>James Thompson</h4>
+                                        </PersonBox>
+
+                                        <TransactionDetails color='var(--green)'>
+                                            <h5>-$5.00</h5>
+
+                                            <h6>11 Aug 2024</h6>
+                                        </TransactionDetails>
+                                    </TransactionsItem>
+
+                                    <hr />
+
+                                    <TransactionsItem>
+                                        <PersonBox>
+                                            <ProfilePicture src={Avatar} alt="" />
+
+                                            <h4>James Thompson</h4>
+                                        </PersonBox>
+
+                                        <TransactionDetails>
+                                            <h5>-$5.00</h5>
+
+                                            <h6>11 Aug 2024</h6>
+                                        </TransactionDetails>
+                                    </TransactionsItem>
+
+                                    <hr />
+
+                                    <TransactionsItem>
+                                        <PersonBox>
+                                            <ProfilePicture src={Avatar} alt="" />
+
+                                            <h4>James Thompson</h4>
+                                        </PersonBox>
+
+                                        <TransactionDetails color='var(--red)'>
+                                            <h5>-$5.00</h5>
+
+                                            <h6>11 Aug 2024</h6>
+                                        </TransactionDetails>
+                                    </TransactionsItem>
+
+                                    <hr />
+
+                                    <TransactionsItem>
+                                        <PersonBox>
+                                            <ProfilePicture src={Avatar} alt="" />
+
+                                            <h4>James Thompson</h4>
+                                        </PersonBox>
+
+                                        <TransactionDetails>
+                                            <h5>-$5.00</h5>
+
+                                            <h6>11 Aug 2024</h6>
+                                        </TransactionDetails>
+                                    </TransactionsItem>
+
+                                    <hr />
+
+                                    <TransactionsItem>
+                                        <PersonBox>
+                                            <ProfilePicture src={Avatar} alt="" />
+
+                                            <h4>James Thompson</h4>
+                                        </PersonBox>
+
+                                        <TransactionDetails>
+                                            <h5>-$5.00</h5>
+
+                                            <h6>11 Aug 2024</h6>
+                                        </TransactionDetails>
+                                    </TransactionsItem>
+                                </TransactionsBox>
                             </CardContext>
                         </Card>
                     </Column>
@@ -137,6 +217,46 @@ const Overview = () => {
                                             <h3>of $975.00 limit</h3>
                                         </ChartOverall>
                                     </ChartContainer>
+
+                                    <ChartLegendContainer>
+                                        <ChartLegendBox>
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+
+                                            <ChartLegend>
+                                                <h6>Savings</h6>
+
+                                                <h5>$159.00</h5>
+                                            </ChartLegend>
+                                        </ChartLegendBox>
+                                    </ChartLegendContainer>
                                 </BudgetsContainer>
                             </CardContext>
                         </Card>
