@@ -5,7 +5,6 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    width: 100%;
 `
 
 export const HeaderBox = styled.div`
@@ -271,4 +270,31 @@ export const ProfilePicture = styled.img`
     width: 30px;
     height: 30px;
     border-radius: 50%;
+`
+
+export const RecurringBillsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
+
+export const BillBox = styled.div`
+    background-color: var(--white);
+    padding: 1.25rem;
+    border-left: 5px solid var(--green);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h5 {
+        font-size: 1rem;
+        font-weight: lighter;
+        color: var(--gray);
+    }
+
+    h4 {
+        font-size: 1rem;
+        color: var(--dark);
+    }
 `

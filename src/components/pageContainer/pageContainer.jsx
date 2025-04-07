@@ -1,12 +1,14 @@
 import React from 'react'
-import { Container, Title } from './styles'
+import { Container, Content, Title } from './styles'
 
 const PageContainer = ({ name, children }) => {
     return (
         <Container>
-            <Title>{name}</Title>
+            <Content>
+                <Title>{name}</Title>
 
-            {children}
+                {children}
+            </Content>
         </Container>
     )
 }

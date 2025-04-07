@@ -1,6 +1,6 @@
 import React from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
+import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
 import { useNavigate } from 'react-router-dom'
@@ -265,7 +265,7 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Recurring Bills</h2>
 
-                                <DetailsButtonBox>
+                                <DetailsButtonBox onClick={() => navigate('/recurring-bills')}>
                                     <h5>See Details</h5>
 
                                     <img src={ArrowIcon} alt="" />
@@ -273,7 +273,25 @@ const Overview = () => {
                             </CardTitleBox>
 
                             <CardContext>
-                                a
+                                <RecurringBillsContainer>
+                                    <BillBox>
+                                        <h5>Paid Bills</h5>
+
+                                        <h4>$190.00</h4>
+                                    </BillBox>
+                                    
+                                    <BillBox>
+                                        <h5>Paid Bills</h5>
+
+                                        <h4>$190.00</h4>
+                                    </BillBox>
+                                    
+                                    <BillBox>
+                                        <h5>Paid Bills</h5>
+
+                                        <h4>$190.00</h4>
+                                    </BillBox>
+                                </RecurringBillsContainer>
                             </CardContext>
                         </Card>
                     </Column>
