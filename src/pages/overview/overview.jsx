@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
@@ -17,12 +17,31 @@ const resumeData = [
 const Overview = () => {
     const navigate = useNavigate()
 
+    const [pots, setPots] = useState([])
+
+    useEffect(() => {
+        getPots()
+    }, [])
+
+    useEffect(() => {
+        if (pots.length > 0) {
+            console.log(pots[0].pot_name);
+        }
+    }, [pots]);
+
+    const getPots = async () => {
+        await fetch('http://localhost:3000/pots')
+            .then(res => res.json())
+            .then(data => setPots(data))
+            .catch(err => console.error('Erro ao buscar pots:', err));
+    }
+
     return (
         <PageContainer name="Overview">
             <Container>
                 <HeaderBox>
-                    {resumeData.map((resume) => (
-                        <ResumeBox className={resume.id === 0 ? 'highlight' : ''}>
+                    {resumeData.map((resume, index) => (
+                        <ResumeBox key={index} className={resume.id === 0 ? 'highlight' : ''}>
                             <h3>{resume.name}</h3>
 
                             <h2>${resume.value}</h2>
@@ -279,13 +298,13 @@ const Overview = () => {
 
                                         <h4>$190.00</h4>
                                     </BillBox>
-                                    
+
                                     <BillBox>
                                         <h5>Paid Bills</h5>
 
                                         <h4>$190.00</h4>
                                     </BillBox>
-                                    
+
                                     <BillBox>
                                         <h5>Paid Bills</h5>
 
