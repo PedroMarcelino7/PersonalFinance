@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
@@ -8,6 +8,7 @@ import Chart from '../../components/chart/chart'
 
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 import { usePots } from '../../contexts/potsContext'
+import { useBudgets } from '../../contexts/budgetsContext'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -19,6 +20,7 @@ const Overview = () => {
     const navigate = useNavigate()
 
     const { pots } = usePots()
+    const { budgets } = useBudgets()
 
     const getPotsTotalSaved = () => {
         const totalSaved = pots.reduce((acc, pot) => {
@@ -26,6 +28,26 @@ const Overview = () => {
         }, 0)
 
         return totalSaved.toFixed(2)
+    }
+
+    const getBudgetsLimit = () => {
+        const budgetsLimit = budgets.reduce((acc, budget) => {
+            return acc + parseFloat(budget.budget_max)
+        }, 0)
+
+        return budgetsLimit.toFixed(2)
+    }
+
+    const getBudgetsSpent = () => {
+        const budgetsSpent = budgets.reduce((acc, budget) => {
+            return acc + parseFloat(budget.budget_spent)
+        }, 0)
+
+        return budgetsSpent.toFixed(2)
+    }
+
+    const chartData = () => {
+        return budgets.filter((budget, index) => index < 6)
     }
 
     useEffect(() => {
@@ -200,51 +222,26 @@ const Overview = () => {
                             <CardContext>
                                 <BudgetsContainer>
                                     <ChartContainer>
-                                        <Chart />
+                                        <Chart data={chartData()} />
 
                                         <ChartOverall>
-                                            <h2>$338.00</h2>
-                                            <h3>of $975.00 limit</h3>
+                                            <h2>${getBudgetsSpent()}</h2>
+                                            <h3>of ${getBudgetsLimit()} limit</h3>
                                         </ChartOverall>
                                     </ChartContainer>
 
                                     <ChartLegendContainer>
                                         <ChartLegendBox>
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
+                                            {budgets.map((budget, index) => (
+                                                index < 6 &&
+                                                <ChartLegend key={budget.budget_id}
+                                                    theme={budget.budget_theme}
+                                                >
+                                                    <h6>{budget.budget_name}</h6>
 
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
-
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
-
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
-
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
-
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
-
-                                            <ChartLegend>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </ChartLegend>
+                                                    <h5>${budget.budget_max}</h5>
+                                                </ChartLegend>
+                                            ))}
                                         </ChartLegendBox>
                                     </ChartLegendContainer>
                                 </BudgetsContainer>

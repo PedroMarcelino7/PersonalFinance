@@ -140,7 +140,7 @@ export const PotDistributionBox = styled.div`
 `
 
 export const Distribution = styled.div`
-    border-left: 3px solid ${({theme}) => theme};
+    border-left: 3px solid ${({ theme }) => theme};
     padding-left: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -210,7 +210,7 @@ export const ChartLegendBox = styled.div`
 `
 
 export const ChartLegend = styled.div`
-    border-left: 3px solid red;
+    border-left: 3px solid ${({ theme }) => theme};
     padding-left: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -220,6 +220,9 @@ export const ChartLegend = styled.div`
         font-size: 0.75rem;
         color: var(--gray);
         font-weight: lighter;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     h5 {

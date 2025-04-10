@@ -1,42 +1,41 @@
 import React from 'react';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 
-const Colors = ['#626070', '#277C78', '#82C9D7', '#F2CDAC'];
-const FadedColors = ['#62607077', '#277C7877', '#82C9D777', '#F2CDAC77'];
 
-const Chart = ({ size = 250 }) => {
-    const data = [
-        { name: 'Group A', value: 2400 },
-        { name: 'Group B', value: 4567 },
-        { name: 'Group C', value: 1398 },
-        { name: 'Group D', value: 9800 },
-    ];
+const Chart = ({ size = 250, data }) => {
+    const chartData = data.map((item) => ({
+        name: item.budget_name,
+        value: Number(item.budget_spent)
+    }));
+
+    const colors = data.map((item) => item.budget_theme)
+    const fadedColors = data.map((item) => `${item.budget_theme}60`)
 
     return (
         <PieChart width={size} height={size}>
             <Pie
-                data={data}
+                data={chartData}
                 dataKey="value"
                 isAnimationActive={false}
                 innerRadius={85}
                 outerRadius={110}
                 paddingAngle={1}
             >
-                {data.map((_, index) => (
-                    <Cell key={`faded-${index}`} fill={FadedColors[index % FadedColors.length]} />
+                {chartData.map((_, index) => (
+                    <Cell key={`faded-${index}`} fill={fadedColors[index % fadedColors.length]} />
                 ))}
             </Pie>
 
             <Pie
-                data={data}
+                data={chartData}
                 dataKey="value"
                 isAnimationActive={false}
                 innerRadius={95}
                 outerRadius={120}
                 paddingAngle={1}
             >
-                {data.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={Colors[index % Colors.length]} />
+                {chartData.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                 ))}
             </Pie>
 
