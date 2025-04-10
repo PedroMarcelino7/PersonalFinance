@@ -135,12 +135,12 @@ export const PotDistributionContainer = styled.div`
 
 export const PotDistributionBox = styled.div`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
 `
 
 export const Distribution = styled.div`
-    border-left: 3px solid red;
+    border-left: 3px solid ${({theme}) => theme};
     padding-left: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -150,6 +150,9 @@ export const Distribution = styled.div`
         font-size: 0.75rem;
         color: var(--gray);
         font-weight: lighter;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     h5 {

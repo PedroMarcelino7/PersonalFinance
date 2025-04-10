@@ -9,6 +9,7 @@ const getPots = (req, res) => {
     });
 };
 
+
 module.exports = {
     getPots,
 };

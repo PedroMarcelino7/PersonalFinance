@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import Chart from '../../components/chart/chart'
 
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
+import { usePots } from '../../contexts/potsContext'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -17,24 +18,19 @@ const resumeData = [
 const Overview = () => {
     const navigate = useNavigate()
 
-    const [pots, setPots] = useState([])
+    const { pots } = usePots()
 
-    useEffect(() => {
-        getPots()
-    }, [])
+    const getPotsTotalSaved = () => {
+        const totalSaved = pots.reduce((acc, pot) => {
+            return acc + parseFloat(pot.pot_quantity)
+        }, 0)
 
-    useEffect(() => {
-        if (pots.length > 0) {
-            console.log(pots[0].pot_name);
-        }
-    }, [pots]);
-
-    const getPots = async () => {
-        await fetch('http://localhost:3000/pots')
-            .then(res => res.json())
-            .then(data => setPots(data))
-            .catch(err => console.error('Erro ao buscar pots:', err));
+        return totalSaved.toFixed(2)
     }
+
+    useEffect(() => {
+        console.log('📦 Pots atualizados:', pots)
+    }, [pots])
 
     return (
         <PageContainer name="Overview">
@@ -72,47 +68,22 @@ const Overview = () => {
                                         <PotDescription>
                                             <h5>Total saved</h5>
 
-                                            <h4>$850.00</h4>
+                                            <h4>${getPotsTotalSaved()}</h4>
                                         </PotDescription>
                                     </PotBox>
 
                                     <PotDistributionContainer>
                                         <PotDistributionBox>
-                                            <Distribution>
-                                                <h6>Savings</h6>
+                                            {pots.map((pot, index) => (
+                                                index < 4 &&
+                                                <Distribution key={pot.pot_id}
+                                                    theme={pot.pot_theme}
+                                                >
+                                                    <h6>{pot.pot_name}</h6>
 
-                                                <h5>$159.00</h5>
-                                            </Distribution>
-
-                                            <Distribution>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </Distribution>
-
-                                            <Distribution>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </Distribution>
-
-                                            <Distribution>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </Distribution>
-
-                                            <Distribution>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </Distribution>
-
-                                            <Distribution>
-                                                <h6>Savings</h6>
-
-                                                <h5>$159.00</h5>
-                                            </Distribution>
+                                                    <h5>${pot.pot_quantity}</h5>
+                                                </Distribution>
+                                            ))}
                                         </PotDistributionBox>
                                     </PotDistributionContainer>
                                 </PotsContainer>
