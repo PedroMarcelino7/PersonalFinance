@@ -9,6 +9,8 @@ import Chart from '../../components/chart/chart'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 import { usePots } from '../../contexts/potsContext'
 import { useBudgets } from '../../contexts/budgetsContext'
+import { usePeople } from '../../contexts/peopleContext'
+import { useTransactions } from '../../contexts/transactionsContext'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -21,6 +23,8 @@ const Overview = () => {
 
     const { pots } = usePots()
     const { budgets } = useBudgets()
+    const { people } = usePeople()
+    const { transactions } = useTransactions()
 
     const getPotsTotalSaved = () => {
         const totalSaved = pots.reduce((acc, pot) => {
@@ -49,6 +53,15 @@ const Overview = () => {
     const chartData = () => {
         return budgets.filter((budget, index) => index < 6)
     }
+
+    const getDateFormat = (transactionDate) => {
+        const date = new Date(transactionDate);
+        return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+        }).replace(',', '');
+    };
 
     useEffect(() => {
         console.log('📦 Pots atualizados:', pots)
@@ -125,83 +138,28 @@ const Overview = () => {
 
                             <CardContext>
                                 <TransactionsBox>
-                                    <TransactionsItem>
-                                        <PersonBox>
-                                            <ProfilePicture src={Avatar} alt="" />
+                                    {transactions.map((transaction, index) => (
+                                        index <= 4 &&
+                                        <>
+                                            <TransactionsItem key={index}>
+                                                <PersonBox>
+                                                    <ProfilePicture src={Avatar} alt="" />
 
-                                            <h4>James Thompson</h4>
-                                        </PersonBox>
+                                                    <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
+                                                </PersonBox>
 
-                                        <TransactionDetails color='var(--green)'>
-                                            <h5>-$5.00</h5>
+                                                <TransactionDetails
+                                                    color={transaction.transaction_type === 'negative' ? 'var(--red)' : 'var(--green)'}
+                                                >
+                                                    <h5>{transaction.transaction_type === 'negative' && '-'}${transaction.transaction_amount}</h5>
 
-                                            <h6>11 Aug 2024</h6>
-                                        </TransactionDetails>
-                                    </TransactionsItem>
+                                                    <h6>{getDateFormat(transaction.transaction_date)}</h6>
+                                                </TransactionDetails>
+                                            </TransactionsItem >
 
-                                    <hr />
-
-                                    <TransactionsItem>
-                                        <PersonBox>
-                                            <ProfilePicture src={Avatar} alt="" />
-
-                                            <h4>James Thompson</h4>
-                                        </PersonBox>
-
-                                        <TransactionDetails>
-                                            <h5>-$5.00</h5>
-
-                                            <h6>11 Aug 2024</h6>
-                                        </TransactionDetails>
-                                    </TransactionsItem>
-
-                                    <hr />
-
-                                    <TransactionsItem>
-                                        <PersonBox>
-                                            <ProfilePicture src={Avatar} alt="" />
-
-                                            <h4>James Thompson</h4>
-                                        </PersonBox>
-
-                                        <TransactionDetails color='var(--red)'>
-                                            <h5>-$5.00</h5>
-
-                                            <h6>11 Aug 2024</h6>
-                                        </TransactionDetails>
-                                    </TransactionsItem>
-
-                                    <hr />
-
-                                    <TransactionsItem>
-                                        <PersonBox>
-                                            <ProfilePicture src={Avatar} alt="" />
-
-                                            <h4>James Thompson</h4>
-                                        </PersonBox>
-
-                                        <TransactionDetails>
-                                            <h5>-$5.00</h5>
-
-                                            <h6>11 Aug 2024</h6>
-                                        </TransactionDetails>
-                                    </TransactionsItem>
-
-                                    <hr />
-
-                                    <TransactionsItem>
-                                        <PersonBox>
-                                            <ProfilePicture src={Avatar} alt="" />
-
-                                            <h4>James Thompson</h4>
-                                        </PersonBox>
-
-                                        <TransactionDetails>
-                                            <h5>-$5.00</h5>
-
-                                            <h6>11 Aug 2024</h6>
-                                        </TransactionDetails>
-                                    </TransactionsItem>
+                                            {index != 4 && <hr />}
+                                        </>
+                                    ))}
                                 </TransactionsBox>
                             </CardContext>
                         </Card>
@@ -284,7 +242,7 @@ const Overview = () => {
                     </Column>
                 </MainBox>
             </Container>
-        </PageContainer>
+        </PageContainer >
     )
 }
 
