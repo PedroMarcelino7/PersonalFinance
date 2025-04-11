@@ -19,6 +19,12 @@ export const CardHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    img {
+        padding-block: 1rem;
+        padding-inline: 0.5rem;
+        cursor: pointer;
+    }
 `
 
 export const CardTitleBox = styled.div`
@@ -29,6 +35,9 @@ export const CardTitleBox = styled.div`
     h2 {
         font-size: 1.25rem;
         color: var(--dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `
 
@@ -36,7 +45,7 @@ export const Identifier = styled.div`
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: red;
+    background-color: ${({ theme }) => theme};
 `
 
 export const CardContent = styled.div`
@@ -84,8 +93,8 @@ export const Progress = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: 50%;
-    background-color: red;
+    width: ${({ width }) => `${width}%`};
+    background-color: ${({ theme }) => theme};
     border-radius: 10px;
 `
 
