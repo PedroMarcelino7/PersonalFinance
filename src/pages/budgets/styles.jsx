@@ -75,7 +75,7 @@ export const SummaryItem = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-left: 3px solid red;
+    border-left: 3px solid ${({ theme }) => theme};
     padding-left: 1rem;
 
     h4 {
@@ -117,6 +117,12 @@ export const CardHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    img {
+        padding-block: 1rem;
+        padding-inline: 0.5rem;
+        cursor: pointer;
+    }
 `
 
 export const CardTitleBox = styled.div`
@@ -134,7 +140,7 @@ export const Identifier = styled.div`
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background-color: red;
+    background-color: ${({ theme }) => theme};
 `
 
 export const CardContent = styled.div`
@@ -172,8 +178,9 @@ export const Progress = styled.div`
     top: 0;
     left: 0;
     height: 100%;
-    width: 50%;
-    background-color: red;
+    width: ${({ width }) => `${width}%`};
+    max-width: 100%;
+    background-color: ${({ theme }) => theme};
     border-radius: 5px;
 `
 
@@ -184,7 +191,7 @@ export const ResumeBox = styled.div`
 
 export const ResumeItem = styled.div`
     width: 100%;
-    border-left: 3px solid ${({ color }) => color};
+    border-left: 3px solid ${({ teh }) => teh};
     padding-left: 0.75rem;
     display: flex;
     flex-direction: column;
