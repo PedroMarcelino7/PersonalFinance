@@ -287,7 +287,7 @@ export const RecurringBillsContainer = styled.div`
 export const BillBox = styled.div`
     background-color: var(--white);
     padding: 1.25rem;
-    border-left: 5px solid var(--green);
+    border-left: 5px solid ${({ theme }) => theme};
     border-radius: 10px;
     display: flex;
     justify-content: space-between;

@@ -6,6 +6,7 @@ const potController = require('./controllers/potsController');
 const budgetController = require('./controllers/budgetsController')
 const peopleController = require('./controllers/peopleController')
 const transactionsController = require('./controllers/transactionsController')
+const recurringBillsController = require('./controllers/recurringBillsController')
 
 const app = express();
 const port = process.env.PORT;
@@ -17,6 +18,7 @@ app.get('/pots', potController.getPots);
 app.get('/budgets', budgetController.getBudgets);
 app.get('/people', peopleController.getPeople);
 app.get('/transactions', transactionsController.getTransactions);
+app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 
 app.listen(3000, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);

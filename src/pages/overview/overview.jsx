@@ -11,6 +11,7 @@ import { usePots } from '../../contexts/potsContext'
 import { useBudgets } from '../../contexts/budgetsContext'
 import { usePeople } from '../../contexts/peopleContext'
 import { useTransactions } from '../../contexts/transactionsContext'
+import { useRecurringBills } from '../../contexts/recurringBillsContext'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
@@ -25,6 +26,7 @@ const Overview = () => {
     const { budgets } = useBudgets()
     const { people } = usePeople()
     const { transactions } = useTransactions()
+    const { recurringBills } = useRecurringBills()
 
     const getPotsTotalSaved = () => {
         const totalSaved = pots.reduce((acc, pot) => {
@@ -62,6 +64,36 @@ const Overview = () => {
             year: 'numeric',
         }).replace(',', '');
     };
+
+    const getPaidBills = () => {
+        const paidBills = recurringBills.reduce((acc, bill) => {
+            return bill.bill_status === 'paid'
+                ? acc + (parseFloat(bill.bill_amount) || 0)
+                : acc;
+        }, 0);
+
+        return paidBills.toFixed(2);
+    }
+
+    const getUpcomingBills = () => {
+        const upcomingBills = recurringBills.reduce((acc, bill) => {
+            return bill.bill_status === 'upcoming'
+                ? acc + (parseFloat(bill.bill_amount) || 0)
+                : acc;
+        }, 0);
+
+        return upcomingBills.toFixed(2);
+    }
+
+    const getDueSoonBills = () => {
+        const dueSoonBills = recurringBills.reduce((acc, bill) => {
+            return bill.bill_status === 'due soon'
+                ? acc + (parseFloat(bill.bill_amount) || 0)
+                : acc;
+        }, 0);
+
+        return dueSoonBills.toFixed(2);
+    }
 
     useEffect(() => {
         console.log('📦 Pots atualizados:', pots)
@@ -219,22 +251,22 @@ const Overview = () => {
 
                             <CardContext>
                                 <RecurringBillsContainer>
-                                    <BillBox>
+                                    <BillBox theme={'#277C78'}>
                                         <h5>Paid Bills</h5>
 
-                                        <h4>$190.00</h4>
+                                        <h4>${getPaidBills()}</h4>
                                     </BillBox>
 
-                                    <BillBox>
-                                        <h5>Paid Bills</h5>
+                                    <BillBox theme={'#F2CDAC'}>
+                                        <h5>Total Upcoming</h5>
 
-                                        <h4>$190.00</h4>
+                                        <h4>${getUpcomingBills()}</h4>
                                     </BillBox>
 
-                                    <BillBox>
-                                        <h5>Paid Bills</h5>
+                                    <BillBox theme={'#82C9D7'}>
+                                        <h5>Due Soon</h5>
 
-                                        <h4>$190.00</h4>
+                                        <h4>${getDueSoonBills()}</h4>
                                     </BillBox>
                                 </RecurringBillsContainer>
                             </CardContext>
