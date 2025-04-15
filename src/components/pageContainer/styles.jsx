@@ -7,7 +7,7 @@ export const Container = styled.div`
     gap: 3rem;
     min-height: 100vh;
     box-sizing: border-box;
-    background-color: #f9f9f9;
+    background-color: var(--white);
     overflow-x: hidden;
 `
 
