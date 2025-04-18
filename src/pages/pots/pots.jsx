@@ -19,7 +19,7 @@ const Pots = () => {
     }
 
     return (
-        <PageContainer name="Pots">
+        <PageContainer name="Pots" button='+ Add new Pot'>
             <PotsContainer>
                 {pots.map((pot, index) => (
                     <Card key={index}>

@@ -1,12 +1,45 @@
 import React from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer } from './styles'
+
+import { useRecurringBills } from '../../contexts/recurringBillsContext'
+import { usePeople } from '../../contexts/peopleContext'
+
 import BillsIcon from '../../assets/images/icon-recurring-bills.svg'
 import SearchIcon from '../../assets/images/icon-search.svg'
 import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
 
 const RecurringBills = () => {
+    const { recurringBills } = useRecurringBills()
+    const { people } = usePeople()
+
+    const getTotalBills = () => {
+        const totalBills = recurringBills.reduce((acc, bill) => {
+            const amount = parseFloat(bill.bill_amount)
+            return (bill.bill_status === 'upcoming' || bill.bill_status === 'paid') && !isNaN(amount) ? acc + amount : acc
+        }, 0)
+
+        return totalBills.toFixed(2)
+    }
+
+    const getBills = (status) => {
+        const bills = recurringBills.reduce((acc, bill) => {
+            const amount = parseFloat(bill.bill_amount)
+            return bill.bill_status === status && !isNaN(amount) ? acc + amount : acc
+        }, 0)
+
+        return bills.toFixed(2)
+    }
+
+    const getBillsQuantity = (status) => {
+        const billsQuantity = recurringBills.filter((bill) => {
+            return bill.bill_status === status
+        })
+
+        return billsQuantity.length
+    }
+
     return (
         <PageContainer name="Recurring Bills">
             <RecurringBillsContainer>
@@ -17,7 +50,7 @@ const RecurringBills = () => {
                         <ResumeBox>
                             <h6>Total Bills</h6>
 
-                            <h3>$384.98</h3>
+                            <h3>${getTotalBills()}</h3>
                         </ResumeBox>
                     </TotalContainer>
 
@@ -28,7 +61,7 @@ const RecurringBills = () => {
                             <SummaryItem>
                                 <h5>Paid Bills</h5>
 
-                                <h4>4 ($190.00)</h4>
+                                <h4>{getBillsQuantity('paid')} (${getBills('paid')})</h4>
                             </SummaryItem>
 
                             <hr />
@@ -36,7 +69,7 @@ const RecurringBills = () => {
                             <SummaryItem>
                                 <h5>Total Upcoming</h5>
 
-                                <h4>4 ($194.98)</h4>
+                                <h4>{getBillsQuantity('upcoming')} (${getBills('upcoming')})</h4>
                             </SummaryItem>
 
                             <hr />
@@ -44,7 +77,7 @@ const RecurringBills = () => {
                             <SummaryItem color='var(--red)'>
                                 <h5>Due Soon</h5>
 
-                                <h4>2 ($59.98)</h4>
+                                <h4>{getBillsQuantity('due soon')} (${getBills('due soon')})</h4>
                             </SummaryItem>
                         </SummaryBox>
                     </SummaryContainer>
@@ -83,22 +116,24 @@ const RecurringBills = () => {
                             </tr>
                         </TableHeader>
 
-                        <TableBodyRow>
-                            <TableBodyElement className='reference'>
-                                <img src={Avatar} alt="" />
-                                <h3>Name</h3>
-                            </TableBodyElement>
-                            <TableBodyElement>Monthly-2nd</TableBodyElement>
-                            <TableBodyElement className='end'
-                                color='var(--green)'
-                            >
-                                $300.00
-                            </TableBodyElement>
-                        </TableBodyRow>
+                        {recurringBills.map((bill, index) => (
+                            <TableBodyRow>
+                                <TableBodyElement className='reference'>
+                                    <img src={Avatar} alt="" />
+                                    <h3>{people.find((person) => person.person_id === bill.person_id).person_name}</h3>
+                                </TableBodyElement>
+                                <TableBodyElement>Monthly-2nd</TableBodyElement>
+                                <TableBodyElement className='end'
+                                    color='var(--green)'
+                                >
+                                    $300.00
+                                </TableBodyElement>
+                            </TableBodyRow>
+                        ))}
                     </Table>
                 </BillsContainer>
             </RecurringBillsContainer>
-        </PageContainer >
+        </PageContainer>
     )
 }
 

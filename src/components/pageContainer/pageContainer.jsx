@@ -1,11 +1,15 @@
 import React from 'react'
-import { Container, Content, Title } from './styles'
+import { Button, Container, Content, Header, Title } from './styles'
 
-const PageContainer = ({ name, children }) => {
+const PageContainer = ({ name, children, button }) => {
     return (
         <Container>
             <Content>
-                <Title>{name}</Title>
+                <Header>
+                    <Title>{name}</Title>
+
+                    <Button>{button}</Button>
+                </Header>
 
                 {children}
             </Content>
