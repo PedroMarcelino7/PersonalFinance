@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Container, Content, Header, Title } from './styles'
 
-const PageContainer = ({ name, children, button }) => {
+const PageContainer = ({ name, children, button, onClick }) => {
     return (
         <Container>
             <Content>
@@ -9,7 +9,7 @@ const PageContainer = ({ name, children, button }) => {
                     <Title>{name}</Title>
 
                     {button &&
-                        <Button>{button}</Button>
+                        <Button onClick={onClick}>{button}</Button>
                     }
                 </Header>
 

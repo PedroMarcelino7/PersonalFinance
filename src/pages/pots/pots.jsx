@@ -9,7 +9,7 @@ import AddNewPot from '../../components/modal/addNewPot/addNewPot'
 const Pots = () => {
     const { pots } = usePots()
 
-    const [showModal, setShowModal] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         console.log('Pots [Pots Page]:', pots)
@@ -22,9 +22,13 @@ const Pots = () => {
         return ((quantity * 100) / target).toFixed(2)
     }
 
+    const handleShowModal = () => {
+        setShowModal(true)
+    }
+
     return (
         <>
-            <PageContainer name="Pots" button='+ Add new Pot'>
+            <PageContainer name="Pots" button='+ Add new Pot' onClick={handleShowModal}>
                 <PotsContainer>
                     {pots.map((pot, index) => (
                         <Card key={index}>
