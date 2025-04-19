@@ -8,7 +8,9 @@ const PageContainer = ({ name, children, button }) => {
                 <Header>
                     <Title>{name}</Title>
 
-                    <Button>{button}</Button>
+                    {button &&
+                        <Button>{button}</Button>
+                    }
                 </Header>
 
                 {children}
