@@ -7,12 +7,16 @@ export const BudgetsContainer = styled.div`
 
 export const Container = styled.div`
     width: 35%;
+`
+
+export const Box = styled.div`
+    width: 100%;
     background-color: #fff;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding: 2rem;
+    border-radius: 10px;
 `
 
 export const ChartContainer = styled.div`

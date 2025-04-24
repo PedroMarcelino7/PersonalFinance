@@ -2,19 +2,22 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
-    padding-block: 2rem;
-    padding-inline: 3rem;
     gap: 3rem;
-    min-height: 100vh;
+    height: 100vh;
     box-sizing: border-box;
     background-color: var(--white);
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 `
 
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
 `
 
 export const Header = styled.div`

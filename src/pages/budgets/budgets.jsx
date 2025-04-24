@@ -1,6 +1,6 @@
 import React from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { BudgetsContainer, Card, CardContent, CardHeader, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 import Chart from '../../components/chart/chart'
 import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
@@ -50,36 +50,38 @@ const Budgets = () => {
         <PageContainer name="Budgets">
             <BudgetsContainer>
                 <Container>
-                    <ChartContainer>
-                        <ChartBox>
-                            <Chart data={chartData()} />
+                    <Box>
+                        <ChartContainer>
+                            <ChartBox>
+                                <Chart data={chartData()} />
 
-                            <ChartOverall>
-                                <h2>${getBudgetsSpent()}</h2>
-                                <h3>of ${getBudgetsLimit()} limit</h3>
-                            </ChartOverall>
-                        </ChartBox>
+                                <ChartOverall>
+                                    <h2>${getBudgetsSpent()}</h2>
+                                    <h3>of ${getBudgetsLimit()} limit</h3>
+                                </ChartOverall>
+                            </ChartBox>
 
-                        <SummaryContainer>
-                            <h2>Spending Summary</h2>
+                            <SummaryContainer>
+                                <h2>Spending Summary</h2>
 
-                            <SummaryBox>
-                                {budgets.map((budget, index) => (
-                                    index <= 5 &&
-                                    <>
-                                        <SummaryItem
-                                            theme={budget.budget_theme}
-                                        >
-                                            <h4>{budget.budget_name}</h4>
+                                <SummaryBox>
+                                    {budgets.map((budget, index) => (
+                                        index <= 5 &&
+                                        <>
+                                            <SummaryItem
+                                                theme={budget.budget_theme}
+                                            >
+                                                <h4>{budget.budget_name}</h4>
 
-                                            <h3><span>${budget.budget_spent}</span> of ${budget.budget_max}</h3>
-                                        </SummaryItem>
-                                        {index != 5 && <hr />}
-                                    </>
-                                ))}
-                            </SummaryBox>
-                        </SummaryContainer>
-                    </ChartContainer>
+                                                <h3><span>${budget.budget_spent}</span> of ${budget.budget_max}</h3>
+                                            </SummaryItem>
+                                            {index != 5 && <hr />}
+                                        </>
+                                    ))}
+                                </SummaryBox>
+                            </SummaryContainer>
+                        </ChartContainer>
+                    </Box>
                 </Container>
 
                 <CardsContainer>
