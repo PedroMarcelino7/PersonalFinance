@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 import SearchIcon from '../../assets/images/icon-search.svg'
@@ -15,6 +15,11 @@ const Transactions = () => {
     const { transactions } = useTransactions()
     const { people } = usePeople()
 
+    const [page, setPage] = useState(1)
+    const quantityToShow = 7
+    const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
+    const pagesQuantity = transactions.length / quantityToShow
+
     const getDateFormat = (transactionDate) => {
         const date = new Date(transactionDate);
         return date.toLocaleDateString('en-GB', {
@@ -23,6 +28,24 @@ const Transactions = () => {
             year: 'numeric',
         }).replace(',', '');
     };
+
+    const handleChangeTransactionsPage = (type, page) => {
+        console.log('\n\n\n')
+        console.log('Next Button pressed!')
+        console.log('Type:', type)
+        console.log('Page:', page)
+        console.log('\n')
+        console.log('Offset:', quantityToShowOffset)
+        console.log('Qnt Show:', quantityToShow)
+
+        if (type === 'next' && page < pagesQuantity) {
+            setQuantityToShowOffset(quantityToShow * (page))
+            setPage(page + 1)
+        } else if (type === 'prev' && page > 1) {
+            setQuantityToShowOffset(quantityToShow * (page - 2))
+            setPage(page - 1)
+        }
+    }
 
     return (
         <PageContainer name="Transactions">
@@ -75,6 +98,8 @@ const Transactions = () => {
                         </TableHeader>
 
                         {transactions.map((transaction, index) => (
+                            index >= quantityToShowOffset &&
+                            index < (quantityToShow + quantityToShowOffset) &&
                             <TableBodyRow key={index}>
                                 <TableBodyElement className='reference'>
                                     <img src={Avatar} alt="" />
@@ -93,21 +118,28 @@ const Transactions = () => {
                 </div>
 
                 <TransactionsFooter>
-                    <NavButton>
+                    <NavButton onClick={() => handleChangeTransactionsPage('prev', page)}>
                         <img src={PrevIcon} alt="" />
 
                         <h3>Prev</h3>
                     </NavButton>
 
                     <NavPages>
-                        <button className='selected'>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>4</button>
-                        <button>5</button>
+                        {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
+                            <button
+                                key={i + 1}
+                                className={i + 1 === page ? 'selected' : ''}
+                                onClick={() => {
+                                    setPage(i + 1)
+                                    setQuantityToShowOffset(quantityToShow * i)
+                                }}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
                     </NavPages>
 
-                    <NavButton>
+                    <NavButton onClick={() => handleChangeTransactionsPage('next', page)}>
                         <h3>Next</h3>
 
                         <img src={NextIcon} alt="" />
