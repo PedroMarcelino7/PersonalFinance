@@ -83,7 +83,10 @@ export const SummaryItem = styled.div`
 `
 
 export const BillsContainer = styled.div`
-    width: 100%;
+    width: 70%;
+`
+
+export const BillsBox = styled.div`
     background-color: #fff;
     border-radius: 10px;
     padding: 2rem;
@@ -227,5 +230,50 @@ export const TableBodyElement = styled.td`
         text-align: end;
         font-weight: bold;
         color: ${({ color }) => color};
+    }
+`
+
+export const RecurringBillsFooter = styled.div`
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+`
+
+export const NavButton = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--light-gray);
+    padding-block: 0.75rem;
+    padding-inline: 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    h3 {
+        font-size: 1rem;
+        font-weight: lighter;
+        color: var(--dark);
+    }
+`
+
+export const NavPages = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    button {
+        border: 1px solid var(--light-gray);
+        width: 45px;
+        height: 45px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: transparent;
+        color: var(--dark);
+        font-size: 1rem;
+
+        &.selected {
+            background-color: var(--dark);
+            color: var(--white);
+        }
     }
 `

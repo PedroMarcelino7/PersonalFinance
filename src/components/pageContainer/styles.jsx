@@ -15,7 +15,6 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    flex: 1;
     padding: 2rem;
     overflow-y: auto;
 `
