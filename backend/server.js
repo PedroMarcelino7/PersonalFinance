@@ -15,9 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/pots', potController.getPots);
+app.post('/pots/post', potController.addPot);
+
 app.get('/budgets', budgetController.getBudgets);
+
 app.get('/people', peopleController.getPeople);
+
 app.get('/transactions', transactionsController.getTransactions);
+
 app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 
 app.listen(3000, () => {

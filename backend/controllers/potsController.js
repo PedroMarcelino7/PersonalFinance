@@ -9,7 +9,20 @@ const getPots = (req, res) => {
     });
 };
 
+const addPot = (req, res) => {
+    const values = req.body;
+
+    Pot.addNewPot(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao adicionar pot' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getPots,
+    addPot,
 };
