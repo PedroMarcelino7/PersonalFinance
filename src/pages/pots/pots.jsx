@@ -74,7 +74,7 @@ const Pots = () => {
                 <Modal
                     title={'Add New Pot'}
                     subtitle={'Create a pot to set savings targets. These can help keep you on track as you save for special purchases.'}
-                    state={setShowModal}
+                    closeModal={setShowModal}
                 >
                     <AddNewPot />
                 </Modal>

@@ -3,9 +3,11 @@ import DefaultInput from '../../input/defaultInput/defaultInput'
 import { Button, FormContainer } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../contexts/potsContext'
+import { useModal } from '../modal'
 
 const AddNewPot = () => {
     const { refreshPots } = usePots()
+    const { closeModal } = useModal()
 
     const themes = [
         { name: 'Green', color: '#2A7D72' },
@@ -44,6 +46,8 @@ const AddNewPot = () => {
         } catch (error) {
             console.error('Erro ao criar o pot:', error);
         }
+
+        closeModal()
     }
 
     return (
