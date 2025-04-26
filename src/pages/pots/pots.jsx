@@ -6,6 +6,7 @@ import { usePots } from '../../contexts/potsContext'
 import Modal from '../../components/modal/modal'
 import AddNewPot from '../../components/modal/addNewPot/addNewPot'
 import AddMoney from '../../components/modal/addMoney/addMoney'
+import WithdrawMoney from '../../components/modal/withdrawMoney/withdrawMoney'
 
 const Pots = () => {
     const { pots } = usePots()
@@ -13,6 +14,7 @@ const Pots = () => {
     const [selectedPot, setSelectedPot] = useState(pots[0])
     const [showAddPotModal, setShowAddPotModal] = useState(false)
     const [showAddMoneyModal, setShowAddMoneyModal] = useState(false)
+    const [showWithdrawMoneyModal, setShowWithdrawMoneyModal] = useState(false)
 
     useEffect(() => {
         console.log('Pots [Pots Page]:', pots)
@@ -31,6 +33,11 @@ const Pots = () => {
 
     const handleShowAddMoneyModal = (pot) => {
         setShowAddMoneyModal(true)
+        setSelectedPot(pot)
+    }
+    
+    const handleShowWithdrawMoneyModal = (pot) => {
+        setShowWithdrawMoneyModal(true)
         setSelectedPot(pot)
     }
 
@@ -71,7 +78,7 @@ const Pots = () => {
 
                             <CardButtons>
                                 <Button onClick={() => handleShowAddMoneyModal(pot)}>+ Add Money</Button>
-                                <Button>Withdraw</Button>
+                                <Button onClick={() => handleShowWithdrawMoneyModal(pot)}>Withdraw</Button>
                             </CardButtons>
                         </Card>
                     ))}
@@ -95,6 +102,16 @@ const Pots = () => {
                     closeModal={setShowAddMoneyModal}
                 >
                     <AddMoney pot={selectedPot} />
+                </Modal>
+            }
+            
+            {showWithdrawMoneyModal &&
+                <Modal
+                    title={'Withdraw from Savings'}
+                    subtitle={'Withdraw from your pot to put money back in your main balance. This will reduce the amount you have in this pot.'}
+                    closeModal={setShowWithdrawMoneyModal}
+                >
+                    <WithdrawMoney pot={selectedPot} />
                 </Modal>
             }
         </>
