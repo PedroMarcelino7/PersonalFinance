@@ -15,6 +15,30 @@ const AddMoney = ({ pot }) => {
 
         console.log('Pot:', pot)
         console.log('Amount to Add:', amountToAdd)
+
+        const potQuantity = parseFloat(pot.pot_quantity) + parseFloat(amountToAdd)
+
+        try {
+            const response = await fetch('http://localhost:3000/pots/add-money', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pot_id: pot.pot_id,
+                    pot_quantity: potQuantity
+                })
+            });
+
+            const data = await response.json();
+            console.log('>>> Resposta Pot Add Money [Add Money Modal]:', data);
+
+            refreshPots()
+        } catch (error) {
+            console.error('Error on add money to pot:', error);
+        }
+
+        closeModal()
     }
 
     const getPercentage = (quantity, target) => {

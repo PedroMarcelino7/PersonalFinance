@@ -21,8 +21,21 @@ const addPot = (req, res) => {
     });
 }
 
+const addMoney = (req, res) => {
+    const values = req.body;
+
+    Pot.addMoneyToPot(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error on add money to pot' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getPots,
     addPot,
+    addMoney
 };
