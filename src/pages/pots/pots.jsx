@@ -5,11 +5,14 @@ import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import { usePots } from '../../contexts/potsContext'
 import Modal from '../../components/modal/modal'
 import AddNewPot from '../../components/modal/addNewPot/addNewPot'
+import AddMoney from '../../components/modal/addMoney/addMoney'
 
 const Pots = () => {
     const { pots } = usePots()
 
-    const [showModal, setShowModal] = useState(false)
+    const [selectedPot, setSelectedPot] = useState(pots[0])
+    const [showAddPotModal, setShowAddPotModal] = useState(false)
+    const [showAddMoneyModal, setShowAddMoneyModal] = useState(false)
 
     useEffect(() => {
         console.log('Pots [Pots Page]:', pots)
@@ -22,13 +25,18 @@ const Pots = () => {
         return ((quantity * 100) / target).toFixed(2)
     }
 
-    const handleShowModal = () => {
-        setShowModal(true)
+    const handleShowAddPotModal = () => {
+        setShowAddPotModal(true)
+    }
+
+    const handleShowAddMoneyModal = (pot) => {
+        setShowAddMoneyModal(true)
+        setSelectedPot(pot)
     }
 
     return (
         <>
-            <PageContainer name="Pots" button='+ Add new Pot' onClick={handleShowModal}>
+            <PageContainer name="Pots" button='+ Add new Pot' onClick={handleShowAddPotModal}>
                 <PotsContainer>
                     {pots.map((pot, index) => (
                         <Card key={index}>
@@ -62,7 +70,7 @@ const Pots = () => {
                             </CardContent>
 
                             <CardButtons>
-                                <Button>+ Add Money</Button>
+                                <Button onClick={() => handleShowAddMoneyModal(pot)}>+ Add Money</Button>
                                 <Button>Withdraw</Button>
                             </CardButtons>
                         </Card>
@@ -70,13 +78,23 @@ const Pots = () => {
                 </PotsContainer>
             </PageContainer>
 
-            {showModal &&
+            {showAddPotModal &&
                 <Modal
                     title={'Add New Pot'}
                     subtitle={'Create a pot to set savings targets. These can help keep you on track as you save for special purchases.'}
-                    closeModal={setShowModal}
+                    closeModal={setShowAddPotModal}
                 >
                     <AddNewPot />
+                </Modal>
+            }
+
+            {showAddMoneyModal &&
+                <Modal
+                    title={'Add to Savings'}
+                    subtitle={'Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance.'}
+                    closeModal={setShowAddMoneyModal}
+                >
+                    <AddMoney pot={selectedPot} />
                 </Modal>
             }
         </>
