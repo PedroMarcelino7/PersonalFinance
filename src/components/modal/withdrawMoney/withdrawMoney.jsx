@@ -8,18 +8,18 @@ const WithdrawMoney = ({ pot }) => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
 
-    const [amountToAdd, setAmountToAdd] = useState(0)
+    const [amountToWithdraw, setAmountToWithdraw] = useState(0)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         console.log('Pot:', pot)
-        console.log('Amount to Add:', amountToAdd)
+        console.log('Amount to Withdraw:', amountToWithdraw)
 
-        const potQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToAdd)
+        const potQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToWithdraw)
 
         try {
-            const response = await fetch('http://localhost:3000/pots/add-money', {
+            const response = await fetch('http://localhost:3000/pots/update-pot-money', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -31,11 +31,11 @@ const WithdrawMoney = ({ pot }) => {
             });
 
             const data = await response.json();
-            console.log('>>> Resposta Pot Add Money [Add Money Modal]:', data);
+            console.log('>>> Resposta Pot Withdraw Money [Withdraw Money Modal]:', data);
 
             refreshPots()
         } catch (error) {
-            console.error('Error on add money to pot:', error);
+            console.error('Error on withdraw money from pot:', error);
         }
 
         closeModal()
@@ -48,7 +48,7 @@ const WithdrawMoney = ({ pot }) => {
     };
 
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);
-    const newTotalQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToAdd);
+    const newTotalQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToWithdraw);
     const newTotalPercentage = getPercentage(newTotalQuantity, pot.pot_target);
 
     return (
@@ -73,7 +73,7 @@ const WithdrawMoney = ({ pot }) => {
             <DefaultInput
                 label={'Amount to Withdraw'}
                 placeholder={'$'}
-                setValue={setAmountToAdd}
+                setValue={setAmountToWithdraw}
             />
 
             <Button>Confirm Withdraw</Button>

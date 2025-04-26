@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.get('/pots', potController.getPots);
 app.post('/pots/post', potController.addPot);
-app.post('/pots/add-money', potController.addMoney);
+app.post('/pots/update-pot-money', potController.updateMoney);
 
 app.get('/budgets', budgetController.getBudgets);
 

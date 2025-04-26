@@ -19,7 +19,7 @@ const AddMoney = ({ pot }) => {
         const potQuantity = parseFloat(pot.pot_quantity) + parseFloat(amountToAdd)
 
         try {
-            const response = await fetch('http://localhost:3000/pots/add-money', {
+            const response = await fetch('http://localhost:3000/pots/update-pot-money', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
