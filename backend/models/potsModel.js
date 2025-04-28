@@ -23,6 +23,13 @@ const editPotModel = (values, callback) => {
     `, [values.pot_name, values.pot_target, values.pot_theme, values.pot_id], callback)
 }
 
+const deletePotModel = (values, callback) => {
+    db.query(`
+        delete from pots
+        where pot_id = ?
+    `, [values.pot_id], callback)
+}
+
 const updateMoneyPot = (values, callback) => {
     db.query(`
         update pots
@@ -36,4 +43,5 @@ module.exports = {
     addNewPot,
     updateMoneyPot,
     editPotModel,
+    deletePotModel,
 };

@@ -33,6 +33,18 @@ const editPot = (req, res) => {
     });
 }
 
+const deletePot = (req, res) => {
+    const values = req.body;
+
+    Pot.deletePotModel(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao deletar pot' });
+        }
+
+        res.json(results);
+    });
+}
+
 const updateMoney = (req, res) => {
     const values = req.body;
 
@@ -50,5 +62,6 @@ module.exports = {
     getPots,
     addPot,
     updateMoney,
-    editPot
+    editPot,
+    deletePot,
 };
