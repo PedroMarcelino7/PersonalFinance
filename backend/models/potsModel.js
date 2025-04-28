@@ -12,6 +12,17 @@ const addNewPot = (values, callback) => {
     `, [values.pot_name, values.pot_theme, values.pot_target], callback)
 }
 
+const editPotModel = (values, callback) => {
+    db.query(`
+        update pots
+        set
+            pot_name = ?,
+            pot_target = ?,
+            pot_theme = ?
+        where pot_id = ?
+    `, [values.pot_name, values.pot_target, values.pot_theme, values.pot_id], callback)
+}
+
 const updateMoneyPot = (values, callback) => {
     db.query(`
         update pots
@@ -24,4 +35,5 @@ module.exports = {
     getAllPots,
     addNewPot,
     updateMoneyPot,
+    editPotModel,
 };

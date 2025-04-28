@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Label, SelectBox, Selected, Options, Option, ColorDot, ChevronIcon, ThemeBox } from './styles'
 import SelectIcon from '../../../assets/images/icon-caret-down.svg'
 
-const ThemeSelect = ({ label = 'Theme', setTheme, data }) => {
+const ThemeSelect = ({ label = 'Theme', value, setTheme, data }) => {
     const [selected, setSelected] = useState(data[0])
     const [isOpen, setIsOpen] = useState(false)
 

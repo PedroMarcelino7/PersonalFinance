@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Button, Card, CardButtons, CardContent, CardHeader, CardTitleBox, Identifier, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
+import { Button, Card, CardButtons, CardContent, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitleBox, Identifier, Option, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
 import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import { usePots } from '../../contexts/potsContext'
 import Modal from '../../components/modal/modal'
 import AddNewPot from '../../components/modal/addNewPot/addNewPot'
 import AddMoney from '../../components/modal/addMoney/addMoney'
 import WithdrawMoney from '../../components/modal/withdrawMoney/withdrawMoney'
+import EditPot from '../../components/modal/editPot/editPot'
 
 const Pots = () => {
     const { pots } = usePots()
@@ -15,6 +16,9 @@ const Pots = () => {
     const [showAddPotModal, setShowAddPotModal] = useState(false)
     const [showAddMoneyModal, setShowAddMoneyModal] = useState(false)
     const [showWithdrawMoneyModal, setShowWithdrawMoneyModal] = useState(false)
+    const [showEditPotModal, setShowEditPotModal] = useState(false)
+    const [showDeletePotModal, setShowDeletePotModal] = useState(false)
+    const [showOptions, setShowOptions] = useState(0)
 
     useEffect(() => {
         console.log('Pots [Pots Page]:', pots)
@@ -35,10 +39,26 @@ const Pots = () => {
         setShowAddMoneyModal(true)
         setSelectedPot(pot)
     }
-    
+
     const handleShowWithdrawMoneyModal = (pot) => {
         setShowWithdrawMoneyModal(true)
         setSelectedPot(pot)
+    }
+
+    const handleShowEditPot = (pot) => {
+        setSelectedPot(pot)
+        setShowOptions(0)
+        setShowEditPotModal(true)
+    }
+
+    const handleShowDeletePot = (pot) => {
+        setSelectedPot(pot)
+        setShowOptions(0)
+        setShowDeletePotModal(true)
+    }
+
+    const handleShowOptions = (pot_id) => {
+        showOptions === pot_id ? setShowOptions(0) : setShowOptions(pot_id)
     }
 
     return (
@@ -53,7 +73,17 @@ const Pots = () => {
                                     <h2>{pot.pot_name}</h2>
                                 </CardTitleBox>
 
-                                <img src={OptionsIcon} alt="" />
+                                <CardOptionsContainer>
+                                    <img onClick={() => handleShowOptions(pot.pot_id)} src={OptionsIcon} alt="" />
+
+                                    {(showOptions !== 0 && showOptions === pot.pot_id) &&
+                                        <CardOptionsBox>
+                                            <Option onClick={() => handleShowEditPot(pot)}>Edit Pot</Option>
+                                            <hr />
+                                            <Option onClick={() => handleShowDeletePot(pot)} color='var(--red)'>Delete Pot</Option>
+                                        </CardOptionsBox>
+                                    }
+                                </CardOptionsContainer>
                             </CardHeader>
 
                             <CardContent>
@@ -97,19 +127,39 @@ const Pots = () => {
 
             {showAddMoneyModal &&
                 <Modal
-                    title={'Add to Savings'}
+                    title={`Add to "${selectedPot.pot_name}"`}
                     subtitle={'Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance.'}
                     closeModal={setShowAddMoneyModal}
                 >
                     <AddMoney pot={selectedPot} />
                 </Modal>
             }
-            
+
             {showWithdrawMoneyModal &&
                 <Modal
-                    title={'Withdraw from Savings'}
+                    title={`Withdraw from "${selectedPot.pot_name}"`}
                     subtitle={'Withdraw from your pot to put money back in your main balance. This will reduce the amount you have in this pot.'}
                     closeModal={setShowWithdrawMoneyModal}
+                >
+                    <WithdrawMoney pot={selectedPot} />
+                </Modal>
+            }
+
+            {showEditPotModal &&
+                <Modal
+                    title={'Edit Pot'}
+                    subtitle={'If your saving targets change, feel free to update your pots.'}
+                    closeModal={setShowEditPotModal}
+                >
+                    <EditPot pot={selectedPot} />
+                </Modal>
+            }
+
+            {showDeletePotModal &&
+                <Modal
+                    title={`Delete "${selectedPot.pot_name}"`}
+                    subtitle={'Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will be removed forever.'}
+                    closeModal={setShowDeletePotModal}
                 >
                     <WithdrawMoney pot={selectedPot} />
                 </Modal>
