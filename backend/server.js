@@ -21,6 +21,7 @@ app.post('/pots/delete', potController.deletePot);
 app.post('/pots/update-pot-money', potController.updateMoney);
 
 app.get('/budgets', budgetController.getBudgets);
+app.post('/budgets/post', budgetController.addBudget);
 
 app.get('/people', peopleController.getPeople);
 

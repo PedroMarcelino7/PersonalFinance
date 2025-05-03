@@ -4,9 +4,21 @@ import { Button, FormContainer } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { useModal } from '../modal'
 import DefaultSelect from '../../../ui/select/defaultSelect/defaultSelect'
+import { useBudgets } from '../../../contexts/budgetsContext'
 
 const AddNewBudget = () => {
     const { closeModal } = useModal()
+    const { refreshBudgets } = useBudgets()
+
+    const categories = [
+        'Entertainment',
+        'Bills',
+        'Groceries',
+        'Dining out',
+        'Transportation',
+        'Personal care',
+        'Education',
+    ]
 
     const themes = [
         { name: 'Green', color: '#2A7D72' },
@@ -14,30 +26,36 @@ const AddNewBudget = () => {
         { name: 'Blue', color: '#2980B9' },
     ]
 
+    const [category, setCategory] = useState(categories[0])
+    const [target, setTarget] = useState('')
     const [theme, setTheme] = useState(themes[0])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        console.log('Category:', category)
+        console.log('Target:', target)
         console.log('Theme:', theme.color)
 
         try {
-            const response = await fetch('http://localhost:3000/pots/post', {
+            const response = await fetch('http://localhost:3000/budgets/post', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    pot_target: target
+                    budget_name: category,
+                    budget_theme: theme.color,
+                    budget_max: target
                 })
             });
 
             const data = await response.json();
-            console.log('>>> Resposta Pot Post [Add Pots Modal]:', data);
+            console.log('>>> Resposta Budget Post [Add Budget Modal]:', data);
 
-            refreshPots()
+            refreshBudgets()
         } catch (error) {
-            console.error('Erro ao criar o pot:', error);
+            console.error('Erro ao criar o budget:', error);
         }
 
         closeModal()
@@ -45,9 +63,9 @@ const AddNewBudget = () => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultSelect label={'Theme'} setTheme={setTheme} data={themes} />
+            <DefaultSelect label={'Category'} setValue={setCategory} data={categories} />
 
-            {/* <DefaultInput label={'Target'} setValue={setTarget} placeholder={'$'} /> */}
+            <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
 

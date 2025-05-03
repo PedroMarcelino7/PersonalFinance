@@ -9,7 +9,20 @@ const getBudgets = (req, res) => {
     });
 };
 
+const addBudget = (req, res) => {
+    const values = req.body;
+
+    Budget.addBudget(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao adicionar budget' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getBudgets,
+    addBudget
 };
