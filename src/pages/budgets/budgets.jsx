@@ -10,9 +10,11 @@ import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 import { useBudgets } from '../../contexts/budgetsContext'
 import AddNewBudget from '../../components/modal/addNewBudget/addNewBudget'
 import Modal from '../../components/modal/modal'
+import { useCategories } from '../../contexts/categoriesContext'
 
 const Budgets = () => {
     const { budgets } = useBudgets()
+    const { categories } = useCategories()
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
 
     const chartData = () => {
@@ -79,7 +81,7 @@ const Budgets = () => {
                                                 <SummaryItem
                                                     theme={budget.budget_theme}
                                                 >
-                                                    <h4>{budget.budget_name}</h4>
+                                                    <h4>{categories.find((category) => category.category_id === budget.category_id)?.category_name}</h4>
 
                                                     <h3><span>${budget.budget_spent}</span> of ${budget.budget_max}</h3>
                                                 </SummaryItem>
@@ -98,7 +100,7 @@ const Budgets = () => {
                                 <CardHeader>
                                     <CardTitleBox>
                                         <Identifier theme={budget.budget_theme} />
-                                        <h2>{budget.budget_name}</h2>
+                                        <h2>{categories.find((category) => category.category_id === budget.category_id)?.category_name}</h2>
                                     </CardTitleBox>
 
                                     <img src={OptionsIcon} alt="" />

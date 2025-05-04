@@ -7,19 +7,22 @@ import { BudgetsProvider } from './contexts/budgetsContext.jsx'
 import { PeopleProvider } from './contexts/peopleContext.jsx'
 import { TransactionsProvider } from './contexts/transactionsContext.jsx'
 import { RecurringBillsProvider } from './contexts/recurringBillsContext.jsx'
+import { CategoriesProvider } from './contexts/categoriesContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <PotsProvider>
-      <BudgetsProvider>
-        <PeopleProvider>
-          <TransactionsProvider>
-            <RecurringBillsProvider>
-              <App />
-            </RecurringBillsProvider>
-          </TransactionsProvider>
-        </PeopleProvider>
-      </BudgetsProvider>
-    </PotsProvider>
+    <PeopleProvider>
+      <CategoriesProvider>
+        <PotsProvider>
+          <BudgetsProvider>
+            <TransactionsProvider>
+              <RecurringBillsProvider>
+                <App />
+              </RecurringBillsProvider>
+            </TransactionsProvider>
+          </BudgetsProvider>
+        </PotsProvider>
+      </CategoriesProvider>
+    </PeopleProvider>
   </StrictMode>,
 )
