@@ -5,10 +5,12 @@ import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { useModal } from '../modal'
 import DefaultSelect from '../../../ui/select/defaultSelect/defaultSelect'
 import { useBudgets } from '../../../contexts/budgetsContext'
+import { useCategories } from '../../../contexts/categoriesContext'
 
 const AddNewBudget = ({ data }) => {
     const { closeModal } = useModal()
     const { refreshBudgets } = useBudgets()
+    const { refreshCategories } = useCategories()
 
     const categories = data
         .filter(category => category.category_isUsed === 0)
@@ -49,6 +51,25 @@ const AddNewBudget = ({ data }) => {
             refreshBudgets()
         } catch (error) {
             console.error('Erro ao criar o budget:', error);
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/categories/edit-status', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    category_id: category
+                })
+            });
+
+            const data = await response.json();
+            console.log('>>> Resposta Category Post [Add Budget Modal]:', data);
+
+            refreshCategories()
+        } catch (error) {
+            console.error('Erro ao editar a category:', error);
         }
 
         closeModal()
