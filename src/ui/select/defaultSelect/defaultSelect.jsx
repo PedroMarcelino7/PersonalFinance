@@ -3,14 +3,14 @@ import { Container, Label, SelectBox, Selected, Options, Option, ColorDot, Chevr
 import SelectIcon from '../../../assets/images/icon-caret-down.svg'
 
 const DefaultSelect = ({ label = 'Category', value, setValue, data }) => {
-    const [selected, setSelected] = useState(data[0])
+    const [selected, setSelected] = useState(data[0].category_name)
     const [isOpen, setIsOpen] = useState(false)
 
     const toggleDropdown = () => setIsOpen(!isOpen)
 
     const handleSelect = (category) => {
-        setSelected(category)
-        setValue(category)
+        setSelected(category.category_name)
+        setValue(category.category_id)
         setIsOpen(false)
     }
 
@@ -29,8 +29,8 @@ const DefaultSelect = ({ label = 'Category', value, setValue, data }) => {
                 {isOpen && (
                     <Options>
                         {data.map((category) => (
-                            <Option key={category} onClick={() => handleSelect(category)}>
-                                {category}
+                            <Option key={category.category_id} onClick={() => handleSelect(category)}>
+                                {category.category_name}
                             </Option>
                         ))}
                     </Options>

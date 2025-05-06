@@ -201,7 +201,7 @@ const Budgets = () => {
                     subtitle={'Choose a category to set a spending budget. These categories can help you monitor spending.'}
                     closeModal={setShowAddBudgetModal}
                 >
-                    <AddNewBudget />
+                    <AddNewBudget data={categories} />
                 </Modal>
             }
         </>

@@ -6,19 +6,12 @@ import { useModal } from '../modal'
 import DefaultSelect from '../../../ui/select/defaultSelect/defaultSelect'
 import { useBudgets } from '../../../contexts/budgetsContext'
 
-const AddNewBudget = () => {
+const AddNewBudget = ({ data }) => {
     const { closeModal } = useModal()
     const { refreshBudgets } = useBudgets()
 
-    const categories = [
-        'Entertainment',
-        'Bills',
-        'Groceries',
-        'Dining out',
-        'Transportation',
-        'Personal care',
-        'Education',
-    ]
+    const categories = data
+        .filter(category => category.category_isUsed === 0)
 
     const themes = [
         { name: 'Green', color: '#2A7D72' },
@@ -26,7 +19,7 @@ const AddNewBudget = () => {
         { name: 'Blue', color: '#2980B9' },
     ]
 
-    const [category, setCategory] = useState(categories[0])
+    const [category, setCategory] = useState(categories[0].category_id)
     const [target, setTarget] = useState('')
     const [theme, setTheme] = useState(themes[0])
 
@@ -44,7 +37,7 @@ const AddNewBudget = () => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    budget_name: category,
+                    category_id: category,
                     budget_theme: theme.color,
                     budget_max: target
                 })
