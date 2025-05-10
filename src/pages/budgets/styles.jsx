@@ -147,6 +147,39 @@ export const Identifier = styled.div`
     background-color: ${({ theme }) => theme};
 `
 
+export const CardOptionsContainer = styled.div`
+    position: relative;
+    width: 100%;
+    text-align: end;
+`
+
+export const CardOptionsBox = styled.div`
+    position: absolute;
+    top: 75%;
+    right: 0;
+    background: #fff;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    box-shadow: 0 0 10px var(--light-gray);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    z-index: 1000;
+`
+
+export const Option = styled.button`
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    text-align: start;
+    padding: 0.5rem;
+    color: ${({color}) => color || 'var(--dark)'};
+    cursor: pointer;
+    font-weight: normal;
+`
+
 export const CardContent = styled.div`
     display: flex;
     flex-direction: column;

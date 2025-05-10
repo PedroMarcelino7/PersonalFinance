@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsBox, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, Option, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 import Chart from '../../components/chart/chart'
 import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
@@ -11,11 +11,32 @@ import { useBudgets } from '../../contexts/budgetsContext'
 import AddNewBudget from '../../components/modal/addNewBudget/addNewBudget'
 import Modal from '../../components/modal/modal'
 import { useCategories } from '../../contexts/categoriesContext'
+import EditBudget from '../../components/modal/editBudget/editBudget'
 
 const Budgets = () => {
     const { budgets } = useBudgets()
     const { categories } = useCategories()
+    const [selectedBudget, setSelectedBudget] = useState(budgets[0])
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
+    const [showOptions, setShowOptions] = useState(0)
+    const [showEditBudgetModal, setShowEditBudgetModal] = useState(false)
+    const [showDeleteBudgetModal, setShowDeleteBudgetModal] = useState(false)
+
+    const handleShowOptions = (budget_id) => {
+        showOptions === budget_id ? setShowOptions(0) : setShowOptions(budget_id)
+    }
+
+    const handleShowEditBudget = (budget) => {
+        setSelectedBudget(budget)
+        setShowOptions(0)
+        setShowEditBudgetModal(true)
+    }
+
+    const handleShowDeleteBudget = (budget) => {
+        setSelectedBudget(budget)
+        setShowOptions(0)
+        setShowDeleteBudgetModal(true)
+    }
 
     const chartData = () => {
         return budgets.filter((budget, index) => index < 6)
@@ -103,7 +124,17 @@ const Budgets = () => {
                                         <h2>{categories.find((category) => category.category_id === budget.category_id)?.category_name}</h2>
                                     </CardTitleBox>
 
-                                    <img src={OptionsIcon} alt="" />
+                                    <CardOptionsContainer>
+                                        <img onClick={() => handleShowOptions(budget.budget_id)} src={OptionsIcon} alt="" />
+
+                                        {(showOptions !== 0 && showOptions === budget.budget_id) &&
+                                            <CardOptionsBox>
+                                                <Option onClick={() => handleShowEditBudget(budget)}>Edit Budget</Option>
+                                                <hr />
+                                                <Option onClick={() => handleShowDeleteBudget(budget)} color='var(--red)'>Delete Budget</Option>
+                                            </CardOptionsBox>
+                                        }
+                                    </CardOptionsContainer>
                                 </CardHeader>
 
                                 <CardContent>
@@ -202,6 +233,16 @@ const Budgets = () => {
                     closeModal={setShowAddBudgetModal}
                 >
                     <AddNewBudget data={categories} />
+                </Modal>
+            }
+
+            {showEditBudgetModal &&
+                <Modal
+                    title={`Edit Budget`}
+                    subtitle={'As your budgets change, feel free to update your spending limits.'}
+                    closeModal={setShowEditBudgetModal}
+                >
+                    <EditBudget data={categories} budget={selectedBudget} />
                 </Modal>
             }
         </>
