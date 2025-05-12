@@ -38,10 +38,19 @@ const updateMoneyPot = (values, callback) => {
     `, [values.pot_quantity, values.pot_id], callback)
 }
 
+const updateQuickButtons = (values, callback) => {
+    db.query(`
+        update pots
+        set pot_quick_button = ?
+        where pot_id = ?
+    `, [values.pot_quick_button, values.pot_id], callback)
+}
+
 module.exports = {
     getAllPots,
     addNewPot,
     updateMoneyPot,
     editPotModel,
     deletePotModel,
+    updateQuickButtons
 };

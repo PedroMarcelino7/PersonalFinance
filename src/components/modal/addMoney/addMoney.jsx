@@ -12,17 +12,19 @@ const AddMoney = ({ pot }) => {
     const { closeModal } = useModal()
 
     const [amountToAdd, setAmountToAdd] = useState(0)
-    const [editQuickButtons, setEditQuickButtons] = useState(pot.pot_quick_button)
     const [showEditQuickButtons, setShowEditQuickButtons] = useState(false)
+    const [quickButtonByIndex, setQuickButtonByIndex] = useState([...pot.pot_quick_button])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log('Pot:', pot)
-        console.log('Amount to Add:', amountToAdd)
-
         const potQuantity = parseFloat(pot.pot_quantity) + parseFloat(amountToAdd)
 
+        console.log(`
+            >> Update Pot Money
+            Pot ID: ${pot.pot_id}
+            Pot Quantity: ${potQuantity}
+        `)
         try {
             const response = await fetch('http://localhost:3000/pots/update-pot-money', {
                 method: "POST",
@@ -43,17 +45,41 @@ const AddMoney = ({ pot }) => {
             console.error('Error on add money to pot:', error);
         }
 
+        console.log(`
+            >> Update Quick Buttons:
+            Pot ID: ${pot.pot_id}
+            Pot Quick Button: ${JSON.stringify(quickButtonByIndex)}
+        `)
+        try {
+            const response = await fetch('http://localhost:3000/pots/update-quick-buttons', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pot_id: pot.pot_id,
+                    pot_quick_button: JSON.stringify(quickButtonByIndex)
+                })
+            });
+
+            const data = await response.json();
+            console.log('>>> Resposta Pot Edit Quick Buttons [Add Money Modal]:', data);
+
+            refreshPots()
+        } catch (error) {
+            console.error('Error on edit quick button:', error);
+        }
+
         closeModal()
     }
 
     const getPercentage = (quantity, target) => {
         const percentage = (100 * quantity) / target;
-        if (percentage >= 100) return 100;
-        return percentage.toFixed(2);
+        return percentage >= 100 ? 100 : percentage.toFixed(2);
     };
 
     const quickButtonAmountToAdd = (value) => {
-        setAmountToAdd(amountToAdd + value)
+        setAmountToAdd(prev => prev + parseFloat(value))
     }
 
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);
@@ -63,11 +89,18 @@ const AddMoney = ({ pot }) => {
     const additionalPercentage = (newTotalPercentage - currentPercentage).toFixed(2);
 
     const saveQuickButtonsValue = () => {
-        setEditQuickButtons()
+        console.log('New Quick Buttons:', quickButtonByIndex)
+        setShowEditQuickButtons(false)
+    }
+
+    const handleQuickButtonChange = (index, value) => {
+        const newValues = [...quickButtonByIndex]
+        newValues[index] = value
+        setQuickButtonByIndex(newValues)
     }
 
     return (
-        <FormContainer onSubmit={(e) => handleSubmit(e)}>
+        <FormContainer onSubmit={handleSubmit}>
             <AmountContainer>
                 <AmountBox>
                     <h3>New Amount</h3>
@@ -92,41 +125,51 @@ const AddMoney = ({ pot }) => {
             />
 
             <QuickButtonsContainer>
-                {showEditQuickButtons
-                    ? <>
+                {showEditQuickButtons ? (
+                    <>
                         <QuickButtonsBox>
-                            {pot.pot_quick_button.map((quickButton) => (
-                                <QuickButtonInput type='text' placeholder={quickButton} />
+                            {quickButtonByIndex.map((value, index) => (
+                                <QuickButtonInput
+                                    key={index}
+                                    type='text'
+                                    value={value}
+                                    onChange={(e) => handleQuickButtonChange(index, e.target.value)}
+                                    placeholder={`Button ${index + 1}`}
+                                />
                             ))}
                         </QuickButtonsBox>
 
                         <QuickButtonsActions>
                             <QuickButton onClick={saveQuickButtonsValue} type='button' color='var(--green)'>
-                                <img src={SaveIcon} alt="" />
+                                <img src={SaveIcon} alt="Save" />
                             </QuickButton>
                         </QuickButtonsActions>
                     </>
-                    : <>
+                ) : (
+                    <>
                         <QuickButtonsBox>
-                            {pot.pot_quick_button.map((quickButton) => (
-                                <QuickButton type='button' onClick={() => quickButtonAmountToAdd(quickButton)}>
-                                    +{quickButton}
+                            {quickButtonByIndex.map((value, index) => (
+                                <QuickButton
+                                    key={index}
+                                    type='button'
+                                    onClick={() => quickButtonAmountToAdd(value)}
+                                >
+                                    +{value}
                                 </QuickButton>
                             ))}
                         </QuickButtonsBox>
 
                         <QuickButtonsActions>
                             <QuickButton onClick={() => setAmountToAdd(0)} type='button' color='var(--red)'>
-                                <img src={DeleteIcon} alt="" />
+                                <img src={DeleteIcon} alt="Clear" />
                             </QuickButton>
 
                             <QuickButton onClick={() => setShowEditQuickButtons(true)} type='button' color='var(--cyan)'>
-                                <img src={EditIcon} alt="" />
+                                <img src={EditIcon} alt="Edit" />
                             </QuickButton>
                         </QuickButtonsActions>
                     </>
-
-                }
+                )}
             </QuickButtonsContainer>
 
             <Button>Confirm Addition</Button>

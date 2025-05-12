@@ -20,6 +20,7 @@ app.post('/pots/post', potController.addPot);
 app.post('/pots/edit', potController.editPot);
 app.post('/pots/delete', potController.deletePot);
 app.post('/pots/update-pot-money', potController.updateMoney);
+app.post('/pots/update-quick-buttons', potController.updateQuickButtons);
 
 app.get('/budgets', budgetController.getBudgets);
 app.post('/budgets/post', budgetController.addBudget);

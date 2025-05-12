@@ -57,6 +57,18 @@ const updateMoney = (req, res) => {
     });
 }
 
+const updateQuickButtons = (req, res) => {
+    const values = req.body;
+
+    Pot.updateQuickButtons(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Error on edit quick buttons' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getPots,
@@ -64,4 +76,5 @@ module.exports = {
     updateMoney,
     editPot,
     deletePot,
+    updateQuickButtons
 };
