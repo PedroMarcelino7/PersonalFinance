@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Button, Card, CardButtons, CardContent, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitleBox, Identifier, Option, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
+import { Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, Identifier, Option, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
 import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import { usePots } from '../../contexts/potsContext'
 import Modal from '../../components/modal/modal'
@@ -14,6 +14,7 @@ const Pots = () => {
     const { pots } = usePots()
 
     const [selectedPot, setSelectedPot] = useState(pots[0])
+
     const [showAddPotModal, setShowAddPotModal] = useState(false)
     const [showAddMoneyModal, setShowAddMoneyModal] = useState(false)
     const [showWithdrawMoneyModal, setShowWithdrawMoneyModal] = useState(false)
@@ -30,6 +31,14 @@ const Pots = () => {
         const target = Number(pot.pot_target);
 
         return ((quantity * 100) / target).toFixed(2)
+    }
+
+    const dateFormatter = (date) => {
+        const year = date.slice(0, 4)
+        const month = date.slice(5, 7)
+        const day = date.slice(8, 10)
+
+        return `${day}/${month}/${year}`
     }
 
     const handleShowAddPotModal = () => {
@@ -70,8 +79,14 @@ const Pots = () => {
                         <Card key={index}>
                             <CardHeader>
                                 <CardTitleBox>
-                                    <Identifier theme={pot.pot_theme} />
-                                    <h2>{pot.pot_name}</h2>
+                                    <CardTitle>
+                                        <Identifier theme={pot.pot_theme} />
+                                        <h2>{pot.pot_name}</h2>
+                                    </CardTitle>
+
+                                    <CardDateBox>
+                                        <h3>{dateFormatter(new Date(pot.pot_date).toISOString().split('T')[0])}</h3>
+                                    </CardDateBox>
                                 </CardTitleBox>
 
                                 <CardOptionsContainer>

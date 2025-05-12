@@ -29,6 +29,12 @@ export const CardHeader = styled.div`
 
 export const CardTitleBox = styled.div`
     display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+`
+
+export const CardTitle = styled.div`
+    display: flex;
     align-items: center;
     gap: 1rem;
 
@@ -38,6 +44,13 @@ export const CardTitleBox = styled.div`
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+`
+
+export const CardDateBox = styled.div`
+    h3 {
+        font-size: 0.75rem;
+        color: var(--dark);
     }
 `
 
@@ -76,7 +89,7 @@ export const Option = styled.button`
     font-size: 1rem;
     text-align: start;
     padding: 0.5rem;
-    color: ${({color}) => color || 'var(--dark)'};
+    color: ${({ color }) => color || 'var(--dark)'};
     cursor: pointer;
     font-weight: normal;
 `

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewProgress, ProgressBarBox, ProgressValues } from './styles'
+import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewProgress, ProgressBarBox, ProgressValues, QuickButton, QuickButtonsActions, QuickButtonsBox, QuickButtonsContainer } from './styles'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
 import DefaultInput from '../../input/defaultInput/defaultInput'
+import DeleteIcon from '../../../assets/images/trash-solid.svg'
+import EditIcon from '../../../assets/images/icon-edit.svg'
 
 const WithdrawMoney = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -47,6 +49,10 @@ const WithdrawMoney = ({ pot }) => {
         return percentage.toFixed(2);
     };
 
+    const quickButtonAmountToWithdraw = (value) => {
+        setAmountToWithdraw(amountToWithdraw + value)
+    }
+
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);
     const newTotalQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToWithdraw);
     const newTotalPercentage = getPercentage(newTotalQuantity, pot.pot_target);
@@ -75,6 +81,19 @@ const WithdrawMoney = ({ pot }) => {
                 placeholder={'$'}
                 setValue={setAmountToWithdraw}
             />
+
+            <QuickButtonsContainer>
+                <QuickButtonsBox>
+                    {pot.pot_quick_button.map((quickButton) => (
+                        <QuickButton type='button' onClick={() => quickButtonAmountToWithdraw(quickButton)}>-{quickButton}</QuickButton>
+                    ))}
+                </QuickButtonsBox>
+
+                <QuickButtonsActions>
+                    <QuickButton onClick={() => setAmountToWithdraw(0)} type='button' color='var(--red)'><img src={DeleteIcon} alt="" /></QuickButton>
+                    <QuickButton type='button' color='var(--cyan)'><img src={EditIcon} alt="" /></QuickButton>
+                </QuickButtonsActions>
+            </QuickButtonsContainer>
 
             <Button>Confirm Withdraw</Button>
         </FormContainer>

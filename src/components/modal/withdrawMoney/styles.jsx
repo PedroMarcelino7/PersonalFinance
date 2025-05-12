@@ -89,3 +89,42 @@ export const ProgressValues = styled.div`
         font-weight: lighter;
     }
 `
+
+export const QuickButtonsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+`
+
+export const QuickButtonsBox = styled.div`
+    width: 70%;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+`
+
+export const QuickButtonsActions = styled.div`
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 0.25rem;
+`
+
+export const QuickButton = styled.button`
+    width: 100%;
+    border: none;
+    background-color: ${({ color }) => color || 'var(--dark)'};
+    color: var(--white);
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+
+    img {
+        width: 1rem;
+        height: 1rem;
+    }
+`

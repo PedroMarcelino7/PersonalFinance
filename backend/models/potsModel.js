@@ -1,7 +1,7 @@
 const db = require('../db');
 
 const getAllPots = (callback) => {
-    db.query('select * from pots order by pot_quantity desc', callback);
+    db.query('select * from pots order by pot_date', callback);
 };
 
 const addNewPot = (values, callback) => {
