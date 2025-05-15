@@ -7,9 +7,9 @@ const getAllPots = (callback) => {
 const addNewPot = (values, callback) => {
     db.query(`
         insert into
-        pots (pot_name, pot_theme, pot_target)
-        values (?, ?, ?) 
-    `, [values.pot_name, values.pot_theme, values.pot_target], callback)
+        pots (pot_name, pot_theme, pot_target, pot_date, pot_link, pot_quick_button)
+        values (?, ?, ?, ?, ?, '[10, 50, 100]') 
+    `, [values.pot_name, values.pot_theme, values.pot_target, values.pot_date, values.pot_link], callback)
 }
 
 const editPotModel = (values, callback) => {

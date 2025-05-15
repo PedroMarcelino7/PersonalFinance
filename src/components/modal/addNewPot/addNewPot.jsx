@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import DefaultInput from '../../input/defaultInput/defaultInput'
-import { Button, FormContainer } from './styles'
+import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
+import IconCalendar from '../../../assets/images/icon-calendar.svg'
 
 const AddNewPot = () => {
     const { refreshPots } = usePots()
@@ -17,7 +18,10 @@ const AddNewPot = () => {
 
     const [name, setName] = useState('')
     const [target, setTarget] = useState(0)
+    const [link, setLink] = useState('')
+    const [date, setDate] = useState('31/12/2025')
     const [theme, setTheme] = useState(themes[0])
+    const dateInputRef = useRef(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,7 +39,9 @@ const AddNewPot = () => {
                 body: JSON.stringify({
                     pot_name: name,
                     pot_theme: theme.color,
-                    pot_target: target
+                    pot_target: target,
+                    pot_date: date,
+                    pot_link: link,
                 })
             });
 
@@ -50,11 +56,47 @@ const AddNewPot = () => {
         closeModal()
     }
 
+    useEffect(() => {
+        const today = new Date()
+        const day = today.getDate()
+
+        const monthAux = today.getMonth() + 1
+        const month = monthAux < 10 ? `0${monthAux}` : monthAux
+
+        const year = today.getFullYear()
+
+        setDate(`${day}/${month}/${year}`)
+    }, [])
+
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
             <DefaultInput label={'Pot Name'} setValue={setName} />
 
             <DefaultInput label={'Target'} setValue={setTarget} placeholder={'$'} />
+
+            <AditionalInfoContainer>
+                <LinkInputBox>
+                    <DefaultInput
+                        label={'Link'}
+                        setValue={setLink}
+                    />
+                </LinkInputBox>
+
+                <CalendarBox>
+                    <Calendar
+                        src={IconCalendar}
+                        alt=""
+                    />
+
+                    <CalendarInput
+                        type="date"
+                        ref={dateInputRef}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
+
+                    <DateSelected>{date}</DateSelected>
+                </CalendarBox>
+            </AditionalInfoContainer>
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
 
