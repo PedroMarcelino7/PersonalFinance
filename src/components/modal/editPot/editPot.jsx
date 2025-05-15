@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import DefaultInput from '../../input/defaultInput/defaultInput'
-import { Button, FormContainer } from './styles'
+import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
+import IconCalendar from '../../../assets/images/icon-calendar.svg'
 
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -17,7 +18,10 @@ const EditPot = ({ pot }) => {
 
     const [name, setName] = useState(pot.pot_name)
     const [target, setTarget] = useState(pot.pot_target)
+    const [link, setLink] = useState(pot.pot_link)
+    const [date, setDate] = useState(dateFormatter(pot.pot_date))
     const [theme, setTheme] = useState(pot.pot_theme)
+    const dateInputRef = useRef(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -51,11 +55,44 @@ const EditPot = ({ pot }) => {
         closeModal()
     }
 
+    function dateFormatter(date) {
+        const year = date.slice(0, 4)
+        const month = date.slice(5, 7)
+        const day = date.slice(8, 10)
+
+        return `${day}/${month}/${year}`
+    }
+
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
             <DefaultInput label={'Pot Name'} value={name} setValue={setName} />
 
             <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
+
+            <AditionalInfoContainer>
+                <LinkInputBox>
+                    <DefaultInput
+                        label={'Link'}
+                        value={link}
+                        setValue={setLink}
+                    />
+                </LinkInputBox>
+
+                <CalendarBox>
+                    <Calendar
+                        src={IconCalendar}
+                        alt=""
+                    />
+
+                    <CalendarInput
+                        type="date"
+                        ref={dateInputRef}
+                        onChange={(e) => setDate(e.target.value)}
+                    />
+
+                    <DateSelected>{date}</DateSelected>
+                </CalendarBox>
+            </AditionalInfoContainer>
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
 
