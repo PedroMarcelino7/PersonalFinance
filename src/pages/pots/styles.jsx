@@ -72,15 +72,20 @@ export const CardOptionsBox = styled.div`
     top: 75%;
     right: 0;
     background: #fff;
-    padding-block: 0.5rem;
-    padding-inline: 1rem;
+    padding-inline: 0.5rem;
     box-shadow: 0 0 10px var(--light-gray);
     border-radius: 10px;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
     gap: 0.25rem;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 35px;
+    }
 `
 
 export const Option = styled.button`

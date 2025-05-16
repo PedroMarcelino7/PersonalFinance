@@ -10,6 +10,8 @@ import AddMoney from '../../components/modal/addMoney/addMoney'
 import WithdrawMoney from '../../components/modal/withdrawMoney/withdrawMoney'
 import EditPot from '../../components/modal/editPot/editPot'
 import DeletePot from '../../components/modal/deletePot/deletePot'
+import IconDelete from '../../assets/images/trash-solid-red.svg'
+import IconEdit from '../../assets/images/icon-edit-blue.svg'
 
 const Pots = () => {
     const { pots } = usePots()
@@ -95,9 +97,9 @@ const Pots = () => {
 
                                     {(showOptions !== 0 && showOptions === pot.pot_id) &&
                                         <CardOptionsBox>
-                                            <Option onClick={() => handleShowEditPot(pot)}>Edit Pot</Option>
-                                            <hr />
-                                            <Option onClick={() => handleShowDeletePot(pot)} color='var(--red)'>Delete Pot</Option>
+                                            <img style={{ width: '35px' }} src={IconLink} alt="" />
+                                            <img onClick={() => handleShowEditPot(pot)} style={{ width: '35px' }} src={IconEdit} alt="" />
+                                            <img onClick={() => handleShowDeletePot(pot)} style={{ width: '30px' }} src={IconDelete} alt="" />
                                         </CardOptionsBox>
                                     }
                                 </CardOptionsContainer>
