@@ -28,9 +28,15 @@ const AddNewPot = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log('Pot name:', name)
-        console.log('Target:', target)
-        console.log('Theme:', theme)
+        console.log(`
+            Pot to ADD
+    
+            Name: ${name}
+            Target: ${target}
+            Date: ${date}
+            Link: ${link}
+            Theme ID: ${theme}
+        `)
 
         try {
             const response = await fetch('http://localhost:3000/pots/post', {
@@ -40,10 +46,10 @@ const AddNewPot = () => {
                 },
                 body: JSON.stringify({
                     pot_name: name,
-                    pot_theme: theme,
                     pot_target: target,
                     pot_date: date,
                     pot_link: link,
+                    theme_id: theme,
                 })
             });
 
