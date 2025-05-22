@@ -83,7 +83,7 @@ const Pots = () => {
                             <CardHeader>
                                 <CardTitleBox>
                                     <CardTitle>
-                                        <Identifier theme={pot.pot_theme} />
+                                        <Identifier theme={pot.theme_color} />
                                         <h2>{pot.pot_name}</h2>
                                     </CardTitle>
 
@@ -114,7 +114,7 @@ const Pots = () => {
 
                                 <ProgressBox>
                                     <ProgressBar>
-                                        <Progress width={getPercentage(pot)} theme={pot.pot_theme} />
+                                        <Progress width={getPercentage(pot)} theme={pot.theme_color} />
                                     </ProgressBar>
                                 </ProgressBox>
 
