@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import DefaultInput from '../../input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
@@ -62,6 +62,19 @@ const EditPot = ({ pot }) => {
 
         return `${day}/${month}/${year}`
     }
+
+    useEffect(() => {
+        console.log(`
+        Pot to edit
+
+        ID: ${pot.pot_id}
+        Name: ${pot.pot_name}
+        Target: ${pot.pot_target}
+        Link: ${pot.pot_link}
+        Data: ${pot.pot_date}
+        Theme: ${pot.pot_theme}
+        `)
+    }, [])
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>

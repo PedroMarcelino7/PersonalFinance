@@ -1,7 +1,18 @@
 const db = require('../db');
 
 const getAllPots = (callback) => {
-    db.query('select * from pots order by pot_date', callback);
+    db.query(`
+    select
+        pots.*, themes.theme_name, themes.theme_color
+    from
+        pots
+    join
+        themes
+    on 
+        pots.theme_id = themes.theme_id
+    order by
+        pot_date    
+    `, callback);
 };
 
 const addNewPot = (values, callback) => {
