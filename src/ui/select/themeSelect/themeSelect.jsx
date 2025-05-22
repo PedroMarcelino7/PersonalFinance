@@ -10,7 +10,7 @@ const ThemeSelect = ({ label = 'Theme', value, setTheme, data }) => {
 
     const handleSelect = (theme) => {
         setSelected(theme)
-        setTheme(theme)
+        setTheme(theme.theme_id)
         setIsOpen(false)
     }
 
@@ -21,8 +21,8 @@ const ThemeSelect = ({ label = 'Theme', value, setTheme, data }) => {
             <SelectBox onClick={toggleDropdown}>
                 <Selected>
                     <ThemeBox>
-                        <ColorDot color={selected.color} />
-                        <h1>{selected.name}</h1>
+                        <ColorDot color={selected.theme_color} />
+                        <h1>{selected.theme_name}</h1>
                     </ThemeBox>
 
                     <ChevronIcon src={SelectIcon} alt='' />
@@ -30,9 +30,9 @@ const ThemeSelect = ({ label = 'Theme', value, setTheme, data }) => {
                 {isOpen && (
                     <Options>
                         {data.map((theme) => (
-                            <Option key={theme.name} onClick={() => handleSelect(theme)}>
-                                <ColorDot color={theme.color} />
-                                {theme.name}
+                            <Option key={theme.theme_id} onClick={() => handleSelect(theme)}>
+                                <ColorDot color={theme.theme_color} />
+                                {theme.theme_name}
                             </Option>
                         ))}
                     </Options>

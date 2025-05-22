@@ -3,18 +3,20 @@ import DefaultInput from '../../input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../contexts/potsContext'
+import { useThemes } from '../../../contexts/themesContext'
 import { useModal } from '../modal'
 import IconCalendar from '../../../assets/images/icon-calendar.svg'
 
 const AddNewPot = () => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
+    const { themes } = useThemes()
 
-    const themes = [
-        { name: 'Green', color: '#2A7D72' },
-        { name: 'Red', color: '#C0392B' },
-        { name: 'Blue', color: '#2980B9' },
-    ]
+    // const themes = [
+    //     { name: 'Green', color: '#2A7D72' },
+    //     { name: 'Red', color: '#C0392B' },
+    //     { name: 'Blue', color: '#2980B9' },
+    // ]
 
     const [name, setName] = useState('')
     const [target, setTarget] = useState(0)
@@ -28,7 +30,7 @@ const AddNewPot = () => {
 
         console.log('Pot name:', name)
         console.log('Target:', target)
-        console.log('Theme:', theme.color)
+        console.log('Theme:', theme)
 
         try {
             const response = await fetch('http://localhost:3000/pots/post', {
@@ -38,7 +40,7 @@ const AddNewPot = () => {
                 },
                 body: JSON.stringify({
                     pot_name: name,
-                    pot_theme: theme.color,
+                    pot_theme: theme,
                     pot_target: target,
                     pot_date: date,
                     pot_link: link,
