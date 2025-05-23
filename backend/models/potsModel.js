@@ -16,11 +16,45 @@ const getAllPots = (callback) => {
 };
 
 const addNewPot = (values, callback) => {
-    db.query(`
-        insert into
-        pots (pot_name, pot_target, pot_date, pot_link, pot_quick_button, theme_id)
-        values (?, ?, ?, ?, '[10, 50, 100]', ?)
-    `, [values.pot_name, values.pot_target, values.pot_date, values.pot_link, values.theme_id], callback)
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const insertPotQuery = `
+            INSERT INTO pots (pot_name, pot_target, pot_date, pot_link, pot_quick_button, theme_id)
+            VALUES (?, ?, ?, ?, '[10, 50, 100]', ?)
+        `;
+        const potValues = [
+            values.pot_name,
+            values.pot_target,
+            values.pot_date,
+            values.pot_link,
+            values.theme_id,
+        ];
+
+        db.query(insertPotQuery, potValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const updateThemeQuery = `
+                UPDATE themes SET theme_isUsed = 1 WHERE theme_id = ?
+            `;
+
+            db.query(updateThemeQuery, [values.theme_id], (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                db.commit((err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    callback(null, { pot: result.insertId, updatedTheme: values.theme_id });
+                });
+            });
+        });
+    });
+
+    // db.query(`
+    //     insert into
+    //     pots (pot_name, pot_target, pot_date, pot_link, pot_quick_button, theme_id)
+    //     values (?, ?, ?, ?, '[10, 50, 100]', ?)
+    // `, [values.pot_name, values.pot_target, values.pot_date, values.pot_link, values.theme_id], callback)
 }
 
 const editPotModel = (values, callback) => {

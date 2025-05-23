@@ -10,13 +10,7 @@ import IconCalendar from '../../../assets/images/icon-calendar.svg'
 const AddNewPot = () => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
-    const { themes } = useThemes()
-
-    // const themes = [
-    //     { name: 'Green', color: '#2A7D72' },
-    //     { name: 'Red', color: '#C0392B' },
-    //     { name: 'Blue', color: '#2980B9' },
-    // ]
+    const { themes, refreshThemes } = useThemes()
 
     const [name, setName] = useState('')
     const [target, setTarget] = useState(0)
@@ -56,11 +50,12 @@ const AddNewPot = () => {
             const data = await response.json();
             console.log('>>> Resposta Pot Post [Add Pots Modal]:', data);
 
-            refreshPots()
         } catch (error) {
             console.error('Erro ao criar o pot:', error);
         }
-
+        
+        refreshThemes()
+        refreshPots()
         closeModal()
     }
 

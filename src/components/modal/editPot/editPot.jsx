@@ -5,16 +5,18 @@ import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
 import IconCalendar from '../../../assets/images/icon-calendar.svg'
+import { useThemes } from '../../../contexts/themesContext'
 
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
+    const { themes } = useThemes()
 
-    const themes = [
-        { name: 'Green', color: '#2A7D72' },
-        { name: 'Red', color: '#C0392B' },
-        { name: 'Blue', color: '#2980B9' },
-    ]
+    // const themes = [
+    //     { name: 'Green', color: '#2A7D72' },
+    //     { name: 'Red', color: '#C0392B' },
+    //     { name: 'Blue', color: '#2980B9' },
+    // ]
 
     const [name, setName] = useState(pot.pot_name)
     const [target, setTarget] = useState(pot.pot_target)
