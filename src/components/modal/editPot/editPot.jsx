@@ -10,27 +10,30 @@ import { useThemes } from '../../../contexts/themesContext'
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
-    const { themes } = useThemes()
-
-    // const themes = [
-    //     { name: 'Green', color: '#2A7D72' },
-    //     { name: 'Red', color: '#C0392B' },
-    //     { name: 'Blue', color: '#2980B9' },
-    // ]
+    const { themes, refreshThemes } = useThemes()
 
     const [name, setName] = useState(pot.pot_name)
     const [target, setTarget] = useState(pot.pot_target)
     const [link, setLink] = useState(pot.pot_link)
     const [date, setDate] = useState(dateFormatter(pot.pot_date))
-    const [theme, setTheme] = useState(pot.pot_theme)
+    const [theme, setTheme] = useState(pot.theme_id)
+    const oldTheme = pot.theme_id
     const dateInputRef = useRef(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log('Pot name:', name)
-        console.log('Target:', target)
-        console.log('Theme:', theme.color)
+        console.log(`
+            Pot to EDIT
+    
+            Name: ${name}
+            Target: ${target}
+            Link: ${link}
+            Date: ${date}
+            Theme ID: ${theme}
+            Old theme: ${oldTheme}
+            Pot ID: ${pot.pot_id}
+        `)
 
         try {
             const response = await fetch('http://localhost:3000/pots/edit', {
@@ -40,8 +43,11 @@ const EditPot = ({ pot }) => {
                 },
                 body: JSON.stringify({
                     pot_name: name,
-                    pot_theme: theme.color,
                     pot_target: target,
+                    pot_link: link,
+                    pot_date: date,
+                    theme_id: theme,
+                    oldTheme: oldTheme,
                     pot_id: pot.pot_id
                 })
             });
@@ -49,11 +55,12 @@ const EditPot = ({ pot }) => {
             const data = await response.json();
             console.log('>>> Resposta Pot Post [Edit Pots Modal]:', data);
 
-            refreshPots()
         } catch (error) {
             console.error('Erro ao editar o pot:', error);
         }
 
+        refreshThemes()
+        refreshPots()
         closeModal()
     }
 
@@ -74,8 +81,10 @@ const EditPot = ({ pot }) => {
         Target: ${pot.pot_target}
         Link: ${pot.pot_link}
         Data: ${pot.pot_date}
-        Theme: ${pot.pot_theme}
+        Theme: ${pot.theme_id}
         `)
+
+        console.log(pot)
     }, [])
 
     return (

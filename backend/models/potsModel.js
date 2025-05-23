@@ -23,6 +23,7 @@ const addNewPot = (values, callback) => {
             INSERT INTO pots (pot_name, pot_target, pot_date, pot_link, pot_quick_button, theme_id)
             VALUES (?, ?, ?, ?, '[10, 50, 100]', ?)
         `;
+
         const potValues = [
             values.pot_name,
             values.pot_target,
@@ -49,23 +50,83 @@ const addNewPot = (values, callback) => {
             });
         });
     });
-
-    // db.query(`
-    //     insert into
-    //     pots (pot_name, pot_target, pot_date, pot_link, pot_quick_button, theme_id)
-    //     values (?, ?, ?, ?, '[10, 50, 100]', ?)
-    // `, [values.pot_name, values.pot_target, values.pot_date, values.pot_link, values.theme_id], callback)
 }
 
 const editPotModel = (values, callback) => {
-    db.query(`
-        update pots
-        set
-            pot_name = ?,
-            pot_target = ?,
-            pot_theme = ?
-        where pot_id = ?
-    `, [values.pot_name, values.pot_target, values.pot_theme, values.pot_id], callback)
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const editPotQuery = `
+            update
+                pots
+            set
+                pot_name = ?,
+                pot_target = ?,
+                pot_link = ?,
+                pot_date = ?,
+                theme_id = ?
+            where
+                pot_id = ?;
+        `
+
+        const potValues = [
+            values.pot_name,
+            values.pot_target,
+            values.pot_link,
+            values.pot_date,
+            values.theme_id,
+            values.pot_id
+        ]
+
+        db.query(editPotQuery, potValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const updateNewTheme = `
+            update
+                themes
+            set
+                theme_isUsed = 1
+            where
+                theme_id = ?
+        `;
+        
+            db.query(updateNewTheme, [values.theme_id], (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                const updateOldTheme = `
+                update
+                    themes
+                set
+                    theme_isUsed = 0
+                where
+                    theme_id = ?
+            `;
+
+                db.query(updateOldTheme, [values.oldTheme], (err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    db.commit((err) => {
+                        if (err) return db.rollback(() => callback(err));
+
+                        callback(null, { updatedPot: values.pot_id, updatedTheme: values.theme_id });
+                    });
+                });
+            });
+        });
+    });
+
+    // db.query(`
+    //     update
+    //         pots
+    //     set
+    //         pot_name = ?,
+    //         pot_target = ?,
+    //         pot_link = ?,
+    //         pot_date = ?,
+    //         theme_id = ?
+    //     where
+    //         pot_id = ?;
+    // `, [values.pot_name, values.pot_target, values.pot_link, values.pot_date, values.theme_id, values.pot_id], callback)
 }
 
 const deletePotModel = (values, callback) => {
