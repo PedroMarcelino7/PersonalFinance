@@ -89,7 +89,7 @@ const editPotModel = (values, callback) => {
             where
                 theme_id = ?
         `;
-        
+
             db.query(updateNewTheme, [values.theme_id], (err) => {
                 if (err) return db.rollback(() => callback(err));
 
@@ -114,27 +114,44 @@ const editPotModel = (values, callback) => {
             });
         });
     });
-
-    // db.query(`
-    //     update
-    //         pots
-    //     set
-    //         pot_name = ?,
-    //         pot_target = ?,
-    //         pot_link = ?,
-    //         pot_date = ?,
-    //         theme_id = ?
-    //     where
-    //         pot_id = ?;
-    // `, [values.pot_name, values.pot_target, values.pot_link, values.pot_date, values.theme_id, values.pot_id], callback)
 }
 
 const deletePotModel = (values, callback) => {
-    db.query(`
-        delete from pots
-        where pot_id = ?
-    `, [values.pot_id], callback)
-}
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const deletePotQuery = `
+            DELETE FROM pots
+            WHERE pot_id = ?;
+        `;
+        const potValues = [values.pot_id];
+
+        db.query(deletePotQuery, potValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const updateThemeQuery = `
+                UPDATE themes
+                SET theme_isUsed = 0
+                WHERE theme_id = ?;
+            `;
+            const themeValues = [values.theme_id];
+
+            db.query(updateThemeQuery, themeValues, (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                db.commit((err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    callback(null, {
+                        pot: values.pot_id,
+                        updatedTheme: values.theme_id
+                    });
+                });
+            });
+        });
+    });
+};
+
 
 const updateMoneyPot = (values, callback) => {
     db.query(`

@@ -16,7 +16,7 @@ const EditPot = ({ pot }) => {
     const [target, setTarget] = useState(pot.pot_target)
     const [link, setLink] = useState(pot.pot_link)
     const [date, setDate] = useState(dateFormatter(pot.pot_date))
-    const [theme, setTheme] = useState(pot.theme_id)
+    const [theme, setTheme] = useState(themes[0].theme_id)
     const oldTheme = pot.theme_id
     const dateInputRef = useRef(null)
 
@@ -69,7 +69,7 @@ const EditPot = ({ pot }) => {
         const month = date.slice(5, 7)
         const day = date.slice(8, 10)
 
-        return `${day}/${month}/${year}`
+        return `${year}-${month}-${day}`
     }
 
     useEffect(() => {
@@ -89,9 +89,20 @@ const EditPot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultInput label={'Pot Name'} value={name} setValue={setName} />
+            <DefaultInput
+                label={'Pot Name'}
+                value={name}
+                setValue={setName}
+                required={true}
+            />
 
-            <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
+            <DefaultInput
+                label={'Target'}
+                value={target}
+                setValue={setTarget}
+                placeholder={'$ 0.00'}
+                required={true}
+            />
 
             <AditionalInfoContainer>
                 <LinkInputBox>
@@ -99,6 +110,7 @@ const EditPot = ({ pot }) => {
                         label={'Link'}
                         value={link}
                         setValue={setLink}
+                        placeholder={'https://'}
                     />
                 </LinkInputBox>
 

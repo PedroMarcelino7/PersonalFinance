@@ -6,6 +6,13 @@ export const Container = styled.div`
     gap: 0.5rem;
 `
 
+export const LabelSpan = styled.span`
+    margin-left: 3px;
+    font-size: 1rem;
+    line-height: 0;
+    color: var(--red);
+`
+
 export const Label = styled.label`
     font-size: 0.9rem;
     font-weight: bold;

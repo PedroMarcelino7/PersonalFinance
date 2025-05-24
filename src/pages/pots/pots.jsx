@@ -144,26 +144,6 @@ const Pots = () => {
                 </Modal>
             }
 
-            {showAddMoneyModal &&
-                <Modal
-                    title={`Add to "${selectedPot.pot_name}"`}
-                    subtitle={'Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance.'}
-                    closeModal={setShowAddMoneyModal}
-                >
-                    <AddMoney pot={selectedPot} />
-                </Modal>
-            }
-
-            {showWithdrawMoneyModal &&
-                <Modal
-                    title={`Withdraw from "${selectedPot.pot_name}"`}
-                    subtitle={'Withdraw from your pot to put money back in your main balance. This will reduce the amount you have in this pot.'}
-                    closeModal={setShowWithdrawMoneyModal}
-                >
-                    <WithdrawMoney pot={selectedPot} />
-                </Modal>
-            }
-
             {showEditPotModal &&
                 <Modal
                     title={'Edit Pot'}
@@ -181,6 +161,26 @@ const Pots = () => {
                     closeModal={setShowDeletePotModal}
                 >
                     <DeletePot pot={selectedPot} />
+                </Modal>
+            }
+
+            {showAddMoneyModal &&
+                <Modal
+                    title={`Add to "${selectedPot.pot_name}"`}
+                    subtitle={'Add money to your pot to keep it separate from your main balance. As soon as you add this money, it will be deducted from your current balance.'}
+                    closeModal={setShowAddMoneyModal}
+                >
+                    <AddMoney pot={selectedPot} />
+                </Modal>
+            }
+
+            {showWithdrawMoneyModal &&
+                <Modal
+                    title={`Withdraw from "${selectedPot.pot_name}"`}
+                    subtitle={'Withdraw from your pot to put money back in your main balance. This will reduce the amount you have in this pot.'}
+                    closeModal={setShowWithdrawMoneyModal}
+                >
+                    <WithdrawMoney pot={selectedPot} />
                 </Modal>
             }
         </>

@@ -15,8 +15,8 @@ const AddNewPot = () => {
     const [name, setName] = useState('')
     const [target, setTarget] = useState(0)
     const [link, setLink] = useState('')
-    const [date, setDate] = useState('31/12/2025')
-    const [theme, setTheme] = useState(themes[0])
+    const [date, setDate] = useState('2025-12-31')
+    const [theme, setTheme] = useState(themes[0].theme_id)
     const dateInputRef = useRef(null)
 
     const handleSubmit = async (e) => {
@@ -53,7 +53,7 @@ const AddNewPot = () => {
         } catch (error) {
             console.error('Erro ao criar o pot:', error);
         }
-        
+
         refreshThemes()
         refreshPots()
         closeModal()
@@ -68,20 +68,30 @@ const AddNewPot = () => {
 
         const year = today.getFullYear()
 
-        setDate(`${day}/${month}/${year}`)
+        setDate(`${year}-${month}-${day}`)
     }, [])
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultInput label={'Pot Name'} setValue={setName} />
+            <DefaultInput
+                label={'Pot Name'}
+                setValue={setName}
+                required={true}
+            />
 
-            <DefaultInput label={'Target'} setValue={setTarget} placeholder={'$'} />
+            <DefaultInput
+                label={'Target'}
+                setValue={setTarget}
+                placeholder={'$ 0.00'}
+                required={true}
+            />
 
             <AditionalInfoContainer>
                 <LinkInputBox>
                     <DefaultInput
                         label={'Link'}
                         setValue={setLink}
+                        placeholder={'https://'}
                     />
                 </LinkInputBox>
 
