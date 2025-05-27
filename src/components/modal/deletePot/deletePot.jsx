@@ -46,7 +46,7 @@ const DeletePot = ({ pot }) => {
             Link: ${pot.pot_link}
             Data: ${pot.pot_date}
             Theme: ${pot.theme_id}
-            `)
+        `)
 
         console.log(pot)
     }, [])

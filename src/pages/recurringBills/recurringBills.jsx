@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox } from './styles'
 
@@ -46,6 +46,10 @@ const RecurringBills = () => {
 
         return billsQuantity.length
     }
+
+    useEffect(() => {
+        console.log("Recurring Bills Atualizados:", recurringBills);
+    }, [recurringBills]);
 
     const handleChangeRecurringBillsPage = (type, page) => {
         console.log('\n\n\n')
@@ -137,6 +141,7 @@ const RecurringBills = () => {
                             <TableHeader>
                                 <tr>
                                     <TableHeaderElement>Bill Title</TableHeaderElement>
+                                    <TableHeaderElement>Recurrence</TableHeaderElement>
                                     <TableHeaderElement>Due Date</TableHeaderElement>
                                     <TableHeaderElement className='end'>Amount</TableHeaderElement>
                                 </tr>
@@ -148,13 +153,21 @@ const RecurringBills = () => {
                                 <TableBodyRow>
                                     <TableBodyElement className='reference'>
                                         <img src={Avatar} alt="" />
-                                        <h3>{people.find((person) => person.person_id === bill.person_id).person_name}</h3>
+                                        <h3>{bill.person_name}</h3>
                                     </TableBodyElement>
-                                    <TableBodyElement>Monthly-2nd</TableBodyElement>
+
+                                    <TableBodyElement>
+                                        {bill.bill_recurrence}
+                                    </TableBodyElement>
+
+                                    <TableBodyElement>
+                                        {bill.bill_due_date}
+                                    </TableBodyElement>
+
                                     <TableBodyElement className='end'
                                         color='var(--green)'
                                     >
-                                        $300.00
+                                        ${bill.bill_amount}
                                     </TableBodyElement>
                                 </TableBodyRow>
                             ))}
