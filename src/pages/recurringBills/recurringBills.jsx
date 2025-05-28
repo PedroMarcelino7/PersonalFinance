@@ -21,15 +21,6 @@ const RecurringBills = () => {
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
     const pagesQuantity = recurringBills.length / quantityToShow
 
-    const getTotalBills = () => {
-        const totalBills = recurringBills.reduce((acc, bill) => {
-            const amount = parseFloat(bill.bill_amount)
-            return (bill.bill_status === 'upcoming' || bill.bill_status === 'paid') && !isNaN(amount) ? acc + amount : acc
-        }, 0)
-
-        return totalBills.toFixed(2)
-    }
-
     const getBills = (status) => {
         const bills = recurringBills.reduce((acc, bill) => {
             const amount = parseFloat(bill.bill_amount)
@@ -37,6 +28,18 @@ const RecurringBills = () => {
         }, 0)
 
         return bills.toFixed(2)
+    }
+
+    const getBillsTotal = () => {
+        return recurringBills.reduce((acc, bill) => {
+            return bill.bill_status !== 1 ? acc + parseFloat(bill.bill_amount) : acc
+        }, 0).toFixed(2);
+    }
+
+    const getBillsPaid = () => {
+        return recurringBills.reduce((acc, bill) => {
+            return bill.bill_status === 1 ? acc + parseFloat(bill.bill_amount) : acc
+        }, 0).toFixed(2)
     }
 
     const getBillsQuantity = (status) => {
@@ -69,6 +72,24 @@ const RecurringBills = () => {
         }
     }
 
+    const getBillStatusColor = (bill) => {
+        if (bill.bill_status === 1) {
+            return 'var(--green)'
+        } else if (bill.bill_status === 2) {
+            return 'var(--red)'
+        } else {
+            return 'var(--dark)'
+        }
+    }
+
+    const dateFormatter = (date) => {
+        const year = date.slice(0, 4)
+        const month = date.slice(5, 7)
+        const day = date.slice(8, 10)
+
+        return `${day}/${month}/${year}`
+    }
+
     return (
         <PageContainer name="Recurring Bills">
             <RecurringBillsContainer>
@@ -79,7 +100,7 @@ const RecurringBills = () => {
                         <ResumeBox>
                             <h6>Total Bills</h6>
 
-                            <h3>${getTotalBills()}</h3>
+                            <h3>${getBillsTotal()}</h3>
                         </ResumeBox>
                     </TotalContainer>
 
@@ -87,26 +108,26 @@ const RecurringBills = () => {
                         <h2>Summary</h2>
 
                         <SummaryBox>
-                            <SummaryItem>
-                                <h5>Paid Bills</h5>
+                            <SummaryItem color='var(--green)'>
+                                <h5>Paid Bills ({getBillsQuantity(1)})</h5>
 
-                                <h4>{getBillsQuantity('paid')} (${getBills('paid')})</h4>
+                                <h4>${getBills(1)}</h4>
                             </SummaryItem>
 
                             <hr />
 
                             <SummaryItem>
-                                <h5>Total Upcoming</h5>
+                                <h5>Total Upcoming ({getBillsQuantity(0)})</h5>
 
-                                <h4>{getBillsQuantity('upcoming')} (${getBills('upcoming')})</h4>
+                                <h4>${getBills(0)}</h4>
                             </SummaryItem>
 
                             <hr />
 
                             <SummaryItem color='var(--red)'>
-                                <h5>Due Soon</h5>
+                                <h5>Due Soon ({getBillsQuantity(2)})</h5>
 
-                                <h4>{getBillsQuantity('due soon')} (${getBills('due soon')})</h4>
+                                <h4>${getBills(2)}</h4>
                             </SummaryItem>
                         </SummaryBox>
                     </SummaryContainer>
@@ -161,11 +182,13 @@ const RecurringBills = () => {
                                     </TableBodyElement>
 
                                     <TableBodyElement>
-                                        {bill.bill_due_date}
+                                        {dateFormatter(bill.bill_due_date)}
                                     </TableBodyElement>
 
                                     <TableBodyElement className='end'
-                                        color='var(--green)'
+                                        color={
+                                            getBillStatusColor(bill)
+                                        }
                                     >
                                         ${bill.bill_amount}
                                     </TableBodyElement>
@@ -204,7 +227,7 @@ const RecurringBills = () => {
                     </BillsBox>
                 </BillsContainer>
             </RecurringBillsContainer>
-        </PageContainer>
+        </PageContainer >
     )
 }
 
