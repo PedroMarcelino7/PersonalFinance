@@ -36,12 +36,6 @@ const RecurringBills = () => {
         }, 0).toFixed(2);
     }
 
-    const getBillsPaid = () => {
-        return recurringBills.reduce((acc, bill) => {
-            return bill.bill_status === 1 ? acc + parseFloat(bill.bill_amount) : acc
-        }, 0).toFixed(2)
-    }
-
     const getBillsQuantity = (status) => {
         const billsQuantity = recurringBills.filter((bill) => {
             return bill.bill_status === status

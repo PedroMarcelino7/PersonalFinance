@@ -79,8 +79,12 @@ const WithdrawMoney = ({ pot }) => {
         return percentage.toFixed(2);
     };
 
-    const quickButtonAmountToWithdraw = (value) => {
-        setAmountToWithdraw(prev => prev + parseFloat(value))
+    const handleAmountToWithdraw = (value) => {
+        if(pot.pot_quantity - value < 0) {
+            return ''
+        } else {
+            setAmountToWithdraw(prev => prev + parseFloat(value))
+        }
     }
 
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);
@@ -121,7 +125,7 @@ const WithdrawMoney = ({ pot }) => {
             <DefaultInput
                 label={'Amount to Withdraw'}
                 placeholder={'$'}
-                setValue={setAmountToWithdraw}
+                setValue={handleAmountToWithdraw}
             />
 
             <QuickButtonsContainer>
@@ -152,7 +156,7 @@ const WithdrawMoney = ({ pot }) => {
                                 <QuickButton
                                     key={index}
                                     type='button'
-                                    onClick={() => quickButtonAmountToWithdraw(value)}
+                                    onClick={() => handleAmountToWithdraw(value)}
                                 >
                                     -{value}
                                 </QuickButton>
