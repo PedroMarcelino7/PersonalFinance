@@ -9,6 +9,7 @@ import { TransactionsProvider } from './contexts/transactionsContext.jsx'
 import { RecurringBillsProvider } from './contexts/recurringBillsContext.jsx'
 import { CategoriesProvider } from './contexts/categoriesContext.jsx'
 import { ThemesProvider } from './contexts/themesContext.jsx'
+import Toast from './ui/toast/toast.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -20,6 +21,8 @@ createRoot(document.getElementById('root')).render(
               <TransactionsProvider>
                 <RecurringBillsProvider>
                   <App />
+
+                  <Toast />
                 </RecurringBillsProvider>
               </TransactionsProvider>
             </BudgetsProvider>
