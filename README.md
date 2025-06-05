@@ -1,12 +1,32 @@
-# React + Vite
+# 💰 Personal Finance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Personal Finance** é uma aplicação web completa de gerenciamento financeiro pessoal. Com ela, você pode organizar seus gastos, orçamentos, contas recorrentes e visualizar o resumo financeiro de forma prática e intuitiva.
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📊 **Dashboard Resumo** com informações de receitas, despesas e saldo atual.
+- 💵 **Transações** categorizadas por tipo, pessoa e finalidade.
+- 🧾 **Contas Recorrentes** com status e vencimentos (pagas, a vencer, vencidas).
+- 🎯 **Orçamentos mensais** com metas e acompanhamento por categoria.
+- 👥 **Gerenciamento de Pessoas** para dividir e rastrear finanças em grupo.
+- 🔍 **Busca e Filtros inteligentes** para localizar rapidamente qualquer informação.
+- 📅 **Controle de datas de vencimento** e recorrência de contas.
 
-## Expanding the ESLint configuration
+## 🛠️ Tecnologias Utilizadas
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- [React.js](https://reactjs.org/) com Vite
+- Context API com `useReducer`
+- Styled Components
+- React Router DOM
+
+### Backend
+- Node.js com Express
+- Arquitetura MVC
+- Banco de dados relacional (MySQL/PostgreSQL)
+- Sequelize ou knex.js (opcional)
+- JWT para autenticação (se implementado)
+
+## 🧠 Organização do Projeto
+
+### Estrutura de Pastas
