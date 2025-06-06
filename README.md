@@ -20,6 +20,7 @@
 - Styled Components
 - React Router DOM
 - Toastify
+- Rechart
 
 ### Backend
 - Node.js com Express
@@ -28,14 +29,11 @@
 
 
 ## 🔮 Futuras Implementações
-- [ ] 📱 **Responsividade mobile** completa com otimizações para smartphones e tablets.
-- [ ] 📊 **Gráficos interativos** com Recharts para visualização de despesas, receitas e metas.
-- [ ] 🔔 **Notificações inteligentes** de contas a vencer e vencidas.
-- [ ] 🏦 **Integração com contas bancárias** para leitura automática de transações (via Open Finance).
-- [ ] 💳 **Divisão de despesas** entre pessoas cadastradas (estilo “splitwise”).
-- [ ] 🧮 **Conversão de moedas** com base em taxa de câmbio atual.
-- [ ] ☁️ **Deploy com autenticação** e base de dados online para uso em produção.
-- [ ] 🗃️ **Exportação de dados** em CSV ou PDF.
+- [ ] 📱 **Responsividade mobile**
+- [ ] 📊 **Gráficos interativos**
+- [ ] 🔔 **Notificações inteligentes**
+- [ ] ☁️ **Deploy com autenticação**
+- [ ] 🗃️ **Exportação de dados**
 
 
 ## 📬 Contato
