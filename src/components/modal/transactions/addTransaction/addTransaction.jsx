@@ -6,15 +6,19 @@ import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../input/defaultInput/defaultInput'
 
 import IconCalendar from '../../../../assets/images/icon-calendar.svg'
-import ChevronDownIcon from '../../../../assets/images/icon-caret-down.svg'
 
 import { useModal } from '../../modal'
+import { useCategories } from '../../../../contexts/categoriesContext'
+import { usePeople } from '../../../../contexts/peopleContext'
 
 const AddTransaction = () => {
     const { closeModal } = useModal()
+    const { categories } = useCategories()
+    const { people } = usePeople()
 
     const [amount, setAmount] = useState(0)
     const [category, setCategory] = useState('')
+    const [person, setPerson] = useState('')
     const [date, setDate] = useState(getTodayDate())
     const dateInputRef = useRef(null)
 
@@ -55,33 +59,20 @@ const AddTransaction = () => {
                 </CalendarBox>
             </AditionalInfoContainer>
 
-            <SelectWrapper>
-                <CustomSelect>
-                    <CustomOption value="1">Latest</CustomOption>
-                    <CustomOption value="2">Oldest</CustomOption>
-                    <CustomOption value="3">A to Z</CustomOption>
-                    <CustomOption value="4">Z to A</CustomOption>
-                    <CustomOption value="5">Highest</CustomOption>
-                    <CustomOption value="6">Lowest</CustomOption>
-                </CustomSelect>
-                <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-            </SelectWrapper>
-
-            <SelectWrapper>
-                <CustomSelect>
-                    <CustomOption value="1">Latest</CustomOption>
-                    <CustomOption value="2">Oldest</CustomOption>
-                    <CustomOption value="3">A to Z</CustomOption>
-                    <CustomOption value="4">Z to A</CustomOption>
-                    <CustomOption value="5">Highest</CustomOption>
-                    <CustomOption value="6">Lowest</CustomOption>
-                </CustomSelect>
-                <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-            </SelectWrapper>
-
             <DefaultSelect
                 label='Category'
                 setValue={setCategory}
+                data={categories}
+                item_id={'category_id'}
+                item_name={'category_name'}
+            />
+
+            <DefaultSelect
+                label='Person'
+                setValue={setPerson}
+                data={people}
+                item_id={'person_id'}
+                item_name={'person_name'}
             />
 
             <Button>Add transaction</Button>
