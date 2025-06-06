@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Label, SelectBox, Selected, Options, Option, ColorDot, ChevronIcon, ThemeBox } from './styles'
+import { Container, Label, SelectBox, Selected, Options, Option, ChevronIcon, ThemeBox } from './styles'
 import SelectIcon from '../../../assets/images/icon-caret-down.svg'
 
 const DefaultSelect = ({ label = 'Category', value, setValue, data }) => {

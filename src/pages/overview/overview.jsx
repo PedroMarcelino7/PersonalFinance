@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react'
-import PageContainer from '../../components/pageContainer/pageContainer'
-import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
-import ArrowIcon from '../../assets/images/icon-caret-right.svg'
-import PotIcon from '../../assets/images/icon-pot.svg'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
+
 import Chart from '../../components/chart/chart'
 
+import PageContainer from '../../components/pageContainer/pageContainer'
+
+import ArrowIcon from '../../assets/images/icon-caret-right.svg'
+import PotIcon from '../../assets/images/icon-pot.svg'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
+
 import { usePots } from '../../contexts/potsContext'
 import { useBudgets } from '../../contexts/budgetsContext'
 import { usePeople } from '../../contexts/peopleContext'
