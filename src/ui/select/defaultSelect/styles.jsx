@@ -86,8 +86,6 @@ export const SelectWithButtonDiv = styled.div`
 `
 
 export const Button = styled.button`
-    display: 'flex';
-    align-items: 'center';
     background-color: var(--dark);
     color: var(--white);
     font-size: 1.25rem;

@@ -89,3 +89,7 @@ export const ChevronIcon = styled.img`
     width: 12px;
     height: 12px;
 `;
+
+export const TransactionTypeDiv = styled.div`
+    display: flex;
+`

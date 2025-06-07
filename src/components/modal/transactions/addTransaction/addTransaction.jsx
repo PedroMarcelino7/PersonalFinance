@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, FormContainer, AmountInputBox, DateSelected, SelectWrapper, CustomSelect, CustomOption, ChevronIcon } from './styles'
+import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, FormContainer, AmountInputBox, DateSelected, SelectWrapper, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv } from './styles'
 
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../input/defaultInput/defaultInput'
@@ -9,16 +9,18 @@ import IconCalendar from '../../../../assets/images/icon-calendar.svg'
 
 import { useModal } from '../../modal'
 import { useCategories } from '../../../../contexts/categoriesContext'
+import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
 
 const AddTransaction = () => {
     const { closeModal } = useModal()
+    const { refreshTransactions } = useTransactions()
     const { categories } = useCategories()
     const { people } = usePeople()
 
     const [amount, setAmount] = useState(0)
-    const [category, setCategory] = useState('')
-    const [person, setPerson] = useState('')
+    const [category, setCategory] = useState(1)
+    const [person, setPerson] = useState(1)
     const [date, setDate] = useState(getTodayDate())
     const dateInputRef = useRef(null)
 
@@ -29,6 +31,45 @@ const AddTransaction = () => {
         const year = date.getFullYear()
 
         return `${year}-${month}-${day}`
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        console.log(`
+            TRANSACTION SUBMIT
+
+            amount: ${amount}
+            category: ${category}
+            person: ${person}
+            date: ${date}
+            operation: ----
+        `)
+
+        try {
+            const response = await fetch('http://localhost:3000/transactions/post', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    transaction_amount: amount,
+                    transaction_type: 1,
+                    transaction_date: date,
+                    category_id: category,
+                    person_id: person,
+                })
+            })
+
+            const data = await response.json();
+            console.log('>>> Resposta Transaction Post [Add Transaction Modal]:', data);
+
+        } catch (error) {
+            console.error('Erro ao adicionar a transaction:', error);
+        }
+
+        refreshTransactions()
+        closeModal()
     }
 
     return (
@@ -43,6 +84,11 @@ const AddTransaction = () => {
                     />
                 </AmountInputBox>
 
+                <TransactionTypeDiv>
+                    <input type='radio' name='teste' value={1} />
+                    <input type='radio' name='teste' value={2} />
+                </TransactionTypeDiv>
+
                 <CalendarBox>
                     <Calendar
                         src={IconCalendar}
@@ -55,7 +101,9 @@ const AddTransaction = () => {
                         onChange={(e) => setDate(e.target.value)}
                     />
 
-                    <DateSelected>{date}</DateSelected>
+                    <DateSelected>
+                        {date}
+                    </DateSelected>
                 </CalendarBox>
             </AditionalInfoContainer>
 
