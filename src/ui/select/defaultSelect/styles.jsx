@@ -4,6 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
 `
 
 export const Label = styled.label`
@@ -13,6 +14,7 @@ export const Label = styled.label`
 `
 
 export const SelectBox = styled.div`
+    width: 100%;
     position: relative;
     border: 1px solid var(--gray);
     background-color: var(--white);
@@ -74,4 +76,23 @@ export const ColorDot = styled.div`
     height: 12px;
     border-radius: 50%;
     background-color: ${(props) => props.color};
+`
+
+export const SelectWithButtonDiv = styled.div`
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+`
+
+export const Button = styled.button`
+    display: 'flex';
+    align-items: 'center';
+    background-color: var(--dark);
+    color: var(--white);
+    font-size: 1.25rem;
+    width: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 `

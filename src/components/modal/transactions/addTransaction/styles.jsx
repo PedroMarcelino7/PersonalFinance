@@ -18,7 +18,6 @@ export const Button = styled.button`
 
 export const AditionalInfoContainer = styled.div`
     display: flex;
-    align-items: end;
     gap: 1rem;
 `
 

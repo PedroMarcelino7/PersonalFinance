@@ -65,6 +65,7 @@ const AddTransaction = () => {
                 data={categories}
                 item_id={'category_id'}
                 item_name={'category_name'}
+                hasButton
             />
 
             <DefaultSelect
@@ -73,6 +74,7 @@ const AddTransaction = () => {
                 data={people}
                 item_id={'person_id'}
                 item_name={'person_name'}
+                hasButton
             />
 
             <Button>Add transaction</Button>
