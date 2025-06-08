@@ -1,7 +1,22 @@
 const db = require('../db');
 
 const getAllTransactions = (callback) => {
-    db.query('select * from transactions order by transaction_date desc', callback);
+    db.query(`
+    select
+        trns.*, cat.category_name, prsn.person_name
+    from
+        transactions as trns
+    join
+        categories as cat
+    on
+        trns.category_id = cat.category_id
+    join
+        people as prsn
+    on
+        trns.person_id = prsn.person_id
+    order by
+        transaction_date desc;    
+    `, callback);
 };
 
 const addTransaction = (values, callback) => {

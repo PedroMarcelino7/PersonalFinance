@@ -61,7 +61,9 @@ const AddNewPot = () => {
 
     useEffect(() => {
         const today = new Date()
-        const day = today.getDate()
+        
+        const dayAux = today.getDate()
+        const day = dayAux < 10 ? `0${dayAux}` : dayAux
 
         const monthAux = today.getMonth() + 1
         const month = monthAux < 10 ? `0${monthAux}` : monthAux

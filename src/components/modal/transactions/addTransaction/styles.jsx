@@ -22,11 +22,11 @@ export const AditionalInfoContainer = styled.div`
 `
 
 export const AmountInputBox = styled.div`
-    width: 85%;
+    width: 100%;
 `
 
 export const CalendarBox = styled.div`
-    width: 15%;
+    width: 25%;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -91,5 +91,9 @@ export const ChevronIcon = styled.img`
 `;
 
 export const TransactionTypeDiv = styled.div`
+    width: 25%;
     display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
 `

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
@@ -14,11 +14,9 @@ import NextIcon from '../../assets/images/icon-caret-right.svg'
 import AddTransaction from '../../components/modal/transactions/addTransaction/addTransaction'
 
 import { useTransactions } from '../../contexts/transactionsContext'
-import { usePeople } from '../../contexts/peopleContext'
 
 const Transactions = () => {
     const { transactions } = useTransactions()
-    const { people } = usePeople()
 
     const [page, setPage] = useState(1)
     const quantityToShow = 7
@@ -57,6 +55,10 @@ const Transactions = () => {
             setPage(page - 1)
         }
     }
+
+    useEffect(() => {
+        console.log('TRANSACTIONS:\n', transactions)
+    }, [transactions])
 
     return (
         <>
@@ -119,10 +121,13 @@ const Transactions = () => {
                                 <TableBodyRow key={index}>
                                     <TableBodyElement className='reference'>
                                         <img src={Avatar} alt="" />
-                                        <h3>{people.find((person) => person.person_id === transaction.person_id)?.person_name || ''}</h3>
+                                        <h3>{transaction.person_name}</h3>
                                     </TableBodyElement>
-                                    <TableBodyElement>{transaction.transaction_category}</TableBodyElement>
+
+                                    <TableBodyElement>{transaction.category_name}</TableBodyElement>
+
                                     <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
+
                                     <TableBodyElement className='end'
                                         color={transaction.transaction_type === 'positive' ? 'var(--green)' : 'var(--red)'}
                                     >

@@ -21,6 +21,7 @@ const AddTransaction = () => {
     const [amount, setAmount] = useState(0)
     const [category, setCategory] = useState(1)
     const [person, setPerson] = useState(1)
+    const [operation, setOperation] = useState(0)
     const [date, setDate] = useState(getTodayDate())
     const dateInputRef = useRef(null)
 
@@ -43,7 +44,7 @@ const AddTransaction = () => {
             category: ${category}
             person: ${person}
             date: ${date}
-            operation: ----
+            operation: ${operation}
         `)
 
         try {
@@ -85,8 +86,21 @@ const AddTransaction = () => {
                 </AmountInputBox>
 
                 <TransactionTypeDiv>
-                    <input type='radio' name='teste' value={1} />
-                    <input type='radio' name='teste' value={2} />
+                    <input
+                        type="radio"
+                        name="operation"
+                        value={0}
+                        checked={operation === 0}
+                        onChange={(e) => setOperation(Number(e.target.value))}
+                    />
+
+                    <input
+                        type="radio"
+                        name="operation"
+                        value={1}
+                        checked={operation === 1}
+                        onChange={(e) => setOperation(Number(e.target.value))}
+                    />
                 </TransactionTypeDiv>
 
                 <CalendarBox>
