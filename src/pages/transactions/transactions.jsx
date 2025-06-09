@@ -14,14 +14,20 @@ import NextIcon from '../../assets/images/icon-caret-right.svg'
 import AddTransaction from '../../components/modal/transactions/addTransaction/addTransaction'
 
 import { useTransactions } from '../../contexts/transactionsContext'
+import { useCategories } from '../../contexts/categoriesContext'
 
 const Transactions = () => {
     const { transactions } = useTransactions()
+    const { categories } = useCategories()
 
+    const [categoriesFilter, setCategoriesFilter] = useState(0)
     const [page, setPage] = useState(1)
     const quantityToShow = 7
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
-    const pagesQuantity = transactions.length / quantityToShow
+    const filteredTransactions = transactions.filter(
+        transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter
+    )
+    const pagesQuantity = Math.ceil(filteredTransactions.length / quantityToShow)
 
     const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
 
@@ -54,6 +60,11 @@ const Transactions = () => {
             setQuantityToShowOffset(quantityToShow * (page - 2))
             setPage(page - 1)
         }
+    }
+
+    const handleSetCategoriesFilter = (category) => {
+        setCategoriesFilter(category)
+        setPage(1)
     }
 
     useEffect(() => {
@@ -95,8 +106,11 @@ const Transactions = () => {
                                 <h6>Category</h6>
 
                                 <SelectWrapper>
-                                    <CustomSelect>
-                                        <option value="latest">All transactions</option>
+                                    <CustomSelect onChange={(e) => handleSetCategoriesFilter(Number(e.target.value))}>
+                                        <CustomOption value="0">All transactions</CustomOption>
+                                        {categories.map((category) => (
+                                            <CustomOption value={category.category_id}>{category.category_name}</CustomOption>
+                                        ))}
                                     </CustomSelect>
                                     <ChevronIcon src={ChevronDownIcon} alt="chevron" />
                                 </SelectWrapper>
@@ -115,26 +129,28 @@ const Transactions = () => {
                                 </tr>
                             </TableHeader>
 
-                            {transactions.map((transaction, index) => (
-                                index >= quantityToShowOffset &&
-                                index < (quantityToShow + quantityToShowOffset) &&
-                                <TableBodyRow key={index}>
-                                    <TableBodyElement className='reference'>
-                                        <img src={Avatar} alt="" />
-                                        <h3>{transaction.person_name}</h3>
-                                    </TableBodyElement>
+                            {filteredTransactions
+                                .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
+                                .slice(quantityToShowOffset, quantityToShowOffset + quantityToShow)
+                                .map((transaction, index) => (
+                                    <TableBodyRow key={index}>
+                                        <TableBodyElement className='reference'>
+                                            <img src={Avatar} alt="" />
+                                            <h3>{transaction.person_name}</h3>
+                                        </TableBodyElement>
 
-                                    <TableBodyElement>{transaction.category_name}</TableBodyElement>
+                                        <TableBodyElement>{transaction.category_name}</TableBodyElement>
 
-                                    <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
+                                        <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
 
-                                    <TableBodyElement className='end'
-                                        color={transaction.transaction_type === 'positive' ? 'var(--green)' : 'var(--red)'}
-                                    >
-                                        {transaction.transaction_type === 'positive' ? '+' : '-'}${transaction.transaction_amount}
-                                    </TableBodyElement>
-                                </TableBodyRow>
-                            ))}
+                                        <TableBodyElement
+                                            className='end'
+                                            color={transaction.transaction_type === 1 ? 'var(--green)' : 'var(--red)'}
+                                        >
+                                            {transaction.transaction_type === 1 ? '+' : '-'}${transaction.transaction_amount}
+                                        </TableBodyElement>
+                                    </TableBodyRow>
+                                ))}
                         </Table>
                     </div>
 
