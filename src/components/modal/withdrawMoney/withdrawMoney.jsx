@@ -80,9 +80,11 @@ const WithdrawMoney = ({ pot }) => {
     };
 
     const handleAmountToWithdraw = (value) => {
-        if(pot.pot_quantity - value < 0) {
+        if(pot.pot_quantity - amountToWithdraw <= 0) {
+            console.log('VALOR NEGATIVO')
             return ''
         } else {
+            console.log('VALOR POSITIVO')
             setAmountToWithdraw(prev => prev + parseFloat(value))
         }
     }

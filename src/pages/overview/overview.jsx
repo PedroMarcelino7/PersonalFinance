@@ -19,8 +19,8 @@ import { useRecurringBills } from '../../contexts/recurringBillsContext'
 
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
-    { id: 1, name: 'Income', value: '3814.25' },
-    { id: 2, name: 'Expenses', value: '1700.50' },
+    { id: 1, name: 'Available Balance', value: '3814.25' },
+    { id: 2, name: 'Month Expenses', value: '1700.50' },
 ]
 
 const Overview = () => {

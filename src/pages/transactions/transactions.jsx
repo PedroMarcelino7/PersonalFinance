@@ -65,6 +65,7 @@ const Transactions = () => {
     const handleSetCategoriesFilter = (category) => {
         setCategoriesFilter(category)
         setPage(1)
+        setQuantityToShowOffset(0)
     }
 
     useEffect(() => {
