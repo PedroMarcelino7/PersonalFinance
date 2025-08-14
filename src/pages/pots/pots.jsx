@@ -13,6 +13,10 @@ import DeletePot from '../../components/modal/deletePot/deletePot'
 import IconDelete from '../../assets/images/trash-solid-red.svg'
 import IconEdit from '../../assets/images/icon-edit-blue.svg'
 
+// UTILS
+import { formatCurrency } from '../../utils/formatCurrency'
+import { formatDate } from '../../utils/formatDate'
+
 const Pots = () => {
     const { pots } = usePots()
 
@@ -34,14 +38,6 @@ const Pots = () => {
         const target = Number(pot.pot_target);
 
         return ((quantity * 100) / target).toFixed(2)
-    }
-
-    const dateFormatter = (date) => {
-        const year = date.slice(0, 4)
-        const month = date.slice(5, 7)
-        const day = date.slice(8, 10)
-
-        return `${day}/${month}/${year}`
     }
 
     const handleShowAddPotModal = () => {
@@ -88,7 +84,7 @@ const Pots = () => {
                                     </CardTitle>
 
                                     <CardDateBox>
-                                        <h3>{dateFormatter(new Date(pot.pot_date).toISOString().split('T')[0])}</h3>
+                                        <h3>{formatDate(pot.pot_date)}</h3>
                                     </CardDateBox>
                                 </CardTitleBox>
 
@@ -109,7 +105,7 @@ const Pots = () => {
                                 <TotalSavedBox>
                                     <h3>Total Saved</h3>
 
-                                    <h2>${pot.pot_quantity}</h2>
+                                    <h2>{formatCurrency(pot.pot_quantity)}</h2>
                                 </TotalSavedBox>
 
                                 <ProgressBox>
@@ -121,7 +117,7 @@ const Pots = () => {
                                 <ProgressDescription>
                                     <h5>{getPercentage(pot)}%</h5>
 
-                                    <h6>Target of ${pot.pot_target}</h6>
+                                    <h6>Target of {formatCurrency(pot.pot_target)}</h6>
                                 </ProgressDescription>
                             </CardContent>
 

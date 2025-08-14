@@ -16,7 +16,7 @@ const EditPot = ({ pot }) => {
     const [target, setTarget] = useState(pot.pot_target)
     const [link, setLink] = useState(pot.pot_link)
     const [date, setDate] = useState(dateFormatter(pot.pot_date))
-    const [theme, setTheme] = useState(themes[0].theme_id)
+    const [theme, setTheme] = useState(pot.theme_id)
     const oldTheme = pot.theme_id
     const dateInputRef = useRef(null)
 
