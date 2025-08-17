@@ -1,7 +1,9 @@
 const Pot = require('../models/potsModel');
 
 const getPots = (req, res) => {
-    Pot.getAllPots((err, results) => {
+    const sort = req.query.sort || "oldest"
+
+    Pot.getAllPots(sort, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Erro ao buscar pots' });
         }

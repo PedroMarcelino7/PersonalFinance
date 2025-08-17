@@ -1,6 +1,29 @@
 const db = require('../db');
 
-const getAllPots = (callback) => {
+const getAllPots = (sort, callback) => {
+    let orderBy = 'oldest'
+
+    switch (sort) {
+        case 'oldest':
+            orderBy = 'pot_created_at asc'
+            break
+        case 'newest':
+            orderBy = 'pot_created_at desc'
+            break
+        case 'atoz':
+            orderBy = 'pot_name asc'
+            break
+        case 'ztoa':
+            orderBy = 'pot_name desc'
+            break
+        case 'expensive':
+            orderBy = 'pot_target desc'
+            break
+        case 'cheapest':
+            orderBy = 'pot_target asc'
+            break
+    }
+
     db.query(`
     select
         pots.*, themes.theme_name, themes.theme_color
@@ -11,7 +34,7 @@ const getAllPots = (callback) => {
     on 
         pots.theme_id = themes.theme_id
     order by
-        pot_date    
+        ${orderBy}
     `, callback);
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import DefaultInput from '../../input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'

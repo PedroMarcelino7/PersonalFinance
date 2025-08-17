@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button, Container, Content, Header, Title } from './styles'
 
 const PageContainer = ({ name, children, button, onClick }) => {

@@ -18,9 +18,9 @@ const potsReducer = (state, action) => {
 export const PotsProvider = ({ children }) => {
     const [pots, dispatch] = useReducer(potsReducer, []);
 
-    const fetchPots = async () => {
+    const fetchPots = async (sort = 'oldest') => {
         try {
-            const response = await fetch("http://localhost:3000/pots");
+            const response = await fetch(`http://localhost:3000/pots?sort=${sort}`);
             const data = await response.json();
             dispatch({ type: "SET_POTS", payload: data });
         } catch (error) {
@@ -28,9 +28,9 @@ export const PotsProvider = ({ children }) => {
         }
     };
 
-    const refreshPots = async () => {
+    const refreshPots = async (sort) => {
         console.log("🔄 Atualizando pots...");
-        await fetchPots();
+        await fetchPots(sort);
     };
 
     useEffect(() => {
