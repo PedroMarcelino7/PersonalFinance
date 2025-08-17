@@ -45,31 +45,6 @@ const WithdrawMoney = ({ pot }) => {
             console.error('Error on withdraw money from pot:', error);
         }
 
-        console.log(`
-            >> Update Quick Buttons:
-            Pot ID: ${pot.pot_id}
-            Pot Quick Button: ${JSON.stringify(quickButtonByIndex)}
-        `)
-        try {
-            const response = await fetch('http://localhost:3000/pots/update-quick-buttons', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    pot_id: pot.pot_id,
-                    pot_quick_button: JSON.stringify(quickButtonByIndex)
-                })
-            });
-
-            const data = await response.json();
-            console.log('>>> Resposta Pot Edit Quick Buttons [Add Money Modal]:', data);
-
-            refreshPots()
-        } catch (error) {
-            console.error('Error on edit quick button:', error);
-        }
-
         closeModal()
     }
 
@@ -112,7 +87,32 @@ const WithdrawMoney = ({ pot }) => {
     const newTotalQuantity = parseFloat(pot.pot_quantity) - parseFloat(amountToWithdraw);
     const newTotalPercentage = getPercentage(newTotalQuantity, pot.pot_target);
 
-    const saveQuickButtonsValue = () => {
+    const saveQuickButtonsValue = async () => {
+        console.log(`
+            >> Update Quick Buttons:
+            Pot ID: ${pot.pot_id}
+            Pot Quick Button: ${JSON.stringify(quickButtonByIndex)}
+        `)
+        try {
+            const response = await fetch('http://localhost:3000/pots/update-quick-buttons', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    pot_id: pot.pot_id,
+                    pot_quick_button: JSON.stringify(quickButtonByIndex)
+                })
+            });
+
+            const data = await response.json();
+            console.log('>>> Resposta Pot Edit Quick Buttons [Add Money Modal]:', data);
+
+            refreshPots()
+        } catch (error) {
+            console.error('Error on edit quick button:', error);
+        }
+
         console.log('New Quick Buttons:', quickButtonByIndex)
         setShowEditQuickButtons(false)
     }
