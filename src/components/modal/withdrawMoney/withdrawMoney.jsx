@@ -80,12 +80,15 @@ const WithdrawMoney = ({ pot }) => {
     };
 
     const handleAmountToWithdraw = (value) => {
-        if (pot.pot_quantity - amountToWithdraw <= 0) {
+        const newAmount = amountToWithdraw + value;
+        const remaining = pot.pot_quantity - newAmount;
+
+        if (remaining < 0) {
             console.log(`
                 VALOR NEGATIVO
 
                 Pot Quantity: ${pot.pot_quantity}
-                Amount to Withdraw ${amountToWithdraw}
+                Amount to Withdraw ${newAmount}
             `)
             return ''
         } else {
@@ -93,9 +96,9 @@ const WithdrawMoney = ({ pot }) => {
                 VALOR POSITIVO
                 
                 Pot Quantity: ${pot.pot_quantity}
-                Amount to Withdraw ${amountToWithdraw}
+                Amount to Withdraw ${newAmount}
             `)
-            setAmountToWithdraw(prev => prev + parseFloat(value))
+            setAmountToWithdraw(newAmount)
         }
     }
 
@@ -110,7 +113,7 @@ const WithdrawMoney = ({ pot }) => {
 
     const handleQuickButtonChange = (index, value) => {
         const newValues = [...quickButtonByIndex]
-        newValues[index] = value
+        newValues[index] = Number(value)
         setQuickButtonByIndex(newValues)
     }
 

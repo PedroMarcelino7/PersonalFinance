@@ -95,7 +95,7 @@ const AddMoney = ({ pot }) => {
 
     const handleQuickButtonChange = (index, value) => {
         const newValues = [...quickButtonByIndex]
-        newValues[index] = value
+        newValues[index] = Number(value)
         setQuickButtonByIndex(newValues)
     }
 
