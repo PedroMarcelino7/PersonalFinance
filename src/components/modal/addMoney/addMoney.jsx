@@ -38,6 +38,12 @@ const AddMoney = ({ pot }) => {
                 })
             });
 
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error adding money.');
+                return;
+            }
+
             const data = await response.json();
             console.log('>>> Resposta Pot Add Money [Add Money Modal]:', data);
 
@@ -91,16 +97,23 @@ const AddMoney = ({ pot }) => {
                 })
             });
 
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error on edit quick button.');
+                return;
+            }
+
             const data = await response.json();
             console.log('>>> Resposta Pot Edit Quick Buttons [Add Money Modal]:', data);
 
+            toast.success('Quick buttons updated successfully.')
             refreshPots()
         } catch (error) {
             console.error('Error on edit quick button:', error);
+            toast.error('Error on edit quick button.')
         }
 
         console.log('New Quick Buttons:', quickButtonByIndex)
-        toast.success('Quick buttons updated successfully.')
         setShowEditQuickButtons(false)
     }
 

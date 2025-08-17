@@ -6,6 +6,7 @@ import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
 import IconCalendar from '../../../assets/images/icon-calendar.svg'
 import { useThemes } from '../../../contexts/themesContext'
+import { toast } from 'react-toastify'
 
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -52,11 +53,18 @@ const EditPot = ({ pot }) => {
                 })
             });
 
-            const data = await response.json();
-            console.log('>>> Resposta Pot Post [Edit Pots Modal]:', data);
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error editing pot.');
+                return;
+            }
 
+            const data = await response.json();
+            toast.success('Pot edited successfully.');
+            console.log('>>> Resposta Pot Post [Edit Pots Modal]:', data);
         } catch (error) {
             console.error('Erro ao editar o pot:', error);
+            toast.error('Error editing pot.');
         }
 
         refreshThemes()
@@ -130,7 +138,12 @@ const EditPot = ({ pot }) => {
                 </CalendarBox>
             </AditionalInfoContainer>
 
-            <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
+            <ThemeSelect
+                label={'Theme'}
+                setTheme={setTheme}
+                data={themes}
+                currentValue={themes.findIndex((theme) => theme.theme_id === pot.theme_id)}
+            />
 
             <Button>Edit Pot</Button>
         </FormContainer>
