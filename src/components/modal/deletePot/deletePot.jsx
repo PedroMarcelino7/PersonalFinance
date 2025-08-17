@@ -3,6 +3,7 @@ import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
 import { useEffect } from 'react'
 import { useThemes } from '../../../contexts/themesContext'
+import { toast } from 'react-toastify'
 
 const DeletePot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -24,11 +25,19 @@ const DeletePot = ({ pot }) => {
                 })
             });
 
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error deleting pot.');
+                return;
+            }
+
             const data = await response.json();
+            toast.success('Pot deleted successfully.');
             console.log('>>> Resposta Pot Post [Delete Pots Modal]:', data);
 
         } catch (error) {
             console.error('Erro ao deletar o pot:', error);
+            toast.error('Error deleting pot.');
         }
 
         refreshThemes()
