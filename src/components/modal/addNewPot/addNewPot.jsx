@@ -6,6 +6,7 @@ import { usePots } from '../../../contexts/potsContext'
 import { useThemes } from '../../../contexts/themesContext'
 import { useModal } from '../modal'
 import IconCalendar from '../../../assets/images/icon-calendar.svg'
+import { toast } from 'react-toastify'
 
 const AddNewPot = () => {
     const { refreshPots } = usePots()
@@ -15,7 +16,7 @@ const AddNewPot = () => {
     const [name, setName] = useState('')
     const [target, setTarget] = useState(0)
     const [link, setLink] = useState('')
-    const [date, setDate] = useState('2025-12-31')
+    const [date, setDate] = useState(() => getTodayDate())
     const [theme, setTheme] = useState(themes[0].theme_id)
     const dateInputRef = useRef(null)
 
@@ -49,9 +50,10 @@ const AddNewPot = () => {
 
             const data = await response.json();
             console.log('>>> Resposta Pot Post [Add Pots Modal]:', data);
-
+            toast.success('Pot added successfully.')
         } catch (error) {
             console.error('Erro ao criar o pot:', error);
+            toast.error('Erro adding pot.')
         }
 
         refreshThemes()
@@ -59,9 +61,9 @@ const AddNewPot = () => {
         closeModal()
     }
 
-    useEffect(() => {
+    function getTodayDate() {
         const today = new Date()
-        
+
         const dayAux = today.getDate()
         const day = dayAux < 10 ? `0${dayAux}` : dayAux
 
@@ -70,8 +72,8 @@ const AddNewPot = () => {
 
         const year = today.getFullYear()
 
-        setDate(`${year}-${month}-${day}`)
-    }, [])
+        return (`${year}-${month}-${day}`)
+    }
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>

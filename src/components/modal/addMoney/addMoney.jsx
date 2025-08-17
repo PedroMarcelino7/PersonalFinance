@@ -100,7 +100,7 @@ const AddMoney = ({ pot }) => {
         }
 
         console.log('New Quick Buttons:', quickButtonByIndex)
-        toast.success('Quick buttons updated successfully!')
+        toast.success('Quick buttons updated successfully.')
         setShowEditQuickButtons(false)
     }
 
