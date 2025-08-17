@@ -10,10 +10,9 @@ const Toast = () => {
             newestOnTop={false}
             closeOnClick={false}
             rtl={false}
-            pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="dark"
+            theme="light"
         />
     )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewProgress, ProgressBarBox, ProgressValues, QuickButton, QuickButtonInput, QuickButtonsActions, QuickButtonsBox, QuickButtonsContainer } from './styles'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
@@ -6,6 +6,7 @@ import DefaultInput from '../../input/defaultInput/defaultInput'
 import DeleteIcon from '../../../assets/images/trash-solid.svg'
 import EditIcon from '../../../assets/images/icon-edit.svg'
 import SaveIcon from '../../../assets/images/icon-save.svg'
+import { toast } from 'react-toastify'
 
 const WithdrawMoney = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -40,9 +41,11 @@ const WithdrawMoney = ({ pot }) => {
             const data = await response.json();
             console.log('>>> Resposta Pot Withdraw Money [Withdraw Money Modal]:', data);
 
+            toast.success('Money withdrawn.')
             refreshPots()
         } catch (error) {
             console.error('Error on withdraw money from pot:', error);
+            toast.error('Error withdrawing money.')
         }
 
         closeModal()
@@ -114,6 +117,7 @@ const WithdrawMoney = ({ pot }) => {
         }
 
         console.log('New Quick Buttons:', quickButtonByIndex)
+        toast.success('Quick buttons updated successfully!')
         setShowEditQuickButtons(false)
     }
 

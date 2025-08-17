@@ -6,6 +6,7 @@ import DefaultInput from '../../input/defaultInput/defaultInput'
 import DeleteIcon from '../../../assets/images/trash-solid.svg'
 import EditIcon from '../../../assets/images/icon-edit.svg'
 import SaveIcon from '../../../assets/images/icon-save.svg'
+import { toast } from 'react-toastify'
 
 const AddMoney = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -40,9 +41,11 @@ const AddMoney = ({ pot }) => {
             const data = await response.json();
             console.log('>>> Resposta Pot Add Money [Add Money Modal]:', data);
 
+            toast.success('Money added.')
             refreshPots()
         } catch (error) {
             console.error('Error on add money to pot:', error);
+            toast.error('Error adding money.')
         }
 
         closeModal()
@@ -97,6 +100,7 @@ const AddMoney = ({ pot }) => {
         }
 
         console.log('New Quick Buttons:', quickButtonByIndex)
+        toast.success('Quick buttons updated successfully!')
         setShowEditQuickButtons(false)
     }
 
