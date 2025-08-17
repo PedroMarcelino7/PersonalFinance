@@ -49,11 +49,18 @@ const AddNewPot = () => {
             });
 
             const data = await response.json();
+
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error adding pot.');
+                return;
+            }
+
             console.log('>>> Resposta Pot Post [Add Pots Modal]:', data);
             toast.success('Pot added successfully.')
         } catch (error) {
             console.error('Erro ao criar o pot:', error);
-            toast.error('Erro adding pot.')
+            toast.error('Error adding pot.')
         }
 
         refreshThemes()
