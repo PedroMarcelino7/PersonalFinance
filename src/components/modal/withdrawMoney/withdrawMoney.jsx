@@ -94,7 +94,7 @@ const WithdrawMoney = ({ pot }) => {
                 
                 Pot Quantity: ${pot.pot_quantity}
                 Amount to Withdraw ${amountToWithdraw}
-                `)
+            `)
             setAmountToWithdraw(prev => prev + parseFloat(value))
         }
     }

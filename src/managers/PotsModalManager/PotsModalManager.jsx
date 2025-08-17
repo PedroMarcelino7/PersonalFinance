@@ -1,12 +1,12 @@
 import { memo } from "react";
 
-import Modal from "../../modal/modal";
+import Modal from "../../components/modal/modal";
 
-import AddNewPot from "../../modal/addNewPot/addNewPot";
-import EditPot from "../../modal/editPot/editPot";
-import DeletePot from "../../modal/deletePot/deletePot";
-import AddMoney from "../../modal/addMoney/addMoney";
-import WithdrawMoney from "../../modal/withdrawMoney/withdrawMoney";
+import AddNewPot from "../../components/modal/addNewPot/addNewPot";
+import EditPot from "../../components/modal/editPot/editPot";
+import DeletePot from "../../components/modal/deletePot/deletePot";
+import AddMoney from "../../components/modal/addMoney/addMoney";
+import WithdrawMoney from "../../components/modal/withdrawMoney/withdrawMoney";
 
 const MODAL_CONFIG = {
     addPot: {
@@ -45,7 +45,7 @@ const MODAL_CONFIG = {
     },
 };
 
-function ModalManager({ modal, onClose }) {
+function PotsModalManager({ modal, onClose }) {
     const type = modal?.type;
     if (!type) return null;
 
@@ -67,4 +67,4 @@ function ModalManager({ modal, onClose }) {
     );
 }
 
-export default memo(ModalManager);
+export default memo(PotsModalManager);

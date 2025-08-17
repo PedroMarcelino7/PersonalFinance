@@ -12,7 +12,7 @@ import { formatCurrency } from '../../utils/formatCurrency'
 import { formatDate } from '../../utils/formatDate'
 
 // MODAL MANAGER
-import ModalManager from '../../components/pots/ModalManager/ModalManager'
+import PotsModalManager from '../../managers/PotsModalManager/PotsModalManager'
 
 const Pots = () => {
     const { pots } = usePots()
@@ -99,7 +99,7 @@ const Pots = () => {
                 </PotsContainer>
             </PageContainer>
 
-            <ModalManager modal={modal} onClose={closeModal} />
+            <PotsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }
