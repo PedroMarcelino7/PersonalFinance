@@ -74,12 +74,11 @@ const AddMoney = ({ pot }) => {
     }
 
     const getPercentage = (quantity, target) => {
-        const percentage = (100 * quantity) / target;
-        return percentage >= 100 ? 100 : percentage.toFixed(2);
-    };
+        return ((100 * quantity) / target).toFixed(2)
+    }
 
     const quickButtonAmountToAdd = (value) => {
-        setAmountToAdd(prev => prev + parseFloat(value))
+        setAmountToAdd(prev => parseFloat(prev) + parseFloat(value))
     }
 
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);

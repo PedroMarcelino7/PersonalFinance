@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Input, Label, LabelSpan } from './styles'
 
-const DefaultInput = ({ label, placeholder, value, setValue, required }) => {
+const DefaultInput = ({ label, type = 'text', placeholder, value, setValue, required }) => {
     return (
         <Container>
             <Label htmlFor={label}>
@@ -10,6 +10,7 @@ const DefaultInput = ({ label, placeholder, value, setValue, required }) => {
             </Label>
 
             <Input id={label}
+                type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}

@@ -74,13 +74,11 @@ const WithdrawMoney = ({ pot }) => {
     }
 
     const getPercentage = (quantity, target) => {
-        const percentage = (100 * quantity) / target;
-        if (percentage >= 100) return 100;
-        return percentage.toFixed(2);
-    };
+        return ((quantity * 100) / target).toFixed(2)
+    }
 
-    const handleAmountToWithdraw = (value) => {
-        const newAmount = amountToWithdraw + value;
+    const handleAmountToWithdrawQuickButton = (value) => {
+        const newAmount = amountToWithdraw + Number(value);
         const remaining = pot.pot_quantity - newAmount;
 
         if (remaining < 0) {
@@ -99,6 +97,14 @@ const WithdrawMoney = ({ pot }) => {
                 Amount to Withdraw ${newAmount}
             `)
             setAmountToWithdraw(newAmount)
+        }
+    }
+
+    const handleAmountToWithdraw = (value) => {
+        if ((pot.pot_quantity - Number(value)) < 0 || isNaN(value)) {
+            setAmountToWithdraw(0)
+        } else {
+            setAmountToWithdraw(Number(value))
         }
     }
 
@@ -171,7 +177,7 @@ const WithdrawMoney = ({ pot }) => {
                                 <QuickButton
                                     key={index}
                                     type='button'
-                                    onClick={() => handleAmountToWithdraw(value)}
+                                    onClick={() => handleAmountToWithdrawQuickButton(value)}
                                 >
                                     -{value}
                                 </QuickButton>
