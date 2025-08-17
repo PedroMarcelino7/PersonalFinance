@@ -81,6 +81,14 @@ const AddMoney = ({ pot }) => {
         setAmountToAdd(prev => parseFloat(prev) + parseFloat(value))
     }
 
+    const handleAmountToAdd = (value) => {
+        if (isNaN(value)) {
+            setAmountToAdd(0)
+        } else {
+            setAmountToAdd(Number(value))
+        }
+    }
+
     const currentPercentage = getPercentage(pot.pot_quantity, pot.pot_target);
     const newTotalQuantity = parseFloat(pot.pot_quantity) + parseFloat(amountToAdd);
     const newTotalPercentage = getPercentage(newTotalQuantity, pot.pot_target);
@@ -120,7 +128,7 @@ const AddMoney = ({ pot }) => {
             <DefaultInput
                 label={'Amount to Add'}
                 placeholder={'$'}
-                setValue={setAmountToAdd}
+                setValue={handleAmountToAdd}
             />
 
             <QuickButtonsContainer>
