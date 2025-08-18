@@ -46,6 +46,7 @@ export const ChevronIcon = styled.img`
 
 export const Options = styled.div`
     width: 100%;
+    max-height: 150px;
     position: absolute;
     top: 100%;
     left: 0;
@@ -53,7 +54,8 @@ export const Options = styled.div`
     box-shadow: 0 0 10px var(--light-gray);
     border-radius: 10px;
     margin-top: 0.25rem;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     z-index: 1000;
 `
 
