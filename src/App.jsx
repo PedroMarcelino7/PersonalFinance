@@ -4,6 +4,7 @@ import Overview from './pages/overview/overview'
 import Transactions from './pages/transactions/transactions'
 import Budgets from './pages/budgets/budgets'
 import Pots from './pages/pots/pots'
+import FinishedPots from './pages/pots/finished/finishedPots'
 import RecurringBills from './pages/recurringBills/recurringBills'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"

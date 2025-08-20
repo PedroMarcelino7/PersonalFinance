@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
-import PageContainer from '../../components/pageContainer/pageContainer'
+import PageContainer from '../../../components/pageContainer/pageContainer'
 import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, Option, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
-import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
-import IconLink from '../../assets/images/icon-link.svg'
-import { usePots } from '../../contexts/potsContext'
-import IconDelete from '../../assets/images/trash-solid-red.svg'
-import IconEdit from '../../assets/images/icon-edit-blue.svg'
-import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
+import OptionsIcon from '../../../assets/images/icon-ellipsis.svg'
+import IconLink from '../../../assets/images/icon-link.svg'
+import { usePots } from '../../../contexts/potsContext'
+import IconDelete from '../../../assets/images/trash-solid-red.svg'
+import IconEdit from '../../../assets/images/icon-edit-blue.svg'
+import ChevronDownIcon from '../../../assets/images/icon-caret-down.svg'
 
 import { Link } from 'react-router';
 
 // UTILS
-import { formatCurrency } from '../../utils/formatCurrency'
-import { formatDate } from '../../utils/formatDate'
+import { formatCurrency } from '../../../utils/formatCurrency'
+import { formatDate } from '../../../utils/formatDate'
 
 // MODAL MANAGER
-import PotsModalManager from '../../managers/PotsModalManager/PotsModalManager'
+import PotsModalManager from '../../../managers/PotsModalManager/PotsModalManager'
 
-const Pots = () => {
+const FinishedPots = () => {
     const { pots, refreshPots } = usePots()
 
     const [modal, setModal] = useState({ type: null, pot: null });
@@ -58,9 +58,7 @@ const Pots = () => {
         <>
 
             <PageContainer
-                name="Pots"
-                button={pots.length === 0 ? '' : '+ Add new Pot'}
-                onClick={() => openModal("addPot")}
+                name="Finished Pots"
             >
                 {pots.length === 0
                     ? <EmptyPageContainer>
@@ -97,8 +95,8 @@ const Pots = () => {
                             </SortBox>
 
                             <ActionsButton>
-                                <Link to={'./finished'}>
-                                    Finished pots
+                                <Link to={'../pots'}>
+                                    All pots
                                 </Link>
                             </ActionsButton>
                         </ActionsContainer>
@@ -118,7 +116,7 @@ const Pots = () => {
                                             </CardDateBox>
                                         </CardTitleBox>
 
-                                        <CardOptionsContainer>
+                                        {/* <CardOptionsContainer>
                                             <img onClick={() => handleShowOptions(pot.pot_id)} src={OptionsIcon} alt="" />
 
                                             {(showOptions !== 0 && showOptions === pot.pot_id) &&
@@ -146,12 +144,12 @@ const Pots = () => {
                                                     />
                                                 </CardOptionsBox>
                                             }
-                                        </CardOptionsContainer>
+                                        </CardOptionsContainer> */}
                                     </CardHeader>
 
                                     <CardContent>
                                         <TotalSavedBox>
-                                            <h3>Total Saved</h3>
+                                            <h3>Total spent</h3>
 
                                             <h2>{formatCurrency(pot.pot_quantity)}</h2>
                                         </TotalSavedBox>
@@ -169,10 +167,10 @@ const Pots = () => {
                                         </ProgressDescription>
                                     </CardContent>
 
-                                    <CardButtons>
+                                    {/* <CardButtons>
                                         <Button onClick={() => openModal("addMoney", pot)}>+ Add Money</Button>
                                         <Button onClick={() => openModal("withdraw", pot)}>Withdraw</Button>
-                                    </CardButtons>
+                                    </CardButtons> */}
                                 </Card>
                             ))}
                         </PotsCardContainer>
@@ -180,9 +178,9 @@ const Pots = () => {
                 }
             </PageContainer>
 
-            <PotsModalManager modal={modal} onClose={closeModal} />
+            {/* <PotsModalManager modal={modal} onClose={closeModal} /> */}
         </>
     )
 }
 
-export default Pots
+export default FinishedPots

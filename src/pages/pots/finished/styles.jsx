@@ -50,14 +50,14 @@ export const ActionsButton = styled.button`
     background-color: var(--gray);
     border: none;
     border-radius: 5px;
-    cursor: pointer;
     padding-block: 0.75rem;
     padding-inline: 1.5rem;
     font-size: 1.25rem;
+    cursor: pointer;
     
     a {
-        color: var(--white);
         text-decoration: none;
+        color: var(--white);
     }
 `
 
