@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, Option, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, Option, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
 import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
 import IconLink from '../../assets/images/icon-link.svg'
 import { usePots } from '../../contexts/potsContext'
@@ -79,21 +79,27 @@ const Pots = () => {
                     </EmptyPageContainer>
                     :
                     <PotsContainer>
-                        <SortBox>
-                            <h6>Sort by</h6>
+                        <ActionsContainer>
+                            <SortBox>
+                                <h6>Sort by</h6>
 
-                            <SelectWrapper>
-                                <CustomSelect onChange={(e) => handlePotsOrderChange(e.target.value)}>
-                                    <CustomOption value="oldest">Oldest</CustomOption>
-                                    <CustomOption value="newest">Newest</CustomOption>
-                                    <CustomOption value="atoz">A to Z</CustomOption>
-                                    <CustomOption value="ztoa">Z to A</CustomOption>
-                                    <CustomOption value="expensive">Most Expensive</CustomOption>
-                                    <CustomOption value="cheapest">Cheapest</CustomOption>
-                                </CustomSelect>
-                                <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                            </SelectWrapper>
-                        </SortBox>
+                                <SelectWrapper>
+                                    <CustomSelect onChange={(e) => handlePotsOrderChange(e.target.value)}>
+                                        <CustomOption value="oldest">Oldest</CustomOption>
+                                        <CustomOption value="newest">Newest</CustomOption>
+                                        <CustomOption value="atoz">A to Z</CustomOption>
+                                        <CustomOption value="ztoa">Z to A</CustomOption>
+                                        <CustomOption value="expensive">Most Expensive</CustomOption>
+                                        <CustomOption value="cheapest">Cheapest</CustomOption>
+                                    </CustomSelect>
+                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+                                </SelectWrapper>
+                            </SortBox>
+
+                            <ActionsButton>
+                                Finished pots
+                            </ActionsButton>
+                        </ActionsContainer>
 
                         <PotsCardContainer>
                             {pots.map((pot, index) => (

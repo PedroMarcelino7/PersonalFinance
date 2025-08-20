@@ -19,6 +19,7 @@ function App() {
           <Route path='/transactions' element={<Transactions />} />
           <Route path='/budgets' element={<Budgets />} />
           <Route path='/pots' element={<Pots />} />
+          <Route path='/pots/finished' element={<FinishedPots />} />
           <Route path='/recurring-bills' element={<RecurringBills />} />
         </Routes>
       </BrowserRouter>

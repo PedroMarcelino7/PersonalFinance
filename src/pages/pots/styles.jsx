@@ -40,6 +40,23 @@ export const PotsContainer = styled.div`
     gap: 1rem;
 `
 
+export const ActionsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+export const ActionsButton = styled.button`
+    background-color: var(--gray);
+    border: none;
+    border-radius: 5px;
+    padding-block: 0.75rem;
+    padding-inline: 1.5rem;
+    color: var(--white);
+    font-size: 1.25rem;
+    cursor: pointer;
+`
+
 export const Card = styled.div`
     background-color: #fff;
     padding: 1.5rem;
