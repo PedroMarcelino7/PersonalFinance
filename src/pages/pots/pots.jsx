@@ -21,6 +21,8 @@ import PotsModalManager from '../../managers/PotsModalManager/PotsModalManager'
 const Pots = () => {
     const { pots, refreshPots } = usePots()
 
+    const unfinishedPots = pots.filter((pots) => pots.pot_status === 0)
+
     const [modal, setModal] = useState({ type: null, pot: null });
 
     const openModal = (type, pot = null) => setModal({ type, pot });
@@ -63,7 +65,7 @@ const Pots = () => {
                 button={pots.length === 0 ? '' : '+ Add new Pot'}
                 onClick={() => openModal("addPot")}
             >
-                {pots.length === 0
+                {unfinishedPots.length === 0
                     ? <EmptyPageContainer>
                         <EmptyPageTextBox>
                             <h1>You don't have any pots created yet.</h1>
@@ -105,7 +107,7 @@ const Pots = () => {
                         </ActionsContainer>
 
                         <PotsCardContainer>
-                            {pots.map((pot, index) => (
+                            {unfinishedPots.map((pot, index) => (
                                 <Card key={index}>
                                     <CardHeader>
                                         <CardTitleBox>
@@ -123,7 +125,9 @@ const Pots = () => {
                                             <img onClick={() => handleShowOptions(pot.pot_id)} src={OptionsIcon} alt="" />
 
                                             {(showOptions !== 0 && showOptions === pot.pot_id) &&
-                                                <CardOptionsBox>
+                                                <CardOptionsBox
+                                                    onClick={() => handleShowOptions(pot.pot_id)}
+                                                >
                                                     <Link
                                                         to={formatLink(pot.pot_link)}
                                                         target={pot.pot_link === '' ? '' : '_blank'}
@@ -145,8 +149,9 @@ const Pots = () => {
                                                         style={{ width: '30px' }}
                                                         src={IconDelete}
                                                     />
-                                                    
+
                                                     <img alt=''
+                                                        onClick={() => openModal("finish", pot)}
                                                         style={{ width: '40px' }}
                                                         src={IconCheck}
                                                     />

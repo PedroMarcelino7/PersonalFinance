@@ -47,6 +47,18 @@ const deletePot = (req, res) => {
     });
 }
 
+const finishPot = (req, res) => {
+    const values = req.body;
+
+    Pot.finishPot(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao finalizar pot' });
+        }
+
+        res.json(results);
+    });
+}
+
 const updateMoney = (req, res) => {
     const values = req.body;
 
@@ -78,5 +90,6 @@ module.exports = {
     updateMoney,
     editPot,
     deletePot,
-    updateQuickButtons
+    updateQuickButtons,
+    finishPot
 };

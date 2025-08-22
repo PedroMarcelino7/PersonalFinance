@@ -1,53 +1,49 @@
-import { CloseButton, ConfirmButton, FormContainer } from './styles'
+import { ConfirmButton, FormContainer } from './styles'
 import { usePots } from '../../../contexts/potsContext'
 import { useModal } from '../modal'
 import { useEffect } from 'react'
-import { useThemes } from '../../../contexts/themesContext'
 import { toast } from 'react-toastify'
 
-const DeletePot = ({ pot }) => {
+const FinishPot = ({ pot }) => {
     const { refreshPots } = usePots()
-    const { refreshThemes } = useThemes()
     const { closeModal } = useModal()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/pots/delete', {
+            const response = await fetch('http://localhost:3000/pots/finish', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    pot_id: pot.pot_id,
-                    theme_id: pot.theme_id
+                    pot_id: pot.pot_id
                 })
             });
 
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
-                toast.error('Error deleting pot.');
+                toast.error('Error finishing pot.');
                 return;
             }
 
             const data = await response.json();
-            toast.success('Pot deleted successfully.');
-            console.log('>>> Resposta Pot Post [Delete Pots Modal]:', data);
+            toast.success('Pot finished successfully.');
+            console.log('>>> Resposta Pot Post [Finish Pots Modal]:', data);
 
         } catch (error) {
-            console.error('Erro ao deletar o pot:', error);
-            toast.error('Error deleting pot.');
+            console.error('Erro ao finalizar o pot:', error);
+            toast.error('Error finishing pot.');
         }
 
-        refreshThemes()
         refreshPots()
         closeModal()
     }
 
     useEffect(() => {
         console.log(`
-            Pot to DELETE
+            Pot to FINISH
     
             ID: ${pot.pot_id}
             Name: ${pot.pot_name}
@@ -62,9 +58,9 @@ const DeletePot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm deletion</ConfirmButton>
+            <ConfirmButton>Yes, confirm completion</ConfirmButton>
         </FormContainer>
     )
 }
 
-export default DeletePot
+export default FinishPot

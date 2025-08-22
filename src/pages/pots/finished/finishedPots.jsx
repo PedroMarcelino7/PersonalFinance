@@ -11,16 +11,12 @@ import { formatCurrency } from '../../../utils/formatCurrency'
 import { formatDate } from '../../../utils/formatDate'
 
 const FinishedPots = () => {
-    const { pots, refreshPots } = usePots()
+    const { pots } = usePots()
 
-    const finishedPots = []
-
-    const [modal, setModal] = useState({ type: null, pot: null });
-
-    const openModal = (type, pot = null) => setModal({ type, pot });
+    const finishedPots = pots.filter((pot) => pot.pot_status === 1)
 
     useEffect(() => {
-        console.log('Pots [Pots Page]:', pots)
+        console.log('Pots [Pots Page]:', finishedPots)
     }, [pots])
 
     const getPercentage = (pot) => {
@@ -36,7 +32,6 @@ const FinishedPots = () => {
 
     return (
         <>
-
             <PageContainer
                 name="Finished Pots"
             >
@@ -44,14 +39,13 @@ const FinishedPots = () => {
                     ? <EmptyPageContainer>
                         <EmptyPageTextBox>
                             <h1>You don't have any finished pot yet.</h1>
-                            <h2>Start setting aside your money.</h2>
                         </EmptyPageTextBox>
 
                         <div>
-                            <FirstPotButton
-                                onClick={() => openModal("addPot")}
-                            >
-                                Create your first pot
+                            <FirstPotButton>
+                                <Link to={'../pots'}>
+                                    Return to all pots
+                                </Link>
                             </FirstPotButton>
                         </div>
                     </EmptyPageContainer>
@@ -82,7 +76,7 @@ const FinishedPots = () => {
                         </ActionsContainer>
 
                         <PotsCardContainer>
-                            {pots.map((pot, index) => (
+                            {finishedPots.map((pot, index) => (
                                 <Card key={index}>
                                     <CardHeader>
                                         <CardTitleBox>

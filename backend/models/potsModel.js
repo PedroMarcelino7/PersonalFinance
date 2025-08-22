@@ -176,6 +176,14 @@ const deletePotModel = (values, callback) => {
 };
 
 
+const finishPot = (values, callback) => {
+    db.query(`
+        update pots
+        set pot_status = 1
+        where pot_id = ?
+    `, [values.pot_id], callback)
+}
+
 const updateMoneyPot = (values, callback) => {
     db.query(`
         update pots
@@ -198,5 +206,6 @@ module.exports = {
     updateMoneyPot,
     editPotModel,
     deletePotModel,
-    updateQuickButtons
+    updateQuickButtons,
+    finishPot
 };

@@ -253,9 +253,13 @@ export const FirstPotButton = styled.button`
     border-radius: 5px;
     padding-block: 0.75rem;
     padding-inline: 2.5rem;
-    color: var(--white);
     font-size: 1.25rem;
     cursor: pointer;
+
+    a {
+        text-decoration: none;
+        color: var(--white);
+    }
 `
 
 export const SortBox = styled.div`
