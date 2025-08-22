@@ -6,6 +6,7 @@ import IconLink from '../../assets/images/icon-link.svg'
 import { usePots } from '../../contexts/potsContext'
 import IconDelete from '../../assets/images/trash-solid-red.svg'
 import IconEdit from '../../assets/images/icon-edit-blue.svg'
+import IconCheck from '../../assets/images/icon-check.svg'
 import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 
 import { Link } from 'react-router';
@@ -143,6 +144,11 @@ const Pots = () => {
                                                         onClick={() => openModal("delete", pot)}
                                                         style={{ width: '30px' }}
                                                         src={IconDelete}
+                                                    />
+                                                    
+                                                    <img alt=''
+                                                        style={{ width: '40px' }}
+                                                        src={IconCheck}
                                                     />
                                                 </CardOptionsBox>
                                             }
