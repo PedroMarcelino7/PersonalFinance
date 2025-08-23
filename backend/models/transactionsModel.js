@@ -1,6 +1,30 @@
 const db = require('../db');
 
-const getAllTransactions = (callback) => {
+const getAllTransactions = (sort, callback) => {
+    let orderBy = 'newest'
+    const defaultQuery = 'trns.transaction_date desc, trns.transaction_created_at desc;'
+
+    switch (sort) {
+        case 'newest':
+            orderBy = defaultQuery
+            break;
+        case 'oldest':
+            orderBy = 'trns.transaction_date asc, trns.transaction_created_at asc;'
+            break;
+        case 'atoz':
+            orderBy = `prsn.person_name asc, ${defaultQuery}`
+            break;
+        case 'ztoa':
+            orderBy = `prsn.person_name desc, ${defaultQuery}`
+            break;
+        case 'highest':
+            orderBy = `trns.transaction_amount desc, ${defaultQuery}`
+            break;
+        case 'lowest':
+            orderBy = `trns.transaction_amount asc, ${defaultQuery}`
+            break;
+    }
+
     db.query(`
     select
         trns.*, cat.category_name, prsn.person_name
@@ -15,8 +39,7 @@ const getAllTransactions = (callback) => {
     on
         trns.person_id = prsn.person_id
     order by
-        trns.transaction_date desc,
-        trns.transaction_created_at desc;
+        ${orderBy}
     `, callback);
 };
 

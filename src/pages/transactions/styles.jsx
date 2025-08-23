@@ -41,6 +41,8 @@ export const SearchButton = styled.img`
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+    background-color: #fff;
+    padding: 0.25rem;
 `;
 
 export const SortContainer = styled.div`

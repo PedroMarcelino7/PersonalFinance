@@ -18,9 +18,9 @@ const transactionsReducer = (state, action) => {
 export const TransactionsProvider = ({ children }) => {
     const [transactions, dispatch] = useReducer(transactionsReducer, []);
 
-    const fetchTransactions = async () => {
+    const fetchTransactions = async (sort = 'newest') => {
         try {
-            const response = await fetch("http://localhost:3000/transactions");
+            const response = await fetch(`http://localhost:3000/transactions?sort=${sort}`);
             const data = await response.json();
             dispatch({ type: "SET_TRANSACTIONS", payload: data });
         } catch (error) {
@@ -28,9 +28,9 @@ export const TransactionsProvider = ({ children }) => {
         }
     };
 
-    const refreshTransactions = async () => {
+    const refreshTransactions = async (sort = 'newest') => {
         console.log("🔄 Atualizando transactions...");
-        await fetchTransactions();
+        await fetchTransactions(sort);
     };
 
     useEffect(() => {

@@ -17,7 +17,7 @@ import { useTransactions } from '../../contexts/transactionsContext'
 import { useCategories } from '../../contexts/categoriesContext'
 
 const Transactions = () => {
-    const { transactions } = useTransactions()
+    const { transactions, refreshTransactions } = useTransactions()
     const { categories } = useCategories()
 
     const [categoriesFilter, setCategoriesFilter] = useState(0)
@@ -25,7 +25,7 @@ const Transactions = () => {
     const quantityToShow = 7
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
     const filteredTransactions = transactions
-        .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter) 
+        .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
     const pagesQuantity = Math.ceil(filteredTransactions.length / quantityToShow)
 
     const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
@@ -67,6 +67,10 @@ const Transactions = () => {
         setQuantityToShowOffset(0)
     }
 
+    const handleSortTransactions = (sort) => {
+        refreshTransactions(sort)
+    }
+
     useEffect(() => {
         console.log('TRANSACTIONS:\n', transactions)
     }, [transactions])
@@ -90,13 +94,13 @@ const Transactions = () => {
                                 <h6>Sort by</h6>
 
                                 <SelectWrapper>
-                                    <CustomSelect>
-                                        <CustomOption value="1">Latest</CustomOption>
-                                        <CustomOption value="2">Oldest</CustomOption>
-                                        <CustomOption value="3">A to Z</CustomOption>
-                                        <CustomOption value="4">Z to A</CustomOption>
-                                        <CustomOption value="5">Highest</CustomOption>
-                                        <CustomOption value="6">Lowest</CustomOption>
+                                    <CustomSelect onChange={(e) => handleSortTransactions(e.target.value)}>
+                                        <CustomOption value="newest">Newest</CustomOption>
+                                        <CustomOption value="oldest">Oldest</CustomOption>
+                                        <CustomOption value="atoz">A to Z</CustomOption>
+                                        <CustomOption value="ztoa">Z to A</CustomOption>
+                                        <CustomOption value="highest">Highest</CustomOption>
+                                        <CustomOption value="lowest">Lowest</CustomOption>
                                     </CustomSelect>
                                     <ChevronIcon src={ChevronDownIcon} alt="chevron" />
                                 </SelectWrapper>

@@ -28,7 +28,7 @@ export const PotsProvider = ({ children }) => {
         }
     };
 
-    const refreshPots = async (sort) => {
+    const refreshPots = async (sort = 'oldest') => {
         console.log("🔄 Atualizando pots...");
         await fetchPots(sort);
     };
