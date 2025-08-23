@@ -175,14 +175,43 @@ const deletePotModel = (values, callback) => {
     });
 };
 
-
 const finishPot = (values, callback) => {
-    db.query(`
-        update pots
-        set pot_status = 1
-        where pot_id = ?
-    `, [values.pot_id], callback)
-}
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const finishPotQuery = `
+            update pots
+            set pot_status = 1
+            where pot_id = ?
+        `;
+        const potValues = [values.pot_id];
+
+        db.query(finishPotQuery, potValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const addTransactionQuery = `
+                insert into
+                    transactions
+                    (transaction_amount, transaction_type, category_id, person_id)
+                values
+                    (?, 0, 1, 1);
+            `;
+            const transactionValues = [values.transaction_amount];
+
+            db.query(addTransactionQuery, transactionValues, (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                db.commit((err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    callback(null, {
+                        pot: values.pot_id,
+                    });
+                });
+            });
+        });
+    });
+};
 
 const updateMoneyPot = (values, callback) => {
     db.query(`

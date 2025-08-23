@@ -18,7 +18,8 @@ const FinishPot = ({ pot }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    pot_id: pot.pot_id
+                    pot_id: pot.pot_id,
+                    transaction_amount: pot.pot_quantity
                 })
             });
 
