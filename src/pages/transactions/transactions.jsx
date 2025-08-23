@@ -11,7 +11,7 @@ import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 import PrevIcon from '../../assets/images/icon-caret-left.svg'
 import NextIcon from '../../assets/images/icon-caret-right.svg'
 
-import AddTransaction from '../../components/modal/transactions/addTransaction/addTransaction'
+import AddTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
 
 import { useTransactions } from '../../contexts/transactionsContext'
 import { useCategories } from '../../contexts/categoriesContext'
@@ -24,9 +24,8 @@ const Transactions = () => {
     const [page, setPage] = useState(1)
     const quantityToShow = 7
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
-    const filteredTransactions = transactions.filter(
-        transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter
-    )
+    const filteredTransactions = transactions
+        .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter) 
     const pagesQuantity = Math.ceil(filteredTransactions.length / quantityToShow)
 
     const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
@@ -189,7 +188,6 @@ const Transactions = () => {
             {showAddTransactionModal &&
                 <Modal
                     title={'Add Transaction'}
-                    subtitle={'Create a pot to set savings targets. These can help keep you on track as you save for special purchases.'}
                     closeModal={setShowAddTransactionModal}
                 >
                     <AddTransaction />

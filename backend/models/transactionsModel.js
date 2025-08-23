@@ -15,7 +15,8 @@ const getAllTransactions = (callback) => {
     on
         trns.person_id = prsn.person_id
     order by
-        transaction_date desc;    
+        trns.transaction_date desc,
+        trns.transaction_created_at desc;
     `, callback);
 };
 

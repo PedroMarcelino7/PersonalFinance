@@ -55,7 +55,7 @@ const AddTransaction = () => {
                 },
                 body: JSON.stringify({
                     transaction_amount: amount,
-                    transaction_type: 1,
+                    transaction_type: type,
                     transaction_date: date,
                     category_id: category,
                     person_id: person,
