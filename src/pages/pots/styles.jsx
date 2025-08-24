@@ -14,7 +14,7 @@ export const EmptyPageContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    `
+`
 
 export const EmptyPageTextBox = styled.div`
     display: flex;

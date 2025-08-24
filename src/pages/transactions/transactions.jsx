@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
+import { ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
 import Modal from '../../components/modal/modal'
@@ -83,119 +83,135 @@ const Transactions = () => {
                 button='+ Add Transaction'
                 onClick={handleShowAddTransactionModal}
             >
-                <TransactionsContainer>
-                    <TransactionsHeader>
-                        <SearchBox>
-                            <SearchInput placeholder="Search transaction" />
-                            <SearchButton src={SearchIcon} />
-                        </SearchBox>
+                {transactions.length === 0
+                    ? <EmptyPageContainer>
+                        <EmptyPageTextBox>
+                            <h1>You don't have any transaction yet.</h1>
+                            <h2>Start recording your movements.</h2>
+                        </EmptyPageTextBox>
 
-                        <SortContainer>
-                            <SortBox>
-                                <h6>Sort by</h6>
+                        <div>
+                            <FirstPotButton
+                                onClick={handleShowAddTransactionModal}
+                            >
+                                Create your first transaction
+                            </FirstPotButton>
+                        </div>
+                    </EmptyPageContainer>
+                    : <TransactionsContainer>
+                        <TransactionsHeader>
+                            <SearchBox>
+                                <SearchInput placeholder="Search transaction" />
+                                <SearchButton src={SearchIcon} />
+                            </SearchBox>
 
-                                <SelectWrapper>
-                                    <CustomSelect onChange={(e) => handleSortTransactions(e.target.value)}>
-                                        <CustomOption value="newest">Newest</CustomOption>
-                                        <CustomOption value="oldest">Oldest</CustomOption>
-                                        <CustomOption value="atoz">A to Z</CustomOption>
-                                        <CustomOption value="ztoa">Z to A</CustomOption>
-                                        <CustomOption value="highest">Highest</CustomOption>
-                                        <CustomOption value="lowest">Lowest</CustomOption>
-                                    </CustomSelect>
-                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                                </SelectWrapper>
-                            </SortBox>
+                            <SortContainer>
+                                <SortBox>
+                                    <h6>Sort by</h6>
 
-                            <SortBox>
-                                <h6>Category</h6>
+                                    <SelectWrapper>
+                                        <CustomSelect onChange={(e) => handleSortTransactions(e.target.value)}>
+                                            <CustomOption value="newest">Newest</CustomOption>
+                                            <CustomOption value="oldest">Oldest</CustomOption>
+                                            <CustomOption value="atoz">A to Z</CustomOption>
+                                            <CustomOption value="ztoa">Z to A</CustomOption>
+                                            <CustomOption value="highest">Highest</CustomOption>
+                                            <CustomOption value="lowest">Lowest</CustomOption>
+                                        </CustomSelect>
+                                        <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+                                    </SelectWrapper>
+                                </SortBox>
 
-                                <SelectWrapper>
-                                    <CustomSelect onChange={(e) => handleSetCategoriesFilter(Number(e.target.value))}>
-                                        <CustomOption value="0">All transactions</CustomOption>
-                                        {categories.map((category) => (
-                                            <CustomOption value={category.category_id}>{category.category_name}</CustomOption>
-                                        ))}
-                                    </CustomSelect>
-                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                                </SelectWrapper>
-                            </SortBox>
-                        </SortContainer>
-                    </TransactionsHeader>
+                                <SortBox>
+                                    <h6>Category</h6>
 
-                    <div>
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableHeaderElement>Recipient / Sender</TableHeaderElement>
-                                    <TableHeaderElement>Category</TableHeaderElement>
-                                    <TableHeaderElement>Transaction Date</TableHeaderElement>
-                                    <TableHeaderElement className='end'>Amount</TableHeaderElement>
-                                </tr>
-                            </TableHeader>
+                                    <SelectWrapper>
+                                        <CustomSelect onChange={(e) => handleSetCategoriesFilter(Number(e.target.value))}>
+                                            <CustomOption value="0">All transactions</CustomOption>
+                                            {categories.map((category) => (
+                                                <CustomOption value={category.category_id}>{category.category_name}</CustomOption>
+                                            ))}
+                                        </CustomSelect>
+                                        <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+                                    </SelectWrapper>
+                                </SortBox>
+                            </SortContainer>
+                        </TransactionsHeader>
 
-                            {filteredTransactions
-                                .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
-                                .slice(quantityToShowOffset, quantityToShowOffset + quantityToShow)
-                                .map((transaction, index) => (
-                                    <TableBodyRow key={index}>
-                                        <TableBodyElement className='reference'>
-                                            {transaction.pot_id
-                                                ? <>
-                                                    <img src={PotIcon} alt="" />
-                                                    <h3>{transaction.pot_name}</h3>
-                                                </>
-                                                : <>
-                                                    <img src={Avatar} alt="" />
-                                                    <h3>{transaction.person_name}</h3>
-                                                </>
-                                            }
-                                        </TableBodyElement>
+                        <div>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableHeaderElement>Recipient / Sender</TableHeaderElement>
+                                        <TableHeaderElement>Category</TableHeaderElement>
+                                        <TableHeaderElement>Transaction Date</TableHeaderElement>
+                                        <TableHeaderElement className='end'>Amount</TableHeaderElement>
+                                    </tr>
+                                </TableHeader>
 
-                                        <TableBodyElement>{transaction.category_name}</TableBodyElement>
+                                {filteredTransactions
+                                    .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
+                                    .slice(quantityToShowOffset, quantityToShowOffset + quantityToShow)
+                                    .map((transaction, index) => (
+                                        <TableBodyRow key={index}>
+                                            <TableBodyElement className='reference'>
+                                                {transaction.pot_id
+                                                    ? <>
+                                                        <img src={PotIcon} alt="" />
+                                                        <h3>{transaction.pot_name}</h3>
+                                                    </>
+                                                    : <>
+                                                        <img src={Avatar} alt="" />
+                                                        <h3>{transaction.person_name}</h3>
+                                                    </>
+                                                }
+                                            </TableBodyElement>
 
-                                        <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
+                                            <TableBodyElement>{transaction.category_name}</TableBodyElement>
 
-                                        <TableBodyElement
-                                            className='end'
-                                            color={transaction.transaction_type === 1 ? 'var(--green)' : 'var(--red)'}
-                                        >
-                                            {transaction.transaction_type === 1 ? '+' : '-'}${transaction.transaction_amount}
-                                        </TableBodyElement>
-                                    </TableBodyRow>
+                                            <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
+
+                                            <TableBodyElement
+                                                className='end'
+                                                color={transaction.transaction_type === 1 ? 'var(--green)' : 'var(--red)'}
+                                            >
+                                                {transaction.transaction_type === 1 ? '+' : '-'}${transaction.transaction_amount}
+                                            </TableBodyElement>
+                                        </TableBodyRow>
+                                    ))}
+                            </Table>
+                        </div>
+
+                        <TransactionsFooter>
+                            <NavButton onClick={() => handleChangeTransactionsPage('prev', page)}>
+                                <img src={PrevIcon} alt="" />
+
+                                <h3>Prev</h3>
+                            </NavButton>
+
+                            <NavPages>
+                                {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
+                                    <button
+                                        key={i + 1}
+                                        className={i + 1 === page ? 'selected' : ''}
+                                        onClick={() => {
+                                            setPage(i + 1)
+                                            setQuantityToShowOffset(quantityToShow * i)
+                                        }}
+                                    >
+                                        {i + 1}
+                                    </button>
                                 ))}
-                        </Table>
-                    </div>
+                            </NavPages>
 
-                    <TransactionsFooter>
-                        <NavButton onClick={() => handleChangeTransactionsPage('prev', page)}>
-                            <img src={PrevIcon} alt="" />
+                            <NavButton onClick={() => handleChangeTransactionsPage('next', page)}>
+                                <h3>Next</h3>
 
-                            <h3>Prev</h3>
-                        </NavButton>
-
-                        <NavPages>
-                            {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
-                                <button
-                                    key={i + 1}
-                                    className={i + 1 === page ? 'selected' : ''}
-                                    onClick={() => {
-                                        setPage(i + 1)
-                                        setQuantityToShowOffset(quantityToShow * i)
-                                    }}
-                                >
-                                    {i + 1}
-                                </button>
-                            ))}
-                        </NavPages>
-
-                        <NavButton onClick={() => handleChangeTransactionsPage('next', page)}>
-                            <h3>Next</h3>
-
-                            <img src={NextIcon} alt="" />
-                        </NavButton>
-                    </TransactionsFooter>
-                </TransactionsContainer>
+                                <img src={NextIcon} alt="" />
+                            </NavButton>
+                        </TransactionsFooter>
+                    </TransactionsContainer>
+                }
             </PageContainer>
 
             {showAddTransactionModal &&

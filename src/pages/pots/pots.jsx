@@ -68,7 +68,7 @@ const Pots = () => {
                 {unfinishedPots.length === 0
                     ? <EmptyPageContainer>
                         <EmptyPageTextBox>
-                            <h1>You don't have any pots created yet.</h1>
+                            <h1>You don't have any pot created yet.</h1>
                             <h2>Start setting aside your money.</h2>
                         </EmptyPageTextBox>
 
