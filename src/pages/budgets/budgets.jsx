@@ -10,10 +10,13 @@ import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 import AddNewBudget from '../../components/modal/addNewBudget/addNewBudget'
 import Modal from '../../components/modal/modal'
 import { useCategories } from '../../contexts/categoriesContext'
+import { useTransactions } from '../../contexts/transactionsContext'
 import EditBudget from '../../components/modal/editBudget/editBudget'
 
 const Budgets = () => {
     const { categories } = useCategories()
+    const { transactions } = useTransactions()
+
     const [selectedBudget, setSelectedBudget] = useState(categories[0])
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
     const [showOptions, setShowOptions] = useState(0)
@@ -50,21 +53,21 @@ const Budgets = () => {
 
     const getBudgetsSpent = () => {
         const budgetsSpent = categories.reduce((acc, category) => {
-            return acc + parseFloat(category.category_spent)
+            return acc + budgetSpentCalc(category.category_id)
         }, 0)
 
         return budgetsSpent.toFixed(2)
     }
 
     const getBudgetRemaining = (category) => {
-        const spent = parseFloat(category.category_spent)
+        const spent = budgetSpentCalc(category.category_id)
         const max = parseFloat(category.category_max)
 
         return (parseFloat(max) - parseFloat(spent)).toFixed(2)
     }
 
     const getBudgetPercentage = (category) => {
-        const spent = parseFloat(category.category_spent)
+        const spent = budgetSpentCalc(category.category_id)
         const max = parseFloat(category.category_max)
 
         return ((spent * 100) / max).toFixed(2)
@@ -72,6 +75,14 @@ const Budgets = () => {
 
     const handleShowAddBudgetModal = () => {
         setShowAddBudgetModal(true)
+    }
+
+    const budgetSpentCalc = (category_id) => {
+        return transactions.reduce((acc, transaction) => {
+            return (transaction.category_id === category_id && transaction.transaction_type === 0)
+                ? acc + parseFloat(transaction.transaction_amount)
+                : acc
+        }, 0)
     }
 
     return (
@@ -144,7 +155,8 @@ const Budgets = () => {
                                         <ResumeItem theme={category.theme_color}>
                                             <h6>Spent</h6>
 
-                                            <h5>${category.category_spent}</h5>
+                                            {/* <h5>${category.category_spent}</h5> */}
+                                            <h5>${budgetSpentCalc(category.category_id)}</h5>
                                         </ResumeItem>
 
                                         <ResumeItem color='var(--white)'>

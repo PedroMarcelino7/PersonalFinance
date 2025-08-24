@@ -1,11 +1,20 @@
-import React from 'react';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
-
+import { useTransactions } from '../../contexts/transactionsContext';
 
 const Chart = ({ size = 250, data }) => {
+    const { transactions } = useTransactions()
+
+    const budgetSpentCalc = (category_id) => {
+        return transactions.reduce((acc, transaction) => {
+            return (transaction.category_id === category_id && transaction.transaction_type === 0)
+                ? acc + parseFloat(transaction.transaction_amount)
+                : acc
+        }, 0)
+    }
+
     const chartData = data.map((item) => ({
         name: item.category_name,
-        value: Number(item.category_spent)
+        value: budgetSpentCalc(item.category_id)
     }));
 
     const colors = data.map((item) => item.theme_color)
