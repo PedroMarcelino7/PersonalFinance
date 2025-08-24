@@ -39,7 +39,7 @@ const Budgets = () => {
     }
 
     const chartData = () => {
-        return budgets.filter((budget, index) => index < 6)
+        return categories.filter((category, index) => index < 6)
     }
 
     const getBudgetsLimit = () => {
@@ -51,23 +51,23 @@ const Budgets = () => {
     }
 
     const getBudgetsSpent = () => {
-        const budgetsSpent = budgets.reduce((acc, budget) => {
-            return acc + parseFloat(budget.budget_spent)
+        const budgetsSpent = categories.reduce((acc, category) => {
+            return acc + parseFloat(category.category_spent)
         }, 0)
 
         return budgetsSpent.toFixed(2)
     }
 
-    const getBudgetRemaining = (budget) => {
-        const spent = parseFloat(budget.budget_spent)
-        const max = parseFloat(budget.budget_max)
+    const getBudgetRemaining = (category) => {
+        const spent = parseFloat(category.category_spent)
+        const max = parseFloat(category.category_max)
 
         return (parseFloat(max) - parseFloat(spent)).toFixed(2)
     }
 
-    const getBudgetPercentage = (budget) => {
-        const spent = parseFloat(budget.budget_spent)
-        const max = parseFloat(budget.budget_max)
+    const getBudgetPercentage = (category) => {
+        const spent = parseFloat(category.category_spent)
+        const max = parseFloat(category.category_max)
 
         return ((spent * 100) / max).toFixed(2)
     }
@@ -96,18 +96,14 @@ const Budgets = () => {
                                     <h2>Spending Summary</h2>
 
                                     <SummaryBox>
-                                        {budgets.map((budget, index) => (
-                                            index <= 5 &&
-                                            <>
-                                                <SummaryItem
-                                                    theme={budget.budget_theme}
-                                                >
-                                                    <h4>{categories.find((category) => category.category_id === budget.category_id)?.category_name}</h4>
+                                        {categories.map((category, index) => (
+                                            <SummaryItem
+                                                theme={category.theme_color}
+                                            >
+                                                <h4>{category.category_name}</h4>
 
-                                                    <h3><span>${budget.budget_spent}</span> of ${budget.budget_max}</h3>
-                                                </SummaryItem>
-                                                {index != 5 && <hr />}
-                                            </>
+                                                <h3><span>${category.category_spent}</span> of ${category.category_max}</h3>
+                                            </SummaryItem>
                                         ))}
                                     </SummaryBox>
                                 </SummaryContainer>
@@ -116,47 +112,47 @@ const Budgets = () => {
                     </Container>
 
                     <CardsContainer>
-                        {budgets.map((budget, index) => (
+                        {categories.map((category, index) => (
                             <Card key={index}>
                                 <CardHeader>
                                     <CardTitleBox>
-                                        <Identifier theme={budget.budget_theme} />
-                                        <h2>{categories.find((category) => category.category_id === budget.category_id)?.category_name}</h2>
+                                        <Identifier theme={category.theme_color} />
+                                        <h2>{category.category_name}</h2>
                                     </CardTitleBox>
 
                                     <CardOptionsContainer>
-                                        <img onClick={() => handleShowOptions(budget.budget_id)} src={OptionsIcon} alt="" />
+                                        <img onClick={() => handleShowOptions(category.category_id)} src={OptionsIcon} alt="" />
 
-                                        {(showOptions !== 0 && showOptions === budget.budget_id) &&
+                                        {(showOptions !== 0 && showOptions === category.category_id) &&
                                             <CardOptionsBox>
-                                                <Option onClick={() => handleShowEditBudget(budget)}>Edit Budget</Option>
+                                                <Option onClick={() => handleShowEditBudget(category)}>Edit Budget</Option>
                                                 <hr />
-                                                <Option onClick={() => handleShowDeleteBudget(budget)} color='var(--red)'>Delete Budget</Option>
+                                                <Option onClick={() => handleShowDeleteBudget(category)} color='var(--red)'>Delete Budget</Option>
                                             </CardOptionsBox>
                                         }
                                     </CardOptionsContainer>
                                 </CardHeader>
 
                                 <CardContent>
-                                    <h3>Maximum of ${budget.budget_max}</h3>
+                                    <h3>Maximum of ${category.category_max}</h3>
 
                                     <ProgressBox>
                                         <ProgressBar>
-                                            <Progress width={getBudgetPercentage(budget)} theme={budget.budget_theme} />
+                                            <Progress width={getBudgetPercentage(category)} theme={category.theme_color} />
                                         </ProgressBar>
                                     </ProgressBox>
 
                                     <ResumeBox>
-                                        <ResumeItem theme={budget.budget_theme}>
+                                        <ResumeItem theme={category.theme_color}>
                                             <h6>Spent</h6>
 
-                                            <h5>${budget.budget_spent}</h5>
+                                            <h5>${category.category_spent}</h5>
                                         </ResumeItem>
 
                                         <ResumeItem color='var(--white)'>
                                             <h6>Remaining</h6>
 
-                                            <h5>${getBudgetRemaining(budget)}</h5>
+                                            <h5>${getBudgetRemaining(category)}</h5>
                                         </ResumeItem>
                                     </ResumeBox>
 

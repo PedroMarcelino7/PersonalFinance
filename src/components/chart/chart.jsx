@@ -4,12 +4,12 @@ import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 
 const Chart = ({ size = 250, data }) => {
     const chartData = data.map((item) => ({
-        name: item.budget_name,
-        value: Number(item.budget_spent)
+        name: item.category_name,
+        value: Number(item.category_spent)
     }));
 
-    const colors = data.map((item) => item.budget_theme)
-    const fadedColors = data.map((item) => `${item.budget_theme}60`)
+    const colors = data.map((item) => item.theme_color)
+    const fadedColors = data.map((item) => `${item.theme_color}60`)
 
     return (
         <PieChart width={size} height={size}>
