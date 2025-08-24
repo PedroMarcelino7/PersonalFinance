@@ -36,9 +36,9 @@ const EditBudget = ({ category }) => {
                     theme_id: theme
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
                 toast.error('Error editing category.');
@@ -64,7 +64,7 @@ const EditBudget = ({ category }) => {
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} currentValue={themes.findIndex((theme) => theme.theme_id === category.theme_id)} />
 
-            <Button>Add Pot</Button>
+            <Button>Edit Category</Button>
         </FormContainer>
     )
 }

@@ -130,6 +130,7 @@ export const CardHeader = styled.div`
 `
 
 export const CardTitleBox = styled.div`
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -141,15 +142,16 @@ export const CardTitleBox = styled.div`
 `
 
 export const Identifier = styled.div`
-    width: 15px;
-    height: 15px;
+    min-width: 15px;
+    max-width: 15px;
+    min-height: 15px;
+    max-height: 15px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme};
 `
 
 export const CardOptionsContainer = styled.div`
     position: relative;
-    width: 100%;
     text-align: end;
 `
 

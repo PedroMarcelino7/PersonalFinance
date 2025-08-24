@@ -217,7 +217,7 @@ const Budgets = () => {
 
             {showEditBudgetModal &&
                 <Modal
-                    title={`Edit Budget`}
+                    title={`Edit Category`}
                     subtitle={'As your budgets change, feel free to update your spending limits.'}
                     closeModal={setShowEditBudgetModal}
                 >
@@ -227,7 +227,7 @@ const Budgets = () => {
 
             {showDeleteBudgetModal &&
                 <Modal
-                    title={`Delete Budget`}
+                    title={`Delete Category`}
                     subtitle={'As your budgets change, feel free to update your spending limits.'}
                     closeModal={setShowDeleteBudgetModal}
                 >
