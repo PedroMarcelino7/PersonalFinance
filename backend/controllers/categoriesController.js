@@ -33,9 +33,22 @@ const editCategory = (req, res) => {
     });
 }
 
+const deleteCategory = (req, res) => {
+    const values = req.body;
+
+    Category.deleteCategory(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao deletar category' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getCategories,
     addCategory,
-    editCategory
+    editCategory,
+    deleteCategory
 };

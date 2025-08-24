@@ -5,6 +5,7 @@ import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
 import { useModal } from '../../modal'
 import { useCategories } from '../../../../contexts/categoriesContext'
 import { useThemes } from '../../../../contexts/themesContext'
+import { toast } from 'react-toastify'
 
 const EditBudget = ({ category }) => {
     const { closeModal } = useModal()
@@ -35,12 +36,20 @@ const EditBudget = ({ category }) => {
                     theme_id: theme
                 })
             });
-
+            
             const data = await response.json();
-            console.log('>>> Resposta Category Edit [Edit Category Modal]:', data);
+            
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error editing category.');
+                return;
+            }
 
+            console.log('>>> Resposta Category Edit [Edit Category Modal]:', data);
+            toast.success('Category edited successfully.')
         } catch (error) {
             console.error('Erro ao editar a category:', error);
+            toast.error('Error editing category.');
         }
 
         refreshCategories()

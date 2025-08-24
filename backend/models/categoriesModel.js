@@ -32,8 +32,19 @@ const editCategory = (values, callback) => {
     `, [values.category_name, values.category_max, values.theme_id, values.category_id], callback)
 }
 
+const deleteCategory = (values, callback) => {
+    db.query(`
+    delete from
+        categories
+    where
+        category_id = ?;
+    
+    `, [values.category_id], callback)
+}
+
 module.exports = {
     getCategories,
     addCategory,
-    editCategory
+    editCategory,
+    deleteCategory
 };

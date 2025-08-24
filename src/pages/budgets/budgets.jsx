@@ -9,6 +9,7 @@ import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
 import AddNewBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
 import EditBudget from '../../components/modal/BudgetsModals/editBudget/editBudget'
+import DeleteBudget from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
 import Modal from '../../components/modal/modal'
 import { useCategories } from '../../contexts/categoriesContext'
 import { useTransactions } from '../../contexts/transactionsContext'
@@ -221,6 +222,16 @@ const Budgets = () => {
                     closeModal={setShowEditBudgetModal}
                 >
                     <EditBudget category={selectedBudget} />
+                </Modal>
+            }
+
+            {showDeleteBudgetModal &&
+                <Modal
+                    title={`Delete Budget`}
+                    subtitle={'As your budgets change, feel free to update your spending limits.'}
+                    closeModal={setShowDeleteBudgetModal}
+                >
+                    <DeleteBudget category={selectedBudget} />
                 </Modal>
             }
         </>
