@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import DefaultInput from '../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../input/defaultInput/defaultInput'
 import { Button, FormContainer } from './styles'
-import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
-import { useModal } from '../modal'
-import { useCategories } from '../../../contexts/categoriesContext'
-import { useThemes } from '../../../contexts/themesContext'
+import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+import { useModal } from '../../modal'
+import { useCategories } from '../../../../contexts/categoriesContext'
+import { useThemes } from '../../../../contexts/themesContext'
 import { toast } from 'react-toastify'
 
 const AddNewBudget = () => {
@@ -14,7 +14,7 @@ const AddNewBudget = () => {
 
     const [category, setCategory] = useState('')
     const [target, setTarget] = useState('')
-    const [theme, setTheme] = useState(themes[0].theme_color)
+    const [theme, setTheme] = useState(themes[0].theme_id)
 
     const handleSubmit = async (e) => {
         e.preventDefault()

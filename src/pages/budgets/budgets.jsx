@@ -7,11 +7,13 @@ import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
-import AddNewBudget from '../../components/modal/addNewBudget/addNewBudget'
+import AddNewBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import EditBudget from '../../components/modal/BudgetsModals/editBudget/editBudget'
 import Modal from '../../components/modal/modal'
 import { useCategories } from '../../contexts/categoriesContext'
 import { useTransactions } from '../../contexts/transactionsContext'
-import EditBudget from '../../components/modal/editBudget/editBudget'
+
+import { formatDate } from '../../utils/formatDate'
 
 const Budgets = () => {
     const { categories } = useCategories()
@@ -87,7 +89,7 @@ const Budgets = () => {
 
     return (
         <>
-            <PageContainer name="Budgets" button={'+ Add New Budget'} onClick={handleShowAddBudgetModal}>
+            <PageContainer name="Budgets" button={'+ Add New Category'} onClick={handleShowAddBudgetModal}>
                 <BudgetsContainer>
                     <Container>
                         <Box>
@@ -111,7 +113,7 @@ const Budgets = () => {
                                             >
                                                 <h4>{category.category_name}</h4>
 
-                                                <h3><span>${category.category_spent}</span> of ${category.category_max}</h3>
+                                                <h3><span>${budgetSpentCalc(category.category_id)}</span> of ${category.category_max}</h3>
                                             </SummaryItem>
                                         ))}
                                     </SummaryBox>
@@ -155,7 +157,6 @@ const Budgets = () => {
                                         <ResumeItem theme={category.theme_color}>
                                             <h6>Spent</h6>
 
-                                            {/* <h5>${category.category_spent}</h5> */}
                                             <h5>${budgetSpentCalc(category.category_id)}</h5>
                                         </ResumeItem>
 
@@ -178,51 +179,22 @@ const Budgets = () => {
                                         </LastSpendingHeader>
 
                                         <LastSpendingBox>
-                                            <LastSpendingItem>
-                                                <PersonBox>
-                                                    <ProfilePicture src={Avatar} alt="" />
+                                            {transactions.map((transaction) => (
+                                                transaction.category_id === category.category_id &&
+                                                <LastSpendingItem>
+                                                    <PersonBox>
+                                                        <ProfilePicture src={Avatar} alt="" />
 
-                                                    <h4>James Thompson</h4>
-                                                </PersonBox>
+                                                        <h4>{transaction.person_name}</h4>
+                                                    </PersonBox>
 
-                                                <SpendDetails>
-                                                    <h5>-$5.00</h5>
+                                                    <SpendDetails type={transaction.transaction_type}>
+                                                        <h5>{transaction.transaction_type === 0 ? '-' : ''}${transaction.transaction_amount}</h5>
 
-                                                    <h6>11 Aug 2024</h6>
-                                                </SpendDetails>
-                                            </LastSpendingItem>
-
-                                            <hr />
-
-                                            <LastSpendingItem>
-                                                <PersonBox>
-                                                    <ProfilePicture src={Avatar} alt="" />
-
-                                                    <h4>James Thompson</h4>
-                                                </PersonBox>
-
-                                                <SpendDetails>
-                                                    <h5>-$5.00</h5>
-
-                                                    <h6>11 Aug 2024</h6>
-                                                </SpendDetails>
-                                            </LastSpendingItem>
-
-                                            <hr />
-
-                                            <LastSpendingItem>
-                                                <PersonBox>
-                                                    <ProfilePicture src={Avatar} alt="" />
-
-                                                    <h4>James Thompson</h4>
-                                                </PersonBox>
-
-                                                <SpendDetails>
-                                                    <h5>-$5.00</h5>
-
-                                                    <h6>11 Aug 2024</h6>
-                                                </SpendDetails>
-                                            </LastSpendingItem>
+                                                        <h6>{formatDate(transaction.transaction_date)}</h6>
+                                                    </SpendDetails>
+                                                </LastSpendingItem>
+                                            ))}
                                         </LastSpendingBox>
                                     </LastSpendingContainer>
                                 </CardContent>
@@ -248,7 +220,7 @@ const Budgets = () => {
                     subtitle={'As your budgets change, feel free to update your spending limits.'}
                     closeModal={setShowEditBudgetModal}
                 >
-                    <EditBudget data={categories} budget={selectedBudget} />
+                    <EditBudget category={selectedBudget} />
                 </Modal>
             }
         </>

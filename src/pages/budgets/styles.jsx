@@ -315,7 +315,7 @@ export const SpendDetails = styled.div`
 
     h5 {
         font-size: 0.75rem;
-        color: var(--dark);
+        color: ${({type}) => type === 0 ? 'var(--red)' : 'var(--green)'};
     }
 
     h6 {

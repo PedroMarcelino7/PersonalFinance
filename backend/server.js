@@ -36,6 +36,7 @@ app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 
 app.get('/categories', categoriesController.getCategories)
 app.post('/categories/post', categoriesController.addCategory)
+app.post('/categories/edit', categoriesController.editCategory)
 
 app.get('/themes', themesController.getThemes)
 

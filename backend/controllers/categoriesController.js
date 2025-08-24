@@ -21,8 +21,21 @@ const addCategory = (req, res) => {
     });
 }
 
+const editCategory = (req, res) => {
+    const values = req.body;
+
+    Category.editCategory(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao editar category' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getCategories,
-    addCategory
+    addCategory,
+    editCategory
 };

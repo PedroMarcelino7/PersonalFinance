@@ -18,7 +18,22 @@ const addCategory = (values, callback) => {
     `, [values.category_name, values.category_max, values.theme_id], callback)
 }
 
+const editCategory = (values, callback) => {
+    db.query(`
+    update
+        categories
+    set
+        category_name = ?,
+        category_max = ?,
+        theme_id = ?
+    where
+        category_id = ?;
+    
+    `, [values.category_name, values.category_max, values.theme_id, values.category_id], callback)
+}
+
 module.exports = {
     getCategories,
-    addCategory
+    addCategory,
+    editCategory
 };
