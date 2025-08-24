@@ -9,15 +9,16 @@ const getCategories = (callback) => {
     `, callback);
 };
 
-const editStatus = (values, callback) => {
+const addCategory = (values, callback) => {
     db.query(`
-        update categories
-        set category_isUsed = 1
-        where category_id = ?;
-    `, [values.category_id], callback);
-};
+    insert into
+    categories(category_name, category_max, theme_id)
+    values(?, ?, ?)
+    
+    `, [values.category_name, values.category_max, values.theme_id], callback)
+}
 
 module.exports = {
     getCategories,
-    editStatus
+    addCategory
 };

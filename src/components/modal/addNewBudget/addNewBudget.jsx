@@ -1,83 +1,63 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import DefaultInput from '../../input/defaultInput/defaultInput'
 import { Button, FormContainer } from './styles'
 import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
 import { useModal } from '../modal'
-import DefaultSelect from '../../../ui/select/defaultSelect/defaultSelect'
-import { useBudgets } from '../../../contexts/budgetsContext'
 import { useCategories } from '../../../contexts/categoriesContext'
+import { useThemes } from '../../../contexts/themesContext'
+import { toast } from 'react-toastify'
 
-const AddNewBudget = ({ data }) => {
+const AddNewBudget = () => {
     const { closeModal } = useModal()
-    const { refreshBudgets } = useBudgets()
+    const { themes } = useThemes()
     const { refreshCategories } = useCategories()
 
-    const categories = data
-        .filter(category => category.category_isUsed === 0)
-
-    const themes = [
-        { name: 'Green', color: '#2A7D72' },
-        { name: 'Red', color: '#C0392B' },
-        { name: 'Blue', color: '#2980B9' },
-    ]
-
-    const [category, setCategory] = useState(categories[0].category_id)
+    const [category, setCategory] = useState('')
     const [target, setTarget] = useState('')
-    const [theme, setTheme] = useState(themes[0])
+    const [theme, setTheme] = useState(themes[0].theme_color)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         console.log('Category:', category)
         console.log('Target:', target)
-        console.log('Theme:', theme.color)
+        console.log('Theme:', theme)
 
         try {
-            const response = await fetch('http://localhost:3000/budgets/post', {
+            const response = await fetch('http://localhost:3000/categories/post', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    category_id: category,
-                    budget_theme: theme.color,
-                    budget_max: target
+                    category_name: category,
+                    category_max: target,
+                    theme_id: theme
                 })
             });
 
             const data = await response.json();
-            console.log('>>> Resposta Budget Post [Add Budget Modal]:', data);
 
-            refreshBudgets()
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error creating category.');
+                return;
+            }
+
+            console.log('>>> Resposta Category Post [Add Category Modal]:', data);
+            toast.success('Category created successfully.')
         } catch (error) {
-            console.error('Erro ao criar o budget:', error);
+            console.error('Error creating category:', error);
+            toast.error('Error creating category.');
         }
 
-        try {
-            const response = await fetch('http://localhost:3000/categories/edit-status', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    category_id: category
-                })
-            });
-
-            const data = await response.json();
-            console.log('>>> Resposta Category Post [Add Budget Modal]:', data);
-
-            refreshCategories()
-        } catch (error) {
-            console.error('Erro ao editar a category:', error);
-        }
-
+        refreshCategories()
         closeModal()
     }
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultSelect label={'Category'} setValue={setCategory} data={categories} />
+            <DefaultInput label={'Category'} value={category} setValue={setCategory} />
 
             <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
 

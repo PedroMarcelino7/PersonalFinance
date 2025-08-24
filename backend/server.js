@@ -35,7 +35,7 @@ app.post('/transactions/post', transactionsController.addTransaction);
 app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 
 app.get('/categories', categoriesController.getCategories)
-app.post('/categories/edit-status', categoriesController.editStatus)
+app.post('/categories/post', categoriesController.addCategory)
 
 app.get('/themes', themesController.getThemes)
 

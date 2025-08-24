@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
 import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsBox, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, Option, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 import Chart from '../../components/chart/chart'
@@ -7,33 +7,31 @@ import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
-import { useBudgets } from '../../contexts/budgetsContext'
 import AddNewBudget from '../../components/modal/addNewBudget/addNewBudget'
 import Modal from '../../components/modal/modal'
 import { useCategories } from '../../contexts/categoriesContext'
 import EditBudget from '../../components/modal/editBudget/editBudget'
 
 const Budgets = () => {
-    const { budgets } = useBudgets()
     const { categories } = useCategories()
-    const [selectedBudget, setSelectedBudget] = useState(budgets[0])
+    const [selectedBudget, setSelectedBudget] = useState(categories[0])
     const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
     const [showOptions, setShowOptions] = useState(0)
     const [showEditBudgetModal, setShowEditBudgetModal] = useState(false)
     const [showDeleteBudgetModal, setShowDeleteBudgetModal] = useState(false)
 
-    const handleShowOptions = (budget_id) => {
-        showOptions === budget_id ? setShowOptions(0) : setShowOptions(budget_id)
+    const handleShowOptions = (category_id) => {
+        showOptions === category_id ? setShowOptions(0) : setShowOptions(category_id)
     }
 
-    const handleShowEditBudget = (budget) => {
-        setSelectedBudget(budget)
+    const handleShowEditBudget = (category) => {
+        setSelectedBudget(category)
         setShowOptions(0)
         setShowEditBudgetModal(true)
     }
 
-    const handleShowDeleteBudget = (budget) => {
-        setSelectedBudget(budget)
+    const handleShowDeleteBudget = (category) => {
+        setSelectedBudget(category)
         setShowOptions(0)
         setShowDeleteBudgetModal(true)
     }
@@ -43,8 +41,8 @@ const Budgets = () => {
     }
 
     const getBudgetsLimit = () => {
-        const budgetsLimit = budgets.reduce((acc, budget) => {
-            return acc + parseFloat(budget.budget_max)
+        const budgetsLimit = categories.reduce((acc, category) => {
+            return acc + parseFloat(category.category_max)
         }, 0)
 
         return budgetsLimit.toFixed(2)
@@ -224,11 +222,11 @@ const Budgets = () => {
 
             {showAddBudgetModal &&
                 <Modal
-                    title={`Add New Budget`}
+                    title={`Add New Category`}
                     subtitle={'Choose a category to set a spending budget. These categories can help you monitor spending.'}
                     closeModal={setShowAddBudgetModal}
                 >
-                    <AddNewBudget data={categories} />
+                    <AddNewBudget />
                 </Modal>
             }
 

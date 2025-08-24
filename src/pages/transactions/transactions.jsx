@@ -80,7 +80,7 @@ const Transactions = () => {
         <>
             <PageContainer
                 name="Transactions"
-                button='+ add transaction'
+                button='+ Add Transaction'
                 onClick={handleShowAddTransactionModal}
             >
                 <TransactionsContainer>

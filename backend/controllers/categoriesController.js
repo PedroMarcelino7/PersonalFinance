@@ -9,19 +9,20 @@ const getCategories = (req, res) => {
     });
 };
 
-const editStatus = (req, res) => {
+const addCategory = (req, res) => {
     const values = req.body;
 
-    Category.editStatus(values, (err, results) => {
+    Category.addCategory(values, (err, results) => {
         if (err) {
-            return res.status(500).json({ error: 'Erro ao editar category' });
+            return res.status(500).json({ error: 'Erro ao adicionar category' });
         }
+
         res.json(results);
     });
-};
+}
 
 
 module.exports = {
     getCategories,
-    editStatus
+    addCategory
 };
