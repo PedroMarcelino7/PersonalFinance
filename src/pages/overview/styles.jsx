@@ -76,7 +76,7 @@ export const CardTitleBox = styled.div`
 export const DetailsButtonBox = styled.div`
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     cursor: pointer;
 
     h5 {

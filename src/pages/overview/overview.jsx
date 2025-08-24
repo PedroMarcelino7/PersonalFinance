@@ -7,9 +7,10 @@ import Chart from '../../components/chart/chart'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
 
-import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
+
+import { ChevronRight as ArrowIcon } from 'lucide-react';
 
 import { usePots } from '../../contexts/potsContext'
 import { useBudgets } from '../../contexts/budgetsContext'
@@ -125,7 +126,12 @@ const Overview = () => {
                                 <DetailsButtonBox onClick={() => navigate('/pots')}>
                                     <h5>See Details</h5>
 
-                                    <img src={ArrowIcon} alt="" />
+                                    <ArrowIcon
+                                        size={15}
+                                        color='var(--gray)'
+                                        strokeWidth={2.5}
+                                        cursor={'pointer'}
+                                    />
                                 </DetailsButtonBox>
                             </CardTitleBox>
 
@@ -168,7 +174,12 @@ const Overview = () => {
                                 <DetailsButtonBox onClick={() => navigate('/transactions')}>
                                     <h5>See Details</h5>
 
-                                    <img src={ArrowIcon} alt="" />
+                                    <ArrowIcon
+                                        size={15}
+                                        color='var(--gray)'
+                                        strokeWidth={2.5}
+                                        cursor={'pointer'}
+                                    />
                                 </DetailsButtonBox>
                             </CardTitleBox>
 
@@ -209,7 +220,12 @@ const Overview = () => {
                                 <DetailsButtonBox onClick={() => navigate('/budgets')}>
                                     <h5>See Details</h5>
 
-                                    <img src={ArrowIcon} alt="" />
+                                    <ArrowIcon
+                                        size={15}
+                                        color='var(--gray)'
+                                        strokeWidth={2.5}
+                                        cursor={'pointer'}
+                                    />
                                 </DetailsButtonBox>
                             </CardTitleBox>
 
@@ -249,7 +265,12 @@ const Overview = () => {
                                 <DetailsButtonBox onClick={() => navigate('/recurring-bills')}>
                                     <h5>See Details</h5>
 
-                                    <img src={ArrowIcon} alt="" />
+                                    <ArrowIcon
+                                        size={15}
+                                        color='var(--gray)'
+                                        strokeWidth={2.5}
+                                        cursor={'pointer'}
+                                    />
                                 </DetailsButtonBox>
                             </CardTitleBox>
 

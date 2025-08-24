@@ -1,10 +1,18 @@
-import { useEffect, useState } from 'react'
-import PageContainer from '../../../components/pageContainer/pageContainer'
-import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, Option, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
-import { usePots } from '../../../contexts/potsContext'
-import ChevronDownIcon from '../../../assets/images/icon-caret-down.svg'
+import { useEffect } from 'react'
 
 import { Link } from 'react-router';
+
+// COMPONENTS
+import PageContainer from '../../../components/pageContainer/pageContainer'
+
+// CONTEXTS
+import { usePots } from '../../../contexts/potsContext'
+
+// ICONS
+import { ChevronDown as ChevronDownIcon } from 'lucide-react'
+
+// STYLES
+import { ActionsButton, ActionsContainer, Card, CardContent, CardDateBox, CardHeader, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
 
 // UTILS
 import { formatCurrency } from '../../../utils/formatCurrency'
@@ -64,7 +72,15 @@ const FinishedPots = () => {
                                         <CustomOption value="expensive">Most Expensive</CustomOption>
                                         <CustomOption value="cheapest">Cheapest</CustomOption>
                                     </CustomSelect>
-                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+
+                                    <ChevronIcon>
+                                        <ChevronDownIcon
+                                            size={25}
+                                            color='var(--dark)'
+                                            strokeWidth={2.5}
+                                            cursor={'pointer'}
+                                        />
+                                    </ChevronIcon>
                                 </SelectWrapper>
                             </SortBox>
 

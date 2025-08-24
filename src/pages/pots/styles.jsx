@@ -124,23 +124,19 @@ export const CardOptionsContainer = styled.div`
 
 export const CardOptionsBox = styled.div`
     position: absolute;
-    top: 75%;
+    top: 90%;
     right: 0;
     background: #fff;
-    padding-inline: 0.5rem;
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
     box-shadow: 0 0 10px var(--light-gray);
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    gap: 0.25rem;
+    gap: 0.75rem;
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    img {
-        width: 35px;
-    }
 
     a {
         display: flex;
@@ -295,12 +291,10 @@ export const CustomOption = styled.option`
     font-size: 1rem;
 `
 
-export const ChevronIcon = styled.img`
+export const ChevronIcon = styled.div`
     position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 0.5rem;
+    top: 0;
+    transform: translateY(40%);
     pointer-events: none;
-    width: 12px;
-    height: 12px;
 `;

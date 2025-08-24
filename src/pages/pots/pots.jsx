@@ -1,22 +1,31 @@
 import { useEffect, useState } from 'react'
-import PageContainer from '../../components/pageContainer/pageContainer'
-import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, Option, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
-import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
-import IconLink from '../../assets/images/icon-link.svg'
-import { usePots } from '../../contexts/potsContext'
-import IconDelete from '../../assets/images/trash-solid-red.svg'
-import IconEdit from '../../assets/images/icon-edit-blue.svg'
-import IconCheck from '../../assets/images/icon-check.svg'
-import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 
 import { Link } from 'react-router';
+
+//STYLES
+import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+
+// COMPONENTS
+import PageContainer from '../../components/pageContainer/pageContainer'
+
+// ICONS
+import { ChevronDown as ChevronDownIcon } from 'lucide-react'
+import { Ellipsis as OptionsIcon } from 'lucide-react'
+import { Link as LinkIcon } from 'lucide-react'
+import { SquarePen as EditIcon } from 'lucide-react'
+import { Trash2 as DeleteIcon } from 'lucide-react'
+import { CircleCheckBig as CheckIcon } from 'lucide-react'
+
+// MODAL MANAGER
+import PotsModalManager from '../../managers/PotsModalManager/PotsModalManager'
 
 // UTILS
 import { formatCurrency } from '../../utils/formatCurrency'
 import { formatDate } from '../../utils/formatDate'
 
-// MODAL MANAGER
-import PotsModalManager from '../../managers/PotsModalManager/PotsModalManager'
+// CONTEXTS
+import { usePots } from '../../contexts/potsContext'
+
 
 const Pots = () => {
     const { pots, refreshPots } = usePots()
@@ -95,7 +104,15 @@ const Pots = () => {
                                         <CustomOption value="expensive">Most Expensive</CustomOption>
                                         <CustomOption value="cheapest">Cheapest</CustomOption>
                                     </CustomSelect>
-                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+
+                                    <ChevronIcon>
+                                        <ChevronDownIcon
+                                            size={25}
+                                            color='var(--dark)'
+                                            strokeWidth={2.5}
+                                            cursor={'pointer'}
+                                        />
+                                    </ChevronIcon>
                                 </SelectWrapper>
                             </SortBox>
 
@@ -122,7 +139,13 @@ const Pots = () => {
                                         </CardTitleBox>
 
                                         <CardOptionsContainer>
-                                            <img onClick={() => handleShowOptions(pot.pot_id)} src={OptionsIcon} alt="" />
+                                            <OptionsIcon
+                                                size={25}
+                                                color='var(--dark)'
+                                                strokeWidth={2.5}
+                                                cursor={'pointer'}
+                                                onClick={() => handleShowOptions(pot.pot_id)}
+                                            />
 
                                             {(showOptions !== 0 && showOptions === pot.pot_id) &&
                                                 <CardOptionsBox
@@ -132,28 +155,36 @@ const Pots = () => {
                                                         to={formatLink(pot.pot_link)}
                                                         target={pot.pot_link === '' ? '' : '_blank'}
                                                     >
-                                                        <img alt=""
-                                                            style={{ width: '35px' }}
-                                                            src={IconLink}
+                                                        <LinkIcon
+                                                            size={20}
+                                                            color='var(--dark)'
+                                                            strokeWidth={2.5}
+                                                            cursor={'pointer'}
                                                         />
                                                     </Link>
 
-                                                    <img alt=""
+                                                    <EditIcon
+                                                        size={20}
+                                                        color='var(--blue)'
+                                                        strokeWidth={2.5}
+                                                        cursor={'pointer'}
                                                         onClick={() => openModal("edit", pot)}
-                                                        style={{ width: '35px' }}
-                                                        src={IconEdit}
                                                     />
 
-                                                    <img alt=''
+                                                    <DeleteIcon
+                                                        size={20}
+                                                        color='var(--red)'
+                                                        strokeWidth={2.5}
+                                                        cursor={'pointer'}
                                                         onClick={() => openModal("delete", pot)}
-                                                        style={{ width: '30px' }}
-                                                        src={IconDelete}
                                                     />
 
-                                                    <img alt=''
+                                                    <CheckIcon
+                                                        size={20}
+                                                        color='var(--green)'
+                                                        strokeWidth={2.5}
+                                                        cursor={'pointer'}
                                                         onClick={() => openModal("finish", pot)}
-                                                        style={{ width: '40px' }}
-                                                        src={IconCheck}
                                                     />
                                                 </CardOptionsBox>
                                             }

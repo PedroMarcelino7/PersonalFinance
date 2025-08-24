@@ -1,7 +1,7 @@
-import React, { createContext, useContext } from 'react'
+import { createContext, useContext } from 'react'
 import { Box, Close, Container, Content, Header, Subtitle, Title } from './styles'
 
-import CloseIcon from '../../assets/images/icon-close-modal.svg'
+import { X as CloseIcon } from 'lucide-react'
 
 const ModalContext = createContext();
 
@@ -15,7 +15,13 @@ const Modal = ({ title, subtitle, children, closeModal }) => {
                     <Header>
                         <Title>{title}</Title>
 
-                        <Close src={CloseIcon} alt="" onClick={() => closeModal(false)} />
+                        <CloseIcon
+                            size={30}
+                            color='var(--dark)'
+                            strokeWidth={2.5}
+                            cursor={'pointer'}
+                            onClick={() => closeModal(false)}
+                        />
                     </Header>
 
                     <div>

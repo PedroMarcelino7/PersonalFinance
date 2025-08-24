@@ -299,12 +299,10 @@ export const CustomOption = styled.option`
     font-size: 1rem;
 `
 
-export const ChevronIcon = styled.img`
+export const ChevronIcon = styled.div`
     position: absolute;
-    right: 0.75rem;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 0.5rem;
+    top: 0;
+    transform: translateY(40%);
     pointer-events: none;
-    width: 12px;
-    height: 12px;
 `;
