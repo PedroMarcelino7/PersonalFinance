@@ -27,7 +27,7 @@ const getAllTransactions = (sort, callback) => {
 
     db.query(`
     select
-        trns.*, cat.category_name, prsn.person_name
+        trns.*, cat.category_name, prsn.person_name, pot.pot_name
     from
         transactions as trns
     join
@@ -38,6 +38,10 @@ const getAllTransactions = (sort, callback) => {
         people as prsn
     on
         trns.person_id = prsn.person_id
+    left join
+        pots as pot
+    on
+        trns.pot_id = pot.pot_id
     order by
         ${orderBy}
     `, callback);

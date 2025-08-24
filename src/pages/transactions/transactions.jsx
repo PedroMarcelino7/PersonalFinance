@@ -10,6 +10,7 @@ import SearchIcon from '../../assets/images/icon-search.svg'
 import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 import PrevIcon from '../../assets/images/icon-caret-left.svg'
 import NextIcon from '../../assets/images/icon-caret-right.svg'
+import PotIcon from '../../assets/images/icon-pot.svg'
 
 import AddTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
 
@@ -139,8 +140,16 @@ const Transactions = () => {
                                 .map((transaction, index) => (
                                     <TableBodyRow key={index}>
                                         <TableBodyElement className='reference'>
-                                            <img src={Avatar} alt="" />
-                                            <h3>{transaction.person_name}</h3>
+                                            {transaction.pot_id
+                                                ? <>
+                                                    <img src={PotIcon} alt="" />
+                                                    <h3>{transaction.pot_name}</h3>
+                                                </>
+                                                : <>
+                                                    <img src={Avatar} alt="" />
+                                                    <h3>{transaction.person_name}</h3>
+                                                </>
+                                            }
                                         </TableBodyElement>
 
                                         <TableBodyElement>{transaction.category_name}</TableBodyElement>

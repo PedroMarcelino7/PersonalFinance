@@ -192,11 +192,11 @@ const finishPot = (values, callback) => {
             const addTransactionQuery = `
                 insert into
                     transactions
-                    (transaction_amount, transaction_type, category_id, person_id)
+                    (transaction_amount, transaction_type, category_id, person_id, pot_id)
                 values
-                    (?, 0, 1, 1);
+                    (?, 0, 1, 1, ?);
             `;
-            const transactionValues = [values.transaction_amount];
+            const transactionValues = [values.transaction_amount, values.pot_id];
 
             db.query(addTransactionQuery, transactionValues, (err) => {
                 if (err) return db.rollback(() => callback(err));
