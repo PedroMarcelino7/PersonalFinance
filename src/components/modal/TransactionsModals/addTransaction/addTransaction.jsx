@@ -136,7 +136,7 @@ const AddTransaction = () => {
             />
 
             <DefaultSelect
-                label='Person'
+                label={type === 0 ? 'Recipient' : 'Sender'}
                 setValue={setPerson}
                 data={people}
                 item_id={'person_id'}

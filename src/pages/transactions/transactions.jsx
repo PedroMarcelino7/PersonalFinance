@@ -13,6 +13,7 @@ import NextIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
 
 import AddTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
+import TransactionsModalManager from '../../managers/TransactionsModalManager/TransactionsModalManager'
 
 import { useTransactions } from '../../contexts/transactionsContext'
 import { useCategories } from '../../contexts/categoriesContext'
@@ -20,6 +21,11 @@ import { useCategories } from '../../contexts/categoriesContext'
 const Transactions = () => {
     const { transactions, refreshTransactions } = useTransactions()
     const { categories } = useCategories()
+
+    const [modal, setModal] = useState({ type: null, pot: null });
+
+    const openModal = (type, pot = null) => setModal({ type, pot });
+    const closeModal = () => setModal({ type: null, pot: null });
 
     const [categoriesFilter, setCategoriesFilter] = useState(0)
     const [page, setPage] = useState(1)
@@ -81,7 +87,7 @@ const Transactions = () => {
             <PageContainer
                 name="Transactions"
                 button={transactions.length === 0 ? '' : '+ Add Transaction'}
-                onClick={handleShowAddTransactionModal}
+                onClick={() => openModal('addTransaction')}
             >
                 {transactions.length === 0
                     ? <EmptyPageContainer>
@@ -214,14 +220,7 @@ const Transactions = () => {
                 }
             </PageContainer>
 
-            {showAddTransactionModal &&
-                <Modal
-                    title={'Add Transaction'}
-                    closeModal={setShowAddTransactionModal}
-                >
-                    <AddTransaction />
-                </Modal>
-            }
+            <TransactionsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }
