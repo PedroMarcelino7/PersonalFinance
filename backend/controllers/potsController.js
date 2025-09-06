@@ -59,6 +59,18 @@ const finishPot = (req, res) => {
     });
 }
 
+const recoverPot = (req, res) => {
+    const values = req.body;
+
+    Pot.recoverPot(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao recuperar pot' });
+        }
+
+        res.json(results);
+    });
+}
+
 const updateMoney = (req, res) => {
     const values = req.body;
 
@@ -91,5 +103,6 @@ module.exports = {
     editPot,
     deletePot,
     updateQuickButtons,
-    finishPot
+    finishPot,
+    recoverPot
 };

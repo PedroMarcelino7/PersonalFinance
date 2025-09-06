@@ -71,7 +71,7 @@ const Pots = () => {
 
             <PageContainer
                 name="Pots"
-                button={pots.length === 0 ? '' : '+ Add new Pot'}
+                button={pots.length === 0 ? '' : '+ Add Pot'}
                 onClick={() => openModal("addPot")}
             >
                 {unfinishedPots.length === 0

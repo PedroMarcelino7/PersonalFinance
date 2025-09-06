@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Link } from 'react-router';
 
@@ -10,9 +10,13 @@ import { usePots } from '../../../contexts/potsContext'
 
 // ICONS
 import { ChevronDown as ChevronDownIcon } from 'lucide-react'
+import { RotateCcw as RecoverIcon } from 'lucide-react'
 
 // STYLES
-import { ActionsButton, ActionsContainer, Card, CardContent, CardDateBox, CardHeader, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+import { ActionsButton, ActionsContainer, Card, CardContent, CardDateBox, CardHeader, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+
+// MODAL MANAGER
+import PotsModalManager from '../../../managers/PotsModalManager/PotsModalManager'
 
 // UTILS
 import { formatCurrency } from '../../../utils/formatCurrency'
@@ -22,6 +26,11 @@ const FinishedPots = () => {
     const { pots } = usePots()
 
     const finishedPots = pots.filter((pot) => pot.pot_status === 1)
+
+    const [modal, setModal] = useState({ type: null, pot: null });
+
+    const openModal = (type, pot = null) => setModal({ type, pot });
+    const closeModal = () => setModal({ type: null, pot: null });
 
     useEffect(() => {
         console.log('Pots [Pots Page]:', finishedPots)
@@ -105,6 +114,16 @@ const FinishedPots = () => {
                                                 <h3>{formatDate(pot.pot_date)}</h3>
                                             </CardDateBox>
                                         </CardTitleBox>
+
+                                        <CardOptionsContainer>
+                                            <RecoverIcon
+                                                size={25}
+                                                color='var(--blue)'
+                                                strokeWidth={2.5}
+                                                cursor={'pointer'}
+                                                onClick={() => openModal('recover', pot)}
+                                            />
+                                        </CardOptionsContainer>
                                     </CardHeader>
 
                                     <CardContent>
@@ -132,6 +151,8 @@ const FinishedPots = () => {
                     </PotsContainer>
                 }
             </PageContainer>
+
+            <PotsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }

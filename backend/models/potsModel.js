@@ -213,6 +213,44 @@ const finishPot = (values, callback) => {
     });
 };
 
+const recoverPot = (values, callback) => {
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const finishPotQuery = `
+            update pots
+            set pot_status = 0
+            where pot_id = ?
+        `;
+        const potValues = [values.pot_id];
+
+        db.query(finishPotQuery, potValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const addTransactionQuery = `
+                insert into
+                    transactions
+                    (transaction_amount, transaction_type, category_id, person_id, pot_id)
+                values
+                    (?, 1, 1, 1, ?);
+            `;
+            const transactionValues = [values.transaction_amount, values.pot_id];
+
+            db.query(addTransactionQuery, transactionValues, (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                db.commit((err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    callback(null, {
+                        pot: values.pot_id,
+                    });
+                });
+            });
+        });
+    });
+};
+
 const updateMoneyPot = (values, callback) => {
     db.query(`
         update pots
@@ -236,5 +274,6 @@ module.exports = {
     editPotModel,
     deletePotModel,
     updateQuickButtons,
-    finishPot
+    finishPot,
+    recoverPot
 };

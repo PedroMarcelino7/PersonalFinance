@@ -8,6 +8,7 @@ import DeletePot from "../../components/modal/deletePot/deletePot";
 import FinishPot from "../../components/modal/finishPot/finishPot";
 import AddMoney from "../../components/modal/addMoney/addMoney";
 import WithdrawMoney from "../../components/modal/withdrawMoney/withdrawMoney";
+import RecoverPot from "../../components/modal/recoverPot/recoverPot";
 
 const MODAL_CONFIG = {
     addPot: {
@@ -33,8 +34,15 @@ const MODAL_CONFIG = {
     finish: {
         title: ({ pot }) => `Finish "${pot?.pot_name}"`,
         subtitle:
-            "Are you sure you want to finish this pot? This action cannot be reversed.",
+            "Are you sure you want to finish this pot?",
         Component: FinishPot,
+        getProps: ({ pot }) => ({ pot }),
+    },
+    recover: {
+        title: ({ pot }) => `Recover "${pot?.pot_name}"`,
+        subtitle:
+            "Are you sure you want to recover this pot?",
+        Component: RecoverPot,
         getProps: ({ pot }) => ({ pot }),
     },
     addMoney: {

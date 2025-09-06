@@ -21,6 +21,7 @@ app.post('/pots/post', potController.addPot);
 app.post('/pots/edit', potController.editPot);
 app.post('/pots/delete', potController.deletePot);
 app.post('/pots/finish', potController.finishPot);
+app.post('/pots/recover', potController.recoverPot);
 app.post('/pots/update-pot-money', potController.updateMoney);
 app.post('/pots/update-quick-buttons', potController.updateQuickButtons);
 

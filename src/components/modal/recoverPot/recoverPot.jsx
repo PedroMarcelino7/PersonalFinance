@@ -5,7 +5,7 @@ import { useModal } from '../modal'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-const FinishPot = ({ pot }) => {
+const RecoverPot = ({ pot }) => {
     const { refreshPots } = usePots()
     const { refreshTransactions } = useTransactions()
     const { closeModal } = useModal()
@@ -14,7 +14,7 @@ const FinishPot = ({ pot }) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/pots/finish', {
+            const response = await fetch('http://localhost:3000/pots/recover', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -27,17 +27,17 @@ const FinishPot = ({ pot }) => {
 
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
-                toast.error('Error finishing pot.');
+                toast.error('Error recovering pot.');
                 return;
             }
 
             const data = await response.json();
-            toast.success('Pot finished successfully.');
-            console.log('>>> Resposta Pot Post [Finish Pots Modal]:', data);
+            toast.success('Pot recovered successfully.');
+            console.log('>>> Resposta Pot Post [Recover Pots Modal]:', data);
 
         } catch (error) {
-            console.error('Erro ao finalizar o pot:', error);
-            toast.error('Error finishing pot.');
+            console.error('Erro ao recuperar o pot:', error);
+            toast.error('Error recovering pot.');
         }
 
         refreshPots()
@@ -47,7 +47,7 @@ const FinishPot = ({ pot }) => {
 
     useEffect(() => {
         console.log(`
-            Pot to FINISH
+            Pot to RECOVER
     
             ID: ${pot.pot_id}
             Name: ${pot.pot_name}
@@ -62,9 +62,9 @@ const FinishPot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm completion</ConfirmButton>
+            <ConfirmButton>Yes, confirm recovery</ConfirmButton>
         </FormContainer>
     )
 }
 
-export default FinishPot
+export default RecoverPot
