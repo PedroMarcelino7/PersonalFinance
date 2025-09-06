@@ -1,11 +1,14 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 
-import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, FormContainer, AmountInputBox, DateSelected, SelectWrapper, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv } from './styles'
+import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, FormContainer, AmountInputBox, DateSelected, SelectWrapper, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv, TransactionIcon } from './styles'
 
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../input/defaultInput/defaultInput'
 
 import IconCalendar from '../../../../assets/images/icon-calendar.svg'
+
+import { ArrowDown as ArrowDownIcon } from 'lucide-react'
+import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
 import { useModal } from '../../modal'
 import { useCategories } from '../../../../contexts/categoriesContext'
@@ -86,20 +89,22 @@ const AddTransaction = () => {
                 </AmountInputBox>
 
                 <TransactionTypeDiv>
-                    <input
-                        type="radio"
-                        name="type"
-                        value={0}
-                        checked={type === 0}
-                        onChange={(e) => setType(Number(e.target.value))}
+                    <TransactionIcon
+                        as={ArrowDownIcon}
+                        size={type === 0 ? 35 : 25}
+                        color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
+                        strokeWidth={2.5}
+                        cursor={'pointer'}
+                        onClick={() => setType(0)}
                     />
 
-                    <input
-                        type="radio"
-                        name="type"
-                        value={1}
-                        checked={type === 1}
-                        onChange={(e) => setType(Number(e.target.value))}
+                    <TransactionIcon
+                        as={ArrowUpIcon}
+                        size={type === 1 ? 35 : 25}
+                        color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
+                        strokeWidth={2.5}
+                        cursor={'pointer'}
+                        onClick={() => setType(1)}
                     />
                 </TransactionTypeDiv>
 

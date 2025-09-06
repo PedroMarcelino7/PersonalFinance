@@ -93,7 +93,10 @@ export const ChevronIcon = styled.img`
 export const TransactionTypeDiv = styled.div`
     width: 25%;
     display: flex;
-    gap: 0.5rem;
     align-items: center;
     justify-content: center;
+`
+
+export const TransactionIcon = styled.div`
+    transition: all 0.25s;
 `
