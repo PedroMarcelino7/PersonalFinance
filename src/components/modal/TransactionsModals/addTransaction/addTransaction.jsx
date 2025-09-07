@@ -25,20 +25,26 @@ const AddTransaction = () => {
     const [category, setCategory] = useState(1)
     const [person, setPerson] = useState(1)
     const [type, setType] = useState(0)
-    const [date, setDate] = useState(getTodayDate())
+    const [date, setDate] = useState(new Date());
     const dateInputRef = useRef(null)
 
-    function getTodayDate() {
-        const date = new Date()
-        const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
-        const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-        const year = date.getFullYear()
+    function formatDate(date) {
+        const pad = (n) => (n < 10 ? '0' + n : n);
 
-        return `${year}-${month}-${day}`
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1);
+        const day = pad(date.getDate());
+        const hours = pad(date.getHours());
+        const minutes = pad(date.getMinutes());
+        const seconds = pad(date.getSeconds());
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        const formattedDate = formatDate(date);
 
         console.log(`
             TRANSACTION SUBMIT
@@ -46,7 +52,7 @@ const AddTransaction = () => {
             amount: ${amount}
             category: ${category}
             person: ${person}
-            date: ${date}
+            date: ${formattedDate}
             type: ${type}
         `)
 
@@ -59,7 +65,7 @@ const AddTransaction = () => {
                 body: JSON.stringify({
                     transaction_amount: amount,
                     transaction_type: type,
-                    transaction_date: date,
+                    transaction_date: formattedDate,
                     category_id: category,
                     person_id: person,
                 })
@@ -117,11 +123,18 @@ const AddTransaction = () => {
                     <CalendarInput
                         type="date"
                         ref={dateInputRef}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={(e) => {
+                            const selectedDate = new Date(e.target.value);
+                            const now = new Date();
+
+                            selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+                            setDate(selectedDate);
+                        }}
                     />
 
                     <DateSelected>
-                        {date}
+                        {date.toISOString().split("T")[0]}
                     </DateSelected>
                 </CalendarBox>
             </AditionalInfoContainer>

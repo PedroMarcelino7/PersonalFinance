@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import { ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
-import Modal from '../../components/modal/modal'
 
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
 import SearchIcon from '../../assets/images/icon-search.svg'
@@ -12,7 +11,6 @@ import PrevIcon from '../../assets/images/icon-caret-left.svg'
 import NextIcon from '../../assets/images/icon-caret-right.svg'
 import PotIcon from '../../assets/images/icon-pot.svg'
 
-import AddTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
 import TransactionsModalManager from '../../managers/TransactionsModalManager/TransactionsModalManager'
 
 import { useTransactions } from '../../contexts/transactionsContext'
@@ -34,12 +32,6 @@ const Transactions = () => {
     const filteredTransactions = transactions
         .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
     const pagesQuantity = Math.ceil(filteredTransactions.length / quantityToShow)
-
-    const [showAddTransactionModal, setShowAddTransactionModal] = useState(false)
-
-    const handleShowAddTransactionModal = () => {
-        setShowAddTransactionModal(true)
-    }
 
     const getDateFormat = (transactionDate) => {
         const date = new Date(transactionDate);
@@ -98,7 +90,7 @@ const Transactions = () => {
 
                         <div>
                             <FirstPotButton
-                                onClick={handleShowAddTransactionModal}
+                                onClick={() => openModal('addTransaction')}
                             >
                                 Create your first transaction
                             </FirstPotButton>
