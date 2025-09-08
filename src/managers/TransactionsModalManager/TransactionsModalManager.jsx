@@ -2,12 +2,18 @@ import { memo } from "react";
 
 import Modal from "../../components/modal/modal";
 
-import addNewTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
+import addTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
+import addCategory from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
 
 const MODAL_CONFIG = {
     addTransaction: {
-        title: "Add New Transaction",
-        Component: addNewTransaction,
+        title: "Add Transaction",
+        Component: addTransaction,
+        getProps: () => ({}),
+    },
+    addCategory: {
+        title: "Add Category",
+        Component: addCategory,
         getProps: () => ({}),
     },
 };

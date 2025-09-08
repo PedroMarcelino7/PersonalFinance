@@ -142,7 +142,7 @@ const AddTransaction = () => {
             <DefaultSelect
                 label='Category'
                 setValue={setCategory}
-                data={categories}
+                data={categories.filter((category) => category.category_id !== 1)}
                 item_id={'category_id'}
                 item_name={'category_name'}
                 hasButton
@@ -151,7 +151,7 @@ const AddTransaction = () => {
             <DefaultSelect
                 label={type === 0 ? 'Recipient' : 'Sender'}
                 setValue={setPerson}
-                data={people}
+                data={people.filter((person) => person.person_id !== 1)}
                 item_id={'person_id'}
                 item_name={'person_name'}
                 hasButton
