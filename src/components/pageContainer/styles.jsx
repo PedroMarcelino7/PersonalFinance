@@ -11,6 +11,12 @@ export const Container = styled.div`
     overflow: hidden;
 `
 
+export const TitleBox = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+`
+
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
