@@ -1,11 +1,11 @@
 import { ConfirmButton, FormContainer } from './styles'
-import { usePots } from '../../../contexts/potsContext'
-import { useTransactions } from '../../../contexts/transactionsContext'
-import { useModal } from '../modal'
+import { usePots } from '../../../../contexts/potsContext'
+import { useTransactions } from '../../../../contexts/transactionsContext'
+import { useModal } from '../../modal'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-const RecoverPot = ({ pot }) => {
+const FinishPot = ({ pot }) => {
     const { refreshPots } = usePots()
     const { refreshTransactions } = useTransactions()
     const { closeModal } = useModal()
@@ -14,7 +14,7 @@ const RecoverPot = ({ pot }) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/pots/recover', {
+            const response = await fetch('http://localhost:3000/pots/finish', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -27,17 +27,17 @@ const RecoverPot = ({ pot }) => {
 
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
-                toast.error('Error recovering pot.');
+                toast.error('Error finishing pot.');
                 return;
             }
 
             const data = await response.json();
-            toast.success('Pot recovered successfully.');
-            console.log('>>> Resposta Pot Post [Recover Pots Modal]:', data);
+            toast.success('Pot finished successfully.');
+            console.log('>>> Resposta Pot Post [Finish Pots Modal]:', data);
 
         } catch (error) {
-            console.error('Erro ao recuperar o pot:', error);
-            toast.error('Error recovering pot.');
+            console.error('Erro ao finalizar o pot:', error);
+            toast.error('Error finishing pot.');
         }
 
         refreshPots()
@@ -47,7 +47,7 @@ const RecoverPot = ({ pot }) => {
 
     useEffect(() => {
         console.log(`
-            Pot to RECOVER
+            Pot to FINISH
     
             ID: ${pot.pot_id}
             Name: ${pot.pot_name}
@@ -62,9 +62,9 @@ const RecoverPot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm recovery</ConfirmButton>
+            <ConfirmButton>Yes, confirm completion</ConfirmButton>
         </FormContainer>
     )
 }
 
-export default RecoverPot
+export default FinishPot

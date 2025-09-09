@@ -1,8 +1,8 @@
-import { CloseButton, ConfirmButton, FormContainer } from './styles'
-import { usePots } from '../../../contexts/potsContext'
-import { useModal } from '../modal'
+import {  ConfirmButton, FormContainer } from './styles'
+import { usePots } from '../../../../contexts/potsContext'
+import { useModal } from '../../modal'
 import { useEffect } from 'react'
-import { useThemes } from '../../../contexts/themesContext'
+import { useThemes } from '../../../../contexts/themesContext'
 import { toast } from 'react-toastify'
 
 const DeletePot = ({ pot }) => {

@@ -1,14 +1,14 @@
 import { useState, useRef } from 'react'
-import DefaultInput from '../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
-import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
-import { usePots } from '../../../contexts/potsContext'
-import { useThemes } from '../../../contexts/themesContext'
-import { useModal } from '../modal'
-import IconCalendar from '../../../assets/images/icon-calendar.svg'
+import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+import { usePots } from '../../../../contexts/potsContext'
+import { useThemes } from '../../../../contexts/themesContext'
+import { useModal } from '../../modal'
+import IconCalendar from '../../../../assets/images/icon-calendar.svg'
 import { toast } from 'react-toastify'
 
-const AddNewPot = () => {
+const AddPot = () => {
     const { refreshPots } = usePots()
     const { closeModal } = useModal()
     const { themes, refreshThemes } = useThemes()
@@ -129,4 +129,4 @@ const AddNewPot = () => {
     )
 }
 
-export default AddNewPot
+export default AddPot

@@ -2,20 +2,20 @@ import { memo } from "react";
 
 import Modal from "../../components/modal/modal";
 
-import AddNewPot from "../../components/modal/addNewPot/addNewPot";
-import EditPot from "../../components/modal/editPot/editPot";
-import DeletePot from "../../components/modal/deletePot/deletePot";
-import FinishPot from "../../components/modal/finishPot/finishPot";
-import AddMoney from "../../components/modal/addMoney/addMoney";
-import WithdrawMoney from "../../components/modal/withdrawMoney/withdrawMoney";
-import RecoverPot from "../../components/modal/recoverPot/recoverPot";
+import AddPot from "../../components/modal/PotsModals/addPot/addPot";
+import EditPot from "../../components/modal/PotsModals/editPot/editPot";
+import DeletePot from "../../components/modal/PotsModals/deletePot/deletePot";
+import FinishPot from "../../components/modal/PotsModals/finishPot/finishPot";
+import AddMoney from "../../components/modal/PotsModals/addMoney/addMoney";
+import WithdrawMoney from "../../components/modal/PotsModals/withdrawMoney/withdrawMoney";
+import RecoverPot from "../../components/modal/PotsModals/recoverPot/recoverPot";
 
 const MODAL_CONFIG = {
-    addPot: {
+    AddPot: {
         title: "Add New Pot",
         subtitle:
             "Create a pot to set savings targets. These can help keep you on track as you save for special purchases.",
-        Component: AddNewPot,
+        Component: AddPot,
         getProps: () => ({}),
     },
     edit: {

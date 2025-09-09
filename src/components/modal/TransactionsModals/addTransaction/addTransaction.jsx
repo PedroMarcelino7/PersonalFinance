@@ -10,10 +10,11 @@ import IconCalendar from '../../../../assets/images/icon-calendar.svg'
 import { ArrowDown as ArrowDownIcon } from 'lucide-react'
 import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
-import { useModal } from '../../modal'
+import Modal, { useModal } from '../../modal'
 import { useCategories } from '../../../../contexts/categoriesContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
+import AddNewBudget from '../../BudgetsModals/addNewBudget/addNewBudget'
 
 const AddTransaction = () => {
     const { closeModal } = useModal()
@@ -83,82 +84,85 @@ const AddTransaction = () => {
     }
 
     return (
-        <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <AditionalInfoContainer>
-                <AmountInputBox>
-                    <DefaultInput
-                        label={'Amount'}
-                        setValue={setAmount}
-                        placeholder={'$ 0.00'}
-                        required={true}
-                    />
-                </AmountInputBox>
+        <>
+            <FormContainer onSubmit={(e) => handleSubmit(e)}>
+                <AditionalInfoContainer>
+                    <AmountInputBox>
+                        <DefaultInput
+                            label={'Amount'}
+                            setValue={setAmount}
+                            placeholder={'$ 0.00'}
+                            required={true}
+                        />
+                    </AmountInputBox>
 
-                <TransactionTypeDiv>
-                    <TransactionIcon
-                        as={ArrowDownIcon}
-                        size={type === 0 ? 35 : 25}
-                        color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
-                        strokeWidth={2.5}
-                        cursor={'pointer'}
-                        onClick={() => setType(0)}
-                    />
+                    <TransactionTypeDiv>
+                        <TransactionIcon
+                            as={ArrowDownIcon}
+                            size={type === 0 ? 35 : 25}
+                            color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
+                            strokeWidth={2.5}
+                            cursor={'pointer'}
+                            onClick={() => setType(0)}
+                        />
 
-                    <TransactionIcon
-                        as={ArrowUpIcon}
-                        size={type === 1 ? 35 : 25}
-                        color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
-                        strokeWidth={2.5}
-                        cursor={'pointer'}
-                        onClick={() => setType(1)}
-                    />
-                </TransactionTypeDiv>
+                        <TransactionIcon
+                            as={ArrowUpIcon}
+                            size={type === 1 ? 35 : 25}
+                            color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
+                            strokeWidth={2.5}
+                            cursor={'pointer'}
+                            onClick={() => setType(1)}
+                        />
+                    </TransactionTypeDiv>
 
-                <CalendarBox>
-                    <Calendar
-                        src={IconCalendar}
-                        alt=""
-                    />
+                    <CalendarBox>
+                        <Calendar
+                            src={IconCalendar}
+                            alt=""
+                        />
 
-                    <CalendarInput
-                        type="date"
-                        ref={dateInputRef}
-                        onChange={(e) => {
-                            const selectedDate = new Date(e.target.value);
-                            const now = new Date();
+                        <CalendarInput
+                            type="date"
+                            ref={dateInputRef}
+                            onChange={(e) => {
+                                const selectedDate = new Date(e.target.value);
+                                const now = new Date();
 
-                            selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+                                selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
 
-                            setDate(selectedDate);
-                        }}
-                    />
+                                setDate(selectedDate);
+                            }}
+                        />
 
-                    <DateSelected>
-                        {date.toISOString().split("T")[0]}
-                    </DateSelected>
-                </CalendarBox>
-            </AditionalInfoContainer>
+                        <DateSelected>
+                            {date.toISOString().split("T")[0]}
+                        </DateSelected>
+                    </CalendarBox>
+                </AditionalInfoContainer>
 
-            <DefaultSelect
-                label='Category'
-                setValue={setCategory}
-                data={categories.filter((category) => category.category_id !== 1)}
-                item_id={'category_id'}
-                item_name={'category_name'}
-                hasButton
-            />
+                <DefaultSelect
+                    label='Category'
+                    setValue={setCategory}
+                    data={categories.filter((category) => category.category_id !== 1)}
+                    item_id={'category_id'}
+                    item_name={'category_name'}
+                    hasButton
+                    onButtonClick={() => setShowCategoryModal(true)}
+                />
 
-            <DefaultSelect
-                label={type === 0 ? 'Recipient' : 'Sender'}
-                setValue={setPerson}
-                data={people.filter((person) => person.person_id !== 1)}
-                item_id={'person_id'}
-                item_name={'person_name'}
-                hasButton
-            />
+                <DefaultSelect
+                    label={type === 0 ? 'Recipient' : 'Sender'}
+                    setValue={setPerson}
+                    data={people.filter((person) => person.person_id !== 1)}
+                    item_id={'person_id'}
+                    item_name={'person_name'}
+                    hasButton
+                />
 
-            <Button>Add transaction</Button>
-        </FormContainer>
+                <Button>Add transaction</Button>
+            </FormContainer>
+        </>
     )
 }
 

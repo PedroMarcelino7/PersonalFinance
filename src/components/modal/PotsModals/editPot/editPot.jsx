@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
-import DefaultInput from '../../input/defaultInput/defaultInput'
+import { useState, useRef, useEffect } from 'react'
+import DefaultInput from '../../../input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
-import ThemeSelect from '../../../ui/select/themeSelect/themeSelect'
-import { usePots } from '../../../contexts/potsContext'
-import { useModal } from '../modal'
-import IconCalendar from '../../../assets/images/icon-calendar.svg'
-import { useThemes } from '../../../contexts/themesContext'
+import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+import { usePots } from '../../../../contexts/potsContext'
+import { useModal } from '../../modal'
+import IconCalendar from '../../../../assets/images/icon-calendar.svg'
+import { useThemes } from '../../../../contexts/themesContext'
 import { toast } from 'react-toastify'
 
 const EditPot = ({ pot }) => {
