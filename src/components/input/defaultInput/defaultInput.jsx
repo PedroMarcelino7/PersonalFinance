@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container, Input, Label, LabelSpan } from './styles'
 
 const DefaultInput = ({ label, type = 'text', placeholder, value, setValue, required }) => {

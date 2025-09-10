@@ -4,6 +4,7 @@ import Modal from "../../components/modal/modal";
 
 import addTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
 import addCategory from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import addPerson from "../../components/modal/PeopleModals/AddPerson/AddPerson";
 
 const MODAL_CONFIG = {
     addTransaction: {
@@ -16,6 +17,11 @@ const MODAL_CONFIG = {
         Component: addCategory,
         getProps: () => ({}),
     },
+    addPerson: {
+        title: 'Add Person',
+        Component: addPerson,
+        getProps: () => ({})
+    }
 };
 
 function TransactionsModalManager({ modal, onClose }) {

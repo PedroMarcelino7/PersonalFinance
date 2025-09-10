@@ -161,6 +161,7 @@ const AddTransaction = () => {
                     item_id={'person_id'}
                     item_name={'person_name'}
                     hasButton
+                    onButtonClick={() => openModal('addPerson')}
                 />
 
                 <Button>Add transaction</Button>
