@@ -10,17 +10,21 @@ import IconCalendar from '../../../../assets/images/icon-calendar.svg'
 import { ArrowDown as ArrowDownIcon } from 'lucide-react'
 import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
-import Modal, { useModal } from '../../modal'
 import { useCategories } from '../../../../contexts/categoriesContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
-import AddNewBudget from '../../BudgetsModals/addNewBudget/addNewBudget'
+
+import TransactionsModalManager from '../../../../managers/TransactionsModalManager/TransactionsModalManager'
 
 const AddTransaction = () => {
-    const { closeModal } = useModal()
     const { refreshTransactions } = useTransactions()
     const { categories } = useCategories()
     const { people } = usePeople()
+
+    const [modal, setModal] = useState({ type: null, pot: null });
+
+    const openModal = (type, pot = null) => setModal({ type, pot });
+    const closeModal = () => setModal({ type: null, pot: null });
 
     const [amount, setAmount] = useState(0)
     const [category, setCategory] = useState(1)
@@ -80,7 +84,6 @@ const AddTransaction = () => {
         }
 
         refreshTransactions()
-        closeModal()
     }
 
     return (
@@ -148,7 +151,7 @@ const AddTransaction = () => {
                     item_id={'category_id'}
                     item_name={'category_name'}
                     hasButton
-                    onButtonClick={() => setShowCategoryModal(true)}
+                    onButtonClick={() => openModal('addCategory')}
                 />
 
                 <DefaultSelect
@@ -162,6 +165,8 @@ const AddTransaction = () => {
 
                 <Button>Add transaction</Button>
             </FormContainer>
+
+            <TransactionsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }

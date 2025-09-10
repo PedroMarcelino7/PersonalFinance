@@ -63,7 +63,7 @@ const AddNewBudget = () => {
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
 
-            <Button>Add Pot</Button>
+            <Button>Add Category</Button>
         </FormContainer>
     )
 }
