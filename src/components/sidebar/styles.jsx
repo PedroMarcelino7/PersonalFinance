@@ -58,7 +58,6 @@ export const NavigationButton = styled.div`
 
         &:hover {
             transform: scale(1.05);
-            transform: translateX(10px);
 
             h2 {
                 color: #000; 

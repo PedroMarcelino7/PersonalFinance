@@ -6,6 +6,7 @@ import Budgets from './pages/budgets/budgets'
 import Pots from './pages/pots/pots'
 import FinishedPots from './pages/pots/finished/finishedPots'
 import RecurringBills from './pages/recurringBills/recurringBills'
+import Crypto from './pages/crypto/crypto'
 
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='/pots' element={<Pots />} />
           <Route path='/pots/finished' element={<FinishedPots />} />
           <Route path='/recurring-bills' element={<RecurringBills />} />
+          <Route path='/crypto' element={<Crypto />} />
         </Routes>
       </BrowserRouter>
     </div>

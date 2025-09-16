@@ -1,11 +1,11 @@
 import { useState, useRef } from 'react'
 
-import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, FormContainer, AmountInputBox, DateSelected, SelectWrapper, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv, TransactionIcon } from './styles'
+import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv, TransactionIcon } from './styles'
 
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../input/defaultInput/defaultInput'
 
-import IconCalendar from '../../../../assets/images/icon-calendar.svg'
+import { CalendarDays as CalendarIcon } from 'lucide-react';
 
 import { ArrowDown as ArrowDownIcon } from 'lucide-react'
 import { ArrowUp as ArrowUpIcon } from 'lucide-react'
@@ -120,12 +120,7 @@ const AddTransaction = () => {
                     </TransactionTypeDiv>
 
                     <CalendarBox>
-                        <Calendar
-                            src={IconCalendar}
-                            alt=""
-                        />
-
-                        <CalendarInput
+                        {/* <CalendarInput
                             type="date"
                             ref={dateInputRef}
                             onChange={(e) => {
@@ -136,6 +131,14 @@ const AddTransaction = () => {
 
                                 setDate(selectedDate);
                             }}
+                        /> */}
+
+                        <CalendarIcon
+                            size={40}
+                            color='var(--dark)'
+                            strokeWidth={2.25}
+                            cursor={'pointer'}
+                            onClick={() => closeModal(false)}
                         />
 
                         <DateSelected>

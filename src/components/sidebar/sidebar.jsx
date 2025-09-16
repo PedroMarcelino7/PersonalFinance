@@ -1,29 +1,62 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { House as OverviewIcon } from 'lucide-react'
+import { ArrowDownUp as TransactionsIcon } from 'lucide-react'
+import { ChartPie as BudgetsIcon } from 'lucide-react'
+import { ArchiveRestore as PotsIcon } from 'lucide-react'
+import { CalendarSync as RecurringBillsIcon } from 'lucide-react'
+import { CirclePoundSterling as CryptoIcon } from 'lucide-react'
 
 import Logo from '../../assets/images/logo-large.svg'
 import ArrowIcon from '../../assets/images/icon-minimize-menu.svg'
-import OverviewIcon from '../../assets/images/icon-nav-overview.svg'
-import TransactionsIcon from '../../assets/images/icon-nav-transactions.svg'
-import BudgetsIcon from '../../assets/images/icon-nav-budgets.svg'
-import PotsIcon from '../../assets/images/icon-nav-pots.svg'
-import RecurringBillsIcon from '../../assets/images/icon-nav-recurring-bills.svg'
 
 import { Container, FooterBox, LogoBox, NavigationBox, NavigationButton, TopBox } from './styles'
 import { useLocation, useNavigate } from 'react-router-dom'
-
-const navigation = [
-    { id: 0, icon: OverviewIcon, name: 'Overview', path: '' },
-    { id: 1, icon: TransactionsIcon, name: 'Transactions', path: 'transactions' },
-    { id: 2, icon: BudgetsIcon, name: 'Budgets', path: 'budgets' },
-    { id: 3, icon: PotsIcon, name: 'Pots', path: 'pots' },
-    { id: 4, icon: RecurringBillsIcon, name: 'Recurring Bills', path: 'recurring-bills' },
-]
 
 const Sidebar = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
     const [selectedPage, setSelectedPage] = useState(0)
+
+    const navigation = [
+        {
+            id: 0,
+            icon: <OverviewIcon size={25} color={selectedPage === 0 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Overview',
+            path: ''
+        },
+        {
+            id: 1,
+            icon: <TransactionsIcon size={25} color={selectedPage === 1 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Transactions',
+            path: 'transactions'
+        },
+        {
+            id: 2,
+            icon: <BudgetsIcon size={25} color={selectedPage === 2 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Budgets',
+            path: 'budgets'
+        },
+        {
+            id: 3,
+            icon: <PotsIcon size={25} color={selectedPage === 3 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Pots',
+            path: 'pots'
+        },
+        {
+            id: 4,
+            icon: <RecurringBillsIcon size={25} color={selectedPage === 4 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Recurring Bills',
+            path: 'recurring-bills'
+        },
+        {
+            id: 5,
+            icon: <CryptoIcon size={25} color={selectedPage === 5 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Crypto',
+            path: 'crypto'
+        },
+    ]
 
     const changePage = (id, path) => {
         if (location.pathname === `/${path}`) return
@@ -52,7 +85,7 @@ const Sidebar = () => {
                             className={selectedPage === nav.id ? 'selected' : ''}
                             onClick={() => changePage(nav.id, nav.path)}
                         >
-                            <img src={nav.icon} alt={nav.name} />
+                            {nav.icon}
 
                             <h2>{nav.name}</h2>
                         </NavigationButton>
