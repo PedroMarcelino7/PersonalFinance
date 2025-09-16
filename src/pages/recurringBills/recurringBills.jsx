@@ -5,7 +5,7 @@ import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSel
 import { useRecurringBills } from '../../contexts/recurringBillsContext'
 import { usePeople } from '../../contexts/peopleContext'
 
-import BillsIcon from '../../assets/images/icon-recurring-bills.svg'
+import { CalendarSync as BillsIcon } from 'lucide-react'
 import SearchIcon from '../../assets/images/icon-search.svg'
 import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
@@ -89,7 +89,11 @@ const RecurringBills = () => {
             <RecurringBillsContainer>
                 <ResumeContainer>
                     <TotalContainer>
-                        <Bill src={BillsIcon} alt="" />
+                        <BillsIcon
+                            size={45}
+                            color='var(--white)'
+                            strokeWidth={1.5}
+                        />
 
                         <ResumeBox>
                             <h6>Total Bills</h6>

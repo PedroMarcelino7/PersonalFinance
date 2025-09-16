@@ -7,7 +7,7 @@ import Chart from '../../components/chart/chart'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
 
-import PotIcon from '../../assets/images/icon-pot.svg'
+import { ArchiveRestore as PotsIcon } from 'lucide-react'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
 import { ChevronRight as ArrowIcon } from 'lucide-react';
@@ -138,9 +138,11 @@ const Overview = () => {
                             <CardContext>
                                 <PotsContainer>
                                     <PotBox>
-                                        <figure>
-                                            <img src={PotIcon} alt="" />
-                                        </figure>
+                                        <PotsIcon
+                                            size={40}
+                                            color='var(--green)'
+                                            strokeWidth={2}
+                                        />
 
                                         <PotDescription>
                                             <h5>Total saved</h5>

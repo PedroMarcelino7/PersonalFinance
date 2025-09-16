@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { User as UserIcon } from 'lucide-react';
+import { Settings as SettingsIcon } from 'lucide-react';
 import { House as OverviewIcon } from 'lucide-react'
 import { ArrowDownUp as TransactionsIcon } from 'lucide-react'
 import { ChartPie as BudgetsIcon } from 'lucide-react'
@@ -8,9 +10,8 @@ import { CalendarSync as RecurringBillsIcon } from 'lucide-react'
 import { CirclePoundSterling as CryptoIcon } from 'lucide-react'
 
 import Logo from '../../assets/images/logo-large.svg'
-import ArrowIcon from '../../assets/images/icon-minimize-menu.svg'
 
-import { Container, FooterBox, LogoBox, NavigationBox, NavigationButton, TopBox } from './styles'
+import { Container, FooterBox, FooterButton, LogoBox, NavigationBox, NavigationButton, TopBox } from './styles'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -94,9 +95,25 @@ const Sidebar = () => {
             </TopBox>
 
             <FooterBox>
-                <img src={ArrowIcon} alt="" />
+                <FooterButton>
+                    <UserIcon
+                        size={25}
+                        color='currentColor'
+                        strokeWidth={2.5}
+                    />
 
-                <h1>Minimize Menu</h1>
+                    <h2>User</h2>
+                </FooterButton>
+
+                <FooterButton>
+                    <SettingsIcon
+                        size={25}
+                        color='currentColor'
+                        strokeWidth={2.5}
+                    />
+
+                    <h2>Settings</h2>
+                </FooterButton>
             </FooterBox>
         </Container>
     )

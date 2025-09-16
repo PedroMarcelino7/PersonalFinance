@@ -75,13 +75,40 @@ export const NavigationButton = styled.div`
 `
 
 export const FooterBox = styled.div`
+    transform: translateX(-2rem);
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
-
-    h1 {
-        color: var(--light-gray);
-        font-size: 1rem;
-    }
+    flex-direction: column;
+    gap: 0.25rem;
 `
+
+export const FooterButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 2rem;
+  padding-block: 0.75rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 5px solid transparent;
+  cursor: pointer;
+  transition: all 0.5s;
+  color: var(--light-gray);
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .icon {
+    transition: all 0.5s;
+  }
+
+  &:hover {
+    background-color: var(--white-muted);
+    border-color: var(--green);
+    color: var(--dark);
+
+    h2 {
+      color: var(--dark);
+    }
+  }
+`;

@@ -68,7 +68,6 @@ const Pots = () => {
 
     return (
         <>
-
             <PageContainer
                 name="Pots"
                 button={pots.length === 0 ? '' : '+ Add Pot'}
