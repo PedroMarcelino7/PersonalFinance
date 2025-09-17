@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react'
 
-import { ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavButton, NavPages, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
+import SearchInput from '../../components/input/searchInput/searchInput'
+
+import { EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
+
+import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
+import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
 
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
-import SearchIcon from '../../assets/images/icon-search.svg'
-import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
-import PrevIcon from '../../assets/images/icon-caret-left.svg'
-import NextIcon from '../../assets/images/icon-caret-right.svg'
-import PotIcon from '../../assets/images/icon-pot.svg'
 
 import TransactionsModalManager from '../../managers/TransactionsModalManager/TransactionsModalManager'
 
 import { useTransactions } from '../../contexts/transactionsContext'
 import { useCategories } from '../../contexts/categoriesContext'
+
+import SelectLabel from '../../components/select/selectLabel/selectLabel'
+import ButtonArrow from '../../components/button/buttonArrow/buttonArrow'
 
 const Transactions = () => {
     const { transactions, refreshTransactions } = useTransactions()
@@ -61,7 +64,7 @@ const Transactions = () => {
     }
 
     const handleSetCategoriesFilter = (category) => {
-        setCategoriesFilter(category)
+        setCategoriesFilter(Number(category))
         setPage(1)
         setQuantityToShowOffset(0)
     }
@@ -98,41 +101,33 @@ const Transactions = () => {
                     </EmptyPageContainer>
                     : <TransactionsContainer>
                         <TransactionsHeader>
-                            <SearchBox>
-                                <SearchInput placeholder="Search transaction" />
-                                <SearchButton src={SearchIcon} />
-                            </SearchBox>
+                            <SearchInput
+                                placeholder={'Search transaction'}
+                            />
 
                             <SortContainer>
-                                <SortBox>
-                                    <h6>Sort by</h6>
+                                <SelectLabel
+                                    label={'Sort by'}
+                                    data={[
+                                        { value: 'newest', name: 'Newest' },
+                                        { value: 'oldest', name: 'Oldest' },
+                                        { value: 'atoz', name: 'A to Z' },
+                                        { value: 'ztoa', name: 'Z to A' },
+                                        { value: 'highest', name: 'Highest' },
+                                        { value: 'lowest', name: 'Lowest' },
+                                    ]}
+                                    onSelect={handleSortTransactions}
+                                />
 
-                                    <SelectWrapper>
-                                        <CustomSelect onChange={(e) => handleSortTransactions(e.target.value)}>
-                                            <CustomOption value="newest">Newest</CustomOption>
-                                            <CustomOption value="oldest">Oldest</CustomOption>
-                                            <CustomOption value="atoz">A to Z</CustomOption>
-                                            <CustomOption value="ztoa">Z to A</CustomOption>
-                                            <CustomOption value="highest">Highest</CustomOption>
-                                            <CustomOption value="lowest">Lowest</CustomOption>
-                                        </CustomSelect>
-                                        <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                                    </SelectWrapper>
-                                </SortBox>
-
-                                <SortBox>
-                                    <h6>Category</h6>
-
-                                    <SelectWrapper>
-                                        <CustomSelect onChange={(e) => handleSetCategoriesFilter(Number(e.target.value))}>
-                                            <CustomOption value="0">All transactions</CustomOption>
-                                            {categories.map((category) => (
-                                                <CustomOption value={category.category_id}>{category.category_name}</CustomOption>
-                                            ))}
-                                        </CustomSelect>
-                                        <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                                    </SelectWrapper>
-                                </SortBox>
+                                <SelectLabel
+                                    label={'Category'}
+                                    defaultOption={{ value: '0', name: 'All transactions' }}
+                                    data={categories.map((category) => ({
+                                        value: category.category_id,
+                                        name: category.category_name
+                                    }))}
+                                    onSelect={handleSetCategoriesFilter}
+                                />
                             </SortContainer>
                         </TransactionsHeader>
 
@@ -155,7 +150,19 @@ const Transactions = () => {
                                             <TableBodyElement className='reference'>
                                                 {transaction.pot_id
                                                     ? <>
-                                                        <img src={PotIcon} alt="" />
+                                                        {transaction.transaction_type === 0
+                                                            ? <PotsWithdrawIcon
+                                                                size={40}
+                                                                color={'var(--red)'}
+                                                                strokeWidth={2.5}
+                                                            />
+                                                            : <PotsAddIcon
+                                                                size={40}
+                                                                color={'var(--green)'}
+                                                                strokeWidth={2.5}
+                                                            />
+                                                        }
+
                                                         <h3>{transaction.pot_name}</h3>
                                                     </>
                                                     : <>
@@ -181,11 +188,11 @@ const Transactions = () => {
                         </div>
 
                         <TransactionsFooter>
-                            <NavButton onClick={() => handleChangeTransactionsPage('prev', page)}>
-                                <img src={PrevIcon} alt="" />
-
-                                <h3>Prev</h3>
-                            </NavButton>
+                            <ButtonArrow
+                                label={'Prev'}
+                                orientation={'left'}
+                                onClick={() => handleChangeTransactionsPage('prev', page)}
+                            />
 
                             <NavPages>
                                 {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
@@ -202,11 +209,11 @@ const Transactions = () => {
                                 ))}
                             </NavPages>
 
-                            <NavButton onClick={() => handleChangeTransactionsPage('next', page)}>
-                                <h3>Next</h3>
-
-                                <img src={NextIcon} alt="" />
-                            </NavButton>
+                            <ButtonArrow
+                                label={'Next'}
+                                orientation={'right'}
+                                onClick={() => handleChangeTransactionsPage('next', page)}
+                            />
                         </TransactionsFooter>
                     </TransactionsContainer>
                 }

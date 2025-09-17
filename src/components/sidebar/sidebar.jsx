@@ -5,7 +5,7 @@ import { Settings as SettingsIcon } from 'lucide-react';
 import { House as OverviewIcon } from 'lucide-react'
 import { ArrowDownUp as TransactionsIcon } from 'lucide-react'
 import { ChartPie as BudgetsIcon } from 'lucide-react'
-import { ArchiveRestore as PotsIcon } from 'lucide-react'
+import { Archive as PotsIcon } from 'lucide-react'
 import { CalendarSync as RecurringBillsIcon } from 'lucide-react'
 import { CirclePoundSterling as CryptoIcon } from 'lucide-react'
 
