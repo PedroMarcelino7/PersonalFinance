@@ -3,9 +3,11 @@ import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewP
 import { usePots } from '../../../../contexts/potsContext'
 import { useModal } from '../../modal'
 import DefaultInput from '../../../input/defaultInput/defaultInput'
-import DeleteIcon from '../../../../assets/images/trash-solid.svg'
-import EditIcon from '../../../../assets/images/icon-edit.svg'
-import SaveIcon from '../../../../assets/images/icon-save.svg'
+
+import { Trash2 as DeleteIcon } from 'lucide-react';
+import { SquarePen as EditIcon } from 'lucide-react';
+import { Save as SaveIcon } from 'lucide-react';
+
 import { toast } from 'react-toastify'
 
 const AddMoney = ({ pot }) => {
@@ -165,7 +167,12 @@ const AddMoney = ({ pot }) => {
 
                         <QuickButtonsActions>
                             <QuickButton onClick={saveQuickButtonsValue} type='button' color='var(--green)'>
-                                <img src={SaveIcon} alt="Save" />
+                                <SaveIcon
+                                    size={17}
+                                    color='var(--dark)'
+                                    strokeWidth={2.5}
+                                    cursor={'pointer'}
+                                />
                             </QuickButton>
                         </QuickButtonsActions>
                     </>
@@ -185,11 +192,21 @@ const AddMoney = ({ pot }) => {
 
                         <QuickButtonsActions>
                             <QuickButton onClick={() => setAmountToAdd(0)} type='button' color='var(--red)'>
-                                <img src={DeleteIcon} alt="Clear" />
+                                <DeleteIcon
+                                    size={17}
+                                    color='var(--dark)'
+                                    strokeWidth={2.5}
+                                    cursor={'pointer'}
+                                />
                             </QuickButton>
 
                             <QuickButton onClick={() => setShowEditQuickButtons(true)} type='button' color='var(--cyan)'>
-                                <img src={EditIcon} alt="Edit" />
+                                <EditIcon
+                                    size={17}
+                                    color='var(--dark)'
+                                    strokeWidth={2.5}
+                                    cursor={'pointer'}
+                                />
                             </QuickButton>
                         </QuickButtonsActions>
                     </>

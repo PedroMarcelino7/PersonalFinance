@@ -122,6 +122,9 @@ export const QuickButton = styled.button`
     padding-inline: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
         width: 1rem;

@@ -7,7 +7,7 @@ import Chart from '../../components/chart/chart'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
 
-import { ArchiveRestore as PotsIcon } from 'lucide-react'
+import { Archive as PotsIcon } from 'lucide-react'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
 import { ChevronRight as ArrowIcon } from 'lucide-react';

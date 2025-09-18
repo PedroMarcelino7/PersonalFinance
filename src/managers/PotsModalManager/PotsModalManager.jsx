@@ -11,7 +11,7 @@ import WithdrawMoney from "../../components/modal/PotsModals/withdrawMoney/withd
 import RecoverPot from "../../components/modal/PotsModals/recoverPot/recoverPot";
 
 const MODAL_CONFIG = {
-    AddPot: {
+    add: {
         title: "Add New Pot",
         subtitle:
             "Create a pot to set savings targets. These can help keep you on track as you save for special purchases.",

@@ -7,6 +7,7 @@ import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
+import SelectLabel from '../../components/select/selectLabel/selectLabel';
 
 // ICONS
 import { ChevronDown as ChevronDownIcon } from 'lucide-react'
@@ -71,7 +72,7 @@ const Pots = () => {
             <PageContainer
                 name="Pots"
                 button={pots.length === 0 ? '' : '+ Add Pot'}
-                onClick={() => openModal("addPot")}
+                onClick={() => openModal("add")}
             >
                 {unfinishedPots.length === 0
                     ? <EmptyPageContainer>
@@ -82,7 +83,7 @@ const Pots = () => {
 
                         <div>
                             <FirstPotButton
-                                onClick={() => openModal("addPot")}
+                                onClick={() => openModal("add")}
                             >
                                 Create your first pot
                             </FirstPotButton>
@@ -91,29 +92,18 @@ const Pots = () => {
                     :
                     <PotsContainer>
                         <ActionsContainer>
-                            <SortBox>
-                                <h6>Sort by</h6>
-
-                                <SelectWrapper>
-                                    <CustomSelect onChange={(e) => handlePotsOrderChange(e.target.value)}>
-                                        <CustomOption value="oldest">Oldest</CustomOption>
-                                        <CustomOption value="newest">Newest</CustomOption>
-                                        <CustomOption value="atoz">A to Z</CustomOption>
-                                        <CustomOption value="ztoa">Z to A</CustomOption>
-                                        <CustomOption value="expensive">Most Expensive</CustomOption>
-                                        <CustomOption value="cheapest">Cheapest</CustomOption>
-                                    </CustomSelect>
-
-                                    <ChevronIcon>
-                                        <ChevronDownIcon
-                                            size={25}
-                                            color='var(--dark)'
-                                            strokeWidth={2.5}
-                                            cursor={'pointer'}
-                                        />
-                                    </ChevronIcon>
-                                </SelectWrapper>
-                            </SortBox>
+                            <SelectLabel
+                                label={'Sort by'}
+                                data={[
+                                    { value: 'oldest', name: 'Oldest' },
+                                    { value: 'newest', name: 'Newest' },
+                                    { value: 'atoz', name: 'A to Z' },
+                                    { value: 'ztoa', name: 'Z to A' },
+                                    { value: 'expensive', name: 'Most Expensive' },
+                                    { value: 'cheapest', name: 'Cheapest' },
+                                ]}
+                                onSelect={handlePotsOrderChange}
+                            />
 
                             <ActionsButton>
                                 <Link to={'./finished'}>
