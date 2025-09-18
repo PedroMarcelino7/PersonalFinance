@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react'
 
-import SearchInput from '../../components/input/searchInput/searchInput'
-
 import { EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
+// Icons
 import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
 import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
 
+// Components
 import PageContainer from '../../components/pageContainer/pageContainer'
 
+// Images
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
 
+// Modal Manager
 import TransactionsModalManager from '../../managers/TransactionsModalManager/TransactionsModalManager'
 
+// Contexts
 import { useTransactions } from '../../contexts/transactionsContext'
 import { useCategories } from '../../contexts/categoriesContext'
 
-import SelectLabel from '../../components/select/selectLabel/selectLabel'
-import ButtonArrow from '../../components/button/buttonArrow/buttonArrow'
+// UI Components
+import SearchInput from '../../ui/input/searchInput/searchInput'
+import SelectLabel from '../../ui/select/selectLabel/selectLabel'
+import ButtonArrow from '../../ui/button/buttonArrow/buttonArrow'
 
 const Transactions = () => {
     const { transactions, refreshTransactions } = useTransactions()

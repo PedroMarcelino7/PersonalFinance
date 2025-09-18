@@ -9,11 +9,10 @@ import PageContainer from '../../../components/pageContainer/pageContainer'
 import { usePots } from '../../../contexts/potsContext'
 
 // ICONS
-import { ChevronDown as ChevronDownIcon } from 'lucide-react'
 import { RotateCcw as RecoverIcon } from 'lucide-react'
 
 // STYLES
-import { ActionsButton, ActionsContainer, Card, CardContent, CardDateBox, CardHeader, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+import { ActionsButton, ActionsContainer, Card, CardContent, CardDateBox, CardHeader, CardOptionsContainer, CardTitle, CardTitleBox, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
 
 // MODAL MANAGER
 import PotsModalManager from '../../../managers/PotsModalManager/PotsModalManager'
@@ -21,7 +20,9 @@ import PotsModalManager from '../../../managers/PotsModalManager/PotsModalManage
 // UTILS
 import { formatCurrency } from '../../../utils/formatCurrency'
 import { formatDate } from '../../../utils/formatDate'
-import SelectLabel from '../../../components/select/selectLabel/selectLabel';
+
+// UI COMPONENTS
+import SelectLabel from '../../../ui/select/selectLabel/selectLabel';
 
 const FinishedPots = () => {
     const { pots } = usePots()

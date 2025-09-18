@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import DefaultInput from '../../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
 import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
 import { usePots } from '../../../../contexts/potsContext'

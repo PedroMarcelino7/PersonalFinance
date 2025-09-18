@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewProgress, ProgressBarBox, ProgressValues, QuickButton, QuickButtonInput, QuickButtonsActions, QuickButtonsBox, QuickButtonsContainer } from './styles'
 import { usePots } from '../../../../contexts/potsContext'
 import { useModal } from '../../modal'
-import DefaultInput from '../../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 
 import { Trash2 as DeleteIcon } from 'lucide-react';
 import { SquarePen as EditIcon } from 'lucide-react';

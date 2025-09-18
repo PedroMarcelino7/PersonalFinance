@@ -14,6 +14,7 @@
 
 :root {
     --dark: #201F24;
+    --dark-muted: #5a5a5a;
     --white: #F8F4F0;
     --white-muted: #ffffff97;
     --red: #C94736;
@@ -21,6 +22,7 @@
     --green: #277C78;
     --green-muted: #80c0bd;
     --blue: #005EC3;
+    --blue-muted: #3c76b3;
     --yellow: #F2CDAC;
     --gray: #686868;
     --light-gray: #B3B3B3;

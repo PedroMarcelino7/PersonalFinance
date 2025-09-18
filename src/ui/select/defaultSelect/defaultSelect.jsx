@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Container, Label, SelectBox, Selected, Options, Option, ChevronIcon, ThemeBox, SelectWithButtonDiv, Button } from './styles'
-import SelectIcon from '../../../assets/images/icon-caret-down.svg'
+import { ChevronDown as ArrowIcon } from 'lucide-react';
 
 const DefaultSelect = ({ label = 'Category', setValue, data, item_id, item_name, hasButton = false, onButtonClick }) => {
     const [selected, setSelected] = useState(data[0]?.[item_name])
@@ -25,7 +25,14 @@ const DefaultSelect = ({ label = 'Category', setValue, data, item_id, item_name,
                             <h1>{selected}</h1>
                         </ThemeBox>
 
-                        <ChevronIcon src={SelectIcon} alt='' />
+                        <ChevronIcon>
+                            <ArrowIcon
+                                size={20}
+                                color='var(--dark)'
+                                strokeWidth={2.5}
+                                cursor={'pointer'}
+                            />
+                        </ChevronIcon>
                     </Selected>
                     {isOpen && (
                         <Options>

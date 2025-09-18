@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router';
 
 //STYLES
-import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, ChevronIcon, CustomOption, CustomSelect, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, SelectWrapper, SortBox, TotalSavedBox } from './styles'
+import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent, CardDateBox, CardHeader, CardOptionsBox, CardOptionsContainer, CardTitle, CardTitleBox, EmptyPageContainer, EmptyPageTextBox, FirstPotButton, Identifier, PotsCardContainer, PotsContainer, Progress, ProgressBar, ProgressBox, ProgressDescription, TotalSavedBox } from './styles'
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
-import SelectLabel from '../../components/select/selectLabel/selectLabel';
+
+// UI COMPONENTS
+import SelectLabel from '../../ui/select/selectLabel/selectLabel';
 
 // ICONS
-import { ChevronDown as ChevronDownIcon } from 'lucide-react'
 import { Ellipsis as OptionsIcon } from 'lucide-react'
 import { Link as LinkIcon } from 'lucide-react'
 import { SquarePen as EditIcon } from 'lucide-react'

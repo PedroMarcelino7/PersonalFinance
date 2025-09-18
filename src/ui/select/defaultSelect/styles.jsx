@@ -42,9 +42,13 @@ export const ThemeBox = styled.div`
     }
 `
 
-export const ChevronIcon = styled.img`
-    width: 0.75rem;
-`
+export const ChevronIcon = styled.div`
+    position: absolute;
+    right: 0.5rem;
+    top: 55%;
+    transform: translateY(-50%);
+    pointer-events: none;
+`;
 
 export const Options = styled.div`
     width: 100%;

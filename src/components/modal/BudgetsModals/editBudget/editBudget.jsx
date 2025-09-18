@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DefaultInput from '../../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 import { Button, FormContainer } from './styles'
 import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
 import { useModal } from '../../modal'

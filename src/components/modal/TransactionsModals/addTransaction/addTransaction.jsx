@@ -3,7 +3,7 @@ import { useState, useRef } from 'react'
 import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv, TransactionIcon } from './styles'
 
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
-import DefaultInput from '../../../input/defaultInput/defaultInput'
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 
 import { CalendarDays as CalendarIcon } from 'lucide-react';
 
@@ -15,6 +15,7 @@ import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
 
 import TransactionsModalManager from '../../../../managers/TransactionsModalManager/TransactionsModalManager'
+import DatePicker from '../../../datePicker/datePicker';
 
 const AddTransaction = () => {
     const { refreshTransactions } = useTransactions()
@@ -31,6 +32,7 @@ const AddTransaction = () => {
     const [person, setPerson] = useState(1)
     const [type, setType] = useState(0)
     const [date, setDate] = useState(new Date());
+    const [showCalendar, setShowCalendar] = useState(false)
     const dateInputRef = useRef(null)
 
     function formatDate(date) {
@@ -120,26 +122,21 @@ const AddTransaction = () => {
                     </TransactionTypeDiv>
 
                     <CalendarBox>
-                        {/* <CalendarInput
-                            type="date"
-                            ref={dateInputRef}
-                            onChange={(e) => {
-                                const selectedDate = new Date(e.target.value);
-                                const now = new Date();
-
-                                selectedDate.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-
-                                setDate(selectedDate);
-                            }}
-                        /> */}
-
                         <CalendarIcon
                             size={40}
                             color='var(--dark)'
                             strokeWidth={2.25}
                             cursor={'pointer'}
-                            onClick={() => closeModal(false)}
+                            onClick={() => setShowCalendar(true)}
                         />
+
+                        {showCalendar &&
+                            <DatePicker
+                                selected={date}
+                                setSelected={setDate}
+                                onClick={() => setShowCalendar(false)}
+                            />
+                        }
 
                         <DateSelected>
                             {date.toISOString().split("T")[0]}

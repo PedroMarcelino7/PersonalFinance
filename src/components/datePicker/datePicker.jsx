@@ -1,0 +1,35 @@
+import { Box, Container, Footer } from "./styles";
+
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
+
+import DefaultButton from "../../ui/button/defaultButton/defaultButton";
+
+const DatePicker = ({ selected, setSelected, onClick }) => {
+    return (
+        <Container>
+            <Box>
+                <DayPicker
+                    animate
+                    mode="single"
+                    selected={selected}
+                    onSelect={setSelected}
+                    footer={
+                        <Footer>
+                            {selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."}
+
+                            <DefaultButton
+                                label={'Confirm'}
+                                size="medium"
+                                color="dark"
+                                onClick={onClick}
+                            />
+                        </Footer>
+                    }
+                />
+            </Box>
+        </Container>
+    )
+}
+
+export default DatePicker
