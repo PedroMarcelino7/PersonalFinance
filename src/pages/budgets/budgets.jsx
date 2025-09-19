@@ -8,7 +8,6 @@ import Chart from '../../components/chart/chart'
 
 // UI COMPONENTS
 import DetailsButton from '../../ui/button/detailsButton/detailsButton'
-import DefaultButton from '../../ui/button/defaultButton/defaultButton'
 
 // ICONS
 import { SquarePen as EditIcon } from 'lucide-react'
@@ -37,12 +36,8 @@ const Budgets = () => {
     const openModal = (type, category = null) => setModal({ type, category });
     const closeModal = () => setModal({ type: null, category: null });
 
-    const chartData = () => {
-        return filteredCategories.filter((_, index) => index < 6)
-    }
-
     const getBudgetsLimit = () => {
-        const budgetsLimit = filteredCategories.reduce((acc, category) => {
+        const budgetsLimit = categories.reduce((acc, category) => {
             return acc + parseFloat(category.category_max)
         }, 0)
 
@@ -50,7 +45,7 @@ const Budgets = () => {
     }
 
     const getBudgetsSpent = () => {
-        const budgetsSpent = filteredCategories.reduce((acc, category) => {
+        const budgetsSpent = categories.reduce((acc, category) => {
             return acc + budgetSpentCalc(category.category_id)
         }, 0)
 
@@ -87,7 +82,7 @@ const Budgets = () => {
                         <Box>
                             <ChartContainer>
                                 <ChartBox>
-                                    <Chart data={chartData()} />
+                                    <Chart data={categories} />
 
                                     <ChartOverall>
                                         <h2>${getBudgetsSpent()}</h2>
@@ -113,13 +108,6 @@ const Budgets = () => {
                                             </>
                                         ))}
                                     </SummaryBox>
-
-                                    <DefaultButton
-                                        label='Full Summary'
-                                        color='dark'
-                                        size='medium'
-                                        onClick={() => openModal('summary')}
-                                    />
                                 </SummaryContainer>
                             </ChartContainer>
                         </Box>
