@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, EmptyLatestSpendingBox, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
@@ -194,22 +194,29 @@ const Budgets = () => {
                                             </LastSpendingHeader>
 
                                             <LastSpendingBox>
-                                                {transactions.map((transaction) => (
-                                                    transaction.budget_id === budget.budget_id &&
-                                                    <LastSpendingItem>
-                                                        <PersonBox>
-                                                            <ProfilePicture src={Avatar} alt="" />
+                                                {transactions.filter(transaction => transaction.budget_id === budget.budget_id).length > 0 ? (
+                                                    transactions
+                                                        .filter(transaction => transaction.budget_id === budget.budget_id)
+                                                        .map(transaction => (
+                                                            <LastSpendingItem key={transaction.transaction_id}>
+                                                                <PersonBox>
+                                                                    <ProfilePicture src={Avatar} alt="" />
+                                                                    <h4>{transaction.person_name}</h4>
+                                                                </PersonBox>
 
-                                                            <h4>{transaction.person_name}</h4>
-                                                        </PersonBox>
-
-                                                        <SpendDetails type={transaction.transaction_type}>
-                                                            <h5>{transaction.transaction_type === 0 ? '-' : ''}${transaction.transaction_amount}</h5>
-
-                                                            <h6>{formatDate(transaction.transaction_date)}</h6>
-                                                        </SpendDetails>
-                                                    </LastSpendingItem>
-                                                ))}
+                                                                <SpendDetails type={transaction.transaction_type}>
+                                                                    <h5>
+                                                                        {transaction.transaction_type === 0 ? '-' : ''}${transaction.transaction_amount}
+                                                                    </h5>
+                                                                    <h6>{formatDate(transaction.transaction_date)}</h6>
+                                                                </SpendDetails>
+                                                            </LastSpendingItem>
+                                                        ))
+                                                ) : (
+                                                    <EmptyLatestSpendingBox>
+                                                        <h1>No expenses related to this budget.</h1>
+                                                    </EmptyLatestSpendingBox>
+                                                )}
                                             </LastSpendingBox>
                                         </LastSpendingContainer>
                                     </CardContent>

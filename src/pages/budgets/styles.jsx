@@ -369,6 +369,7 @@ export const EmptyPageTextBox = styled.div`
         font-weight: normal;
     }
 `
+
 export const FirstBudgetButton = styled.button`
     width: 100%;
     background-color: var(--dark);
@@ -379,4 +380,18 @@ export const FirstBudgetButton = styled.button`
     color: var(--white);
     font-size: 1.25rem;
     cursor: pointer;
+`
+
+export const EmptyLatestSpendingBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--dark);
+
+    h1 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
 `

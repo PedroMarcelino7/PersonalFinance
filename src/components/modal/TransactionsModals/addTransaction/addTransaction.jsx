@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
 
+import { toast } from 'react-toastify';
+
 // COMPONENTS
 import DatePicker from '../../../datePicker/datePicker';
 
@@ -89,13 +91,22 @@ const AddTransaction = () => {
             })
 
             const data = await response.json();
-            console.log('>>> Resposta Transaction Post [Add Transaction Modal]:', data);
 
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error creating transaction.');
+                return;
+            }
+
+            console.log('>>> Resposta Transaction Post [Add Transaction Modal]:', data);
+            toast.success('Transaction created successfully.')
         } catch (error) {
-            console.error('Erro ao adicionar a transaction:', error);
+            console.error('Erro ao criar a transaction:', error);
+            toast.error('Error creating transaction.')
         }
 
         refreshTransactions()
+        closeModal()
     }
 
     return (
