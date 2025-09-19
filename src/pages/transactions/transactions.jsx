@@ -17,7 +17,7 @@ import TransactionsModalManager from '../../managers/TransactionsModalManager/Tr
 
 // Contexts
 import { useTransactions } from '../../contexts/transactionsContext'
-import { useCategories } from '../../contexts/categoriesContext'
+import { useBudgets } from '../../contexts/budgetsContext'
 
 // UI Components
 import SearchInput from '../../ui/input/searchInput/searchInput'
@@ -26,19 +26,19 @@ import ButtonArrow from '../../ui/button/buttonArrow/buttonArrow'
 
 const Transactions = () => {
     const { transactions, refreshTransactions } = useTransactions()
-    const { categories } = useCategories()
+    const { budgets } = useBudgets()
 
     const [modal, setModal] = useState({ type: null, pot: null });
 
     const openModal = (type, pot = null) => setModal({ type, pot });
     const closeModal = () => setModal({ type: null, pot: null });
 
-    const [categoriesFilter, setCategoriesFilter] = useState(0)
+    const [budgetsFilter, setBudgetsFilter] = useState(0)
     const [page, setPage] = useState(1)
     const quantityToShow = 7
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
     const filteredTransactions = transactions
-        .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
+        .filter(transaction => budgetsFilter === 0 || transaction.budget_id === budgetsFilter)
     const pagesQuantity = Math.ceil(filteredTransactions.length / quantityToShow)
 
     const getDateFormat = (transactionDate) => {
@@ -68,8 +68,8 @@ const Transactions = () => {
         }
     }
 
-    const handleSetCategoriesFilter = (category) => {
-        setCategoriesFilter(Number(category))
+    const handleSetBudgetsFilter = (budget) => {
+        setBudgetsFilter(Number(budget))
         setPage(1)
         setQuantityToShowOffset(0)
     }
@@ -125,13 +125,13 @@ const Transactions = () => {
                                 />
 
                                 <SelectLabel
-                                    label={'Category'}
+                                    label={'Budget'}
                                     defaultOption={{ value: '0', name: 'All transactions' }}
-                                    data={categories.map((category) => ({
-                                        value: category.category_id,
-                                        name: category.category_name
+                                    data={budgets.map((budget) => ({
+                                        value: budget.budget_id,
+                                        name: budget.budget_name
                                     }))}
-                                    onSelect={handleSetCategoriesFilter}
+                                    onSelect={handleSetBudgetsFilter}
                                 />
                             </SortContainer>
                         </TransactionsHeader>
@@ -141,14 +141,14 @@ const Transactions = () => {
                                 <TableHeader>
                                     <tr>
                                         <TableHeaderElement>Recipient / Sender</TableHeaderElement>
-                                        <TableHeaderElement>Category</TableHeaderElement>
+                                        <TableHeaderElement>Budget</TableHeaderElement>
                                         <TableHeaderElement>Transaction Date</TableHeaderElement>
                                         <TableHeaderElement className='end'>Amount</TableHeaderElement>
                                     </tr>
                                 </TableHeader>
 
                                 {filteredTransactions
-                                    .filter(transaction => categoriesFilter === 0 || transaction.category_id === categoriesFilter)
+                                    .filter(transaction => budgetsFilter === 0 || transaction.budget_id === budgetsFilter)
                                     .slice(quantityToShowOffset, quantityToShowOffset + quantityToShow)
                                     .map((transaction, index) => (
                                         <TableBodyRow key={index}>
@@ -177,7 +177,7 @@ const Transactions = () => {
                                                 }
                                             </TableBodyElement>
 
-                                            <TableBodyElement>{transaction.category_name}</TableBodyElement>
+                                            <TableBodyElement>{transaction.budget_name}</TableBodyElement>
 
                                             <TableBodyElement>{getDateFormat(transaction.transaction_date)}</TableBodyElement>
 

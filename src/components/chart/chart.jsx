@@ -4,17 +4,17 @@ import { useTransactions } from '../../contexts/transactionsContext';
 const Chart = ({ size = 250, data }) => {
     const { transactions } = useTransactions()
 
-    const budgetSpentCalc = (category_id) => {
+    const budgetSpentCalc = (budget_id) => {
         return transactions.reduce((acc, transaction) => {
-            return (transaction.category_id === category_id && transaction.transaction_type === 0)
+            return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
                 ? acc + parseFloat(transaction.transaction_amount)
                 : acc
         }, 0)
     }
 
     const chartData = data.map((item) => ({
-        name: item.category_name,
-        value: budgetSpentCalc(item.category_id)
+        name: item.budget_name,
+        value: budgetSpentCalc(item.budget_id)
     }));
 
     const colors = data.map((item) => item.theme_color)

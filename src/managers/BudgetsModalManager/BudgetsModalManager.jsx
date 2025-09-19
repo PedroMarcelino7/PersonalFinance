@@ -2,30 +2,30 @@ import { memo } from "react";
 
 import Modal from "../../components/modal/modal";
 
-import AddCategory from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
-import EditCategory from '../../components/modal/BudgetsModals/editBudget/editBudget'
-import DeleteCategory from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
+import AddBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import EditBudget from '../../components/modal/BudgetsModals/editBudget/editBudget'
+import DeleteBudget from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
 
 const MODAL_CONFIG = {
     add: {
-        title: "Add New Budget",
+        title: "Add Budget",
         subtitle:
-            "Choose a category to set a spending budget. These categories can help you monitor spending.",
-        Component: AddCategory,
+            "Choose a budget to set a spending budget. These budgets can help you monitor spending.",
+        Component: AddBudget,
         getProps: () => ({}),
     },
     edit: {
-        title: ({ category }) => `Edit "${category?.category_name}"`,
+        title: ({ budget }) => `Edit "${budget?.budget_name}"`,
         subtitle: "As your budgets change, feel free to update your spending limits.",
-        Component: EditCategory,
-        getProps: ({ category }) => ({ category }),
+        Component: EditBudget,
+        getProps: ({ budget }) => ({ budget }),
     },
     delete: {
-        title: ({ category }) => `Delete "${category?.category_name}"`,
+        title: ({ budget }) => `Delete "${budget?.budget_name}"`,
         subtitle:
             "Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it will be removed forever.",
-        Component: DeleteCategory,
-        getProps: ({ category }) => ({ category }),
+        Component: DeleteBudget,
+        getProps: ({ budget }) => ({ budget }),
     },
 };
 

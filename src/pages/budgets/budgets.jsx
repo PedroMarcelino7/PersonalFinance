@@ -17,7 +17,7 @@ import { Trash2 as DeleteIcon } from 'lucide-react'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
 // CONTEXTS
-import { useCategories } from '../../contexts/categoriesContext'
+import { useBudgets } from '../../contexts/budgetsContext'
 import { useTransactions } from '../../contexts/transactionsContext'
 
 // UTILS
@@ -27,47 +27,47 @@ import { formatDate } from '../../utils/formatDate'
 import BudgetsModalManager from '../../managers/BudgetsModalManager/BudgetsModalManager'
 
 const Budgets = () => {
-    const { categories } = useCategories()
+    const { budgets } = useBudgets()
     const { transactions } = useTransactions()
 
-    const filteredCategories = categories.filter((category) => category.category_id !== 1);
-    const [modal, setModal] = useState({ type: null, category: null });
+    const filteredBudgets = budgets.filter((budget) => budget.budget_id !== 1);
+    const [modal, setModal] = useState({ type: null, budget: null });
 
-    const openModal = (type, category = null) => setModal({ type, category });
-    const closeModal = () => setModal({ type: null, category: null });
+    const openModal = (type, budget = null) => setModal({ type, budget });
+    const closeModal = () => setModal({ type: null, budget: null });
 
     const getBudgetsLimit = () => {
-        const budgetsLimit = categories.reduce((acc, category) => {
-            return acc + parseFloat(category.category_max)
+        const budgetsLimit = budgets.reduce((acc, budget) => {
+            return acc + parseFloat(budget.budget_max)
         }, 0)
 
         return budgetsLimit.toFixed(2)
     }
 
     const getBudgetsSpent = () => {
-        const budgetsSpent = categories.reduce((acc, category) => {
-            return acc + budgetSpentCalc(category.category_id)
+        const budgetsSpent = budgets.reduce((acc, budget) => {
+            return acc + budgetSpentCalc(budget.budget_id)
         }, 0)
 
         return budgetsSpent.toFixed(2)
     }
 
-    const budgetSpentCalc = (category_id) => {
+    const budgetSpentCalc = (budget_id) => {
         return transactions.reduce((acc, transaction) => {
-            return (transaction.category_id === category_id && transaction.transaction_type === 0)
+            return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
                 ? acc + parseFloat(transaction.transaction_amount)
                 : acc
         }, 0)
     }
 
-    const categoriesWithStats = filteredCategories.map((category) => {
-        const spent = budgetSpentCalc(category.category_id);
-        const max = parseFloat(category.category_max);
+    const budgetsWithStats = filteredBudgets.map((budget) => {
+        const spent = budgetSpentCalc(budget.budget_id);
+        const max = parseFloat(budget.budget_max);
         const remaining = (max - spent).toFixed(2);
         const percentage = ((spent * 100) / max).toFixed(2);
 
         return {
-            ...category,
+            ...budget,
             spent,
             remaining,
             percentage,
@@ -76,13 +76,13 @@ const Budgets = () => {
 
     return (
         <>
-            <PageContainer name="Budgets" button={'+ Add New Category'} onClick={() => openModal('add')}>
+            <PageContainer name="Budgets" button={'+ Add Budget'} onClick={() => openModal('add')}>
                 <BudgetsContainer>
                     <Container>
                         <Box>
                             <ChartContainer>
                                 <ChartBox>
-                                    <Chart data={categories} />
+                                    <Chart data={budgets} />
 
                                     <ChartOverall>
                                         <h2>${getBudgetsSpent()}</h2>
@@ -94,14 +94,14 @@ const Budgets = () => {
                                     <h2>Spending Summary</h2>
 
                                     <SummaryBox>
-                                        {categoriesWithStats.slice(0, 6).map((category, index, arr) => (
+                                        {budgetsWithStats.slice(0, 6).map((budget, index, arr) => (
                                             <>
                                                 <SummaryItem
-                                                    theme={category.theme_color}
+                                                    theme={budget.theme_color}
                                                 >
-                                                    <h4>{category.category_name}</h4>
+                                                    <h4>{budget.budget_name}</h4>
 
-                                                    <h3><span>${category.spent}</span> of ${category.category_max}</h3>
+                                                    <h3><span>${budget.spent}</span> of ${budget.budget_max}</h3>
                                                 </SummaryItem>
 
                                                 {index < arr.length - 1 && <Divider />}
@@ -114,12 +114,12 @@ const Budgets = () => {
                     </Container>
 
                     <CardsContainer>
-                        {categoriesWithStats.map((category, index) => (
+                        {budgetsWithStats.map((budget, index) => (
                             <Card key={index}>
                                 <CardHeader>
                                     <CardTitleBox>
-                                        <Identifier theme={category.theme_color} />
-                                        <h2>{category.category_name}</h2>
+                                        <Identifier theme={budget.theme_color} />
+                                        <h2>{budget.budget_name}</h2>
                                     </CardTitleBox>
 
                                     <CardOptionsContainer>
@@ -128,7 +128,7 @@ const Budgets = () => {
                                             color='var(--blue)'
                                             strokeWidth={2.5}
                                             cursor={'pointer'}
-                                            onClick={() => openModal("edit", category)}
+                                            onClick={() => openModal("edit", budget)}
                                         />
 
                                         <DeleteIcon
@@ -136,31 +136,31 @@ const Budgets = () => {
                                             color='var(--red)'
                                             strokeWidth={2.5}
                                             cursor={'pointer'}
-                                            onClick={() => openModal("delete", category)}
+                                            onClick={() => openModal("delete", budget)}
                                         />
                                     </CardOptionsContainer>
                                 </CardHeader>
 
                                 <CardContent>
-                                    <h3>Maximum of ${category.category_max}</h3>
+                                    <h3>Maximum of ${budget.budget_max}</h3>
 
                                     <ProgressBox>
                                         <ProgressBar>
-                                            <Progress width={category.percentage} theme={category.theme_color} />
+                                            <Progress width={budget.percentage} theme={budget.theme_color} />
                                         </ProgressBar>
                                     </ProgressBox>
 
                                     <ResumeBox>
-                                        <ResumeItem theme={category.theme_color}>
+                                        <ResumeItem theme={budget.theme_color}>
                                             <h6>Spent</h6>
 
-                                            <h5>${category.spent}</h5>
+                                            <h5>${budget.spent}</h5>
                                         </ResumeItem>
 
                                         <ResumeItem color='var(--white)'>
                                             <h6>Remaining</h6>
 
-                                            <h5>${category.remaining}</h5>
+                                            <h5>${budget.remaining}</h5>
                                         </ResumeItem>
                                     </ResumeBox>
 
@@ -176,7 +176,7 @@ const Budgets = () => {
 
                                         <LastSpendingBox>
                                             {transactions.map((transaction) => (
-                                                transaction.category_id === category.category_id &&
+                                                transaction.budget_id === budget.budget_id &&
                                                 <LastSpendingItem>
                                                     <PersonBox>
                                                         <ProfilePicture src={Avatar} alt="" />

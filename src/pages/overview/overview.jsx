@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 
@@ -24,8 +23,6 @@ const resumeData = [
 ]
 
 const Overview = () => {
-    const navigate = useNavigate()
-
     const { pots } = usePots()
     const { budgets } = useBudgets()
     const { people } = usePeople()
@@ -50,10 +47,18 @@ const Overview = () => {
 
     const getBudgetsSpent = () => {
         const budgetsSpent = budgets.reduce((acc, budget) => {
-            return acc + parseFloat(budget.budget_spent)
+            return acc + budgetSpentCalc(budget.budget_id)
         }, 0)
 
         return budgetsSpent.toFixed(2)
+    }
+
+    const budgetSpentCalc = (budget_id) => {
+        return transactions.reduce((acc, transaction) => {
+            return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
+                ? acc + parseFloat(transaction.transaction_amount)
+                : acc
+        }, 0)
     }
 
     const chartData = () => {

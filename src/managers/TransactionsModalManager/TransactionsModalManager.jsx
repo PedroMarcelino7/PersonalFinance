@@ -3,7 +3,7 @@ import { memo } from "react";
 import Modal from "../../components/modal/modal";
 
 import addTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
-import addCategory from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import addBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
 import addPerson from "../../components/modal/PeopleModals/AddPerson/AddPerson";
 
 const MODAL_CONFIG = {
@@ -12,9 +12,9 @@ const MODAL_CONFIG = {
         Component: addTransaction,
         getProps: () => ({}),
     },
-    addCategory: {
-        title: "Add Category",
-        Component: addCategory,
+    addBudget: {
+        title: "Add Budget",
+        Component: addBudget,
         getProps: () => ({}),
     },
     addPerson: {

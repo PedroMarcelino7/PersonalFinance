@@ -27,13 +27,13 @@ const getAllTransactions = (sort, callback) => {
 
     db.query(`
     select
-        trns.*, cat.category_name, prsn.person_name, pot.pot_name
+        trns.*, bud.budget_name, prsn.person_name, pot.pot_name
     from
         transactions as trns
     join
-        categories as cat
+        budgets as bud
     on
-        trns.category_id = cat.category_id
+        trns.budget_id = bud.budget_id
     join
         people as prsn
     on
@@ -50,9 +50,9 @@ const getAllTransactions = (sort, callback) => {
 const addTransaction = (values, callback) => {
     db.query(`
         insert into
-        transactions (transaction_amount, transaction_type, transaction_date, category_id, person_id)
+        transactions (transaction_amount, transaction_type, transaction_date, budget_id, person_id)
         values (?, ?, ?, ?, ?)
-    `, [values.transaction_amount, values.transaction_type, values.transaction_date, values.category_id, values.person_id], callback);
+    `, [values.transaction_amount, values.transaction_type, values.transaction_date, values.budget_id, values.person_id], callback);
 };
 
 module.exports = {

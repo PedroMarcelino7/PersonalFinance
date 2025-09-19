@@ -1,25 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
 
+// COMPONENTS
+import DatePicker from '../../../datePicker/datePicker';
+
+// UI COMPONENTS
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 
+// ICONS
 import { CalendarDays as CalendarIcon } from 'lucide-react';
-
 import { ArrowDown as ArrowDownIcon } from 'lucide-react'
 import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
-import { useCategories } from '../../../../contexts/categoriesContext'
+// CONTEXTS
+import { useBudgets } from '../../../../contexts/budgetsContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
 
+// MODAL MANAGER
 import TransactionsModalManager from '../../../../managers/TransactionsModalManager/TransactionsModalManager'
-import DatePicker from '../../../datePicker/datePicker';
 
 const AddTransaction = () => {
     const { refreshTransactions } = useTransactions()
-    const { categories } = useCategories()
+    const { budgets } = useBudgets()
     const { people } = usePeople()
 
     const [modal, setModal] = useState({ type: null, pot: null });
@@ -28,11 +33,17 @@ const AddTransaction = () => {
     const closeModal = () => setModal({ type: null, pot: null });
 
     const [amount, setAmount] = useState(0)
-    const [category, setCategory] = useState(2)
+    const [budget, setBudget] = useState(2)
     const [person, setPerson] = useState(2)
     const [type, setType] = useState(0)
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false)
+
+    useEffect(() => {
+        if (budgets.length > 1) {
+            setBudget(budgets[1].id);
+        }
+    }, [budgets]);
 
     function formatDate(date) {
         const pad = (n) => (n < 10 ? '0' + n : n);
@@ -56,7 +67,7 @@ const AddTransaction = () => {
             TRANSACTION SUBMIT
 
             amount: ${amount}
-            category: ${category}
+            budget: ${budget}
             person: ${person}
             date: ${formattedDate}
             type: ${type}
@@ -72,7 +83,7 @@ const AddTransaction = () => {
                     transaction_amount: amount,
                     transaction_type: type,
                     transaction_date: formattedDate,
-                    category_id: category,
+                    budget_id: budget,
                     person_id: person,
                 })
             })
@@ -144,17 +155,21 @@ const AddTransaction = () => {
                 </AditionalInfoContainer>
 
                 <DefaultSelect
-                    label='Category'
-                    setValue={setCategory}
-                    data={categories.filter((category) => category.category_id !== 1)}
-                    item_id={'category_id'}
-                    item_name={'category_name'}
+                    label='Budget'
+                    emptyLabel='No budget registered...'
+                    value={budget}
+                    setValue={setBudget}
+                    data={budgets.filter((budget) => budget.budget_id !== 1)}
+                    item_id={'budget_id'}
+                    item_name={'budget_name'}
                     hasButton
-                    onButtonClick={() => openModal('addCategory')}
+                    onButtonClick={() => openModal('addBudget')}
                 />
 
                 <DefaultSelect
                     label={type === 0 ? 'Recipient' : 'Sender'}
+                    emptyLabel='No person registered...'
+                    value={person}
                     setValue={setPerson}
                     data={people.filter((person) => person.person_id !== 1)}
                     item_id={'person_id'}

@@ -3,11 +3,10 @@ const cors = require('cors');
 require('dotenv').config();
 
 const potController = require('./controllers/potsController');
-const budgetController = require('./controllers/budgetsController')
 const peopleController = require('./controllers/peopleController')
 const transactionsController = require('./controllers/transactionsController')
 const recurringBillsController = require('./controllers/recurringBillsController')
-const categoriesController = require('./controllers/categoriesController')
+const budgetsController = require('./controllers/budgetsController')
 const themesController = require('./controllers/themesController')
 
 const app = express();
@@ -25,9 +24,6 @@ app.post('/pots/recover', potController.recoverPot);
 app.post('/pots/update-pot-money', potController.updateMoney);
 app.post('/pots/update-quick-buttons', potController.updateQuickButtons);
 
-app.get('/budgets', budgetController.getBudgets);
-app.post('/budgets/post', budgetController.addBudget);
-
 app.get('/people', peopleController.getPeople);
 
 app.get('/transactions', transactionsController.getTransactions);
@@ -35,10 +31,10 @@ app.post('/transactions/post', transactionsController.addTransaction);
 
 app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 
-app.get('/categories', categoriesController.getCategories)
-app.post('/categories/post', categoriesController.addCategory)
-app.post('/categories/edit', categoriesController.editCategory)
-app.post('/categories/delete', categoriesController.deleteCategory)
+app.get('/budgets', budgetsController.getBudgets)
+app.post('/budgets/post', budgetsController.addBudget)
+app.post('/budgets/edit', budgetsController.editBudget)
+app.post('/budgets/delete', budgetsController.deleteBudget)
 
 app.get('/themes', themesController.getThemes)
 

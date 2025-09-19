@@ -1,23 +1,23 @@
 import { ConfirmButton, FormContainer } from './styles'
 import { useModal } from '../../modal'
 import { toast } from 'react-toastify'
-import { useCategories } from '../../../../contexts/categoriesContext'
+import { useBudgets } from '../../../../contexts/budgetsContext'
 
-const DeleteBudget = ({ category }) => {
-    const { refreshCategories } = useCategories()
+const DeleteBudget = ({ budget }) => {
+    const { refreshBudgets } = useBudgets()
     const { closeModal } = useModal()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/categories/delete', {
+            const response = await fetch('http://localhost:3000/budgets/delete', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    category_id: category.category_id
+                    budget_id: budget.budget_id
                 })
             });
 
@@ -25,7 +25,7 @@ const DeleteBudget = ({ category }) => {
 
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
-                toast.error('Error deleting category.');
+                toast.error('Error deleting budget.');
                 return;
             }
 
@@ -33,10 +33,10 @@ const DeleteBudget = ({ category }) => {
             console.log('>>> Resposta Category Delete [Delete Category Modal]:', data);
         } catch (error) {
             console.error('Erro ao deletar o pot:', error);
-            toast.error('Error deleting category.');
+            toast.error('Error deleting budget.');
         }
 
-        refreshCategories()
+        refreshBudgets()
         closeModal()
     }
 

@@ -17,10 +17,10 @@ export const SelectBox = styled.div`
     width: 100%;
     position: relative;
     border: 1px solid var(--gray);
-    background-color: var(--white);
+    background-color: ${({ disabled }) => disabled ? 'var(--white-muted)' : 'var(--white)'};
     border-radius: 10px;
     padding: 0.75rem;
-    cursor: pointer;
+    cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'};
 `
 
 export const Selected = styled.div`
@@ -38,7 +38,7 @@ export const ThemeBox = styled.div`
     h1 {
         font-size: 1rem;
         font-weight: lighter;
-        color: var(--dark);
+        color: ${({ disabled }) => disabled ? 'var(--dark-muted)' : 'var(--dark)'};
     }
 `
 
