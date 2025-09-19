@@ -5,6 +5,7 @@ import Modal from "../../components/modal/modal";
 import AddCategory from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
 import EditCategory from '../../components/modal/BudgetsModals/editBudget/editBudget'
 import DeleteCategory from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
+import FullSummary from '../../components/modal/BudgetsModals/fullSummary/fullSummary'
 
 const MODAL_CONFIG = {
     add: {
@@ -27,6 +28,11 @@ const MODAL_CONFIG = {
         Component: DeleteCategory,
         getProps: ({ category }) => ({ category }),
     },
+    summary: {
+        title: "Budgets Summary",
+        Component: FullSummary,
+        getProps: () => ({}),
+    }
 };
 
 function BudgetsModalManager({ modal, onClose }) {

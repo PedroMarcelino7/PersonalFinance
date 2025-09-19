@@ -60,7 +60,7 @@ export const ChartOverall = styled.div`
 export const SummaryContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
 
     h2 {
         font-size: 1.25rem;
@@ -99,6 +99,12 @@ export const SummaryItem = styled.div`
             font-weight: bold;
         }
     }
+`
+
+export const Divider = styled.div`
+    border: none;
+    border-bottom: 1px solid var(--light-gray);
+    margin-block: 0.25rem;
 `
 
 export const CardsContainer = styled.div`

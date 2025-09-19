@@ -1,15 +1,18 @@
 import { useState } from 'react'
 
-import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
 import Chart from '../../components/chart/chart'
 
+// UI COMPONENTS
+import DetailsButton from '../../ui/button/detailsButton/detailsButton'
+import DefaultButton from '../../ui/button/defaultButton/defaultButton'
+
 // ICONS
 import { SquarePen as EditIcon } from 'lucide-react'
 import { Trash2 as DeleteIcon } from 'lucide-react'
-import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 
 // IMAGES
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
@@ -96,16 +99,27 @@ const Budgets = () => {
                                     <h2>Spending Summary</h2>
 
                                     <SummaryBox>
-                                        {categoriesWithStats.map((category) => (
-                                            <SummaryItem
-                                                theme={category.theme_color}
-                                            >
-                                                <h4>{category.category_name}</h4>
+                                        {categoriesWithStats.slice(0, 6).map((category, index, arr) => (
+                                            <>
+                                                <SummaryItem
+                                                    theme={category.theme_color}
+                                                >
+                                                    <h4>{category.category_name}</h4>
 
-                                                <h3><span>${category.spent}</span> of ${category.category_max}</h3>
-                                            </SummaryItem>
+                                                    <h3><span>${category.spent}</span> of ${category.category_max}</h3>
+                                                </SummaryItem>
+
+                                                {index < arr.length - 1 && <Divider />}
+                                            </>
                                         ))}
                                     </SummaryBox>
+
+                                    <DefaultButton
+                                        label='Full Summary'
+                                        color='dark'
+                                        size='medium'
+                                        onClick={() => openModal('summary')}
+                                    />
                                 </SummaryContainer>
                             </ChartContainer>
                         </Box>
@@ -166,11 +180,10 @@ const Budgets = () => {
                                         <LastSpendingHeader>
                                             <h2>Latest Spending</h2>
 
-                                            <HeaderButtons>
-                                                <h5>See Details</h5>
-
-                                                <img src={ArrowIcon} alt="" />
-                                            </HeaderButtons>
+                                            <DetailsButton
+                                                label={'See Details'}
+                                                route={'transactions'}
+                                            />
                                         </LastSpendingHeader>
 
                                         <LastSpendingBox>

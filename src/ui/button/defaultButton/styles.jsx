@@ -28,6 +28,9 @@ const getPadding = (size) => {
 };
 
 export const Button = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
     border: none;
     border-radius: 5px;

@@ -6,11 +6,10 @@ import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContai
 import Chart from '../../components/chart/chart'
 
 import PageContainer from '../../components/pageContainer/pageContainer'
+import DetailsButton from '../../ui/button/detailsButton/detailsButton'
 
 import { Archive as PotsIcon } from 'lucide-react'
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
-
-import { ChevronRight as ArrowIcon } from 'lucide-react';
 
 import { usePots } from '../../contexts/potsContext'
 import { useBudgets } from '../../contexts/budgetsContext'
@@ -123,16 +122,10 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Pots</h2>
 
-                                <DetailsButtonBox onClick={() => navigate('/pots')}>
-                                    <h5>See Details</h5>
-
-                                    <ArrowIcon
-                                        size={15}
-                                        color='var(--gray)'
-                                        strokeWidth={2.5}
-                                        cursor={'pointer'}
-                                    />
-                                </DetailsButtonBox>
+                                <DetailsButton
+                                    label={'See Details'}
+                                    route={'pots'}
+                                />
                             </CardTitleBox>
 
                             <CardContext>
@@ -173,16 +166,10 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Transactions</h2>
 
-                                <DetailsButtonBox onClick={() => navigate('/transactions')}>
-                                    <h5>See Details</h5>
-
-                                    <ArrowIcon
-                                        size={15}
-                                        color='var(--gray)'
-                                        strokeWidth={2.5}
-                                        cursor={'pointer'}
-                                    />
-                                </DetailsButtonBox>
+                                <DetailsButton
+                                    label={'See Details'}
+                                    route={'transactions'}
+                                />
                             </CardTitleBox>
 
                             <CardContext>
@@ -219,16 +206,10 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Budgets</h2>
 
-                                <DetailsButtonBox onClick={() => navigate('/budgets')}>
-                                    <h5>See Details</h5>
-
-                                    <ArrowIcon
-                                        size={15}
-                                        color='var(--gray)'
-                                        strokeWidth={2.5}
-                                        cursor={'pointer'}
-                                    />
-                                </DetailsButtonBox>
+                                <DetailsButton
+                                    label={'See Details'}
+                                    route={'budgets'}
+                                />
                             </CardTitleBox>
 
                             <CardContext>
@@ -264,16 +245,10 @@ const Overview = () => {
                             <CardTitleBox>
                                 <h2>Recurring Bills</h2>
 
-                                <DetailsButtonBox onClick={() => navigate('/recurring-bills')}>
-                                    <h5>See Details</h5>
-
-                                    <ArrowIcon
-                                        size={15}
-                                        color='var(--gray)'
-                                        strokeWidth={2.5}
-                                        cursor={'pointer'}
-                                    />
-                                </DetailsButtonBox>
+                                <DetailsButton
+                                    label={'See Details'}
+                                    route={'recurring-bills'}
+                                />
                             </CardTitleBox>
 
                             <CardContext>

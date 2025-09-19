@@ -1,6 +1,6 @@
 import { Button } from "./styles"
 
-const DefaultButton = ({ label, color = 'dark', size = 'medium', disabled = false, onClick }) => {
+const DefaultButton = ({ label = '', color = 'dark', size = 'medium', disabled = false, onClick }) => {
     return (
         <Button
             color={color}
