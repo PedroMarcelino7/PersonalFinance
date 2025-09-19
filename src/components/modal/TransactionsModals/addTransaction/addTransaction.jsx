@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 
-import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, CustomSelect, CustomOption, ChevronIcon, TransactionTypeDiv, TransactionIcon } from './styles'
+import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
 
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
@@ -28,12 +28,11 @@ const AddTransaction = () => {
     const closeModal = () => setModal({ type: null, pot: null });
 
     const [amount, setAmount] = useState(0)
-    const [category, setCategory] = useState(1)
-    const [person, setPerson] = useState(1)
+    const [category, setCategory] = useState(2)
+    const [person, setPerson] = useState(2)
     const [type, setType] = useState(0)
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false)
-    const dateInputRef = useRef(null)
 
     function formatDate(date) {
         const pad = (n) => (n < 10 ? '0' + n : n);

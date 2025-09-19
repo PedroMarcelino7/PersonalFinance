@@ -151,24 +151,33 @@ export const Identifier = styled.div`
 `
 
 export const CardOptionsContainer = styled.div`
-    position: relative;
-    text-align: end;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 `
 
 export const CardOptionsBox = styled.div`
     position: absolute;
-    top: 75%;
+    top: 90%;
     right: 0;
     background: #fff;
-    padding-block: 0.5rem;
     padding-inline: 1rem;
+    padding-block: 0.75rem;
     box-shadow: 0 0 10px var(--light-gray);
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.75rem;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 `
 
 export const Option = styled.button`
@@ -177,7 +186,7 @@ export const Option = styled.button`
     font-size: 1rem;
     text-align: start;
     padding: 0.5rem;
-    color: ${({color}) => color || 'var(--dark)'};
+    color: ${({ color }) => color || 'var(--dark)'};
     cursor: pointer;
     font-weight: normal;
 `
@@ -317,7 +326,7 @@ export const SpendDetails = styled.div`
 
     h5 {
         font-size: 0.75rem;
-        color: ${({type}) => type === 0 ? 'var(--red)' : 'var(--green)'};
+        color: ${({ type }) => type === 0 ? 'var(--red)' : 'var(--green)'};
     }
 
     h6 {

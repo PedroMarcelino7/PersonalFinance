@@ -1,53 +1,45 @@
 import { useState } from 'react'
+
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+
+// COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsBox, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, Option, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 import Chart from '../../components/chart/chart'
-import OptionsIcon from '../../assets/images/icon-ellipsis.svg'
+
+// ICONS
+import { SquarePen as EditIcon } from 'lucide-react'
+import { Trash2 as DeleteIcon } from 'lucide-react'
 import ArrowIcon from '../../assets/images/icon-caret-right.svg'
 
+// IMAGES
 import Avatar from '../../assets/images/avatars/james-thompson.jpg'
 
-import AddNewBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
-import EditBudget from '../../components/modal/BudgetsModals/editBudget/editBudget'
-import DeleteBudget from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
-import Modal from '../../components/modal/modal'
+// CONTEXTS
 import { useCategories } from '../../contexts/categoriesContext'
 import { useTransactions } from '../../contexts/transactionsContext'
 
+// UTILS
 import { formatDate } from '../../utils/formatDate'
+
+// MODAL MANAGER
+import BudgetsModalManager from '../../managers/BudgetsModalManager/BudgetsModalManager'
 
 const Budgets = () => {
     const { categories } = useCategories()
     const { transactions } = useTransactions()
 
-    const [selectedBudget, setSelectedBudget] = useState(categories[0])
-    const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
-    const [showOptions, setShowOptions] = useState(0)
-    const [showEditBudgetModal, setShowEditBudgetModal] = useState(false)
-    const [showDeleteBudgetModal, setShowDeleteBudgetModal] = useState(false)
+    const filteredCategories = categories.filter((category) => category.category_id !== 1);
+    const [modal, setModal] = useState({ type: null, category: null });
 
-    const handleShowOptions = (category_id) => {
-        showOptions === category_id ? setShowOptions(0) : setShowOptions(category_id)
-    }
-
-    const handleShowEditBudget = (category) => {
-        setSelectedBudget(category)
-        setShowOptions(0)
-        setShowEditBudgetModal(true)
-    }
-
-    const handleShowDeleteBudget = (category) => {
-        setSelectedBudget(category)
-        setShowOptions(0)
-        setShowDeleteBudgetModal(true)
-    }
+    const openModal = (type, category = null) => setModal({ type, category });
+    const closeModal = () => setModal({ type: null, category: null });
 
     const chartData = () => {
-        return categories.filter((category, index) => index < 6)
+        return filteredCategories.filter((_, index) => index < 6)
     }
 
     const getBudgetsLimit = () => {
-        const budgetsLimit = categories.reduce((acc, category) => {
+        const budgetsLimit = filteredCategories.reduce((acc, category) => {
             return acc + parseFloat(category.category_max)
         }, 0)
 
@@ -55,29 +47,11 @@ const Budgets = () => {
     }
 
     const getBudgetsSpent = () => {
-        const budgetsSpent = categories.reduce((acc, category) => {
+        const budgetsSpent = filteredCategories.reduce((acc, category) => {
             return acc + budgetSpentCalc(category.category_id)
         }, 0)
 
         return budgetsSpent.toFixed(2)
-    }
-
-    const getBudgetRemaining = (category) => {
-        const spent = budgetSpentCalc(category.category_id)
-        const max = parseFloat(category.category_max)
-
-        return (parseFloat(max) - parseFloat(spent)).toFixed(2)
-    }
-
-    const getBudgetPercentage = (category) => {
-        const spent = budgetSpentCalc(category.category_id)
-        const max = parseFloat(category.category_max)
-
-        return ((spent * 100) / max).toFixed(2)
-    }
-
-    const handleShowAddBudgetModal = () => {
-        setShowAddBudgetModal(true)
     }
 
     const budgetSpentCalc = (category_id) => {
@@ -88,9 +62,23 @@ const Budgets = () => {
         }, 0)
     }
 
+    const categoriesWithStats = filteredCategories.map((category) => {
+        const spent = budgetSpentCalc(category.category_id);
+        const max = parseFloat(category.category_max);
+        const remaining = (max - spent).toFixed(2);
+        const percentage = ((spent * 100) / max).toFixed(2);
+
+        return {
+            ...category,
+            spent,
+            remaining,
+            percentage,
+        };
+    });
+
     return (
         <>
-            <PageContainer name="Budgets" button={'+ Add New Category'} onClick={handleShowAddBudgetModal}>
+            <PageContainer name="Budgets" button={'+ Add New Category'} onClick={() => openModal('add')}>
                 <BudgetsContainer>
                     <Container>
                         <Box>
@@ -108,13 +96,13 @@ const Budgets = () => {
                                     <h2>Spending Summary</h2>
 
                                     <SummaryBox>
-                                        {categories.map((category, index) => (
+                                        {categoriesWithStats.map((category) => (
                                             <SummaryItem
                                                 theme={category.theme_color}
                                             >
                                                 <h4>{category.category_name}</h4>
 
-                                                <h3><span>${budgetSpentCalc(category.category_id)}</span> of ${category.category_max}</h3>
+                                                <h3><span>${category.spent}</span> of ${category.category_max}</h3>
                                             </SummaryItem>
                                         ))}
                                     </SummaryBox>
@@ -124,7 +112,7 @@ const Budgets = () => {
                     </Container>
 
                     <CardsContainer>
-                        {categories.map((category, index) => (
+                        {categoriesWithStats.map((category, index) => (
                             <Card key={index}>
                                 <CardHeader>
                                     <CardTitleBox>
@@ -133,15 +121,21 @@ const Budgets = () => {
                                     </CardTitleBox>
 
                                     <CardOptionsContainer>
-                                        <img onClick={() => handleShowOptions(category.category_id)} src={OptionsIcon} alt="" />
+                                        <EditIcon
+                                            size={25}
+                                            color='var(--blue)'
+                                            strokeWidth={2.5}
+                                            cursor={'pointer'}
+                                            onClick={() => openModal("edit", category)}
+                                        />
 
-                                        {(showOptions !== 0 && showOptions === category.category_id) &&
-                                            <CardOptionsBox>
-                                                <Option onClick={() => handleShowEditBudget(category)}>Edit Budget</Option>
-                                                <hr />
-                                                <Option onClick={() => handleShowDeleteBudget(category)} color='var(--red)'>Delete Budget</Option>
-                                            </CardOptionsBox>
-                                        }
+                                        <DeleteIcon
+                                            size={25}
+                                            color='var(--red)'
+                                            strokeWidth={2.5}
+                                            cursor={'pointer'}
+                                            onClick={() => openModal("delete", category)}
+                                        />
                                     </CardOptionsContainer>
                                 </CardHeader>
 
@@ -150,7 +144,7 @@ const Budgets = () => {
 
                                     <ProgressBox>
                                         <ProgressBar>
-                                            <Progress width={getBudgetPercentage(category)} theme={category.theme_color} />
+                                            <Progress width={category.percentage} theme={category.theme_color} />
                                         </ProgressBar>
                                     </ProgressBox>
 
@@ -158,13 +152,13 @@ const Budgets = () => {
                                         <ResumeItem theme={category.theme_color}>
                                             <h6>Spent</h6>
 
-                                            <h5>${budgetSpentCalc(category.category_id)}</h5>
+                                            <h5>${category.spent}</h5>
                                         </ResumeItem>
 
                                         <ResumeItem color='var(--white)'>
                                             <h6>Remaining</h6>
 
-                                            <h5>${getBudgetRemaining(category)}</h5>
+                                            <h5>${category.remaining}</h5>
                                         </ResumeItem>
                                     </ResumeBox>
 
@@ -205,35 +199,7 @@ const Budgets = () => {
                 </BudgetsContainer>
             </PageContainer>
 
-            {showAddBudgetModal &&
-                <Modal
-                    title={`Add New Category`}
-                    subtitle={'Choose a category to set a spending budget. These categories can help you monitor spending.'}
-                    closeModal={setShowAddBudgetModal}
-                >
-                    <AddNewBudget />
-                </Modal>
-            }
-
-            {showEditBudgetModal &&
-                <Modal
-                    title={`Edit Category`}
-                    subtitle={'As your budgets change, feel free to update your spending limits.'}
-                    closeModal={setShowEditBudgetModal}
-                >
-                    <EditBudget category={selectedBudget} />
-                </Modal>
-            }
-
-            {showDeleteBudgetModal &&
-                <Modal
-                    title={`Delete Category`}
-                    subtitle={'As your budgets change, feel free to update your spending limits.'}
-                    closeModal={setShowDeleteBudgetModal}
-                >
-                    <DeleteBudget category={selectedBudget} />
-                </Modal>
-            }
+            <BudgetsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }
