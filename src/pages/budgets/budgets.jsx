@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
+import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
@@ -76,128 +76,148 @@ const Budgets = () => {
 
     return (
         <>
-            <PageContainer name="Budgets" button={'+ Add Budget'} onClick={() => openModal('add')}>
-                <BudgetsContainer>
-                    <Container>
-                        <Box>
-                            <ChartContainer>
-                                <ChartBox>
-                                    <Chart data={budgets} />
+            <PageContainer
+                name="Budgets"
+                button={budgets.length <= 1 ? '' : '+ Add Budget'}
+                onClick={() => openModal('add')}
+            >
+                {budgets.length <= 1
+                    ? <EmptyPageContainer>
+                        <EmptyPageTextBox>
+                            <h1>You don't have any budget yet.</h1>
+                            <h2>Start organizing your expenses.</h2>
+                        </EmptyPageTextBox>
 
-                                    <ChartOverall>
-                                        <h2>${getBudgetsSpent()}</h2>
-                                        <h3>of ${getBudgetsLimit()} limit</h3>
-                                    </ChartOverall>
-                                </ChartBox>
+                        <div>
+                            <FirstBudgetButton
+                                onClick={() => openModal('add')}
+                            >
+                                Create your first budget
+                            </FirstBudgetButton>
+                        </div>
+                    </EmptyPageContainer>
+                    : <BudgetsContainer>
+                        <Container>
+                            <Box>
+                                <ChartContainer>
+                                    <ChartBox>
+                                        <Chart data={budgets} />
 
-                                <SummaryContainer>
-                                    <h2>Spending Summary</h2>
+                                        <ChartOverall>
+                                            <h2>${getBudgetsSpent()}</h2>
+                                            <h3>of ${getBudgetsLimit()} limit</h3>
+                                        </ChartOverall>
+                                    </ChartBox>
 
-                                    <SummaryBox>
-                                        {budgetsWithStats.slice(0, 6).map((budget, index, arr) => (
-                                            <>
-                                                <SummaryItem
-                                                    theme={budget.theme_color}
-                                                >
-                                                    <h4>{budget.budget_name}</h4>
+                                    <SummaryContainer>
+                                        <h2>Spending Summary</h2>
 
-                                                    <h3><span>${budget.spent}</span> of ${budget.budget_max}</h3>
-                                                </SummaryItem>
+                                        <SummaryBox>
+                                            {budgetsWithStats.slice(0, 6).map((budget, index, arr) => (
+                                                <>
+                                                    <SummaryItem
+                                                        theme={budget.theme_color}
+                                                    >
+                                                        <h4>{budget.budget_name}</h4>
 
-                                                {index < arr.length - 1 && <Divider />}
-                                            </>
-                                        ))}
-                                    </SummaryBox>
-                                </SummaryContainer>
-                            </ChartContainer>
-                        </Box>
-                    </Container>
+                                                        <h3><span>${budget.spent}</span> of ${budget.budget_max}</h3>
+                                                    </SummaryItem>
 
-                    <CardsContainer>
-                        {budgetsWithStats.map((budget, index) => (
-                            <Card key={index}>
-                                <CardHeader>
-                                    <CardTitleBox>
-                                        <Identifier theme={budget.theme_color} />
-                                        <h2>{budget.budget_name}</h2>
-                                    </CardTitleBox>
-
-                                    <CardOptionsContainer>
-                                        <EditIcon
-                                            size={25}
-                                            color='var(--blue)'
-                                            strokeWidth={2.5}
-                                            cursor={'pointer'}
-                                            onClick={() => openModal("edit", budget)}
-                                        />
-
-                                        <DeleteIcon
-                                            size={25}
-                                            color='var(--red)'
-                                            strokeWidth={2.5}
-                                            cursor={'pointer'}
-                                            onClick={() => openModal("delete", budget)}
-                                        />
-                                    </CardOptionsContainer>
-                                </CardHeader>
-
-                                <CardContent>
-                                    <h3>Maximum of ${budget.budget_max}</h3>
-
-                                    <ProgressBox>
-                                        <ProgressBar>
-                                            <Progress width={budget.percentage} theme={budget.theme_color} />
-                                        </ProgressBar>
-                                    </ProgressBox>
-
-                                    <ResumeBox>
-                                        <ResumeItem theme={budget.theme_color}>
-                                            <h6>Spent</h6>
-
-                                            <h5>${budget.spent}</h5>
-                                        </ResumeItem>
-
-                                        <ResumeItem color='var(--white)'>
-                                            <h6>Remaining</h6>
-
-                                            <h5>${budget.remaining}</h5>
-                                        </ResumeItem>
-                                    </ResumeBox>
-
-                                    <LastSpendingContainer>
-                                        <LastSpendingHeader>
-                                            <h2>Latest Spending</h2>
-
-                                            <DetailsButton
-                                                label={'See Details'}
-                                                route={'transactions'}
-                                            />
-                                        </LastSpendingHeader>
-
-                                        <LastSpendingBox>
-                                            {transactions.map((transaction) => (
-                                                transaction.budget_id === budget.budget_id &&
-                                                <LastSpendingItem>
-                                                    <PersonBox>
-                                                        <ProfilePicture src={Avatar} alt="" />
-
-                                                        <h4>{transaction.person_name}</h4>
-                                                    </PersonBox>
-
-                                                    <SpendDetails type={transaction.transaction_type}>
-                                                        <h5>{transaction.transaction_type === 0 ? '-' : ''}${transaction.transaction_amount}</h5>
-
-                                                        <h6>{formatDate(transaction.transaction_date)}</h6>
-                                                    </SpendDetails>
-                                                </LastSpendingItem>
+                                                    {index < arr.length - 1 && <Divider />}
+                                                </>
                                             ))}
-                                        </LastSpendingBox>
-                                    </LastSpendingContainer>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </CardsContainer>
-                </BudgetsContainer>
+                                        </SummaryBox>
+                                    </SummaryContainer>
+                                </ChartContainer>
+                            </Box>
+                        </Container>
+
+                        <CardsContainer>
+                            {budgetsWithStats.map((budget, index) => (
+                                <Card key={index}>
+                                    <CardHeader>
+                                        <CardTitleBox>
+                                            <Identifier theme={budget.theme_color} />
+                                            <h2>{budget.budget_name}</h2>
+                                        </CardTitleBox>
+
+                                        <CardOptionsContainer>
+                                            <EditIcon
+                                                size={25}
+                                                color='var(--blue)'
+                                                strokeWidth={2.5}
+                                                cursor={'pointer'}
+                                                onClick={() => openModal("edit", budget)}
+                                            />
+
+                                            <DeleteIcon
+                                                size={25}
+                                                color='var(--red)'
+                                                strokeWidth={2.5}
+                                                cursor={'pointer'}
+                                                onClick={() => openModal("delete", budget)}
+                                            />
+                                        </CardOptionsContainer>
+                                    </CardHeader>
+
+                                    <CardContent>
+                                        <h3>Maximum of ${budget.budget_max}</h3>
+
+                                        <ProgressBox>
+                                            <ProgressBar>
+                                                <Progress width={budget.percentage} theme={budget.theme_color} />
+                                            </ProgressBar>
+                                        </ProgressBox>
+
+                                        <ResumeBox>
+                                            <ResumeItem theme={budget.theme_color}>
+                                                <h6>Spent</h6>
+
+                                                <h5>${budget.spent}</h5>
+                                            </ResumeItem>
+
+                                            <ResumeItem color='var(--white)'>
+                                                <h6>Remaining</h6>
+
+                                                <h5>${budget.remaining}</h5>
+                                            </ResumeItem>
+                                        </ResumeBox>
+
+                                        <LastSpendingContainer>
+                                            <LastSpendingHeader>
+                                                <h2>Latest Spending</h2>
+
+                                                <DetailsButton
+                                                    label={'See Details'}
+                                                    route={'transactions'}
+                                                />
+                                            </LastSpendingHeader>
+
+                                            <LastSpendingBox>
+                                                {transactions.map((transaction) => (
+                                                    transaction.budget_id === budget.budget_id &&
+                                                    <LastSpendingItem>
+                                                        <PersonBox>
+                                                            <ProfilePicture src={Avatar} alt="" />
+
+                                                            <h4>{transaction.person_name}</h4>
+                                                        </PersonBox>
+
+                                                        <SpendDetails type={transaction.transaction_type}>
+                                                            <h5>{transaction.transaction_type === 0 ? '-' : ''}${transaction.transaction_amount}</h5>
+
+                                                            <h6>{formatDate(transaction.transaction_date)}</h6>
+                                                        </SpendDetails>
+                                                    </LastSpendingItem>
+                                                ))}
+                                            </LastSpendingBox>
+                                        </LastSpendingContainer>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </CardsContainer>
+                    </BudgetsContainer>
+                }
             </PageContainer>
 
             <BudgetsModalManager modal={modal} onClose={closeModal} />
