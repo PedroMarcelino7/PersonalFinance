@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { Container, FooterBox, FooterButton, LogoBox, NavigationBox, NavigationButton, TopBox } from './styles'
+
+import { useLocation, useNavigate } from 'react-router-dom'
+
+// ICONS
 import { User as UserIcon } from 'lucide-react';
 import { Settings as SettingsIcon } from 'lucide-react';
 import { House as OverviewIcon } from 'lucide-react'
@@ -10,9 +15,6 @@ import { CalendarSync as RecurringBillsIcon } from 'lucide-react'
 import { CirclePoundSterling as CryptoIcon } from 'lucide-react'
 
 import Logo from '../../assets/images/logo-large.svg'
-
-import { Container, FooterBox, FooterButton, LogoBox, NavigationBox, NavigationButton, TopBox } from './styles'
-import { useLocation, useNavigate } from 'react-router-dom'
 
 const Sidebar = () => {
     const navigate = useNavigate()

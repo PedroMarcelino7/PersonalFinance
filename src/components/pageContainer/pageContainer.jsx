@@ -1,7 +1,12 @@
-import { Button, Container, Content, Header, Title, TitleBox } from './styles'
+import { Container, Content, Header, Title, TitleBox } from './styles'
+
+// ICONS
 import { CircleQuestionMark as HelpIcon } from 'lucide-react';
 
-const PageContainer = ({ name, children, button, onClick }) => {
+// UI COMPONENTS
+import DefaultButton from '../../ui/button/defaultButton/defaultButton'
+
+const PageContainer = ({ name, children, button, buttonClick }) => {
     return (
         <Container>
             <Content>
@@ -14,12 +19,15 @@ const PageContainer = ({ name, children, button, onClick }) => {
                             color='var(--dark)'
                             strokeWidth={2.5}
                             cursor={'pointer'}
-                        // onClick={}
+                        // onClick={helpClick}
                         />
                     </TitleBox>
 
                     {button &&
-                        <Button onClick={onClick}>{button}</Button>
+                        <DefaultButton
+                            label={button}
+                            onClick={buttonClick}
+                        />
                     }
                 </Header>
 

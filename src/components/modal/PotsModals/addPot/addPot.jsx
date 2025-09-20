@@ -1,12 +1,21 @@
 import { useState, useRef } from 'react'
-import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+
+import { toast } from 'react-toastify'
+
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
+
+// UI COMPONENTS
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+
+// CONTEXTS
 import { usePots } from '../../../../contexts/potsContext'
 import { useThemes } from '../../../../contexts/themesContext'
 import { useModal } from '../../modal'
+
+// ICONS
 import IconCalendar from '../../../../assets/images/icon-calendar.svg'
-import { toast } from 'react-toastify'
 
 const AddPot = () => {
     const { refreshPots } = usePots()
@@ -124,7 +133,10 @@ const AddPot = () => {
 
             <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
 
-            <Button>Add Pot</Button>
+            <DefaultButton
+                label="Confirm Addition"
+                type="submit"
+            />
         </FormContainer>
     )
 }

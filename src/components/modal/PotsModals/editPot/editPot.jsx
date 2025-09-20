@@ -1,12 +1,21 @@
 import { useState, useRef, useEffect } from 'react'
-import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+
 import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
-import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
-import { usePots } from '../../../../contexts/potsContext'
-import { useModal } from '../../modal'
-import IconCalendar from '../../../../assets/images/icon-calendar.svg'
-import { useThemes } from '../../../../contexts/themesContext'
+
 import { toast } from 'react-toastify'
+
+// UI COMPONENTS
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
+import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+
+// CONTEXTS
+import { usePots } from '../../../../contexts/potsContext'
+import { useThemes } from '../../../../contexts/themesContext'
+import { useModal } from '../../modal'
+
+// ICONS
+import IconCalendar from '../../../../assets/images/icon-calendar.svg'
 
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -145,7 +154,10 @@ const EditPot = ({ pot }) => {
                 currentValue={themes.findIndex((theme) => theme.theme_id === pot.theme_id)}
             />
 
-            <Button>Edit Pot</Button>
+            <DefaultButton
+                label='Edit Pot'
+                type='submit'
+            />
         </FormContainer>
     )
 }

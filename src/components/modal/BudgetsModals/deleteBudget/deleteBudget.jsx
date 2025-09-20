@@ -1,7 +1,15 @@
-import { ConfirmButton, FormContainer } from './styles'
-import { useModal } from '../../modal'
+import { FormContainer } from './styles'
+
 import { toast } from 'react-toastify'
+
+// COMPONENTS
+import { useModal } from '../../modal'
+
+// CONTEXTS
 import { useBudgets } from '../../../../contexts/budgetsContext'
+
+// UI COMPONENTS
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 
 const DeleteBudget = ({ budget }) => {
     const { refreshBudgets } = useBudgets()
@@ -42,7 +50,11 @@ const DeleteBudget = ({ budget }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm deletion</ConfirmButton>
+            <DefaultButton
+                label='Yes, confirm deletion'
+                color='red'
+                type='submit'
+            />
         </FormContainer>
     )
 }

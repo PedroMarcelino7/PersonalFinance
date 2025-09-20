@@ -23,6 +23,7 @@ import { usePeople } from '../../../../contexts/peopleContext'
 
 // MODAL MANAGER
 import TransactionsModalManager from '../../../../managers/TransactionsModalManager/TransactionsModalManager'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton';
 
 const AddTransaction = () => {
     const { refreshTransactions } = useTransactions()
@@ -189,7 +190,10 @@ const AddTransaction = () => {
                     onButtonClick={() => openModal('addPerson')}
                 />
 
-                <Button>Add transaction</Button>
+                <DefaultButton
+                    label='Add Transaction'
+                    type='submit'
+                />
             </FormContainer>
 
             <TransactionsModalManager modal={modal} onClose={closeModal} />

@@ -1,14 +1,21 @@
 import { useState } from 'react'
+
 import { ActualProgress, AmountBox, AmountContainer, Button, FormContainer, NewProgress, ProgressBarBox, ProgressValues, QuickButton, QuickButtonInput, QuickButtonsActions, QuickButtonsBox, QuickButtonsContainer } from './styles'
+
+import { toast } from 'react-toastify'
+
+// CONTEXTS
 import { usePots } from '../../../../contexts/potsContext'
 import { useModal } from '../../modal'
-import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 
+// UI COMPONENTS
+import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
+
+// ICONS
 import { Trash2 as DeleteIcon } from 'lucide-react';
 import { SquarePen as EditIcon } from 'lucide-react';
 import { Save as SaveIcon } from 'lucide-react';
-
-import { toast } from 'react-toastify'
 
 const WithdrawMoney = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -231,7 +238,10 @@ const WithdrawMoney = ({ pot }) => {
                 )}
             </QuickButtonsContainer>
 
-            <Button>Confirm Withdraw</Button>
+            <DefaultButton
+                label='Confirm Withdraw'
+                type='submit'
+            />
         </FormContainer>
     )
 }

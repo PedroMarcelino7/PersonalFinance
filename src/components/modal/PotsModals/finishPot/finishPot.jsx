@@ -1,9 +1,16 @@
-import { ConfirmButton, FormContainer } from './styles'
+import { useEffect } from 'react'
+
+import { toast } from 'react-toastify'
+
+import { FormContainer } from './styles'
+
+// CONTEXTS
 import { usePots } from '../../../../contexts/potsContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { useModal } from '../../modal'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+
+// UI COMPONENTS
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 
 const FinishPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -62,7 +69,11 @@ const FinishPot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm completion</ConfirmButton>
+            <DefaultButton
+                label='Yes, confirm completion'
+                type='submit'
+                color='green'
+            />
         </FormContainer>
     )
 }

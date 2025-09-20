@@ -1,11 +1,20 @@
 import { useState } from 'react'
+
+import { FormContainer } from './styles'
+
+import { toast } from 'react-toastify'
+
+// UI COMPONENTS
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
-import { Button, FormContainer } from './styles'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+
+// COMPONENTS
 import { useModal } from '../../modal'
+
+// CONTEXTS
 import { useBudgets } from '../../../../contexts/budgetsContext'
 import { useThemes } from '../../../../contexts/themesContext'
-import { toast } from 'react-toastify'
 
 const AddNewBudget = () => {
     const { closeModal } = useModal()
@@ -57,13 +66,31 @@ const AddNewBudget = () => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultInput label={'Budget'} value={budget} setValue={setBudget} />
+            <DefaultInput
+                label={'Budget'}
+                value={budget}
+                setValue={setBudget}
+                required
+            />
 
-            <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
+            <DefaultInput
+                label={'Target'}
+                value={target}
+                setValue={setTarget}
+                placeholder={'$'}
+                required
+            />
 
-            <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} />
+            <ThemeSelect
+                label={'Theme'}
+                setTheme={setTheme}
+                data={themes}
+            />
 
-            <Button>Add Budget</Button>
+            <DefaultButton
+                label={'Add Budget'}
+                type='submit'
+            />
         </FormContainer>
     )
 }

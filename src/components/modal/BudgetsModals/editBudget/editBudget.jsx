@@ -1,11 +1,20 @@
 import { useState } from 'react'
+
+import { FormContainer } from './styles'
+
+import { toast } from 'react-toastify'
+
+// UI COMPONENTS
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
-import { Button, FormContainer } from './styles'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 import ThemeSelect from '../../../../ui/select/themeSelect/themeSelect'
+
+// COMPONENTS
 import { useModal } from '../../modal'
+
+// CONTEXTS
 import { useBudgets } from '../../../../contexts/budgetsContext'
 import { useThemes } from '../../../../contexts/themesContext'
-import { toast } from 'react-toastify'
 
 const EditBudget = ({ budget }) => {
     const { closeModal } = useModal()
@@ -58,13 +67,32 @@ const EditBudget = ({ budget }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <DefaultInput label={'Name'} value={budgetName} setValue={setBudget} />
+            <DefaultInput
+                label={'Name'}
+                value={budgetName}
+                setValue={setBudget}
+                required
+            />
 
-            <DefaultInput label={'Target'} value={target} setValue={setTarget} placeholder={'$'} />
+            <DefaultInput
+                label={'Target'}
+                value={target}
+                setValue={setTarget}
+                placeholder={'$'}
+                required
+            />
 
-            <ThemeSelect label={'Theme'} setTheme={setTheme} data={themes} currentValue={themes.findIndex((theme) => theme.theme_id === budget.theme_id)} />
+            <ThemeSelect
+                label={'Theme'}
+                setTheme={setTheme}
+                data={themes}
+                currentValue={themes.findIndex((theme) => theme.theme_id === budget.theme_id)}
+            />
 
-            <Button>Edit Budget</Button>
+            <DefaultButton
+                label="Edit Budget"
+                type='submit'
+            />
         </FormContainer>
     )
 }

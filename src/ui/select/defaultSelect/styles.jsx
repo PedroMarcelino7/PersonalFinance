@@ -18,7 +18,7 @@ export const SelectBox = styled.div`
     position: relative;
     border: 1px solid var(--gray);
     background-color: ${({ disabled }) => disabled ? 'var(--white-muted)' : 'var(--white)'};
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.75rem;
     cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'};
 `

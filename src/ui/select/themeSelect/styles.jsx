@@ -16,7 +16,7 @@ export const SelectBox = styled.div`
     position: relative;
     border: 1px solid var(--gray);
     background-color: var(--white);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 0.75rem;
     cursor: pointer;
 `
@@ -52,7 +52,7 @@ export const Options = styled.div`
     left: 0;
     background: var(--white);
     box-shadow: 0 0 10px var(--light-gray);
-    border-radius: 10px;
+    border-radius: 5px;
     margin-top: 0.25rem;
     overflow-x: hidden;
     overflow-y: scroll;

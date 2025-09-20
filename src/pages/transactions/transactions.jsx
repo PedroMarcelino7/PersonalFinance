@@ -88,7 +88,7 @@ const Transactions = () => {
             <PageContainer
                 name="Transactions"
                 button={transactions.length === 0 ? '' : '+ Add Transaction'}
-                onClick={() => openModal('addTransaction')}
+                buttonClick={() => openModal('addTransaction')}
             >
                 {transactions.length === 0
                     ? <EmptyPage

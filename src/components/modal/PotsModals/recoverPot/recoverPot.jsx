@@ -1,9 +1,16 @@
-import { ConfirmButton, FormContainer } from './styles'
+import { useEffect } from 'react'
+
+import { FormContainer } from './styles'
+
+import { toast } from 'react-toastify'
+
+// CONTEXTS
 import { usePots } from '../../../../contexts/potsContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { useModal } from '../../modal'
-import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+
+// UI COMPONENTS
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 
 const RecoverPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -62,7 +69,11 @@ const RecoverPot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm recovery</ConfirmButton>
+            <DefaultButton
+                label='Yes, confirm recovery'
+                color='blue'
+                type='submit'
+            />
         </FormContainer>
     )
 }

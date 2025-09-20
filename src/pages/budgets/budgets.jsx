@@ -80,7 +80,7 @@ const Budgets = () => {
             <PageContainer
                 name="Budgets"
                 button={budgets.length <= 1 ? '' : '+ Add Budget'}
-                onClick={() => openModal('add')}
+                buttonClick={() => openModal('add')}
             >
                 {budgets.length <= 1
                     ? <EmptyPage

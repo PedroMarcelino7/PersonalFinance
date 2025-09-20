@@ -94,7 +94,7 @@ const RecurringBills = () => {
         <PageContainer
             name="Recurring Bills"
             button={recurringBills.length === 0 ? '' : '+ Add Recurring Bill'}
-            onClick={() => openModal('add')}
+            buttonClick={() => openModal('add')}
         >
             {recurringBills.length === 0
                 ? <EmptyPage

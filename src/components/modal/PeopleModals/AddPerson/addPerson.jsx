@@ -1,6 +1,9 @@
 import { useState } from "react"
-import DefaultInput from "../../../../ui/input/defaultInput/defaultInput"
+
 import { FormContainer } from "./styles"
+
+// UI COMPONENTS
+import DefaultInput from "../../../../ui/input/defaultInput/defaultInput"
 
 const AddPerson = () => {
     const [name, setName] = useState('')

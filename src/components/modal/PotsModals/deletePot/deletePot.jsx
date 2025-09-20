@@ -1,9 +1,16 @@
-import {  ConfirmButton, FormContainer } from './styles'
-import { usePots } from '../../../../contexts/potsContext'
-import { useModal } from '../../modal'
 import { useEffect } from 'react'
-import { useThemes } from '../../../../contexts/themesContext'
+
+import { ConfirmButton, FormContainer } from './styles'
+
 import { toast } from 'react-toastify'
+
+// UI COMPONENTS
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
+
+// CONTEXTS
+import { usePots } from '../../../../contexts/potsContext'
+import { useThemes } from '../../../../contexts/themesContext'
+import { useModal } from '../../modal'
 
 const DeletePot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -62,7 +69,11 @@ const DeletePot = ({ pot }) => {
 
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
-            <ConfirmButton>Yes, confirm deletion</ConfirmButton>
+            <DefaultButton
+                label='Yes, confirm deletion'
+                color='red'
+                type='submit'
+            />
         </FormContainer>
     )
 }

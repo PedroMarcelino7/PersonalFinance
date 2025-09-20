@@ -51,7 +51,7 @@ export const CalendarInput = styled.input`
 
 export const DateSelected = styled.h1`
     font-size: 0.75rem;
-    font-weight: lighter;
+    font-weight: 500;
 `
 
 export const SelectWrapper = styled.div`
