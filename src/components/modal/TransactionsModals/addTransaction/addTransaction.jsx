@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { AditionalInfoContainer, Button, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
+import { AditionalInfoContainer, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
 
 import { toast } from 'react-toastify';
 

@@ -1,8 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
-import { AditionalInfoContainer, Button, Calendar, CalendarBox, CalendarInput, DateSelected, FormContainer, LinkInputBox } from './styles'
+import { AditionalInfoContainer, CalendarBox, DateSelected, FormContainer, LinkInputBox } from './styles'
 
 import { toast } from 'react-toastify'
+
+// COMPONENTS
+import DatePicker from '../../../datePicker/datePicker'
 
 // UI COMPONENTS
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
@@ -15,7 +18,7 @@ import { useThemes } from '../../../../contexts/themesContext'
 import { useModal } from '../../modal'
 
 // ICONS
-import IconCalendar from '../../../../assets/images/icon-calendar.svg'
+import { CalendarDays as CalendarIcon } from 'lucide-react';
 
 const EditPot = ({ pot }) => {
     const { refreshPots } = usePots()
@@ -25,10 +28,10 @@ const EditPot = ({ pot }) => {
     const [name, setName] = useState(pot.pot_name)
     const [target, setTarget] = useState(pot.pot_target)
     const [link, setLink] = useState(pot.pot_link)
-    const [date, setDate] = useState(dateFormatter(pot.pot_date))
     const [theme, setTheme] = useState(pot.theme_id)
     const oldTheme = pot.theme_id
-    const dateInputRef = useRef(null)
+    const [date, setDate] = useState(new Date(pot.pot_date));
+    const [showCalendar, setShowCalendar] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -132,18 +135,25 @@ const EditPot = ({ pot }) => {
                 </LinkInputBox>
 
                 <CalendarBox>
-                    <Calendar
-                        src={IconCalendar}
-                        alt=""
+                    <CalendarIcon
+                        size={40}
+                        color='var(--dark)'
+                        strokeWidth={2.25}
+                        cursor={'pointer'}
+                        onClick={() => setShowCalendar(true)}
                     />
 
-                    <CalendarInput
-                        type="date"
-                        ref={dateInputRef}
-                        onChange={(e) => setDate(e.target.value)}
-                    />
+                    {showCalendar &&
+                        <DatePicker
+                            selected={date}
+                            setSelected={setDate}
+                            onClick={() => setShowCalendar(false)}
+                        />
+                    }
 
-                    <DateSelected>{date}</DateSelected>
+                    <DateSelected>
+                        {date.toISOString().split("T")[0]}
+                    </DateSelected>
                 </CalendarBox>
             </AditionalInfoContainer>
 
