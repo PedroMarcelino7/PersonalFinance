@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
+import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, EmptyPageTextBox, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 
 import Chart from '../../components/chart/chart'
 
@@ -133,38 +133,44 @@ const Overview = () => {
                                 />
                             </CardTitleBox>
 
-                            <CardContext>
-                                <PotsContainer>
-                                    <PotBox>
-                                        <PotsIcon
-                                            size={40}
-                                            color='var(--green)'
-                                            strokeWidth={2}
-                                        />
+                            {pots.length === 0
+                                ? <EmptyPageTextBox>
+                                    <h1>You don't have any pot created yet.</h1>
+                                    <h2>Start setting aside your money.</h2>
+                                </EmptyPageTextBox>
+                                : <CardContext>
+                                    <PotsContainer>
+                                        <PotBox>
+                                            <PotsIcon
+                                                size={40}
+                                                color='var(--green)'
+                                                strokeWidth={2}
+                                            />
 
-                                        <PotDescription>
-                                            <h5>Total saved</h5>
+                                            <PotDescription>
+                                                <h5>Total saved</h5>
 
-                                            <h4>${getPotsTotalSaved()}</h4>
-                                        </PotDescription>
-                                    </PotBox>
+                                                <h4>${getPotsTotalSaved()}</h4>
+                                            </PotDescription>
+                                        </PotBox>
 
-                                    <PotDistributionContainer>
-                                        <PotDistributionBox>
-                                            {pots.map((pot, index) => (
-                                                index < 4 &&
-                                                <Distribution key={pot.pot_id}
-                                                    theme={pot.pot_theme}
-                                                >
-                                                    <h6>{pot.pot_name}</h6>
+                                        <PotDistributionContainer>
+                                            <PotDistributionBox>
+                                                {pots.map((pot, index) => (
+                                                    index < 4 &&
+                                                    <Distribution key={pot.pot_id}
+                                                        theme={pot.pot_theme}
+                                                    >
+                                                        <h6>{pot.pot_name}</h6>
 
-                                                    <h5>${pot.pot_quantity}</h5>
-                                                </Distribution>
-                                            ))}
-                                        </PotDistributionBox>
-                                    </PotDistributionContainer>
-                                </PotsContainer>
-                            </CardContext>
+                                                        <h5>${pot.pot_quantity}</h5>
+                                                    </Distribution>
+                                                ))}
+                                            </PotDistributionBox>
+                                        </PotDistributionContainer>
+                                    </PotsContainer>
+                                </CardContext>
+                            }
                         </Card>
 
                         <Card>
@@ -177,32 +183,38 @@ const Overview = () => {
                                 />
                             </CardTitleBox>
 
-                            <CardContext>
-                                <TransactionsBox>
-                                    {transactions.map((transaction, index) => (
-                                        index <= 4 &&
-                                        <>
-                                            <TransactionsItem key={index}>
-                                                <PersonBox>
-                                                    <ProfilePicture src={Avatar} alt="" />
+                            {transactions.length === 0
+                                ? <EmptyPageTextBox>
+                                    <h1>You don't have any transaction yet.</h1>
+                                    <h2>Start recording your movements.</h2>
+                                </EmptyPageTextBox>
+                                : <CardContext>
+                                    <TransactionsBox>
+                                        {transactions.map((transaction, index) => (
+                                            index <= 4 &&
+                                            <>
+                                                <TransactionsItem key={index}>
+                                                    <PersonBox>
+                                                        <ProfilePicture src={Avatar} alt="" />
 
-                                                    <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
-                                                </PersonBox>
+                                                        <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
+                                                    </PersonBox>
 
-                                                <TransactionDetails
-                                                    color={transaction.transaction_type === 'negative' ? 'var(--red)' : 'var(--green)'}
-                                                >
-                                                    <h5>{transaction.transaction_type === 'negative' && '-'}${transaction.transaction_amount}</h5>
+                                                    <TransactionDetails
+                                                        color={transaction.transaction_type === 'negative' ? 'var(--red)' : 'var(--green)'}
+                                                    >
+                                                        <h5>{transaction.transaction_type === 'negative' && '-'}${transaction.transaction_amount}</h5>
 
-                                                    <h6>{getDateFormat(transaction.transaction_date)}</h6>
-                                                </TransactionDetails>
-                                            </TransactionsItem >
+                                                        <h6>{getDateFormat(transaction.transaction_date)}</h6>
+                                                    </TransactionDetails>
+                                                </TransactionsItem >
 
-                                            {index != 4 && <hr />}
-                                        </>
-                                    ))}
-                                </TransactionsBox>
-                            </CardContext>
+                                                {index != 4 && <hr />}
+                                            </>
+                                        ))}
+                                    </TransactionsBox>
+                                </CardContext>
+                            }
                         </Card>
                     </Column>
 
@@ -217,33 +229,39 @@ const Overview = () => {
                                 />
                             </CardTitleBox>
 
-                            <CardContext>
-                                <BudgetsContainer>
-                                    <ChartContainer>
-                                        <Chart data={chartData()} />
+                            {budgets.length <= 1
+                                ? <EmptyPageTextBox>
+                                    <h1>You don't have any budget yet.</h1>
+                                    <h2>Start organizing your expenses.</h2>
+                                </EmptyPageTextBox>
+                                : <CardContext>
+                                    <BudgetsContainer>
+                                        <ChartContainer>
+                                            <Chart data={chartData()} />
 
-                                        <ChartOverall>
-                                            <h2>${getBudgetsSpent()}</h2>
-                                            <h3>of ${getBudgetsLimit()} limit</h3>
-                                        </ChartOverall>
-                                    </ChartContainer>
+                                            <ChartOverall>
+                                                <h2>${getBudgetsSpent()}</h2>
+                                                <h3>of ${getBudgetsLimit()} limit</h3>
+                                            </ChartOverall>
+                                        </ChartContainer>
 
-                                    <ChartLegendContainer>
-                                        <ChartLegendBox>
-                                            {budgets.map((budget, index) => (
-                                                index < 6 &&
-                                                <ChartLegend key={budget.budget_id}
-                                                    theme={budget.budget_theme}
-                                                >
-                                                    <h6>{budget.budget_name}</h6>
+                                        <ChartLegendContainer>
+                                            <ChartLegendBox>
+                                                {budgets.map((budget, index) => (
+                                                    index < 6 &&
+                                                    <ChartLegend key={budget.budget_id}
+                                                        theme={budget.budget_theme}
+                                                    >
+                                                        <h6>{budget.budget_name}</h6>
 
-                                                    <h5>${budget.budget_max}</h5>
-                                                </ChartLegend>
-                                            ))}
-                                        </ChartLegendBox>
-                                    </ChartLegendContainer>
-                                </BudgetsContainer>
-                            </CardContext>
+                                                        <h5>${budget.budget_max}</h5>
+                                                    </ChartLegend>
+                                                ))}
+                                            </ChartLegendBox>
+                                        </ChartLegendContainer>
+                                    </BudgetsContainer>
+                                </CardContext>
+                            }
                         </Card>
 
                         <Card>
@@ -256,32 +274,38 @@ const Overview = () => {
                                 />
                             </CardTitleBox>
 
-                            <CardContext>
-                                <RecurringBillsContainer>
-                                    <BillBox theme={'#277C78'}>
-                                        <h5>Paid Bills</h5>
+                            {recurringBills.length === 0
+                                ? <EmptyPageTextBox>
+                                    <h1>You don't have any recurring bill yet.</h1>
+                                    <h2>Start recording your fixed expenses.</h2>
+                                </EmptyPageTextBox>
+                                : <CardContext>
+                                    <RecurringBillsContainer>
+                                        <BillBox theme={'#277C78'}>
+                                            <h5>Paid Bills</h5>
 
-                                        <h4>${getPaidBills()}</h4>
-                                    </BillBox>
+                                            <h4>${getPaidBills()}</h4>
+                                        </BillBox>
 
-                                    <BillBox theme={'#F2CDAC'}>
-                                        <h5>Total Upcoming</h5>
+                                        <BillBox theme={'#F2CDAC'}>
+                                            <h5>Total Upcoming</h5>
 
-                                        <h4>${getUpcomingBills()}</h4>
-                                    </BillBox>
+                                            <h4>${getUpcomingBills()}</h4>
+                                        </BillBox>
 
-                                    <BillBox theme={'#82C9D7'}>
-                                        <h5>Due Soon</h5>
+                                        <BillBox theme={'#82C9D7'}>
+                                            <h5>Due Soon</h5>
 
-                                        <h4>${getDueSoonBills()}</h4>
-                                    </BillBox>
-                                </RecurringBillsContainer>
-                            </CardContext>
+                                            <h4>${getDueSoonBills()}</h4>
+                                        </BillBox>
+                                    </RecurringBillsContainer>
+                                </CardContext>
+                            }
                         </Card>
                     </Column>
                 </MainBox>
             </Container>
-        </PageContainer >
+        </PageContainer>
     )
 }
 

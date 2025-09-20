@@ -5,6 +5,7 @@ import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContai
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
 import Chart from '../../components/chart/chart'
+import EmptyPage from '../../components/emptyPage/emptyPage'
 
 // UI COMPONENTS
 import DetailsButton from '../../ui/button/detailsButton/detailsButton'
@@ -82,20 +83,12 @@ const Budgets = () => {
                 onClick={() => openModal('add')}
             >
                 {budgets.length <= 1
-                    ? <EmptyPageContainer>
-                        <EmptyPageTextBox>
-                            <h1>You don't have any budget yet.</h1>
-                            <h2>Start organizing your expenses.</h2>
-                        </EmptyPageTextBox>
-
-                        <div>
-                            <FirstBudgetButton
-                                onClick={() => openModal('add')}
-                            >
-                                Create your first budget
-                            </FirstBudgetButton>
-                        </div>
-                    </EmptyPageContainer>
+                    ? <EmptyPage
+                        title="You don't have any budget yet."
+                        subtitle="Start organizing your expenses."
+                        button="Create your first budget"
+                        onClick={() => openModal('add')}
+                    />
                     : <BudgetsContainer>
                         <Container>
                             <Box>

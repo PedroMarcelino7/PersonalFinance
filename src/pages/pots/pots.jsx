@@ -7,6 +7,7 @@ import { ActionsButton, ActionsContainer, Button, Card, CardButtons, CardContent
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
+import EmptyPage from '../../components/emptyPage/emptyPage';
 
 // UI COMPONENTS
 import SelectLabel from '../../ui/select/selectLabel/selectLabel';
@@ -76,22 +77,13 @@ const Pots = () => {
                 onClick={() => openModal("add")}
             >
                 {unfinishedPots.length === 0
-                    ? <EmptyPageContainer>
-                        <EmptyPageTextBox>
-                            <h1>You don't have any pot created yet.</h1>
-                            <h2>Start setting aside your money.</h2>
-                        </EmptyPageTextBox>
-
-                        <div>
-                            <FirstPotButton
-                                onClick={() => openModal("add")}
-                            >
-                                Create your first pot
-                            </FirstPotButton>
-                        </div>
-                    </EmptyPageContainer>
-                    :
-                    <PotsContainer>
+                    ? <EmptyPage
+                        title="You don't have any pot created yet."
+                        subtitle="Start setting aside your money."
+                        button='Create your first pot'
+                        onClick={() => openModal('add')}
+                    />
+                    : <PotsContainer>
                         <ActionsContainer>
                             <SelectLabel
                                 label={'Sort by'}

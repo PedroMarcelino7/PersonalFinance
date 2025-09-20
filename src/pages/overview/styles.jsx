@@ -304,3 +304,23 @@ export const BillBox = styled.div`
         color: var(--dark);
     }
 `
+
+export const EmptyPageTextBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding-block: 2rem;
+    color: var(--dark);
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+        font-weight: normal;
+    }
+`

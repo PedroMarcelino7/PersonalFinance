@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import { BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox } from './styles'
+
+// COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton } from './styles'
+import EmptyPage from '../../components/emptyPage/emptyPage'
 
+// CONTEXTS
 import { useRecurringBills } from '../../contexts/recurringBillsContext'
-import { usePeople } from '../../contexts/peopleContext'
 
+// ICONS
 import { CalendarSync as BillsIcon } from 'lucide-react'
+
 import SearchIcon from '../../assets/images/icon-search.svg'
 import ChevronDownIcon from '../../assets/images/icon-caret-down.svg'
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
 import PrevIcon from '../../assets/images/icon-caret-left.svg'
 import NextIcon from '../../assets/images/icon-caret-right.svg'
 
+
 const RecurringBills = () => {
     const { recurringBills } = useRecurringBills()
-    const { people } = usePeople()
 
     const [page, setPage] = useState(1)
     const quantityToShow = 7
@@ -91,20 +97,12 @@ const RecurringBills = () => {
             onClick={() => openModal('add')}
         >
             {recurringBills.length === 0
-                ? <EmptyPageContainer>
-                    <EmptyPageTextBox>
-                        <h1>You don't have any recurring bill yet.</h1>
-                        <h2>Start recording your fixed expenses.</h2>
-                    </EmptyPageTextBox>
-
-                    <div>
-                        <FirstBudgetButton
-                            onClick={() => openModal('add')}
-                        >
-                            Create your first recurring bill
-                        </FirstBudgetButton>
-                    </div>
-                </EmptyPageContainer>
+                ? <EmptyPage
+                    title="You don't have any recurring bill yet."
+                    subtitle="Start recording your fixed expenses."
+                    button='Create your first recurring bill'
+                    onClick={() => openModal('add')}
+                />
                 : <RecurringBillsContainer>
                     <ResumeContainer>
                         <TotalContainer>

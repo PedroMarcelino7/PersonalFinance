@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { EmptyPageContainer, EmptyPageTextBox, FirstPotButton, NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
+import { NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
 // Icons
 import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
@@ -8,6 +8,7 @@ import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
 
 // Components
 import PageContainer from '../../components/pageContainer/pageContainer'
+import EmptyPage from '../../components/emptyPage/emptyPage'
 
 // Images
 import Avatar from '../../assets/images/avatars/bytewise.jpg'
@@ -90,20 +91,12 @@ const Transactions = () => {
                 onClick={() => openModal('addTransaction')}
             >
                 {transactions.length === 0
-                    ? <EmptyPageContainer>
-                        <EmptyPageTextBox>
-                            <h1>You don't have any transaction yet.</h1>
-                            <h2>Start recording your movements.</h2>
-                        </EmptyPageTextBox>
-
-                        <div>
-                            <FirstPotButton
-                                onClick={() => openModal('addTransaction')}
-                            >
-                                Create your first transaction
-                            </FirstPotButton>
-                        </div>
-                    </EmptyPageContainer>
+                    ? <EmptyPage
+                        title="You don't have any transaction yet."
+                        subtitle="Start recording your movements."
+                        button='Create your first transaction'
+                        onClick={() => openModal('addTransaction')}
+                    />
                     : <TransactionsContainer>
                         <TransactionsHeader>
                             <SearchInput

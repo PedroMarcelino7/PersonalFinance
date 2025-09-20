@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 // COMPONENTS
 import PageContainer from '../../../components/pageContainer/pageContainer'
+import EmptyPage from '../../../components/emptyPage/emptyPage';
 
 // CONTEXTS
 import { usePots } from '../../../contexts/potsContext'
@@ -26,6 +27,8 @@ import SelectLabel from '../../../ui/select/selectLabel/selectLabel';
 
 const FinishedPots = () => {
     const { pots } = usePots()
+
+    const navigate = useNavigate()
 
     const finishedPots = pots.filter((pot) => pot.pot_status === 1)
 
@@ -55,21 +58,12 @@ const FinishedPots = () => {
                 name="Finished Pots"
             >
                 {finishedPots.length === 0
-                    ? <EmptyPageContainer>
-                        <EmptyPageTextBox>
-                            <h1>You don't have any finished pot yet.</h1>
-                        </EmptyPageTextBox>
-
-                        <div>
-                            <FirstPotButton>
-                                <Link to={'../pots'}>
-                                    Return to all pots
-                                </Link>
-                            </FirstPotButton>
-                        </div>
-                    </EmptyPageContainer>
-                    :
-                    <PotsContainer>
+                    ? <EmptyPage
+                        title="You don't have any finished pot yet."
+                        button='Return to all pots'
+                        onClick={() => navigate('/pots')}
+                    />
+                    : <PotsContainer>
                         <ActionsContainer>
                             <SelectLabel
                                 label={'Sort by'}
@@ -85,7 +79,7 @@ const FinishedPots = () => {
                             />
 
                             <ActionsButton>
-                                <Link to={'../pots'}>
+                                <Link to={'../'}>
                                     All pots
                                 </Link>
                             </ActionsButton>
