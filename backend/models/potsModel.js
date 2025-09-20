@@ -192,7 +192,7 @@ const finishPot = (values, callback) => {
             const addTransactionQuery = `
                 insert into
                     transactions
-                    (transaction_amount, transaction_type, category_id, person_id, pot_id)
+                    (transaction_amount, transaction_type, budget_id, person_id, pot_id)
                 values
                     (?, 0, 1, 1, ?);
             `;
@@ -230,7 +230,7 @@ const recoverPot = (values, callback) => {
             const addTransactionQuery = `
                 insert into
                     transactions
-                    (transaction_amount, transaction_type, category_id, person_id, pot_id)
+                    (transaction_amount, transaction_type, budget_id, person_id, pot_id)
                 values
                     (?, 1, 1, 1, ?);
             `;

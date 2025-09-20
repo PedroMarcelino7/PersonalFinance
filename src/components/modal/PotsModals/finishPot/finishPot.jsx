@@ -32,13 +32,14 @@ const FinishPot = ({ pot }) => {
                 })
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
                 toast.error('Error finishing pot.');
                 return;
             }
 
-            const data = await response.json();
             toast.success('Pot finished successfully.');
             console.log('>>> Resposta Pot Post [Finish Pots Modal]:', data);
 

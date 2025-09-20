@@ -80,20 +80,6 @@ const AddPot = () => {
         closeModal()
     }
 
-    function getTodayDate() {
-        const today = new Date()
-
-        const dayAux = today.getDate()
-        const day = dayAux < 10 ? `0${dayAux}` : dayAux
-
-        const monthAux = today.getMonth() + 1
-        const month = monthAux < 10 ? `0${monthAux}` : monthAux
-
-        const year = today.getFullYear()
-
-        return (`${year}-${month}-${day}`)
-    }
-
     return (
         <FormContainer onSubmit={(e) => handleSubmit(e)}>
             <DefaultInput
