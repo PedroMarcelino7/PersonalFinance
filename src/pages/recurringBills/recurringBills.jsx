@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PageContainer from '../../components/pageContainer/pageContainer'
-import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox } from './styles'
+import { Bill, BillsContainer, BillsHeader, ChevronIcon, CustomOption, CustomSelect, NavButton, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SearchBox, SearchButton, SearchInput, SelectWrapper, SortBox, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton } from './styles'
 
 import { useRecurringBills } from '../../contexts/recurringBillsContext'
 import { usePeople } from '../../contexts/peopleContext'
@@ -85,147 +85,167 @@ const RecurringBills = () => {
     }
 
     return (
-        <PageContainer name="Recurring Bills">
-            <RecurringBillsContainer>
-                <ResumeContainer>
-                    <TotalContainer>
-                        <BillsIcon
-                            size={45}
-                            color='var(--white)'
-                            strokeWidth={1.5}
-                        />
+        <PageContainer
+            name="Recurring Bills"
+            button={recurringBills.length === 0 ? '' : '+ Add Recurring Bill'}
+            onClick={() => openModal('add')}
+        >
+            {recurringBills.length === 0
+                ? <EmptyPageContainer>
+                    <EmptyPageTextBox>
+                        <h1>You don't have any recurring bill yet.</h1>
+                        <h2>Start recording your fixed expenses.</h2>
+                    </EmptyPageTextBox>
 
-                        <ResumeBox>
-                            <h6>Total Bills</h6>
+                    <div>
+                        <FirstBudgetButton
+                            onClick={() => openModal('add')}
+                        >
+                            Create your first recurring bill
+                        </FirstBudgetButton>
+                    </div>
+                </EmptyPageContainer>
+                : <RecurringBillsContainer>
+                    <ResumeContainer>
+                        <TotalContainer>
+                            <BillsIcon
+                                size={45}
+                                color='var(--white)'
+                                strokeWidth={1.5}
+                            />
 
-                            <h3>${getBillsTotal()}</h3>
-                        </ResumeBox>
-                    </TotalContainer>
+                            <ResumeBox>
+                                <h6>Total Bills</h6>
 
-                    <SummaryContainer>
-                        <h2>Summary</h2>
+                                <h3>${getBillsTotal()}</h3>
+                            </ResumeBox>
+                        </TotalContainer>
 
-                        <SummaryBox>
-                            <SummaryItem color='var(--green)'>
-                                <h5>Paid Bills ({getBillsQuantity(1)})</h5>
+                        <SummaryContainer>
+                            <h2>Summary</h2>
 
-                                <h4>${getBills(1)}</h4>
-                            </SummaryItem>
+                            <SummaryBox>
+                                <SummaryItem color='var(--green)'>
+                                    <h5>Paid Bills ({getBillsQuantity(1)})</h5>
 
-                            <hr />
+                                    <h4>${getBills(1)}</h4>
+                                </SummaryItem>
 
-                            <SummaryItem>
-                                <h5>Total Upcoming ({getBillsQuantity(0)})</h5>
+                                <hr />
 
-                                <h4>${getBills(0)}</h4>
-                            </SummaryItem>
+                                <SummaryItem>
+                                    <h5>Total Upcoming ({getBillsQuantity(0)})</h5>
 
-                            <hr />
+                                    <h4>${getBills(0)}</h4>
+                                </SummaryItem>
 
-                            <SummaryItem color='var(--red)'>
-                                <h5>Due Soon ({getBillsQuantity(2)})</h5>
+                                <hr />
 
-                                <h4>${getBills(2)}</h4>
-                            </SummaryItem>
-                        </SummaryBox>
-                    </SummaryContainer>
-                </ResumeContainer>
+                                <SummaryItem color='var(--red)'>
+                                    <h5>Due Soon ({getBillsQuantity(2)})</h5>
 
-                <BillsContainer>
-                    <BillsBox>
-                        <BillsHeader>
-                            <SearchBox>
-                                <SearchInput placeholder="Search bills" />
-                                <SearchButton src={SearchIcon} />
-                            </SearchBox>
+                                    <h4>${getBills(2)}</h4>
+                                </SummaryItem>
+                            </SummaryBox>
+                        </SummaryContainer>
+                    </ResumeContainer>
 
-                            <SortBox>
-                                <h6>Sort by</h6>
+                    <BillsContainer>
+                        <BillsBox>
+                            <BillsHeader>
+                                <SearchBox>
+                                    <SearchInput placeholder="Search bills" />
+                                    <SearchButton src={SearchIcon} />
+                                </SearchBox>
 
-                                <SelectWrapper>
-                                    <CustomSelect>
-                                        <CustomOption value="1">Latest</CustomOption>
-                                        <CustomOption value="2">Oldest</CustomOption>
-                                        <CustomOption value="3">A to Z</CustomOption>
-                                        <CustomOption value="4">Z to A</CustomOption>
-                                        <CustomOption value="5">Highest</CustomOption>
-                                        <CustomOption value="6">Lowest</CustomOption>
-                                    </CustomSelect>
-                                    <ChevronIcon src={ChevronDownIcon} alt="chevron" />
-                                </SelectWrapper>
-                            </SortBox>
-                        </BillsHeader>
+                                <SortBox>
+                                    <h6>Sort by</h6>
 
-                        <Table>
-                            <TableHeader>
-                                <tr>
-                                    <TableHeaderElement>Bill Title</TableHeaderElement>
-                                    <TableHeaderElement>Recurrence</TableHeaderElement>
-                                    <TableHeaderElement>Due Date</TableHeaderElement>
-                                    <TableHeaderElement className='end'>Amount</TableHeaderElement>
-                                </tr>
-                            </TableHeader>
+                                    <SelectWrapper>
+                                        <CustomSelect>
+                                            <CustomOption value="1">Latest</CustomOption>
+                                            <CustomOption value="2">Oldest</CustomOption>
+                                            <CustomOption value="3">A to Z</CustomOption>
+                                            <CustomOption value="4">Z to A</CustomOption>
+                                            <CustomOption value="5">Highest</CustomOption>
+                                            <CustomOption value="6">Lowest</CustomOption>
+                                        </CustomSelect>
+                                        <ChevronIcon src={ChevronDownIcon} alt="chevron" />
+                                    </SelectWrapper>
+                                </SortBox>
+                            </BillsHeader>
 
-                            {recurringBills.map((bill, index) => (
-                                index >= quantityToShowOffset &&
-                                index < (quantityToShow + quantityToShowOffset) &&
-                                <TableBodyRow>
-                                    <TableBodyElement className='reference'>
-                                        <img src={Avatar} alt="" />
-                                        <h3>{bill.person_name}</h3>
-                                    </TableBodyElement>
+                            <Table>
+                                <TableHeader>
+                                    <tr>
+                                        <TableHeaderElement>Bill Title</TableHeaderElement>
+                                        <TableHeaderElement>Recurrence</TableHeaderElement>
+                                        <TableHeaderElement>Due Date</TableHeaderElement>
+                                        <TableHeaderElement className='end'>Amount</TableHeaderElement>
+                                    </tr>
+                                </TableHeader>
 
-                                    <TableBodyElement>
-                                        {bill.bill_recurrence}
-                                    </TableBodyElement>
+                                {recurringBills.map((bill, index) => (
+                                    index >= quantityToShowOffset &&
+                                    index < (quantityToShow + quantityToShowOffset) &&
+                                    <TableBodyRow>
+                                        <TableBodyElement className='reference'>
+                                            <img src={Avatar} alt="" />
+                                            <h3>{bill.person_name}</h3>
+                                        </TableBodyElement>
 
-                                    <TableBodyElement>
-                                        {dateFormatter(bill.bill_due_date)}
-                                    </TableBodyElement>
+                                        <TableBodyElement>
+                                            {bill.bill_recurrence}
+                                        </TableBodyElement>
 
-                                    <TableBodyElement className='end'
-                                        color={
-                                            getBillStatusColor(bill)
-                                        }
-                                    >
-                                        ${bill.bill_amount}
-                                    </TableBodyElement>
-                                </TableBodyRow>
-                            ))}
-                        </Table>
+                                        <TableBodyElement>
+                                            {dateFormatter(bill.bill_due_date)}
+                                        </TableBodyElement>
 
-                        <RecurringBillsFooter>
-                            <NavButton onClick={() => handleChangeRecurringBillsPage('prev', page)}>
-                                <img src={PrevIcon} alt="" />
-
-                                <h3>Prev</h3>
-                            </NavButton>
-
-                            <NavPages>
-                                {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
-                                    <button
-                                        key={i + 1}
-                                        className={i + 1 === page ? 'selected' : ''}
-                                        onClick={() => {
-                                            setPage(i + 1)
-                                            setQuantityToShowOffset(quantityToShow * i)
-                                        }}
-                                    >
-                                        {i + 1}
-                                    </button>
+                                        <TableBodyElement className='end'
+                                            color={
+                                                getBillStatusColor(bill)
+                                            }
+                                        >
+                                            ${bill.bill_amount}
+                                        </TableBodyElement>
+                                    </TableBodyRow>
                                 ))}
-                            </NavPages>
+                            </Table>
 
-                            <NavButton onClick={() => handleChangeRecurringBillsPage('next', page)}>
-                                <h3>Next</h3>
+                            <RecurringBillsFooter>
+                                <NavButton onClick={() => handleChangeRecurringBillsPage('prev', page)}>
+                                    <img src={PrevIcon} alt="" />
 
-                                <img src={NextIcon} alt="" />
-                            </NavButton>
-                        </RecurringBillsFooter>
-                    </BillsBox>
-                </BillsContainer>
-            </RecurringBillsContainer>
-        </PageContainer >
+                                    <h3>Prev</h3>
+                                </NavButton>
+
+                                <NavPages>
+                                    {Array.from({ length: Math.ceil(pagesQuantity) }, (_, i) => (
+                                        <button
+                                            key={i + 1}
+                                            className={i + 1 === page ? 'selected' : ''}
+                                            onClick={() => {
+                                                setPage(i + 1)
+                                                setQuantityToShowOffset(quantityToShow * i)
+                                            }}
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    ))}
+                                </NavPages>
+
+                                <NavButton onClick={() => handleChangeRecurringBillsPage('next', page)}>
+                                    <h3>Next</h3>
+
+                                    <img src={NextIcon} alt="" />
+                                </NavButton>
+                            </RecurringBillsFooter>
+                        </BillsBox>
+                    </BillsContainer>
+                </RecurringBillsContainer>
+            }
+        </PageContainer>
     )
 }
 
