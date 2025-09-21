@@ -40,7 +40,7 @@ const AddPot = () => {
     
             Name: ${name}
             Target: ${target}
-            Date: ${date}
+            Date: ${date.toISOString().split("T")[0]}
             Link: ${link}
             Theme ID: ${theme}
         `)
@@ -54,7 +54,7 @@ const AddPot = () => {
                 body: JSON.stringify({
                     pot_name: name,
                     pot_target: target,
-                    pot_date: date,
+                    pot_date: date.toISOString().split("T")[0],
                     pot_link: link,
                     theme_id: theme,
                 })

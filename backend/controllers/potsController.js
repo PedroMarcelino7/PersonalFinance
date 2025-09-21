@@ -14,7 +14,7 @@ const getPots = (req, res) => {
 const addPot = (req, res) => {
     const values = req.body;
 
-    Pot.addNewPot(values, (err, results) => {
+    Pot.addPot(values, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Erro ao adicionar pot' });
         }
@@ -26,7 +26,7 @@ const addPot = (req, res) => {
 const editPot = (req, res) => {
     const values = req.body;
 
-    Pot.editPotModel(values, (err, results) => {
+    Pot.editPot(values, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Erro ao editar pot' });
         }
@@ -38,7 +38,7 @@ const editPot = (req, res) => {
 const deletePot = (req, res) => {
     const values = req.body;
 
-    Pot.deletePotModel(values, (err, results) => {
+    Pot.deletePot(values, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Erro ao deletar pot' });
         }

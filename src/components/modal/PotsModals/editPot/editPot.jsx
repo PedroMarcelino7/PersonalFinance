@@ -42,7 +42,7 @@ const EditPot = ({ pot }) => {
             Name: ${name}
             Target: ${target}
             Link: ${link}
-            Date: ${date}
+            Date: ${date.toISOString().split("T")[0]}
             Theme ID: ${theme}
             Old theme: ${oldTheme}
             Pot ID: ${pot.pot_id}
@@ -58,7 +58,7 @@ const EditPot = ({ pot }) => {
                     pot_name: name,
                     pot_target: target,
                     pot_link: link,
-                    pot_date: date,
+                    pot_date: date.toISOString().split("T")[0],
                     theme_id: theme,
                     oldTheme: oldTheme,
                     pot_id: pot.pot_id

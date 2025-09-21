@@ -234,7 +234,7 @@ export const ChartLegend = styled.div`
 export const TransactionsBox = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 `
 
 export const TransactionsItem = styled.div`
@@ -267,8 +267,9 @@ export const PersonBox = styled.div`
     gap: 1rem;
 
     h4 {
-        font-size: 0.75rem;
+        font-size: 1rem;
         color: var(--dark);
+        font-weight: 500;
     }
 `
 
@@ -323,4 +324,9 @@ export const EmptyPageTextBox = styled.div`
         font-size: 1.25rem;
         font-weight: normal;
     }
+`
+
+export const Divider = styled.div`
+    border: none;
+    border-bottom: 1px solid var(--light-gray);
 `

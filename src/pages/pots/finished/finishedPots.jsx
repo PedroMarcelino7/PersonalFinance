@@ -79,7 +79,7 @@ const FinishedPots = () => {
                             />
 
                             <ActionsButton>
-                                <Link to={'../'}>
+                                <Link to={'/pots'}>
                                     All pots
                                 </Link>
                             </ActionsButton>

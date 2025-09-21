@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, EmptyPageTextBox, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
+import { BillBox, BudgetsContainer, Card, CardContext, CardTitleBox, ChartContainer, ChartLegend, ChartLegendBox, ChartLegendContainer, ChartOverall, Column, Container, DetailsButtonBox, Distribution, Divider, EmptyPageTextBox, HeaderBox, MainBox, PersonBox, PotBox, PotDescription, PotDistributionBox, PotDistributionContainer, PotsContainer, ProfilePicture, RecurringBillsContainer, ResumeBox, TransactionDetails, TransactionsBox, TransactionsItem } from './styles'
 
 import Chart from '../../components/chart/chart'
 
@@ -16,6 +16,10 @@ import { usePeople } from '../../contexts/peopleContext'
 import { useTransactions } from '../../contexts/transactionsContext'
 import { useRecurringBills } from '../../contexts/recurringBillsContext'
 
+// ICONS
+import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
+import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
+
 const resumeData = [
     { id: 0, name: 'Current Balance', value: '4836.00' },
     { id: 1, name: 'Available Balance', value: '3814.25' },
@@ -30,11 +34,23 @@ const Overview = () => {
     const { recurringBills } = useRecurringBills()
 
     const getPotsTotalSaved = () => {
-        const totalSaved = pots.reduce((acc, pot) => {
-            return acc + parseFloat(pot.pot_quantity)
-        }, 0)
+        const totalSaved = pots
+            .filter((pot) => pot.pot_status === 0)
+            .reduce((acc, pot) => {
+                return acc + parseFloat(pot.pot_quantity)
+            }, 0)
 
         return totalSaved.toFixed(2)
+    }
+
+    const orderPotsByQuantity = () => {
+        return pots
+            .filter((pot) => pot.pot_status === 0)
+            .sort((a, b) => parseFloat(b.pot_quantity) - parseFloat(a.pot_quantity))
+    }
+
+    const filteredBudgets = () => {
+        return budgets.filter((budget) => budget.budget_id !== 1)
     }
 
     const getBudgetsLimit = () => {
@@ -156,10 +172,10 @@ const Overview = () => {
 
                                         <PotDistributionContainer>
                                             <PotDistributionBox>
-                                                {pots.map((pot, index) => (
+                                                {orderPotsByQuantity().map((pot, index) => (
                                                     index < 4 &&
                                                     <Distribution key={pot.pot_id}
-                                                        theme={pot.pot_theme}
+                                                        theme={pot.theme_color}
                                                     >
                                                         <h6>{pot.pot_name}</h6>
 
@@ -190,26 +206,45 @@ const Overview = () => {
                                 </EmptyPageTextBox>
                                 : <CardContext>
                                     <TransactionsBox>
-                                        {transactions.map((transaction, index) => (
+                                        {transactions.map((transaction, index, arr) => (
                                             index <= 4 &&
                                             <>
                                                 <TransactionsItem key={index}>
                                                     <PersonBox>
-                                                        <ProfilePicture src={Avatar} alt="" />
+                                                        {transaction.pot_id
+                                                            ? <>
+                                                                {transaction.transaction_type === 0
+                                                                    ? <PotsWithdrawIcon
+                                                                        size={30}
+                                                                        color={'var(--red)'}
+                                                                        strokeWidth={2.5}
+                                                                    />
+                                                                    : <PotsAddIcon
+                                                                        size={30}
+                                                                        color={'var(--green)'}
+                                                                        strokeWidth={2.5}
+                                                                    />
+                                                                }
 
-                                                        <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
+                                                                <h4>{transaction.pot_name}</h4>
+                                                            </>
+                                                            : <>
+                                                                <ProfilePicture src={Avatar} alt="" />
+                                                                <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
+                                                            </>
+                                                        }
                                                     </PersonBox>
 
                                                     <TransactionDetails
-                                                        color={transaction.transaction_type === 'negative' ? 'var(--red)' : 'var(--green)'}
+                                                        color={transaction.transaction_type === 0 ? 'var(--red)' : 'var(--green)'}
                                                     >
-                                                        <h5>{transaction.transaction_type === 'negative' && '-'}${transaction.transaction_amount}</h5>
+                                                        <h5>{transaction.transaction_type === 0 && '-'}${transaction.transaction_amount}</h5>
 
                                                         <h6>{getDateFormat(transaction.transaction_date)}</h6>
                                                     </TransactionDetails>
                                                 </TransactionsItem >
 
-                                                {index != 4 && <hr />}
+                                                {index < 4 && <Divider />}
                                             </>
                                         ))}
                                     </TransactionsBox>
@@ -247,10 +282,10 @@ const Overview = () => {
 
                                         <ChartLegendContainer>
                                             <ChartLegendBox>
-                                                {budgets.map((budget, index) => (
+                                                {filteredBudgets().map((budget, index) => (
                                                     index < 6 &&
                                                     <ChartLegend key={budget.budget_id}
-                                                        theme={budget.budget_theme}
+                                                        theme={budget.theme_color}
                                                     >
                                                         <h6>{budget.budget_name}</h6>
 
