@@ -4,6 +4,7 @@ import Modal from "../../components/modal/modal";
 
 import AddRecurringBill from "../../components/modal/RecurringBillsModals/addRecurringBill/addRecurringBill";
 import AddPerson from "../../components/modal/PeopleModals/AddPerson/addPerson";
+import AddBudget from "../../components/modal/BudgetsModals/addNewBudget/addNewBudget";
 
 const MODAL_CONFIG = {
     add: {
@@ -17,7 +18,12 @@ const MODAL_CONFIG = {
         title: "Add New Person",
         Component: AddPerson,
         getProps: () => ({}),
-    }
+    },
+    addBudget: {
+        title: "Add New Budget",
+        Component: AddBudget,
+        getProps: () => ({}),
+    },
 };
 
 function RecurringBillsModalManager({ modal, onClose }) {
