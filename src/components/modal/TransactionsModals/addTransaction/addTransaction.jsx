@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import DatePicker from '../../../datePicker/datePicker';
 
 // UI COMPONENTS
-import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
+import ButtonSelect from '../../../../ui/select/buttonSelect/buttonSelect'
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 
 // ICONS
@@ -166,7 +166,7 @@ const AddTransaction = () => {
                     </CalendarBox>
                 </AditionalInfoContainer>
 
-                <DefaultSelect
+                <ButtonSelect
                     label='Budget'
                     emptyLabel='No budget registered...'
                     value={budget}
@@ -178,7 +178,7 @@ const AddTransaction = () => {
                     onButtonClick={() => openModal('addBudget')}
                 />
 
-                <DefaultSelect
+                <ButtonSelect
                     label={type === 0 ? 'Recipient' : 'Sender'}
                     emptyLabel='No person registered...'
                     value={person}

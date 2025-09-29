@@ -7,6 +7,7 @@ import DatePicker from '../../../datePicker/datePicker'
 
 // UI COMPONENTS
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
+import ButtonSelect from '../../../../ui/select/buttonSelect/buttonSelect'
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
 
 // CONTEXTS
@@ -24,7 +25,7 @@ import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 const AddPot = () => {
     const { people } = usePeople()
     const { budgets } = useBudgets()
-    const { recurringBills } = useRecurringBills()
+    const { refreshRecurringBills } = useRecurringBills()
 
     const [modal, setModal] = useState({ type: null, pot: null });
     const openModal = (type, pot = null) => setModal({ type, pot });
@@ -33,6 +34,7 @@ const AddPot = () => {
     const [name, setName] = useState('')
     const [person, setPerson] = useState('')
     const [budget, setBudget] = useState('')
+    const [recurrence, setRecurrence] = useState(0)
     const [amount, setAmount] = useState(0)
     const [date, setDate] = useState(new Date())
     const [type, setType] = useState(0)
@@ -49,7 +51,20 @@ const AddPot = () => {
                     required={true}
                 />
 
-                {/* BILL RECURRENCE */}
+                <DefaultSelect
+                    label='Recurrence'
+                    data={[
+                        { value: 0, name: 'Weekly' },
+                        { value: 1, name: 'Each 15 days' },
+                        { value: 2, name: 'Monthly' },
+                        { value: 3, name: 'Semiannually' },
+                        { value: 4, name: 'Anually' },
+                    ]}
+                    item_id={'value'}
+                    item_name={'name'}
+                    value={recurrence}
+                    setValue={setRecurrence}
+                />
 
                 <AditionalInfoContainer>
                     <AmountInputBox>
@@ -84,7 +99,7 @@ const AddPot = () => {
                     </CalendarBox>
                 </AditionalInfoContainer>
 
-                <DefaultSelect
+                <ButtonSelect
                     label={'Budget'}
                     emptyLabel='No budget registered...'
                     value={budget}
@@ -96,7 +111,7 @@ const AddPot = () => {
                     onButtonClick={() => openModal('addBudget')}
                 />
 
-                <DefaultSelect
+                <ButtonSelect
                     label={type === 0 ? 'Recipient' : 'Sender'}
                     emptyLabel='No person registered...'
                     value={person}

@@ -200,6 +200,7 @@ export const TableHeaderElement = styled.th`
 
 export const TableBodyRow = styled.tr`
     border-bottom: 1px solid var(--light-gray);
+    transition: all 0.75s;
 `
 
 export const TableBodyElement = styled.td`
@@ -316,4 +317,11 @@ export const FirstBudgetButton = styled.button`
     color: var(--white);
     font-size: 1.25rem;
     cursor: pointer;
+`
+
+export const CardOptionsContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
 `
