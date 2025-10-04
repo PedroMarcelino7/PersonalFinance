@@ -8,19 +8,19 @@ import AddBudget from "../../components/modal/BudgetsModals/addNewBudget/addNewB
 
 const MODAL_CONFIG = {
     add: {
-        title: "Add New Recurring Bill",
+        title: "Add Recurring Bill",
         subtitle:
             "Create a recurring bill. These can help keep you on track as you save for fixes bills.",
         Component: AddRecurringBill,
         getProps: () => ({}),
     },
     addPerson: {
-        title: "Add New Person",
+        title: "Add Person",
         Component: AddPerson,
         getProps: () => ({}),
     },
     addBudget: {
-        title: "Add New Budget",
+        title: "Add Budget",
         Component: AddBudget,
         getProps: () => ({}),
     },

@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { AditionalInfoContainer, AmountInputBox, CalendarBox, DateSelected, FormContainer } from './styles'
 
+import { toast } from 'react-toastify'
+
 // COMPONENTS
 import DatePicker from '../../../datePicker/datePicker'
 
@@ -9,6 +11,7 @@ import DatePicker from '../../../datePicker/datePicker'
 import DefaultInput from '../../../../ui/input/defaultInput/defaultInput'
 import ButtonSelect from '../../../../ui/select/buttonSelect/buttonSelect'
 import DefaultSelect from '../../../../ui/select/defaultSelect/defaultSelect'
+import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 
 // CONTEXTS
 import { usePeople } from '../../../../contexts/peopleContext'
@@ -20,7 +23,6 @@ import RecurringBillsModalManager from '../../../../managers/RecurringBillsModal
 
 // ICONS
 import { CalendarDays as CalendarIcon } from 'lucide-react';
-import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 
 const AddPot = () => {
     const { people } = usePeople()
@@ -32,18 +34,65 @@ const AddPot = () => {
     const closeModal = () => setModal({ type: null, pot: null });
 
     const [name, setName] = useState('')
-    const [person, setPerson] = useState('')
-    const [budget, setBudget] = useState('')
     const [recurrence, setRecurrence] = useState(0)
     const [amount, setAmount] = useState(0)
     const [date, setDate] = useState(new Date())
-    const [type, setType] = useState(0)
+    const [budget, setBudget] = useState(2)
+    const [person, setPerson] = useState(2)
 
     const [showCalendar, setShowCalendar] = useState(false)
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        console.log(`
+            Recurring Bill
+    
+            Name: ${name}
+            Recurrence: ${recurrence}
+            Amount: ${amount}
+            Date: ${date.toISOString().split("T")[0]}
+            Budget: ${budget}
+            Person: ${person}
+        `)
+
+        try {
+            const response = await fetch('http://localhost:3000/recurring-bills/post', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    bill_name: name,
+                    bill_recurrence: recurrence,
+                    bill_amount: amount,
+                    bill_date: '2025-07-15',
+                    budget_id: budget,
+                    person_id: person,
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error('Erro do servidor:', data);
+                toast.error('Error adding recurring bill.');
+                return;
+            }
+
+            toast.success('Recurring bill added successfully.')
+        } catch (error) {
+            console.error('Erro ao criar a recurring bill:', error);
+            toast.error('Error adding recurring bill.')
+        }
+
+        refreshRecurringBills()
+        closeModal()
+    }
+
     return (
         <>
-            <FormContainer>
+            <FormContainer onSubmit={(e) => handleSubmit(e)}>
                 <DefaultInput
                     label={'Bill Name'}
                     value={name}
@@ -112,7 +161,7 @@ const AddPot = () => {
                 />
 
                 <ButtonSelect
-                    label={type === 0 ? 'Recipient' : 'Sender'}
+                    label={'Recipient'}
                     emptyLabel='No person registered...'
                     value={person}
                     setValue={setPerson}

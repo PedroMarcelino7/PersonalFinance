@@ -1,7 +1,7 @@
-const Transaction = require('../models/recurringBillsModel');
+const RecurringBills = require('../models/recurringBillsModel');
 
 const getRecurringBills = (req, res) => {
-    Transaction.getAllRecurringBills((err, results) => {
+    RecurringBills.getAllRecurringBills((err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Erro ao buscar recurring bills' });
         }
@@ -9,7 +9,20 @@ const getRecurringBills = (req, res) => {
     });
 };
 
+const addRecurringBill = (req, res) => {
+    const values = req.body;
+
+    RecurringBills.addRecurringBill(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao recurring bill' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getRecurringBills,
+    addRecurringBill,
 };
