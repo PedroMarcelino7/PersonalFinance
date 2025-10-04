@@ -14,6 +14,7 @@ const DatePicker = ({ selected, setSelected, onClick }) => {
                     mode="single"
                     selected={selected}
                     onSelect={setSelected}
+                    disabled={selected}
                     footer={
                         <Footer>
                             {selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."}
