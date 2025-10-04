@@ -4,7 +4,7 @@ import Modal from "../../components/modal/modal";
 
 import AddRecurringBill from "../../components/modal/RecurringBillsModals/addRecurringBill/addRecurringBill";
 import AddPerson from "../../components/modal/PeopleModals/AddPerson/addPerson";
-import AddBudget from "../../components/modal/BudgetsModals/addNewBudget/addNewBudget";
+import AddBudget from "../../components/modal/BudgetsModals/addBudget/addBudget";
 
 const MODAL_CONFIG = {
     add: {

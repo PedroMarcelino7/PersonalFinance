@@ -3,7 +3,7 @@ import { memo } from "react";
 import Modal from "../../components/modal/modal";
 
 import addTransaction from '../../components/modal/TransactionsModals/addTransaction/addTransaction'
-import addBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import addBudget from '../../components/modal/BudgetsModals/addBudget/addBudget'
 import addPerson from "../../components/modal/PeopleModals/AddPerson/AddPerson";
 
 const MODAL_CONFIG = {

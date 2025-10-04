@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import Modal from "../../components/modal/modal";
 
-import AddBudget from '../../components/modal/BudgetsModals/addNewBudget/addNewBudget'
+import AddBudget from '../../components/modal/BudgetsModals/addBudget/addBudget'
 import EditBudget from '../../components/modal/BudgetsModals/editBudget/editBudget'
 import DeleteBudget from '../../components/modal/BudgetsModals/deleteBudget/deleteBudget'
 
