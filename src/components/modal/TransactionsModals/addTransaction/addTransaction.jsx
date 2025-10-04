@@ -42,12 +42,6 @@ const AddTransaction = () => {
     const [date, setDate] = useState(new Date());
     const [showCalendar, setShowCalendar] = useState(false)
 
-    useEffect(() => {
-        if (budgets.length > 1) {
-            setBudget(budgets[1].id);
-        }
-    }, [budgets]);
-
     function formatDate(date) {
         const pad = (n) => (n < 10 ? '0' + n : n);
 
