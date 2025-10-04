@@ -46,7 +46,7 @@ const RecurringBills = () => {
 
     const getBillsTotal = () => {
         return recurringBills.reduce((acc, bill) => {
-            return bill.bill_status !== 1 ? acc + parseFloat(bill.bill_amount) : acc
+            return acc + parseFloat(bill.bill_amount)
         }, 0).toFixed(2);
     }
 
@@ -81,12 +81,15 @@ const RecurringBills = () => {
     }
 
     const getBillStatusColor = (bill) => {
-        if (bill.bill_status === 1) {
-            return 'var(--green)'
-        } else if (bill.bill_status === 2) {
-            return 'var(--red)'
-        } else {
-            return 'var(--dark)'
+        switch (bill.bill_status) {
+            case 1:
+                return 'var(--green)'
+            case 2:
+                return 'var(--orange)'
+            case 3:
+                return 'var(--red)'
+            default:
+                return 'var(--dark)'
         }
     }
 
@@ -157,18 +160,26 @@ const RecurringBills = () => {
 
                                     <hr />
 
-                                    <SummaryItem color='var(--orange)'>
-                                        <h5>Due Soon ({getBillsQuantity(1)})</h5>
+                                    <SummaryItem color='var(--green)'>
+                                        <h5>Paid Bills ({getBillsQuantity(1)})</h5>
 
                                         <h4>${getBills(1)}</h4>
                                     </SummaryItem>
 
                                     <hr />
 
-                                    <SummaryItem color='var(--red)'>
-                                        <h5>Overdue ({getBillsQuantity(2)})</h5>
+                                    <SummaryItem color='var(--orange)'>
+                                        <h5>Due Soon ({getBillsQuantity(2)})</h5>
 
                                         <h4>${getBills(2)}</h4>
+                                    </SummaryItem>
+
+                                    <hr />
+
+                                    <SummaryItem color='var(--red)'>
+                                        <h5>Overdue ({getBillsQuantity(3)})</h5>
+
+                                        <h4>${getBills(3)}</h4>
                                     </SummaryItem>
                                 </SummaryBox>
                             </SummaryContainer>
@@ -209,7 +220,9 @@ const RecurringBills = () => {
                                         index >= quantityToShowOffset &&
                                         index < (quantityToShow + quantityToShowOffset) &&
                                         <TableBodyRow>
-                                            <TableBodyElement className='reference'>
+                                            <TableBodyElement className='reference'
+                                                color={getBillStatusColor(bill)}
+                                            >
                                                 <img src={Avatar} alt="" />
                                                 <h3>{bill.bill_name}</h3>
                                             </TableBodyElement>
@@ -227,9 +240,7 @@ const RecurringBills = () => {
                                             </TableBodyElement>
 
                                             <TableBodyElement className='end'
-                                                color={
-                                                    getBillStatusColor(bill)
-                                                }
+                                                color={getBillStatusColor(bill)}
                                             >
                                                 ${bill.bill_amount}
                                             </TableBodyElement>

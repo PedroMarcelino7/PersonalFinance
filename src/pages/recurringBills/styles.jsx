@@ -216,14 +216,14 @@ export const TableBodyElement = styled.td`
         gap: 0.75rem;
 
         img {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
         }
 
         h3 {
-        font-size: 1rem;
-        color: var(--dark);
+            font-size: 1rem;
+            color: ${({ color }) => color};
         }
     }
 
