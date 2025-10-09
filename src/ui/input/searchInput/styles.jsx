@@ -25,7 +25,7 @@ export const Button = styled.div`
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
     background-color: #fff;
     padding-left: 0.5rem;
+    cursor: pointer;
 `;

@@ -26,7 +26,7 @@ import SelectLabel from '../../ui/select/selectLabel/selectLabel'
 import ButtonArrow from '../../ui/button/buttonArrow/buttonArrow'
 
 const Transactions = () => {
-    const { transactions, refreshTransactions } = useTransactions()
+    const { transactions, refreshTransactions, searchTransactions } = useTransactions()
     const { budgets } = useBudgets()
 
     const [modal, setModal] = useState({ type: null, pot: null });
@@ -79,6 +79,10 @@ const Transactions = () => {
         refreshTransactions(sort)
     }
 
+    const handleSearchTransactions = (search) => {
+        searchTransactions(search)
+    }
+
     useEffect(() => {
         console.log('TRANSACTIONS:\n', transactions)
     }, [transactions])
@@ -101,6 +105,7 @@ const Transactions = () => {
                         <TransactionsHeader>
                             <SearchInput
                                 placeholder={'Search transaction'}
+                                onSearch={handleSearchTransactions}
                             />
 
                             <SortContainer>

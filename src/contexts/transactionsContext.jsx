@@ -28,6 +28,19 @@ export const TransactionsProvider = ({ children }) => {
         }
     };
 
+    const searchTransactions = async (term, sort = 'newest') => {
+        try {
+            const query = term ? `$search=${term}` : ''
+
+            const response = await fetch(`http://localhost:3000/transactions?sort=${sort}${query}`)
+            const data = await response.json()
+
+            dispatch({ type: "SET_TRANSACTIONS", payload: data })
+        } catch (error) {
+            console.error("Erro ao buscar transactions:", error);
+        }
+    }
+
     const refreshTransactions = async (sort = 'newest') => {
         console.log("🔄 Atualizando transactions...");
         await fetchTransactions(sort);
@@ -38,7 +51,7 @@ export const TransactionsProvider = ({ children }) => {
     }, []);
 
     return (
-        <TransactionsContext.Provider value={{ transactions, refreshTransactions, dispatch }}>
+        <TransactionsContext.Provider value={{ transactions, refreshTransactions, searchTransactions, dispatch }}>
             {children}
         </TransactionsContext.Provider>
     );
