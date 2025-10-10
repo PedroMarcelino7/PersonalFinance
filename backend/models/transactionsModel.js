@@ -1,27 +1,23 @@
 const db = require('../db');
 
 const getAllTransactions = (sort, search, callback) => {
-    let orderBy = 'newest'
-    const defaultQuery = 'trns.transaction_date desc, trns.transaction_created_at desc;'
+    let orderBy = 'trns.transaction_date desc, trns.transaction_created_at desc';
 
     switch (sort) {
-        case 'newest':
-            orderBy = defaultQuery
-            break;
         case 'oldest':
-            orderBy = 'trns.transaction_date asc, trns.transaction_created_at asc;'
+            orderBy = 'trns.transaction_date asc, trns.transaction_created_at asc';
             break;
         case 'atoz':
-            orderBy = `prsn.person_name asc, ${defaultQuery}`
+            orderBy = `prsn.person_name asc, ${orderBy}`;
             break;
         case 'ztoa':
-            orderBy = `prsn.person_name desc, ${defaultQuery}`
+            orderBy = `prsn.person_name desc, ${orderBy}`;
             break;
         case 'highest':
-            orderBy = `trns.transaction_amount desc, ${defaultQuery}`
+            orderBy = `trns.transaction_amount desc, ${orderBy}`;
             break;
         case 'lowest':
-            orderBy = `trns.transaction_amount asc, ${defaultQuery}`
+            orderBy = `trns.transaction_amount asc, ${orderBy}`;
             break;
     }
 
@@ -34,9 +30,10 @@ const getAllTransactions = (sort, search, callback) => {
                 LOWER(prsn.person_name) LIKE LOWER(?) 
                 OR LOWER(bud.budget_name) LIKE LOWER(?) 
                 OR trns.transaction_date LIKE ?
+                OR trns.transaction_amount LIKE ?
         `;
         const like = `%${search}%`;
-        params.push(like, like, like);
+        params.push(like, like, like, like);
     }
 
     db.query(`
@@ -50,10 +47,10 @@ const getAllTransactions = (sort, search, callback) => {
             people AS prsn ON trns.person_id = prsn.person_id
         LEFT JOIN
             pots AS pot ON trns.pot_id = pot.pot_id
-            ${whereClause}
+        ${whereClause}
         ORDER BY
             ${orderBy};
-    `, callback);
+    `, params, callback);
 };
 
 const addTransaction = (values, callback) => {
