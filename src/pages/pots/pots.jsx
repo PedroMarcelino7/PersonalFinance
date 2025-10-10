@@ -46,6 +46,20 @@ const Pots = () => {
         console.log('Pots [Pots Page]:', pots)
     }, [pots])
 
+    useEffect(() => {
+        const handleCloseOptions = (e) => {
+            if (!e.target.closest('.options-container')) {
+                setShowOptions(0)
+            }
+        }
+
+        document.addEventListener('click', handleCloseOptions);
+
+        return () => {
+            document.removeEventListener('click', handleCloseOptions);
+        };
+    }, [])
+
     const getPercentage = (pot) => {
         const quantity = Number(pot.pot_quantity);
         const target = Number(pot.pot_target);
@@ -120,7 +134,9 @@ const Pots = () => {
                                             </CardDateBox>
                                         </CardTitleBox>
 
-                                        <CardOptionsContainer>
+                                        <CardOptionsContainer
+                                            className='options-container'
+                                        >
                                             <OptionsIcon
                                                 size={25}
                                                 color='var(--dark)'
