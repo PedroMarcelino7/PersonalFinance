@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { AditionalInfoContainer, CalendarBox, FormContainer, AmountInputBox, DateSelected, TransactionTypeDiv, TransactionIcon } from './styles'
 

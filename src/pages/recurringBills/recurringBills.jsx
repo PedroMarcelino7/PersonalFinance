@@ -240,7 +240,7 @@ const RecurringBills = () => {
                                             </TableBodyElement>
 
                                             <TableBodyElement className='end'
-                                                color={getBillStatusColor(bill)}
+                                                color={bill.bill_type === 0 ? 'var(--red)' : 'var(--green)'}
                                             >
                                                 ${bill.bill_amount}
                                             </TableBodyElement>

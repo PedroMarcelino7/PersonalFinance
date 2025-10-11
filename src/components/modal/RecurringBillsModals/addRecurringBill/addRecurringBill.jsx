@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { AditionalInfoContainer, AmountInputBox, CalendarBox, DateSelected, FormContainer } from './styles'
+import { AditionalInfoContainer, AmountInputBox, ArrowIcon, BillTypeDiv, CalendarBox, DateSelected, FormContainer } from './styles'
 
 import { toast } from 'react-toastify'
 
@@ -23,6 +23,8 @@ import RecurringBillsModalManager from '../../../../managers/RecurringBillsModal
 
 // ICONS
 import { CalendarDays as CalendarIcon } from 'lucide-react';
+import { ArrowDown as ArrowDownIcon } from 'lucide-react'
+import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
 const AddPot = () => {
     const { people } = usePeople()
@@ -35,6 +37,7 @@ const AddPot = () => {
 
     const [name, setName] = useState('')
     const [recurrence, setRecurrence] = useState(0)
+    const [type, setType] = useState(0)
     const [amount, setAmount] = useState(0)
     const [date, setDate] = useState(new Date())
     const [budget, setBudget] = useState(2)
@@ -65,6 +68,7 @@ const AddPot = () => {
                 body: JSON.stringify({
                     bill_name: name,
                     bill_recurrence: recurrence,
+                    bill_type: type,
                     bill_amount: amount,
                     bill_date: '2025-07-15',
                     budget_id: budget,
@@ -125,6 +129,26 @@ const AddPot = () => {
                         />
                     </AmountInputBox>
 
+                    <BillTypeDiv>
+                        <ArrowIcon
+                            as={ArrowDownIcon}
+                            size={type === 0 ? 35 : 25}
+                            color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
+                            strokeWidth={2.5}
+                            cursor={'pointer'}
+                            onClick={() => setType(0)}
+                        />
+
+                        <ArrowIcon
+                            as={ArrowUpIcon}
+                            size={type === 1 ? 35 : 25}
+                            color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
+                            strokeWidth={2.5}
+                            cursor={'pointer'}
+                            onClick={() => setType(1)}
+                        />
+                    </BillTypeDiv>
+
                     <CalendarBox>
                         <CalendarIcon
                             size={40}
@@ -161,7 +185,7 @@ const AddPot = () => {
                 />
 
                 <ButtonSelect
-                    label={'Recipient'}
+                    label={type === 0 ? 'Recipient' : 'Sender'}
                     emptyLabel='No person registered...'
                     value={person}
                     setValue={setPerson}
