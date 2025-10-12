@@ -5,7 +5,7 @@ import "react-day-picker/style.css";
 
 import DefaultButton from "../../ui/button/defaultButton/defaultButton";
 
-const DatePicker = ({ selected, setSelected, onClick }) => {
+const DatePicker = ({ selected, setSelected, onClick, disabled = null }) => {
     return (
         <Container>
             <Box>
@@ -14,7 +14,10 @@ const DatePicker = ({ selected, setSelected, onClick }) => {
                     mode="single"
                     selected={selected}
                     onSelect={setSelected}
-                    disabled={selected}
+                    disabled={[
+                        disabled,
+                        selected
+                    ]}
                     footer={
                         <Footer>
                             {selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."}

@@ -162,6 +162,7 @@ const AddPot = () => {
                             <DatePicker
                                 selected={date}
                                 setSelected={setDate}
+                                disabled={{ before: new Date() + 1 }}
                                 onClick={() => setShowCalendar(false)}
                             />
                         }

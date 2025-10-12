@@ -30,13 +30,16 @@ const RecurringBills = () => {
     const openModal = (type, pot = null) => setModal({ type, pot });
     const closeModal = () => setModal({ type: null, pot: null });
 
+    const filteredBills = recurringBills.filter((bill) => bill.bill_type === 0)
+    const [hoveredRow, setHoveredRow] = useState(null);
+
     const [page, setPage] = useState(1)
     const quantityToShow = 7
     const [quantityToShowOffset, setQuantityToShowOffset] = useState(0)
     const pagesQuantity = recurringBills.length / quantityToShow
 
     const getBills = (status) => {
-        const bills = recurringBills.reduce((acc, bill) => {
+        const bills = filteredBills.reduce((acc, bill) => {
             const amount = parseFloat(bill.bill_amount)
             return bill.bill_status === status && !isNaN(amount) ? acc + amount : acc
         }, 0)
@@ -45,7 +48,7 @@ const RecurringBills = () => {
     }
 
     const getBillsTotal = () => {
-        return recurringBills.reduce((acc, bill) => {
+        return filteredBills.reduce((acc, bill) => {
             return acc + parseFloat(bill.bill_amount)
         }, 0).toFixed(2);
     }
