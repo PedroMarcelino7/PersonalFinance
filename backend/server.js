@@ -31,6 +31,7 @@ app.post('/transactions/post', transactionsController.addTransaction);
 
 app.get('/recurring-bills', recurringBillsController.getRecurringBills);
 app.post('/recurring-bills/post', recurringBillsController.addRecurringBill);
+app.post('/recurring-bills/edit', recurringBillsController.editRecurringBill);
 
 app.get('/budgets', budgetsController.getBudgets)
 app.post('/budgets/post', budgetsController.addBudget)

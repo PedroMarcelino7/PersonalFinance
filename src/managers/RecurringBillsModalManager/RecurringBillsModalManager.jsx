@@ -3,6 +3,7 @@ import { memo } from "react";
 import Modal from "../../components/modal/modal";
 
 import AddRecurringBill from "../../components/modal/RecurringBillsModals/addRecurringBill/addRecurringBill";
+import EditRecurringBill from "../../components/modal/RecurringBillsModals/editRecurringBill/editRecurringBill";
 import AddPerson from "../../components/modal/PeopleModals/AddPerson/addPerson";
 import AddBudget from "../../components/modal/BudgetsModals/addBudget/addBudget";
 
@@ -13,6 +14,11 @@ const MODAL_CONFIG = {
             "Create a recurring bill. These can help keep you on track as you save for fixes bills.",
         Component: AddRecurringBill,
         getProps: () => ({}),
+    },
+    edit: {
+        title: ({ bill }) => `Edit "${bill.bill_name}"`,
+        Component: EditRecurringBill,
+        getProps: ({ bill }) => ({ bill }),
     },
     addPerson: {
         title: "Add Person",

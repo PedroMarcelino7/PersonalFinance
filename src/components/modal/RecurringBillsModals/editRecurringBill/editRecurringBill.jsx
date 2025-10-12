@@ -17,31 +17,26 @@ import DefaultButton from '../../../../ui/button/defaultButton/defaultButton'
 import { usePeople } from '../../../../contexts/peopleContext'
 import { useBudgets } from '../../../../contexts/budgetsContext'
 import { useRecurringBills } from '../../../../contexts/recurringBillsContext'
-
-// MODAL MANAGER
-import RecurringBillsModalManager from '../../../../managers/RecurringBillsModalManager/RecurringBillsModalManager'
+import { useModal } from '../../modal'
 
 // ICONS
 import { CalendarDays as CalendarIcon } from 'lucide-react';
 import { ArrowDown as ArrowDownIcon } from 'lucide-react'
 import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 
-const AddRecurringBill = () => {
+const EditRecurringBill = ({ bill }) => {
     const { people } = usePeople()
     const { budgets } = useBudgets()
     const { refreshRecurringBills } = useRecurringBills()
+    const { closeModal } = useModal()
 
-    const [modal, setModal] = useState({ type: null, pot: null });
-    const openModal = (type, pot = null) => setModal({ type, pot });
-    const closeModal = () => setModal({ type: null, pot: null });
-
-    const [name, setName] = useState('')
-    const [recurrence, setRecurrence] = useState(0)
-    const [type, setType] = useState(0)
-    const [amount, setAmount] = useState(0)
+    const [name, setName] = useState(bill.bill_name)
+    const [recurrence, setRecurrence] = useState(bill.bill_recurrence)
+    const [amount, setAmount] = useState(bill.bill_amount)
+    const [type, setType] = useState(bill.bill_type)
     const [date, setDate] = useState(new Date())
-    const [budget, setBudget] = useState(2)
-    const [person, setPerson] = useState(2)
+    const [budget, setBudget] = useState(bill.budget_id)
+    const [person, setPerson] = useState(bill.person_id)
 
     const [showCalendar, setShowCalendar] = useState(false)
 
@@ -51,21 +46,24 @@ const AddRecurringBill = () => {
         console.log(`
             Recurring Bill
     
+            ID: ${bill.bill_id}
             Name: ${name}
             Recurrence: ${recurrence}
             Amount: ${amount}
+            Type: ${type}
             Date: ${date.toISOString().split("T")[0]}
             Budget: ${budget}
             Person: ${person}
         `)
 
         try {
-            const response = await fetch('http://localhost:3000/recurring-bills/post', {
+            const response = await fetch('http://localhost:3000/recurring-bills/edit', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    bill_id: bill.bill_id,
                     bill_name: name,
                     bill_recurrence: recurrence,
                     bill_type: type,
@@ -80,14 +78,14 @@ const AddRecurringBill = () => {
 
             if (!response.ok) {
                 console.error('Erro do servidor:', data);
-                toast.error('Error adding recurring bill.');
+                toast.error('Error editing recurring bill.');
                 return;
             }
 
-            toast.success('Recurring bill added successfully.')
+            toast.success('Recurring bill edited successfully.')
         } catch (error) {
-            console.error('Erro ao criar a recurring bill:', error);
-            toast.error('Error adding recurring bill.')
+            console.error('Erro ao editar a recurring bill:', error);
+            toast.error('Error editing recurring bill.')
         }
 
         refreshRecurringBills()
@@ -123,6 +121,7 @@ const AddRecurringBill = () => {
                     <AmountInputBox>
                         <DefaultInput
                             label={'Amount'}
+                            value={amount}
                             setValue={setAmount}
                             placeholder={'$ 0.00'}
                             required={true}
@@ -198,14 +197,12 @@ const AddRecurringBill = () => {
                 />
 
                 <DefaultButton
-                    label='Confirm Addition'
+                    label='Confirm Edition'
                     type='submit'
                 />
             </FormContainer>
-
-            <RecurringBillsModalManager modal={modal} onClose={closeModal} />
         </>
     )
 }
 
-export default AddRecurringBill
+export default EditRecurringBill

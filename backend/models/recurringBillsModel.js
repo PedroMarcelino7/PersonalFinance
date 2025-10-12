@@ -22,7 +22,26 @@ const addRecurringBill = (values, callback) => {
         [values.bill_name, values.bill_recurrence, values.bill_date, values.bill_type, values.bill_amount, values.person_id, values.budget_id], callback)
 }
 
+const editRecurringBill = (values, callback) => {
+    db.query(`
+        update
+            recurring_bills
+        set 
+            bill_name = ?,
+            bill_recurrence = ?,
+            bill_due_date = ?,
+            bill_type = ?,
+            bill_amount = ?,
+            person_id = ?,
+            budget_id = ?
+        where
+            bill_id = ?;
+    `,
+        [values.bill_name, values.bill_recurrence, values.bill_date, values.bill_type, values.bill_amount, values.person_id, values.budget_id, values.bill_id], callback)
+}
+
 module.exports = {
     getAllRecurringBills,
     addRecurringBill,
+    editRecurringBill,
 };

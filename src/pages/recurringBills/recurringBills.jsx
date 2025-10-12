@@ -29,9 +29,9 @@ import RecurringBillsModalManager from '../../managers/RecurringBillsModalManage
 const RecurringBills = () => {
     const { recurringBills } = useRecurringBills()
 
-    const [modal, setModal] = useState({ type: null, pot: null });
-    const openModal = (type, pot = null) => setModal({ type, pot });
-    const closeModal = () => setModal({ type: null, pot: null });
+    const [modal, setModal] = useState({ type: null, bill: null });
+    const openModal = (type, bill = null) => setModal({ type, bill });
+    const closeModal = () => setModal({ type: null, bill: null });
 
     const filteredBills = recurringBills.filter((bill) => bill.bill_type === 0)
     const [showOptions, setShowOptions] = useState(0);
@@ -257,14 +257,14 @@ const RecurringBills = () => {
 
                                                 {(showOptions !== 0 && showOptions === bill.bill_id) &&
                                                     <CardOptionsBox
-                                                        onClick={() => handleShowOptions(pot.pot_id)}
+                                                        onClick={() => setShowOptions(0)}
                                                     >
                                                         <CheckIcon
                                                             size={25}
                                                             color='var(--green)'
                                                             strokeWidth={2.5}
                                                             cursor={'pointer'}
-                                                            onClick={() => openModal("finish", pot)}
+                                                            onClick={() => openModal("finish", bill)}
                                                         />
 
                                                         <EditIcon
@@ -272,7 +272,7 @@ const RecurringBills = () => {
                                                             color='var(--blue)'
                                                             strokeWidth={2.5}
                                                             cursor={'pointer'}
-                                                            onClick={() => openModal("edit", pot)}
+                                                            onClick={() => openModal("edit", bill)}
                                                         />
 
                                                         <DeleteIcon
@@ -280,7 +280,7 @@ const RecurringBills = () => {
                                                             color='var(--red)'
                                                             strokeWidth={2.5}
                                                             cursor={'pointer'}
-                                                            onClick={() => openModal("delete", pot)}
+                                                            onClick={() => openModal("delete", bill)}
                                                         />
                                                     </CardOptionsBox>
                                                 }
