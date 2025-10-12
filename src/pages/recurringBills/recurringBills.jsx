@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { BillsContainer, BillsHeader, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox } from './styles'
+import { BillsContainer, BillsHeader, NavPages, RecurringBillsContainer, ResumeBox, ResumeContainer, SummaryBox, SummaryContainer, SummaryItem, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TotalContainer, RecurringBillsFooter, BillsBox, CardOptionsBox } from './styles'
 
 // COMPONENTS
 import PageContainer from '../../components/pageContainer/pageContainer'
@@ -11,6 +11,9 @@ import { useRecurringBills } from '../../contexts/recurringBillsContext'
 
 // ICONS
 import { CalendarSync as BillsIcon } from 'lucide-react'
+import { SquarePen as EditIcon } from 'lucide-react'
+import { Trash2 as DeleteIcon } from 'lucide-react'
+import { CircleCheckBig as CheckIcon } from 'lucide-react'
 
 // UI COMPONENTS
 import SearchInput from '../../ui/input/searchInput/searchInput'
@@ -31,7 +34,7 @@ const RecurringBills = () => {
     const closeModal = () => setModal({ type: null, pot: null });
 
     const filteredBills = recurringBills.filter((bill) => bill.bill_type === 0)
-    const [hoveredRow, setHoveredRow] = useState(null);
+    const [showOptions, setShowOptions] = useState(0);
 
     const [page, setPage] = useState(1)
     const quantityToShow = 7
@@ -222,32 +225,67 @@ const RecurringBills = () => {
                                     {recurringBills.map((bill, index) => (
                                         index >= quantityToShowOffset &&
                                         index < (quantityToShow + quantityToShowOffset) &&
-                                        <TableBodyRow>
-                                            <TableBodyElement className='reference'
-                                                color={getBillStatusColor(bill)}
+                                        <>
+                                            <TableBodyRow
+                                                onMouseEnter={() => setShowOptions(bill.bill_id)}
+                                                onMouseLeave={() => setShowOptions(0)}
                                             >
-                                                <img src={Avatar} alt="" />
-                                                <h3>{bill.bill_name}</h3>
-                                            </TableBodyElement>
+                                                <TableBodyElement className='reference'
+                                                    color={getBillStatusColor(bill)}
+                                                >
+                                                    <img src={Avatar} alt="" />
+                                                    <h3>{bill.bill_name}</h3>
+                                                </TableBodyElement>
 
-                                            <TableBodyElement>
-                                                {bill.budget_name}
-                                            </TableBodyElement>
+                                                <TableBodyElement>
+                                                    {bill.budget_name}
+                                                </TableBodyElement>
 
-                                            <TableBodyElement>
-                                                {formatRecurrence(bill.bill_recurrence)}
-                                            </TableBodyElement>
+                                                <TableBodyElement>
+                                                    {formatRecurrence(bill.bill_recurrence)}
+                                                </TableBodyElement>
 
-                                            <TableBodyElement>
-                                                {dateFormatter(bill.bill_due_date)}
-                                            </TableBodyElement>
+                                                <TableBodyElement>
+                                                    {dateFormatter(bill.bill_due_date)}
+                                                </TableBodyElement>
 
-                                            <TableBodyElement className='end'
-                                                color={bill.bill_type === 0 ? 'var(--red)' : 'var(--green)'}
-                                            >
-                                                ${bill.bill_amount}
-                                            </TableBodyElement>
-                                        </TableBodyRow>
+                                                <TableBodyElement className='end'
+                                                    color={bill.bill_type === 0 ? 'var(--red)' : 'var(--green)'}
+                                                >
+                                                    ${bill.bill_amount}
+                                                </TableBodyElement>
+
+                                                {(showOptions !== 0 && showOptions === bill.bill_id) &&
+                                                    <CardOptionsBox
+                                                        onClick={() => handleShowOptions(pot.pot_id)}
+                                                    >
+                                                        <CheckIcon
+                                                            size={25}
+                                                            color='var(--green)'
+                                                            strokeWidth={2.5}
+                                                            cursor={'pointer'}
+                                                            onClick={() => openModal("finish", pot)}
+                                                        />
+
+                                                        <EditIcon
+                                                            size={25}
+                                                            color='var(--blue)'
+                                                            strokeWidth={2.5}
+                                                            cursor={'pointer'}
+                                                            onClick={() => openModal("edit", pot)}
+                                                        />
+
+                                                        <DeleteIcon
+                                                            size={25}
+                                                            color='var(--red)'
+                                                            strokeWidth={2.5}
+                                                            cursor={'pointer'}
+                                                            onClick={() => openModal("delete", pot)}
+                                                        />
+                                                    </CardOptionsBox>
+                                                }
+                                            </TableBodyRow>
+                                        </>
                                     ))}
                                 </Table>
 

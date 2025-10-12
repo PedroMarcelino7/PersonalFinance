@@ -201,6 +201,7 @@ export const TableHeaderElement = styled.th`
 export const TableBodyRow = styled.tr`
     border-bottom: 1px solid var(--light-gray);
     transition: all 0.75s;
+    position: relative;
 `
 
 export const TableBodyElement = styled.td`
@@ -324,4 +325,19 @@ export const CardOptionsContainer = styled.div`
     align-items: center;
     justify-content: end;
     gap: 1rem;
+`
+
+export const CardOptionsBox = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--white);
+    padding-inline: 1rem;
+    gap: 1.5rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 `
