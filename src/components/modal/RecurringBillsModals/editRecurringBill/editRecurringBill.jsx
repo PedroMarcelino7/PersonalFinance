@@ -93,115 +93,113 @@ const EditRecurringBill = ({ bill }) => {
     }
 
     return (
-        <>
-            <FormContainer onSubmit={(e) => handleSubmit(e)}>
-                <DefaultInput
-                    label={'Bill Name'}
-                    value={name}
-                    setValue={setName}
-                    required={true}
-                />
+        <FormContainer onSubmit={(e) => handleSubmit(e)}>
+            <DefaultInput
+                label={'Bill Name'}
+                value={name}
+                setValue={setName}
+                required={true}
+            />
 
-                <DefaultSelect
-                    label='Recurrence'
-                    data={[
-                        { value: 0, name: 'Weekly' },
-                        { value: 1, name: 'Each 15 days' },
-                        { value: 2, name: 'Monthly' },
-                        { value: 3, name: 'Semiannually' },
-                        { value: 4, name: 'Anually' },
-                    ]}
-                    item_id={'value'}
-                    item_name={'name'}
-                    value={recurrence}
-                    setValue={setRecurrence}
-                />
+            <DefaultSelect
+                label='Recurrence'
+                data={[
+                    { value: 0, name: 'Weekly' },
+                    { value: 1, name: 'Each 15 days' },
+                    { value: 2, name: 'Monthly' },
+                    { value: 3, name: 'Semiannually' },
+                    { value: 4, name: 'Anually' },
+                ]}
+                item_id={'value'}
+                item_name={'name'}
+                value={recurrence}
+                setValue={setRecurrence}
+            />
 
-                <AditionalInfoContainer>
-                    <AmountInputBox>
-                        <DefaultInput
-                            label={'Amount'}
-                            value={amount}
-                            setValue={setAmount}
-                            placeholder={'$ 0.00'}
-                            required={true}
+            <AditionalInfoContainer>
+                <AmountInputBox>
+                    <DefaultInput
+                        label={'Amount'}
+                        value={amount}
+                        setValue={setAmount}
+                        placeholder={'$ 0.00'}
+                        required={true}
+                    />
+                </AmountInputBox>
+
+                <BillTypeDiv>
+                    <ArrowIcon
+                        as={ArrowDownIcon}
+                        size={type === 0 ? 35 : 25}
+                        color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
+                        strokeWidth={2.5}
+                        cursor={'pointer'}
+                        onClick={() => setType(0)}
+                    />
+
+                    <ArrowIcon
+                        as={ArrowUpIcon}
+                        size={type === 1 ? 35 : 25}
+                        color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
+                        strokeWidth={2.5}
+                        cursor={'pointer'}
+                        onClick={() => setType(1)}
+                    />
+                </BillTypeDiv>
+
+                <CalendarBox>
+                    <CalendarIcon
+                        size={40}
+                        color='var(--dark)'
+                        strokeWidth={2.25}
+                        cursor={'pointer'}
+                        onClick={() => setShowCalendar(true)}
+                    />
+
+                    {showCalendar &&
+                        <DatePicker
+                            selected={date}
+                            setSelected={setDate}
+                            disabled={{ before: new Date() + 1 }}
+                            onClick={() => setShowCalendar(false)}
                         />
-                    </AmountInputBox>
+                    }
 
-                    <BillTypeDiv>
-                        <ArrowIcon
-                            as={ArrowDownIcon}
-                            size={type === 0 ? 35 : 25}
-                            color={type === 0 ? 'var(--red)' : 'var(--red-muted)'}
-                            strokeWidth={2.5}
-                            cursor={'pointer'}
-                            onClick={() => setType(0)}
-                        />
+                    <DateSelected>
+                        {date.toISOString().split("T")[0]}
+                    </DateSelected>
+                </CalendarBox>
+            </AditionalInfoContainer>
 
-                        <ArrowIcon
-                            as={ArrowUpIcon}
-                            size={type === 1 ? 35 : 25}
-                            color={type === 1 ? 'var(--green)' : 'var(--green-muted)'}
-                            strokeWidth={2.5}
-                            cursor={'pointer'}
-                            onClick={() => setType(1)}
-                        />
-                    </BillTypeDiv>
+            <ButtonSelect
+                label={'Budget'}
+                emptyLabel='No budget registered...'
+                value={budget}
+                setValue={setBudget}
+                data={budgets.filter((budget) => budget.budget_id !== 1)}
+                item_id={'budget_id'}
+                item_name={'budget_name'}
+                hasButton
+                onButtonClick={() => openModal('addBudget')}
+            />
 
-                    <CalendarBox>
-                        <CalendarIcon
-                            size={40}
-                            color='var(--dark)'
-                            strokeWidth={2.25}
-                            cursor={'pointer'}
-                            onClick={() => setShowCalendar(true)}
-                        />
+            <ButtonSelect
+                label={type === 0 ? 'Recipient' : 'Sender'}
+                emptyLabel='No person registered...'
+                value={person}
+                setValue={setPerson}
+                data={people.filter((person) => person.person_id !== 1)}
+                item_id={'person_id'}
+                item_name={'person_name'}
+                hasButton
+                onButtonClick={() => openModal('addPerson')}
+            />
 
-                        {showCalendar &&
-                            <DatePicker
-                                selected={date}
-                                setSelected={setDate}
-                                disabled={{ before: new Date() + 1 }}
-                                onClick={() => setShowCalendar(false)}
-                            />
-                        }
-
-                        <DateSelected>
-                            {date.toISOString().split("T")[0]}
-                        </DateSelected>
-                    </CalendarBox>
-                </AditionalInfoContainer>
-
-                <ButtonSelect
-                    label={'Budget'}
-                    emptyLabel='No budget registered...'
-                    value={budget}
-                    setValue={setBudget}
-                    data={budgets.filter((budget) => budget.budget_id !== 1)}
-                    item_id={'budget_id'}
-                    item_name={'budget_name'}
-                    hasButton
-                    onButtonClick={() => openModal('addBudget')}
-                />
-
-                <ButtonSelect
-                    label={type === 0 ? 'Recipient' : 'Sender'}
-                    emptyLabel='No person registered...'
-                    value={person}
-                    setValue={setPerson}
-                    data={people.filter((person) => person.person_id !== 1)}
-                    item_id={'person_id'}
-                    item_name={'person_name'}
-                    hasButton
-                    onButtonClick={() => openModal('addPerson')}
-                />
-
-                <DefaultButton
-                    label='Confirm Edition'
-                    type='submit'
-                />
-            </FormContainer>
-        </>
+            <DefaultButton
+                label='Confirm Edition'
+                type='submit'
+            />
+        </FormContainer>
     )
 }
 
