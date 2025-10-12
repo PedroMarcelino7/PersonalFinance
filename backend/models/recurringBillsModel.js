@@ -40,8 +40,19 @@ const editRecurringBill = (values, callback) => {
         [values.bill_name, values.bill_recurrence, values.bill_date, values.bill_type, values.bill_amount, values.person_id, values.budget_id, values.bill_id], callback)
 }
 
+const deleteRecurringBill = (values, callback) => {
+    db.query(`
+        delete from
+            recurring_bills
+        where
+            bill_id = ?;
+    `,
+        [values.bill_id], callback)
+}
+
 module.exports = {
     getAllRecurringBills,
     addRecurringBill,
     editRecurringBill,
+    deleteRecurringBill,
 };

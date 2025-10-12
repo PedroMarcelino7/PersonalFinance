@@ -4,6 +4,7 @@ import Modal from "../../components/modal/modal";
 
 import AddRecurringBill from "../../components/modal/RecurringBillsModals/addRecurringBill/addRecurringBill";
 import EditRecurringBill from "../../components/modal/RecurringBillsModals/editRecurringBill/editRecurringBill";
+import DeleteRecurringBill from "../../components/modal/RecurringBillsModals/deleteRecurringBill/deleteRecurringBill";
 import AddPerson from "../../components/modal/PeopleModals/AddPerson/addPerson";
 import AddBudget from "../../components/modal/BudgetsModals/addBudget/addBudget";
 
@@ -18,6 +19,13 @@ const MODAL_CONFIG = {
     edit: {
         title: ({ bill }) => `Edit "${bill.bill_name}"`,
         Component: EditRecurringBill,
+        getProps: ({ bill }) => ({ bill }),
+    },
+    delete: {
+        title: ({ bill }) => `Delete "${bill.bill_name}"?`,
+        subtitle:
+            "Are you sure you want to delete this bill? This action cannot be reversed, and all the data inside it will be removed forever.",
+        Component: DeleteRecurringBill,
         getProps: ({ bill }) => ({ bill }),
     },
     addPerson: {

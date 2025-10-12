@@ -33,9 +33,22 @@ const editRecurringBill = (req, res) => {
     });
 }
 
+const deleteRecurringBill = (req, res) => {
+    const values = req.body;
+
+    RecurringBills.deleteRecurringBill(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao deletar recurring bill' });
+        }
+
+        res.json(results);
+    });
+}
+
 
 module.exports = {
     getRecurringBills,
     addRecurringBill,
     editRecurringBill,
+    deleteRecurringBill,
 };
