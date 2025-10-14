@@ -50,9 +50,48 @@ const deleteRecurringBill = (values, callback) => {
         [values.bill_id], callback)
 }
 
+const finishRecurringBill = (values, callback) => {
+    db.beginTransaction((err) => {
+        if (err) return callback(err);
+
+        const finishRecurringBillQuery = `
+            update recurring_bills
+            set bill_status = 1
+            where bill_id = ?;
+        `;
+        const billValues = [values.bill_id];
+
+        db.query(finishRecurringBillQuery, billValues, (err, result) => {
+            if (err) return db.rollback(() => callback(err));
+
+            const addTransactionQuery = `
+                insert into
+                    transactions
+                        (transaction_amount, transaction_type, transaction_date, budget_id, person_id)
+                    values
+                        (?, ?, ?, ?, ?);
+            `;
+            const transactionValues = [values.bill_amount, values.bill_type, values.bill_date, values.budget_id, values.person_id];
+
+            db.query(addTransactionQuery, transactionValues, (err) => {
+                if (err) return db.rollback(() => callback(err));
+
+                db.commit((err) => {
+                    if (err) return db.rollback(() => callback(err));
+
+                    callback(null, {
+                        bill: values.bill_id,
+                    });
+                });
+            });
+        });
+    });
+};
+
 module.exports = {
     getAllRecurringBills,
     addRecurringBill,
     editRecurringBill,
     deleteRecurringBill,
+    finishRecurringBill
 };

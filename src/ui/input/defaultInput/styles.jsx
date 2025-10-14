@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -23,7 +24,7 @@ export const Input = styled.input`
     padding: 0.75rem;
     border-radius: 5px;
     border: 1px solid var(--gray);
-    background-color: var(--white);
+    background-color: ${({ disabled }) => disabled ? 'var(--light-gray)' : 'var(--white)'};
     font-size: 1rem;
     color: var(--dark);
 `

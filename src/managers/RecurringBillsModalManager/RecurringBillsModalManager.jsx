@@ -5,6 +5,7 @@ import Modal from "../../components/modal/modal";
 import AddRecurringBill from "../../components/modal/RecurringBillsModals/addRecurringBill/addRecurringBill";
 import EditRecurringBill from "../../components/modal/RecurringBillsModals/editRecurringBill/editRecurringBill";
 import DeleteRecurringBill from "../../components/modal/RecurringBillsModals/deleteRecurringBill/deleteRecurringBill";
+import FinishRecurringBill from "../../components/modal/RecurringBillsModals/finishRecurringBill/finishRecurringBill";
 import AddPerson from "../../components/modal/PeopleModals/AddPerson/addPerson";
 import AddBudget from "../../components/modal/BudgetsModals/addBudget/addBudget";
 
@@ -26,6 +27,11 @@ const MODAL_CONFIG = {
         subtitle:
             "Are you sure you want to delete this bill? This action cannot be reversed, and all the data inside it will be removed forever.",
         Component: DeleteRecurringBill,
+        getProps: ({ bill }) => ({ bill }),
+    },
+    finish: {
+        title: ({ bill }) => `Mark "${bill.bill_name}" as paid?`,
+        Component: FinishRecurringBill,
         getProps: ({ bill }) => ({ bill }),
     },
     addPerson: {

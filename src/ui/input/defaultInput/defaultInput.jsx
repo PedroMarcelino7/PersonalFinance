@@ -1,6 +1,6 @@
 import { Container, Input, Label, LabelSpan } from './styles'
 
-const DefaultInput = ({ label, type = 'text', placeholder, value, setValue, required }) => {
+const DefaultInput = ({ label, type = 'text', placeholder, value, setValue, required, disabled }) => {
     return (
         <Container>
             <Label htmlFor={label}>
@@ -14,6 +14,7 @@ const DefaultInput = ({ label, type = 'text', placeholder, value, setValue, requ
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 required={required}
+                disabled={disabled}
             />
         </Container>
     )

@@ -45,10 +45,22 @@ const deleteRecurringBill = (req, res) => {
     });
 }
 
+const finishRecurringBill = (req, res) => {
+    const values = req.body;
+
+    RecurringBills.finishRecurringBill(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao finalizar a conta recorrente' });
+        }
+
+        res.json(results);
+    });
+}
 
 module.exports = {
     getRecurringBills,
     addRecurringBill,
     editRecurringBill,
     deleteRecurringBill,
+    finishRecurringBill
 };
