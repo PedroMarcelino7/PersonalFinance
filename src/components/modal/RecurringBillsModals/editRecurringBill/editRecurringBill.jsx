@@ -68,7 +68,7 @@ const EditRecurringBill = ({ bill }) => {
                     bill_recurrence: recurrence,
                     bill_type: type,
                     bill_amount: amount,
-                    bill_date: '2025-07-15',
+                    bill_date: date.toISOString().split("T")[0],
                     budget_id: budget,
                     person_id: person,
                 })
