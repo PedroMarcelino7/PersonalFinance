@@ -5,6 +5,7 @@ import { NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHe
 // Icons
 import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
 import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
+import { CalendarSync as BillsIcon } from 'lucide-react'
 
 // Components
 import PageContainer from '../../components/pageContainer/pageContainer'
@@ -83,6 +84,49 @@ const Transactions = () => {
         searchTransactions(search)
     }
 
+    const setTransactionAvatar = (transaction) => {
+        if (transaction.pot_id) {
+            return <>
+                {transaction.transaction_type === 0
+                    ? <PotsWithdrawIcon
+                        size={40}
+                        color={'var(--red)'}
+                        strokeWidth={2.5}
+                    />
+                    : <PotsAddIcon
+                        size={40}
+                        color={'var(--green)'}
+                        strokeWidth={2.5}
+                    />
+                }
+
+                <h3>{transaction.pot_name}</h3>
+            </>
+        } else if (transaction.bill_id) {
+            return <>
+                {transaction.transaction_type === 0
+                    ? <BillsIcon
+                        size={40}
+                        color={'var(--red)'}
+                        strokeWidth={2.5}
+                    />
+                    : <BillsIcon
+                        size={40}
+                        color={'var(--green)'}
+                        strokeWidth={2.5}
+                    />
+                }
+
+                <h3>{transaction.bill_name}</h3>
+            </>
+        } else {
+            return <>
+                <img src={Avatar} alt="" />
+                <h3>{transaction.person_name}</h3>
+            </>
+        }
+    }
+
     useEffect(() => {
         console.log('TRANSACTIONS:\n', transactions)
     }, [transactions])
@@ -151,28 +195,7 @@ const Transactions = () => {
                                     .map((transaction, index) => (
                                         <TableBodyRow key={index}>
                                             <TableBodyElement className='reference'>
-                                                {transaction.pot_id
-                                                    ? <>
-                                                        {transaction.transaction_type === 0
-                                                            ? <PotsWithdrawIcon
-                                                                size={40}
-                                                                color={'var(--red)'}
-                                                                strokeWidth={2.5}
-                                                            />
-                                                            : <PotsAddIcon
-                                                                size={40}
-                                                                color={'var(--green)'}
-                                                                strokeWidth={2.5}
-                                                            />
-                                                        }
-
-                                                        <h3>{transaction.pot_name}</h3>
-                                                    </>
-                                                    : <>
-                                                        <img src={Avatar} alt="" />
-                                                        <h3>{transaction.person_name}</h3>
-                                                    </>
-                                                }
+                                                {setTransactionAvatar(transaction)}
                                             </TableBodyElement>
 
                                             <TableBodyElement>{transaction.budget_name}</TableBodyElement>

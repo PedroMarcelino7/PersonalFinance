@@ -67,11 +67,11 @@ const finishRecurringBill = (values, callback) => {
             const addTransactionQuery = `
                 insert into
                     transactions
-                        (transaction_amount, transaction_type, transaction_date, budget_id, person_id)
+                        (transaction_amount, transaction_type, transaction_date, bill_id, budget_id, person_id)
                     values
-                        (?, ?, ?, ?, ?);
+                        (?, ?, ?, ?, ?, ?);
             `;
-            const transactionValues = [values.bill_amount, values.bill_type, values.bill_date, values.budget_id, values.person_id];
+            const transactionValues = [values.bill_amount, values.bill_type, values.bill_date, values.bill_id, values.budget_id, values.person_id];
 
             db.query(addTransactionQuery, transactionValues, (err) => {
                 if (err) return db.rollback(() => callback(err));

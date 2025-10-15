@@ -38,7 +38,7 @@ const getAllTransactions = (sort, search, callback) => {
 
     db.query(`
         SELECT
-            trns.*, bud.budget_name, prsn.person_name, pot.pot_name
+            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, pot.pot_name
         FROM
             transactions AS trns
         JOIN
@@ -47,6 +47,8 @@ const getAllTransactions = (sort, search, callback) => {
             people AS prsn ON trns.person_id = prsn.person_id
         LEFT JOIN
             pots AS pot ON trns.pot_id = pot.pot_id
+        LEFT JOIN
+            recurring_bills AS bill ON trns.bill_id = bill.bill_id
         ${whereClause}
         ORDER BY
             ${orderBy};
