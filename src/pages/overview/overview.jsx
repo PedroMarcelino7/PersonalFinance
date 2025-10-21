@@ -19,14 +19,10 @@ import { useRecurringBills } from '../../contexts/recurringBillsContext'
 // ICONS
 import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
 import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
-
-const resumeData = [
-    { id: 0, name: 'Current Balance', value: '4836.00' },
-    { id: 1, name: 'Available Balance', value: '3814.25' },
-    { id: 2, name: 'Month Expenses', value: '1700.50' },
-]
+import { useOverview } from '../../contexts/overviewContext'
 
 const Overview = () => {
+    const { summary } = useOverview()
     const { pots } = usePots()
     const { budgets } = useBudgets()
     const { people } = usePeople()
@@ -128,13 +124,23 @@ const Overview = () => {
         <PageContainer name="Overview">
             <Container>
                 <HeaderBox>
-                    {resumeData.map((resume, index) => (
-                        <ResumeBox key={index} className={resume.id === 0 ? 'highlight' : ''}>
-                            <h3>{resume.name}</h3>
+                    <ResumeBox className={'highlight'}>
+                        <h3>Current Balance</h3>
 
-                            <h2>${resume.value}</h2>
-                        </ResumeBox>
-                    ))}
+                        <h2>${summary.current_balance}</h2>
+                    </ResumeBox>
+
+                    <ResumeBox>
+                        <h3>Available Balance</h3>
+
+                        <h2>${summary.available_balance}</h2>
+                    </ResumeBox>
+
+                    <ResumeBox>
+                        <h3>Month Expenses</h3>
+
+                        <h2>${summary.month_expenses}</h2>
+                    </ResumeBox>
                 </HeaderBox>
 
                 <MainBox>
