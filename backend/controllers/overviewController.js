@@ -12,6 +12,19 @@ const getCurrentBalance = (req, res) => {
     });
 };
 
+const getAvailableBalance = (req, res) => {
+    Overview.getAvailableBalance((err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao buscar dados da overview' });
+        }
+
+        const availableBalance = results[0]?.available_balance || 0;
+
+        res.json({ available_balance: availableBalance });
+    });
+};
+
 module.exports = {
-    getCurrentBalance
+    getCurrentBalance,
+    getAvailableBalance
 };

@@ -44,6 +44,7 @@ app.post('/budgets/delete', budgetsController.deleteBudget)
 app.get('/themes', themesController.getThemes)
 
 app.get('/overview/current-balance', overviewController.getCurrentBalance)
+app.get('/overview/available-balance', overviewController.getAvailableBalance)
 
 app.listen(3000, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);

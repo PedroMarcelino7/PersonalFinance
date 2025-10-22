@@ -22,7 +22,7 @@ import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
 import { useOverview } from '../../contexts/overviewContext'
 
 const Overview = () => {
-    const { currentBalance } = useOverview()
+    const { currentBalance, availableBalance } = useOverview()
     const { pots } = usePots()
     const { budgets } = useBudgets()
     const { people } = usePeople()
@@ -128,6 +128,18 @@ const Overview = () => {
                         <h3>Current Balance</h3>
 
                         <h2>${currentBalance}</h2>
+                    </ResumeBox>
+
+                    <ResumeBox>
+                        <h3>Available Balance</h3>
+
+                        <h2>${availableBalance}</h2>
+                    </ResumeBox>
+                    
+                    <ResumeBox>
+                        <h3>Month Expenses</h3>
+
+                        <h2>${availableBalance}</h2>
                     </ResumeBox>
 
                     {/* <ResumeBox>
