@@ -8,6 +8,7 @@ const transactionsController = require('./controllers/transactionsController')
 const recurringBillsController = require('./controllers/recurringBillsController')
 const budgetsController = require('./controllers/budgetsController')
 const themesController = require('./controllers/themesController')
+const overviewController = require('./controllers/overviewController')
 
 const app = express();
 const port = process.env.PORT;
@@ -41,6 +42,8 @@ app.post('/budgets/edit', budgetsController.editBudget)
 app.post('/budgets/delete', budgetsController.deleteBudget)
 
 app.get('/themes', themesController.getThemes)
+
+app.get('/overview/current-balance', overviewController.getCurrentBalance)
 
 app.listen(3000, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);

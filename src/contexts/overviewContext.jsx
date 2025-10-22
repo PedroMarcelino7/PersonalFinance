@@ -3,35 +3,27 @@ import { createContext, useContext, useEffect, useState } from "react";
 const OverviewContext = createContext();
 
 export const OverviewProvider = ({ children }) => {
-    const [summary, setSummary] = useState({
-        current_balance: 0,
-        available_balance: 0,
-        month_expenses: 0,
-    });
+    const [currentBalance, setCurrentBalance] = useState(0)
 
-    const [loading, setLoading] = useState(true);
-
-    const fetchOverview = async () => {
+    const fetchCurrentBalance = async () => {
         try {
-            const response = await fetch("http://localhost:3000/overview/summary");
+            const response = await fetch("http://localhost:3000/overview/current-balance");
             const data = await response.json();
 
             if (!response.ok) throw new Error(data.error || "Erro ao buscar resumo");
 
-            setSummary(data);
+            setCurrentBalance(data.current_balance);
         } catch (error) {
-            console.error("Erro ao buscar overview:", error);
-        } finally {
-            setLoading(false);
+            console.error("Erro ao buscar current balance:", error);
         }
     };
 
     useEffect(() => {
-        fetchOverview();
+        fetchCurrentBalance();
     }, []);
 
     return (
-        <OverviewContext.Provider value={{ summary, loading, refreshOverview: fetchOverview }}>
+        <OverviewContext.Provider value={{ currentBalance }}>
             {children}
         </OverviewContext.Provider>
     );
