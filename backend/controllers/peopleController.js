@@ -9,7 +9,19 @@ const getPeople = (req, res) => {
     });
 };
 
+const addPerson = (req, res) => {
+    const values = req.body;
+
+    Person.addPerson(values, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao criar pessoa' })
+        }
+
+        res.json(results)
+    })
+}
 
 module.exports = {
     getPeople,
+    addPerson
 };

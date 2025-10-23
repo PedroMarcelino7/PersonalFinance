@@ -26,6 +26,7 @@ app.post('/pots/update-pot-money', potController.updateMoney);
 app.post('/pots/update-quick-buttons', potController.updateQuickButtons);
 
 app.get('/people', peopleController.getPeople);
+app.post('/people/post', peopleController.addPerson);
 
 app.get('/transactions', transactionsController.getTransactions);
 app.post('/transactions/post', transactionsController.addTransaction);
