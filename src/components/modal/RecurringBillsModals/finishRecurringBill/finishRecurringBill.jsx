@@ -62,7 +62,7 @@ const FinishRecurringBill = ({ bill }) => {
                     bill_id: bill.bill_id,
                     bill_type: bill.bill_type,
                     bill_amount: amount,
-                    bill_date: '2025-10-13',
+                    bill_date: date.toISOString().split("T")[0],
                     budget_id: budget,
                     person_id: person,
                 })
