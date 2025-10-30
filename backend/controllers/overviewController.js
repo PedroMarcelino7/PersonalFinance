@@ -24,7 +24,20 @@ const getAvailableBalance = (req, res) => {
     });
 };
 
+const getMonthExpenses = (req, res) => {
+    Overview.getMonthExpenses((err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao buscar dados da overview' });
+        }
+
+        const monthExpenses = results[0]?.month_expenses || 0;
+
+        res.json({ month_expenses: monthExpenses });
+    });
+};
+
 module.exports = {
     getCurrentBalance,
-    getAvailableBalance
+    getAvailableBalance,
+    getMonthExpenses
 };

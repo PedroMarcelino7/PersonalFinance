@@ -23,7 +23,16 @@ const getAvailableBalance = (callback) => {
     `, callback);
 };
 
+const getMonthExpenses = (callback) => {
+    db.query(`
+    SELECT 
+        (COALESCE((SELECT SUM(transaction_amount) FROM transactions WHERE transaction_type = 0 AND transaction_date BETWEEN '2025-03-15' AND '2025-04-15'), 0))
+    AS month_expenses;
+    `, callback);
+};
+
 module.exports = {
     getCurrentBalance,
-    getAvailableBalance
+    getAvailableBalance,
+    getMonthExpenses
 };

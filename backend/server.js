@@ -46,6 +46,7 @@ app.get('/themes', themesController.getThemes)
 
 app.get('/overview/current-balance', overviewController.getCurrentBalance)
 app.get('/overview/available-balance', overviewController.getAvailableBalance)
+app.get('/overview/month-expenses', overviewController.getMonthExpenses)
 
 app.listen(3000, () => {
     console.log(`Servidor iniciado em http://localhost:${port}`);
