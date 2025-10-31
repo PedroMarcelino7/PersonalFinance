@@ -24,9 +24,17 @@ const getAvailableBalance = (callback) => {
 };
 
 const getMonthExpenses = (callback) => {
+    const date = new Date()
+    const today = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+
+    const startDate = `${year}-${month - 1}-15`
+    const finishDate = `${year}-${month}-15`
+
     db.query(`
     SELECT 
-        (COALESCE((SELECT SUM(transaction_amount) FROM transactions WHERE transaction_type = 0 AND transaction_date BETWEEN '2025-03-15' AND '2025-04-15'), 0))
+        (COALESCE((SELECT SUM(transaction_amount) FROM transactions WHERE transaction_type = 0 AND transaction_date BETWEEN '${startDate}' AND '${finishDate}'), 0))
     AS month_expenses;
     `, callback);
 };
