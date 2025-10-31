@@ -22,7 +22,7 @@ import { ArchiveX as PotsWithdrawIcon } from 'lucide-react'
 import { useOverview } from '../../contexts/overviewContext'
 
 const Overview = () => {
-    const { currentBalance, availableBalance, monthExpenses } = useOverview()
+    const { currentBalance, availableBalance, monthExpenses, refreshOverview } = useOverview()
     const { pots } = usePots()
     const { budgets } = useBudgets()
     const { people } = usePeople()
@@ -117,8 +117,9 @@ const Overview = () => {
     }
 
     useEffect(() => {
-        console.log('📦 Pots atualizados:', pots)
-    }, [pots])
+        console.log('Refresh Overview')
+        refreshOverview()
+    }, [])
 
     return (
         <PageContainer name="Overview">

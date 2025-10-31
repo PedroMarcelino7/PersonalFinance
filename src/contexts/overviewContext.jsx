@@ -46,6 +46,12 @@ export const OverviewProvider = ({ children }) => {
         }
     }
 
+    const refreshOverview = async () => {
+        await fetchCurrentBalance()
+        await fetchAvailableBalance()
+        await fetchMonthExpenses()
+    };
+
     useEffect(() => {
         fetchCurrentBalance()
         fetchAvailableBalance()
@@ -53,7 +59,7 @@ export const OverviewProvider = ({ children }) => {
     }, []);
 
     return (
-        <OverviewContext.Provider value={{ currentBalance, availableBalance, monthExpenses }}>
+        <OverviewContext.Provider value={{ currentBalance, availableBalance, monthExpenses, refreshOverview }}>
             {children}
         </OverviewContext.Provider>
     );
