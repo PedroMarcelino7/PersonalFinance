@@ -25,12 +25,18 @@ const getAvailableBalance = (callback) => {
 
 const getMonthExpenses = (callback) => {
     const date = new Date()
-    const today = date.getDate()
-    const month = date.getMonth() + 1
-    const year = date.getFullYear()
+    let today = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
 
-    const startDate = `${year}-${month - 1}-15`
-    const finishDate = `${year}-${month}-15`
+    if (today <= 15) {
+        month = month - 1
+    } else {
+        month = month
+    }
+
+    const startDate = `${year}-${month}-15`
+    const finishDate = `${(month === 12 ? year + 1 : year)}-${(month === 12 ? 1 : month + 1)}-15`
 
     db.query(`
     SELECT 
