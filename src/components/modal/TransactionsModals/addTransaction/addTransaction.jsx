@@ -20,6 +20,7 @@ import { ArrowUp as ArrowUpIcon } from 'lucide-react'
 import { useBudgets } from '../../../../contexts/budgetsContext'
 import { useTransactions } from '../../../../contexts/transactionsContext'
 import { usePeople } from '../../../../contexts/peopleContext'
+import { useModal } from '../../modal';
 
 // MODAL MANAGER
 import TransactionsModalManager from '../../../../managers/TransactionsModalManager/TransactionsModalManager'
@@ -29,11 +30,12 @@ const AddTransaction = () => {
     const { refreshTransactions } = useTransactions()
     const { budgets } = useBudgets()
     const { people } = usePeople()
+    const { closeModal } = useModal()
 
     const [modal, setModal] = useState({ type: null, pot: null });
 
     const openModal = (type, pot = null) => setModal({ type, pot });
-    const closeModal = () => setModal({ type: null, pot: null });
+    const closeExtraModal = () => setModal({ type: null, pot: null });
 
     const [amount, setAmount] = useState(0)
     const [budget, setBudget] = useState(2)
@@ -101,6 +103,7 @@ const AddTransaction = () => {
         }
 
         refreshTransactions()
+        closeExtraModal()
         closeModal()
     }
 
@@ -190,7 +193,7 @@ const AddTransaction = () => {
                 />
             </FormContainer>
 
-            <TransactionsModalManager modal={modal} onClose={closeModal} />
+            <TransactionsModalManager modal={modal} onClose={closeExtraModal} />
         </>
     )
 }

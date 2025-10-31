@@ -31,6 +31,7 @@ const AddRecurringBill = () => {
     const { people } = usePeople()
     const { budgets } = useBudgets()
     const { refreshRecurringBills } = useRecurringBills()
+    const { closeModal } = useModal()
 
     const [name, setName] = useState('')
     const [recurrence, setRecurrence] = useState(0)
@@ -43,7 +44,7 @@ const AddRecurringBill = () => {
     const [modal, setModal] = useState({ type: null, pot: null });
 
     const openModal = (type, pot = null) => setModal({ type, pot });
-    const closeModal = () => setModal({ type: null, pot: null });
+    const closeExtraModal = () => setModal({ type: null, pot: null });
 
     const [showCalendar, setShowCalendar] = useState(false)
 
@@ -93,6 +94,7 @@ const AddRecurringBill = () => {
         }
 
         refreshRecurringBills()
+        closeExtraModal()
         closeModal()
     }
 
@@ -205,7 +207,7 @@ const AddRecurringBill = () => {
                 />
             </FormContainer>
 
-            <RecurringBillsModalManager modal={modal} onClose={closeModal} />
+            <RecurringBillsModalManager modal={modal} onClose={closeExtraModal} />
         </>
     )
 }
