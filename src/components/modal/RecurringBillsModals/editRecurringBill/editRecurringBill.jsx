@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AditionalInfoContainer, AmountInputBox, ArrowIcon, BillTypeDiv, CalendarBox, DateSelected, FormContainer } from './styles'
 
@@ -34,11 +34,25 @@ const EditRecurringBill = ({ bill }) => {
     const [recurrence, setRecurrence] = useState(bill.bill_recurrence)
     const [amount, setAmount] = useState(bill.bill_amount)
     const [type, setType] = useState(bill.bill_type)
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState(new Date(bill.bill_due_date))
+    // Date: ${date.toISOString().split("T")[0]}
     const [budget, setBudget] = useState(bill.budget_id)
     const [person, setPerson] = useState(bill.person_id)
 
     const [showCalendar, setShowCalendar] = useState(false)
+
+    useEffect(() => {
+        console.log(`
+            ID: ${bill.bill_id}
+            Name: ${name}
+            Recurrence: ${recurrence}
+            Amount: ${amount}
+            Type: ${type}
+            Date: ${date}
+            Budget: ${budget}
+            Person: ${person}
+        `)
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

@@ -20,7 +20,7 @@ const DatePicker = ({ selected, setSelected, onClick, disabled = null }) => {
                     ]}
                     footer={
                         <Footer>
-                            {selected ? `Selected: ${selected.toLocaleDateString()}` : "Pick a day."}
+                            {selected ? `Selected: ${selected.toISOString().split("T")[0]}` : "Pick a day."}
 
                             <DefaultButton
                                 label={'Confirm'}
