@@ -42,6 +42,7 @@ const AddTransaction = () => {
     const [person, setPerson] = useState(2)
     const [type, setType] = useState(0)
     const [date, setDate] = useState(new Date());
+    const [parcel, setParcel] = useState(1);
     const [showCalendar, setShowCalendar] = useState(false)
 
     function formatDate(date) {
@@ -57,49 +58,76 @@ const AddTransaction = () => {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 
+    function addMonthsPreservingDay(date, monthsToAdd) {
+        const newDate = new Date(date);
+        const targetMonth = newDate.getMonth() + monthsToAdd;
+        newDate.setMonth(targetMonth);
+
+        if (newDate.getDate() !== date.getDate()) {
+            newDate.setDate(0);
+        }
+
+        return newDate;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const formattedDate = formatDate(date);
+        const amountPerParcel = Number((amount / parcel).toFixed(2));
 
-        console.log(`
-            TRANSACTION SUBMIT
+        for (let i = 1; i <= parcel; i++) {
+            let currentAmount = amountPerParcel
 
-            amount: ${amount}
-            budget: ${budget}
-            person: ${person}
-            date: ${formattedDate}
-            type: ${type}
-        `)
-
-        try {
-            const response = await fetch('http://localhost:3000/transactions/post', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    transaction_amount: amount,
-                    transaction_type: type,
-                    transaction_date: formattedDate,
-                    budget_id: budget,
-                    person_id: person,
-                })
-            })
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                console.error('Erro do servidor:', data);
-                toast.error('Error creating transaction.');
-                return;
+            if (i === parcel - 1) {
+                currentAmount = Number((amount - (amountPerParcel * (parcel - 1))).toFixed(2));
             }
 
-            console.log('>>> Resposta Transaction Post [Add Transaction Modal]:', data);
-            toast.success('Transaction created successfully.')
-        } catch (error) {
-            console.error('Erro ao criar a transaction:', error);
-            toast.error('Error creating transaction.')
+            const parcelDate = addMonthsPreservingDay(date, i);
+            const formattedDate = formatDate(parcelDate);
+
+            console.log(`
+                TRANSACTION SUBMIT
+    
+                amount: ${currentAmount}
+                budget: ${budget}
+                person: ${person}
+                date: ${formattedDate}
+                total parcel: ${parcel},
+                current parcel: ${i},
+                type: ${type}
+            `)
+
+            try {
+                const response = await fetch('http://localhost:3000/transactions/post', {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        transaction_amount: currentAmount,
+                        transaction_type: type,
+                        transaction_date: formattedDate,
+                        transaction_total_parcel: parcel,
+                        transaction_current_parcel: i,
+                        budget_id: budget,
+                        person_id: person,
+                    })
+                })
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    console.error('Erro do servidor:', data);
+                    toast.error('Error creating transaction.');
+                    return;
+                }
+
+                console.log('>>> Resposta Transaction Post [Add Transaction Modal]:', data);
+                toast.success('Transaction created successfully.')
+            } catch (error) {
+                console.error('Erro ao criar a transaction:', error);
+                toast.error('Error creating transaction.')
+            }
         }
 
         refreshTransactions()
@@ -110,15 +138,20 @@ const AddTransaction = () => {
     return (
         <>
             <FormContainer onSubmit={(e) => handleSubmit(e)}>
+                <DefaultInput
+                    label={'Amount'}
+                    setValue={setAmount}
+                    placeholder={'$ 0.00'}
+                    required={true}
+                />
+
                 <AditionalInfoContainer>
-                    <AmountInputBox>
-                        <DefaultInput
-                            label={'Amount'}
-                            setValue={setAmount}
-                            placeholder={'$ 0.00'}
-                            required={true}
-                        />
-                    </AmountInputBox>
+                    <DefaultInput
+                        label={'Parcels'}
+                        value={parcel}
+                        setValue={setParcel}
+                        required={true}
+                    />
 
                     <TransactionTypeDiv>
                         <TransactionIcon

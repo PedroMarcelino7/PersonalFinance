@@ -239,3 +239,12 @@ export const NavPages = styled.div`
         }
     }
 `
+
+export const PersonName = styled.h3`
+    color: var(--dark);
+    font-size: 1rem;
+
+    span {
+        font-size: 0.75rem;
+    }
+`

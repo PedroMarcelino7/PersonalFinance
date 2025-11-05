@@ -58,9 +58,17 @@ const getAllTransactions = (sort, search, callback) => {
 const addTransaction = (values, callback) => {
     db.query(`
         insert into
-        transactions (transaction_amount, transaction_type, transaction_date, budget_id, person_id)
-        values (?, ?, ?, ?, ?)
-    `, [values.transaction_amount, values.transaction_type, values.transaction_date, values.budget_id, values.person_id], callback);
+        transactions (transaction_amount, transaction_type, transaction_date, transaction_total_parcel, transaction_current_parcel, budget_id, person_id)
+        values (?, ?, ?, ?, ?, ?, ?)
+    `, [
+        values.transaction_amount,
+        values.transaction_type,
+        values.transaction_date,
+        values.transaction_total_parcel,
+        values.transaction_current_parcel,
+        values.budget_id,
+        values.person_id
+    ], callback);
 };
 
 module.exports = {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { NavPages, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
+import { NavPages, PersonName, SortContainer, Table, TableBodyElement, TableBodyRow, TableHeader, TableHeaderElement, TransactionsContainer, TransactionsFooter, TransactionsHeader } from './styles'
 
 // Icons
 import { ArchiveRestore as PotsAddIcon } from 'lucide-react'
@@ -100,7 +100,7 @@ const Transactions = () => {
                     />
                 }
 
-                <h3>{transaction.pot_name}</h3>
+                <PersonName>{transaction.pot_name}</PersonName>
             </>
         } else if (transaction.bill_id) {
             return <>
@@ -117,12 +117,17 @@ const Transactions = () => {
                     />
                 }
 
-                <h3>{transaction.bill_name}</h3>
+                <PersonName>{transaction.bill_name}</PersonName>
             </>
         } else {
             return <>
                 <img src={Avatar} alt="" />
-                <h3>{transaction.person_name}</h3>
+                <PersonName>
+                    {transaction.person_name}&nbsp;
+                    {transaction.transaction_total_parcel > 1
+                        ? <span>[{transaction.transaction_current_parcel}/{transaction.transaction_total_parcel}]</span>
+                        : ''}
+                </PersonName>
             </>
         }
     }
