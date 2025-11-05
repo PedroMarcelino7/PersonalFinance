@@ -194,7 +194,12 @@ const Budgets = () => {
                                                             <LastSpendingItem key={transaction.transaction_id}>
                                                                 <PersonBox>
                                                                     <ProfilePicture src={Avatar} alt="" />
-                                                                    <h4>{transaction.person_name}</h4>
+                                                                    <h4>
+                                                                        {transaction.person_name}&nbsp;
+                                                                        {transaction.transaction_total_parcel > 1
+                                                                            ? <span>[{transaction.transaction_current_parcel}/{transaction.transaction_total_parcel}]</span>
+                                                                            : ''}
+                                                                    </h4>
                                                                 </PersonBox>
 
                                                                 <SpendDetails type={transaction.transaction_type}>

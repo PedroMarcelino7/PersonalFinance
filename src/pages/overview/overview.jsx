@@ -237,7 +237,12 @@ const Overview = () => {
                                                             </>
                                                             : <>
                                                                 <ProfilePicture src={Avatar} alt="" />
-                                                                <h4>{people.find((person) => person.person_id === transaction.person_id)?.person_name}</h4>
+                                                                <h4>
+                                                                    {transaction.person_name}&nbsp;
+                                                                    {transaction.transaction_total_parcel > 1
+                                                                        ? <span>[{transaction.transaction_current_parcel}/{transaction.transaction_total_parcel}]</span>
+                                                                        : ''}
+                                                                </h4>
                                                             </>
                                                         }
                                                     </PersonBox>
