@@ -71,7 +71,43 @@ const addTransaction = (values, callback) => {
     ], callback);
 };
 
+const getTransactionsByActualMonth = (callback) => {
+    const date = new Date()
+    let today = date.getDate()
+    let month = date.getMonth() + 1
+    let year = date.getFullYear()
+
+    if (today <= 15) {
+        month = month - 1
+    } else {
+        month = month
+    }
+
+    const startDate = `${year}-${month}-15`
+    const finishDate = `${(month === 12 ? year + 1 : year)}-${(month === 12 ? 1 : month + 1)}-15`
+
+    db.query(`
+        SELECT
+            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, pot.pot_name
+        FROM
+            transactions AS trns
+        JOIN
+            budgets AS bud ON trns.budget_id = bud.budget_id
+        JOIN
+            people AS prsn ON trns.person_id = prsn.person_id
+        LEFT JOIN
+            pots AS pot ON trns.pot_id = pot.pot_id
+        LEFT JOIN
+            recurring_bills AS bill ON trns.bill_id = bill.bill_id
+        WHERE
+            transaction_date between '${startDate}' and '${finishDate}'
+        ORDER BY
+            trns.transaction_date desc, trns.transaction_created_at desc;
+    `, callback)
+}
+
 module.exports = {
     getAllTransactions,
-    addTransaction
+    addTransaction,
+    getTransactionsByActualMonth
 };

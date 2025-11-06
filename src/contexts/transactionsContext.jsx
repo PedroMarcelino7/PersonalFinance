@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 
 const TransactionsContext = createContext();
 
@@ -17,6 +17,7 @@ const transactionsReducer = (state, action) => {
 
 export const TransactionsProvider = ({ children }) => {
     const [transactions, dispatch] = useReducer(transactionsReducer, []);
+    const [monthTransactions, setMonthTransactions] = useState([]);
 
     const fetchTransactions = async (sort = 'newest') => {
         try {
@@ -24,6 +25,17 @@ export const TransactionsProvider = ({ children }) => {
             const data = await response.json();
 
             dispatch({ type: "SET_TRANSACTIONS", payload: data });
+        } catch (error) {
+            console.error("Erro ao buscar transactions:", error);
+        }
+    };
+
+    const fetchTransactionsByActualMonth = async (sort = 'newest') => {
+        try {
+            const response = await fetch(`http://localhost:3000/transactions/actual-month`);
+            const data = await response.json();
+
+            setMonthTransactions(data)
         } catch (error) {
             console.error("Erro ao buscar transactions:", error);
         }
@@ -57,7 +69,14 @@ export const TransactionsProvider = ({ children }) => {
     }, []);
 
     return (
-        <TransactionsContext.Provider value={{ transactions, refreshTransactions, searchTransactions, dispatch }}>
+        <TransactionsContext.Provider value={{
+            transactions,
+            refreshTransactions,
+            searchTransactions,
+            dispatch,
+            monthTransactions,
+            fetchTransactionsByActualMonth
+        }}>
             {children}
         </TransactionsContext.Provider>
     );

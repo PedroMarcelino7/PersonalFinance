@@ -2,10 +2,10 @@ import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { useTransactions } from '../../contexts/transactionsContext';
 
 const Chart = ({ size = 250, data }) => {
-    const { transactions } = useTransactions()
+    const { monthTransactions } = useTransactions()
 
     const budgetSpentCalc = (budget_id) => {
-        return transactions.reduce((acc, transaction) => {
+        return monthTransactions.reduce((acc, transaction) => {
             return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
                 ? acc + parseFloat(transaction.transaction_amount)
                 : acc

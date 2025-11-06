@@ -23,8 +23,17 @@ const addTransaction = (req, res) => {
     })
 }
 
+const getTransactionsByActualMonth = (req, res) => {
+    Transaction.getTransactionsByActualMonth((err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Erro ao buscar transactions' });
+        }
+        res.json(results);
+    })
+}
 
 module.exports = {
     getTransactions,
-    addTransaction
+    addTransaction,
+    getTransactionsByActualMonth
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Box, BudgetsContainer, Card, CardContent, CardHeader, CardOptionsContainer, CardsContainer, CardTitleBox, ChartBox, ChartContainer, ChartOverall, Container, Divider, EmptyLatestSpendingBox, EmptyPageContainer, EmptyPageTextBox, FirstBudgetButton, HeaderButtons, Identifier, LastSpendingBox, LastSpendingContainer, LastSpendingHeader, LastSpendingItem, PersonBox, ProfilePicture, Progress, ProgressBar, ProgressBox, ResumeBox, ResumeItem, SpendDetails, SummaryBox, SummaryContainer, SummaryItem } from './styles'
 
@@ -29,7 +29,7 @@ import BudgetsModalManager from '../../managers/BudgetsModalManager/BudgetsModal
 
 const Budgets = () => {
     const { budgets } = useBudgets()
-    const { transactions } = useTransactions()
+    const { monthTransactions, fetchTransactionsByActualMonth } = useTransactions()
 
     const filteredBudgets = budgets.filter((budget) => budget.budget_id !== 1);
     const [modal, setModal] = useState({ type: null, budget: null });
@@ -54,12 +54,16 @@ const Budgets = () => {
     }
 
     const budgetSpentCalc = (budget_id) => {
-        return transactions.reduce((acc, transaction) => {
+        return monthTransactions.reduce((acc, transaction) => {
             return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
                 ? acc + parseFloat(transaction.transaction_amount)
                 : acc
         }, 0)
     }
+
+    useEffect(() => {
+        fetchTransactionsByActualMonth()
+    }, [])
 
     const budgetsWithStats = filteredBudgets.map((budget) => {
         const spent = budgetSpentCalc(budget.budget_id);
@@ -187,10 +191,11 @@ const Budgets = () => {
                                             </LastSpendingHeader>
 
                                             <LastSpendingBox>
-                                                {transactions.filter(transaction => transaction.budget_id === budget.budget_id).length > 0 ? (
-                                                    transactions
+                                                {monthTransactions.filter(transaction => transaction.budget_id === budget.budget_id).length > 0 ? (
+                                                    monthTransactions
                                                         .filter(transaction => transaction.budget_id === budget.budget_id)
-                                                        .map(transaction => (
+                                                        .map((transaction, index) => (
+                                                            index < 5 &&
                                                             <LastSpendingItem key={transaction.transaction_id}>
                                                                 <PersonBox>
                                                                     <ProfilePicture src={Avatar} alt="" />
