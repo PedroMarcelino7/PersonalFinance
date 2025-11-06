@@ -26,7 +26,7 @@ const Overview = () => {
     const { pots } = usePots()
     const { budgets } = useBudgets()
     const { people } = usePeople()
-    const { transactions } = useTransactions()
+    const { transactions, monthTransactions } = useTransactions()
     const { recurringBills } = useRecurringBills()
 
     const getPotsTotalSaved = () => {
@@ -66,7 +66,7 @@ const Overview = () => {
     }
 
     const budgetSpentCalc = (budget_id) => {
-        return transactions.reduce((acc, transaction) => {
+        return monthTransactions.reduce((acc, transaction) => {
             return (transaction.budget_id === budget_id && transaction.transaction_type === 0)
                 ? acc + parseFloat(transaction.transaction_amount)
                 : acc

@@ -61,11 +61,13 @@ export const TransactionsProvider = ({ children }) => {
 
     const refreshTransactions = async (sort = 'newest') => {
         console.log("🔄 Atualizando transactions...");
+        await fetchTransactionsByActualMonth();
         await fetchTransactions(sort);
     };
 
     useEffect(() => {
         fetchTransactions();
+        fetchTransactionsByActualMonth()
     }, []);
 
     return (
@@ -74,8 +76,7 @@ export const TransactionsProvider = ({ children }) => {
             refreshTransactions,
             searchTransactions,
             dispatch,
-            monthTransactions,
-            fetchTransactionsByActualMonth
+            monthTransactions
         }}>
             {children}
         </TransactionsContext.Provider>

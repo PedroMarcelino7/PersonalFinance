@@ -29,7 +29,7 @@ import BudgetsModalManager from '../../managers/BudgetsModalManager/BudgetsModal
 
 const Budgets = () => {
     const { budgets } = useBudgets()
-    const { monthTransactions, fetchTransactionsByActualMonth } = useTransactions()
+    const { monthTransactions } = useTransactions()
 
     const filteredBudgets = budgets.filter((budget) => budget.budget_id !== 1);
     const [modal, setModal] = useState({ type: null, budget: null });
@@ -60,10 +60,6 @@ const Budgets = () => {
                 : acc
         }, 0)
     }
-
-    useEffect(() => {
-        fetchTransactionsByActualMonth()
-    }, [])
 
     const budgetsWithStats = filteredBudgets.map((budget) => {
         const spent = budgetSpentCalc(budget.budget_id);
