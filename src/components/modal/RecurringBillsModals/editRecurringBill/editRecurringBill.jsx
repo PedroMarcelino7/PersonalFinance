@@ -35,7 +35,6 @@ const EditRecurringBill = ({ bill }) => {
     const [amount, setAmount] = useState(bill.bill_amount)
     const [type, setType] = useState(bill.bill_type)
     const [date, setDate] = useState(new Date(bill.bill_due_date))
-    // Date: ${date.toISOString().split("T")[0]}
     const [budget, setBudget] = useState(bill.budget_id)
     const [person, setPerson] = useState(bill.person_id)
 

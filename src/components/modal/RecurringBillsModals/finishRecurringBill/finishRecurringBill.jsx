@@ -32,7 +32,7 @@ const FinishRecurringBill = ({ bill }) => {
     const { closeModal } = useModal()
 
     const [amount, setAmount] = useState(bill.bill_amount)
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState(new Date(bill.bill_due_date))
     const [budget, setBudget] = useState(bill.budget_id)
     const [person, setPerson] = useState(bill.person_id)
 
@@ -140,7 +140,7 @@ const FinishRecurringBill = ({ bill }) => {
                         <DatePicker
                             selected={date}
                             setSelected={setDate}
-                            disabled={{ before: new Date() + 1 }}
+                            disabled={date}
                             onClick={() => setShowCalendar(false)}
                         />
                     }

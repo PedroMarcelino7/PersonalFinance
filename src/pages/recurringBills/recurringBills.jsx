@@ -259,13 +259,20 @@ const RecurringBills = () => {
                                                     <CardOptionsBox
                                                         onClick={() => setShowOptions(0)}
                                                     >
-                                                        <CheckIcon
-                                                            size={25}
-                                                            color='var(--green)'
-                                                            strokeWidth={2.5}
-                                                            cursor={'pointer'}
-                                                            onClick={() => openModal("finish", bill)}
-                                                        />
+                                                        {bill.bill_status === 1
+                                                            ? <CheckIcon
+                                                                size={25}
+                                                                color='var(--dark)'
+                                                                strokeWidth={2.5}
+                                                            />
+                                                            : <CheckIcon
+                                                                size={25}
+                                                                color='var(--green)'
+                                                                strokeWidth={2.5}
+                                                                cursor={'pointer'}
+                                                                onClick={() => openModal("finish", bill)}
+                                                            />
+                                                        }
 
                                                         <EditIcon
                                                             size={25}

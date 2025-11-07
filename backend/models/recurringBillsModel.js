@@ -51,12 +51,16 @@ const deleteRecurringBill = (values, callback) => {
 }
 
 const finishRecurringBill = (values, callback) => {
+    const newDate = values.bill_date
+
     db.beginTransaction((err) => {
         if (err) return callback(err);
 
         const finishRecurringBillQuery = `
             update recurring_bills
-            set bill_status = 1
+            set
+                bill_status = 1,
+                bill_due_date = '${newDate}'
             where bill_id = ?;
         `;
         const billValues = [values.bill_id];
