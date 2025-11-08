@@ -57,9 +57,8 @@ const RecurringBills = () => {
     }
 
     const getBillsQuantity = (status) => {
-        const billsQuantity = recurringBills.filter((bill) => {
-            return bill.bill_status === status
-        })
+        const billsQuantity = recurringBills
+            .filter((bill) => { return bill.bill_status === status && bill.bill_type === 0 })
 
         return billsQuantity.length
     }
@@ -91,8 +90,6 @@ const RecurringBills = () => {
             case 1:
                 return 'var(--green)'
             case 2:
-                return 'var(--orange)'
-            case 3:
                 return 'var(--red)'
             default:
                 return 'var(--dark)'
@@ -159,7 +156,7 @@ const RecurringBills = () => {
 
                                 <SummaryBox>
                                     <SummaryItem>
-                                        <h5>Total Upcoming ({getBillsQuantity(0)})</h5>
+                                        <h5>Upcoming ({getBillsQuantity(0)})</h5>
 
                                         <h4>${getBills(0)}</h4>
                                     </SummaryItem>
@@ -174,18 +171,10 @@ const RecurringBills = () => {
 
                                     <hr />
 
-                                    <SummaryItem color='var(--orange)'>
+                                    <SummaryItem color='var(--red)'>
                                         <h5>Due Soon ({getBillsQuantity(2)})</h5>
 
                                         <h4>${getBills(2)}</h4>
-                                    </SummaryItem>
-
-                                    <hr />
-
-                                    <SummaryItem color='var(--red)'>
-                                        <h5>Overdue ({getBillsQuantity(3)})</h5>
-
-                                        <h4>${getBills(3)}</h4>
                                     </SummaryItem>
                                 </SummaryBox>
                             </SummaryContainer>

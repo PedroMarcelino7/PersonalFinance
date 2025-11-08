@@ -52,31 +52,31 @@ const deleteRecurringBill = (values, callback) => {
 
 const finishRecurringBill = (values, callback) => {
     let newDate = new Date(values.bill_date)
-    let day = newDate.getDate() + 1
-    let month = newDate.getMonth() + 1
-    let year = newDate.getFullYear()
 
     switch (values.bill_recurrence) {
         case 0:
-            day += 7
+            newDate.setDate(newDate.getDate() + 7)
             break;
         case 1:
-            day += 15
+            newDate.setDate(newDate.getDate() + 15)
             break;
         case 2:
-            month++
+            newDate.setMonth(newDate.getMonth() + 1)
             break;
         case 3:
-            month += 6
+            newDate.setMonth(newDate.getMonth() + 6)
             break;
         case 4:
-            year++
+            newDate.setFullYear(newDate.getFullYear() + 1)
             break;
         default:
             break;
     }
 
-    newDate = `${year}-${month}-${day}`
+    const year = newDate.getFullYear();
+    const month = String(newDate.getMonth() + 1).padStart(2, "0");
+    const day = String(newDate.getDate() + 1).padStart(2, "0");
+    newDate = `${year}-${month}-${day}`;
 
     db.beginTransaction((err) => {
         if (err) return callback(err);
