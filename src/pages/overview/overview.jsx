@@ -86,34 +86,15 @@ const Overview = () => {
         }).replace(',', '');
     };
 
-    const getPaidBills = () => {
-        const paidBills = recurringBills.reduce((acc, bill) => {
-            return bill.bill_status === 'paid'
-                ? acc + (parseFloat(bill.bill_amount) || 0)
-                : acc;
-        }, 0);
+    const filteredBills = recurringBills.filter(bill => bill.bill_type === 0)
 
-        return paidBills.toFixed(2);
-    }
+    const getBills = (status) => {
+        const bills = filteredBills.reduce((acc, bill) => {
+            const amount = parseFloat(bill.bill_amount)
+            return bill.bill_status === status && !isNaN(amount) ? acc + amount : acc
+        }, 0)
 
-    const getUpcomingBills = () => {
-        const upcomingBills = recurringBills.reduce((acc, bill) => {
-            return bill.bill_status === 'upcoming'
-                ? acc + (parseFloat(bill.bill_amount) || 0)
-                : acc;
-        }, 0);
-
-        return upcomingBills.toFixed(2);
-    }
-
-    const getDueSoonBills = () => {
-        const dueSoonBills = recurringBills.reduce((acc, bill) => {
-            return bill.bill_status === 'due soon'
-                ? acc + (parseFloat(bill.bill_amount) || 0)
-                : acc;
-        }, 0);
-
-        return dueSoonBills.toFixed(2);
+        return bills.toFixed(2)
     }
 
     useEffect(() => {
@@ -328,22 +309,22 @@ const Overview = () => {
                                 </EmptyPageTextBox>
                                 : <CardContext>
                                     <RecurringBillsContainer>
-                                        <BillBox theme={'#277C78'}>
-                                            <h5>Paid Bills</h5>
-
-                                            <h4>${getPaidBills()}</h4>
-                                        </BillBox>
-
-                                        <BillBox theme={'#F2CDAC'}>
+                                        <BillBox theme={'var(--dark)'}>
                                             <h5>Total Upcoming</h5>
 
-                                            <h4>${getUpcomingBills()}</h4>
+                                            <h4>${getBills(0)}</h4>
                                         </BillBox>
 
-                                        <BillBox theme={'#82C9D7'}>
+                                        <BillBox theme={'var(--green)'}>
+                                            <h5>Paid Bills</h5>
+
+                                            <h4>${getBills(1)}</h4>
+                                        </BillBox>
+
+                                        <BillBox theme={'var(--red)'}>
                                             <h5>Due Soon</h5>
 
-                                            <h4>${getDueSoonBills()}</h4>
+                                            <h4>${getBills(2)}</h4>
                                         </BillBox>
                                     </RecurringBillsContainer>
                                 </CardContext>
