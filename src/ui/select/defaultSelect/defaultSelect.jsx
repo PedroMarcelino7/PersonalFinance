@@ -7,6 +7,7 @@ const DefaultSelect = ({ label = '', value, setValue, data, item_id, item_name }
 
     const handleSelect = (item) => {
         setValue(item?.[item_id])
+        setShowOptions(0)
     }
 
     const selectedItem = data.find((item) => item[item_id] === value) || data[0];
@@ -30,8 +31,8 @@ const DefaultSelect = ({ label = '', value, setValue, data, item_id, item_name }
             <Label>{label}</Label>
 
             <SelectWithButtonDiv>
-                <SelectBox onClick={() => setShowOptions(1)}>
-                    <Selected>
+                <SelectBox>
+                    <Selected onClick={() => setShowOptions(1)}>
                         <ThemeBox>
                             <h1>{selectedItem[item_name]}</h1>
                         </ThemeBox>
