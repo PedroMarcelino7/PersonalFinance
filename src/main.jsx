@@ -10,25 +10,28 @@ import { BudgetsProvider } from './contexts/budgetsContext.jsx'
 import { ThemesProvider } from './contexts/themesContext.jsx'
 import Toast from './ui/toast/toast.jsx'
 import { OverviewProvider } from './contexts/overviewContext.jsx'
+import { LoadingProvider } from './contexts/loadingContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <PeopleProvider>
-      <BudgetsProvider>
-        <ThemesProvider>
-          <PotsProvider>
-            <TransactionsProvider>
-              <RecurringBillsProvider>
-                <OverviewProvider>
-                  <App />
+    <LoadingProvider>
+      <PeopleProvider>
+        <BudgetsProvider>
+          <ThemesProvider>
+            <PotsProvider>
+              <TransactionsProvider>
+                <RecurringBillsProvider>
+                  <OverviewProvider>
+                    <App />
 
-                  <Toast />
-                </OverviewProvider>
-              </RecurringBillsProvider>
-            </TransactionsProvider>
-          </PotsProvider>
-        </ThemesProvider>
-      </BudgetsProvider>
-    </PeopleProvider>
+                    <Toast />
+                  </OverviewProvider>
+                </RecurringBillsProvider>
+              </TransactionsProvider>
+            </PotsProvider>
+          </ThemesProvider>
+        </BudgetsProvider>
+      </PeopleProvider>
+    </LoadingProvider>
   </StrictMode>,
 )
