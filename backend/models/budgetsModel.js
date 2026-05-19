@@ -4,8 +4,9 @@ const getBudgets = (callback) => {
     db.query(`
     select bud.*, theme.theme_color
     from budgets as bud
-    join themes as theme
-    on bud.theme_id = theme.theme_id;    
+    left join themes as theme
+    on bud.theme_id = theme.theme_id
+    where bud.budget_id != 1;
     `, callback);
 };
 

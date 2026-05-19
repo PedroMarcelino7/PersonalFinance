@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { Box, Container, Footer } from "./styles";
 
 import { DayPicker } from "react-day-picker";
@@ -6,6 +8,9 @@ import "react-day-picker/style.css";
 import DefaultButton from "../../ui/button/defaultButton/defaultButton";
 
 const DatePicker = ({ selected, setSelected, onClick, disabled = null }) => {
+    useEffect(() => {
+        console.log(selected)
+    }, [selected])
     return (
         <Container>
             <Box>

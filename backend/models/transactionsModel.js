@@ -8,10 +8,10 @@ const getAllTransactions = (sort, search, callback) => {
             orderBy = 'trns.transaction_date asc, trns.transaction_created_at asc';
             break;
         case 'atoz':
-            orderBy = `prsn.person_name asc, ${orderBy}`;
+            orderBy = `trns.transaction_name asc, ${orderBy}`;
             break;
         case 'ztoa':
-            orderBy = `prsn.person_name desc, ${orderBy}`;
+            orderBy = `trns.transaction_name desc, ${orderBy}`;
             break;
         case 'highest':
             orderBy = `trns.transaction_amount desc, ${orderBy}`;
@@ -41,9 +41,9 @@ const getAllTransactions = (sort, search, callback) => {
             trns.*, bill.bill_name, bud.budget_name, prsn.person_name, pot.pot_name
         FROM
             transactions AS trns
-        JOIN
+        LEFT JOIN
             budgets AS bud ON trns.budget_id = bud.budget_id
-        JOIN
+        LEFT JOIN
             people AS prsn ON trns.person_id = prsn.person_id
         LEFT JOIN
             pots AS pot ON trns.pot_id = pot.pot_id
@@ -58,9 +58,10 @@ const getAllTransactions = (sort, search, callback) => {
 const addTransaction = (values, callback) => {
     db.query(`
         insert into
-        transactions (transaction_amount, transaction_type, transaction_date, transaction_total_parcel, transaction_current_parcel, budget_id, person_id)
-        values (?, ?, ?, ?, ?, ?, ?)
+        transactions (transaction_name, transaction_amount, transaction_type, transaction_date, transaction_total_parcel, transaction_current_parcel, budget_id, person_id)
+        values (?, ?, ?, ?, ?, ?, ?, ?)
     `, [
+        values.transaction_name,
         values.transaction_amount,
         values.transaction_type,
         values.transaction_date,

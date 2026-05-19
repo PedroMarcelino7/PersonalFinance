@@ -31,7 +31,7 @@ const Budgets = () => {
     const { budgets } = useBudgets()
     const { monthTransactions } = useTransactions()
 
-    const filteredBudgets = budgets.filter((budget) => budget.budget_id !== 1);
+    const filteredBudgets = budgets.filter((budget) => budget.budget_id > 2);
     const [modal, setModal] = useState({ type: null, budget: null });
 
     const openModal = (type, budget = null) => setModal({ type, budget });

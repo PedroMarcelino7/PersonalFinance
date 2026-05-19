@@ -123,7 +123,7 @@ const Transactions = () => {
             return <>
                 <img src={Avatar} alt="" />
                 <PersonName>
-                    {transaction.person_name}&nbsp;
+                    {transaction.transaction_name}&nbsp;
                     {transaction.transaction_total_parcel > 1
                         ? <span>[{transaction.transaction_current_parcel}/{transaction.transaction_total_parcel}]</span>
                         : ''}
@@ -187,6 +187,7 @@ const Transactions = () => {
                             <Table>
                                 <TableHeader>
                                     <tr>
+                                        <TableHeaderElement>Transaction</TableHeaderElement>
                                         <TableHeaderElement>Recipient / Sender</TableHeaderElement>
                                         <TableHeaderElement>Budget</TableHeaderElement>
                                         <TableHeaderElement>Transaction Date</TableHeaderElement>
@@ -202,6 +203,8 @@ const Transactions = () => {
                                             <TableBodyElement className='reference'>
                                                 {setTransactionAvatar(transaction)}
                                             </TableBodyElement>
+                                            
+                                            <TableBodyElement>{transaction.person_name}</TableBodyElement>
 
                                             <TableBodyElement>{transaction.budget_name}</TableBodyElement>
 

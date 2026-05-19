@@ -37,6 +37,7 @@ const AddTransaction = () => {
     const openModal = (type, pot = null) => setModal({ type, pot });
     const closeExtraModal = () => setModal({ type: null, pot: null });
 
+    const [name, setName] = useState(null)
     const [amount, setAmount] = useState(0)
     const [budget, setBudget] = useState(2)
     const [person, setPerson] = useState(2)
@@ -49,7 +50,7 @@ const AddTransaction = () => {
         const pad = (n) => (n < 10 ? '0' + n : n);
 
         const year = date.getFullYear();
-        const month = pad(date.getMonth() + 1);
+        const month = pad(date.getMonth());
         const day = pad(date.getDate());
         const hours = pad(date.getHours());
         const minutes = pad(date.getMinutes());
@@ -88,6 +89,7 @@ const AddTransaction = () => {
             console.log(`
                 TRANSACTION SUBMIT
     
+                name: ${name}
                 amount: ${currentAmount}
                 budget: ${budget}
                 person: ${person}
@@ -104,6 +106,7 @@ const AddTransaction = () => {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
+                        transaction_name: name,
                         transaction_amount: currentAmount,
                         transaction_type: type,
                         transaction_date: formattedDate,
@@ -138,6 +141,11 @@ const AddTransaction = () => {
     return (
         <>
             <FormContainer onSubmit={(e) => handleSubmit(e)}>
+                <DefaultInput
+                    label={'Name'}
+                    setValue={setName}
+                />
+
                 <DefaultInput
                     label={'Amount'}
                     setValue={setAmount}
