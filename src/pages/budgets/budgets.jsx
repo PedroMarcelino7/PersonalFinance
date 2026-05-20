@@ -194,7 +194,7 @@ const Budgets = () => {
                                                             index < 5 &&
                                                             <LastSpendingItem key={transaction.transaction_id}>
                                                                 <PersonBox>
-                                                                    <ProfilePicture src={Avatar} alt="" />
+                                                                    <ProfilePicture src={transaction.person_avatar} alt="" />
                                                                     <h4>
                                                                         {transaction.person_name}&nbsp;
                                                                         {transaction.transaction_total_parcel > 1

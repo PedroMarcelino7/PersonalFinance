@@ -217,7 +217,7 @@ const Overview = () => {
                                                                 <h4>{transaction.pot_name}</h4>
                                                             </>
                                                             : <>
-                                                                <ProfilePicture src={Avatar} alt="" />
+                                                                <ProfilePicture src={transaction.person_avatar} alt="" />
                                                                 <h4>
                                                                     {transaction.person_name}&nbsp;
                                                                     {transaction.transaction_total_parcel > 1

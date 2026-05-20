@@ -310,7 +310,7 @@ export const LastSpendingItem = styled.div`
 export const PersonBox = styled.div`
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 
     h4 {
         font-size: 0.75rem;

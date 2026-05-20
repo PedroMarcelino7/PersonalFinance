@@ -38,7 +38,7 @@ const getAllTransactions = (sort, search, callback) => {
 
     db.query(`
         SELECT
-            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, pot.pot_name
+            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, prsn.person_avatar, pot.pot_name
         FROM
             transactions AS trns
         LEFT JOIN
@@ -89,7 +89,7 @@ const getTransactionsByActualMonth = (callback) => {
 
     db.query(`
         SELECT
-            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, pot.pot_name
+            trns.*, bill.bill_name, bud.budget_name, prsn.person_name, prsn.person_avatar, pot.pot_name
         FROM
             transactions AS trns
         JOIN

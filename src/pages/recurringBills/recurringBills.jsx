@@ -222,7 +222,7 @@ const RecurringBills = () => {
                                                 <TableBodyElement className='reference'
                                                     color={getBillStatusColor(bill)}
                                                 >
-                                                    <img src={Avatar} alt="" />
+                                                    <img src={bill.person_avatar} alt="" />
                                                     <h3>{bill.bill_name}</h3>
                                                 </TableBodyElement>
 

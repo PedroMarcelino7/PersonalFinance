@@ -121,7 +121,7 @@ const Transactions = () => {
             </>
         } else {
             return <>
-                <img src={Avatar} alt="" />
+                <img src={transaction.person_avatar} alt="" />
                 <PersonName>
                     {transaction.transaction_name}&nbsp;
                     {transaction.transaction_total_parcel > 1

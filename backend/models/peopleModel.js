@@ -9,9 +9,9 @@ const addPerson = (values, callback) => {
         INSERT INTO
             people (person_name, person_avatar)
         VALUES
-            (?, '');
+            (?, ?);
     `,
-        [values.person_name], callback)
+        [values.person_name, values.person_avatar], callback)
 }
 
 module.exports = {

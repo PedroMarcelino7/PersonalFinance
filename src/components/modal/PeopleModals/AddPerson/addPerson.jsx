@@ -11,12 +11,14 @@ import ImageButton from "../../../../ui/button/imageButton/imageButton"
 // CONTEXT
 import { useModal } from '../../modal'
 import { usePeople } from '../../../../contexts/peopleContext'
+import { useTheme } from "styled-components"
 
 const AddPerson = () => {
     const { refreshPeople } = usePeople()
     const { closeModal } = useModal()
 
     const [name, setName] = useState('')
+    const [avatarIMG, setAvatarIMG] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -29,6 +31,7 @@ const AddPerson = () => {
                 },
                 body: JSON.stringify({
                     person_name: name,
+                    person_avatar: avatarIMG
                 })
             });
 
@@ -58,7 +61,9 @@ const AddPerson = () => {
                 required
             />
 
-            <ImageButton />
+            <ImageButton
+                setAvatar={setAvatarIMG}
+            />
 
             <DefaultButton
                 label="Confirm Addition"

@@ -26,5 +26,6 @@ dist-ssr
 backend/.env
 backend/package-lock.json
 backend/package.json
+.env
 
 database_backup.txt
