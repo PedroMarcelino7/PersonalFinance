@@ -13,6 +13,7 @@ import { ChartPie as BudgetsIcon } from 'lucide-react'
 import { Archive as PotsIcon } from 'lucide-react'
 import { CalendarSync as RecurringBillsIcon } from 'lucide-react'
 import { CirclePoundSterling as CryptoIcon } from 'lucide-react'
+import { TrendingUp as InvestmentsIcon } from 'lucide-react'
 
 import Logo from '../../assets/images/logo-large.svg'
 
@@ -55,7 +56,13 @@ const Sidebar = () => {
         },
         {
             id: 5,
-            icon: <CryptoIcon size={25} color={selectedPage === 5 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            icon: <InvestmentsIcon size={25} color={selectedPage === 5 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
+            name: 'Investments',
+            path: 'investments'
+        },
+        {
+            id: 6,
+            icon: <CryptoIcon size={25} color={selectedPage === 6 ? 'var(--green)' : 'var(--white)'} strokeWidth={2.5} />,
             name: 'Crypto',
             path: 'crypto'
         },

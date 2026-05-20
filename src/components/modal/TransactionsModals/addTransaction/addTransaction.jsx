@@ -144,6 +144,7 @@ const AddTransaction = () => {
                 <DefaultInput
                     label={'Name'}
                     setValue={setName}
+                    required={true}
                 />
 
                 <DefaultInput

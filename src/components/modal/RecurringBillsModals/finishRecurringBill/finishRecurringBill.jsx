@@ -59,6 +59,7 @@ const FinishRecurringBill = ({ bill }) => {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
+                    bill_name: bill.bill_name,
                     bill_id: bill.bill_id,
                     bill_type: bill.bill_type,
                     bill_amount: amount,
