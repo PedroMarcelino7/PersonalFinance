@@ -7,7 +7,7 @@ const Crypto = () => {
     return (
         <PageContainer name="Crypto">
             <CryptoContainer>
-                Crypto Page
+                
             </CryptoContainer>
         </PageContainer>
     )

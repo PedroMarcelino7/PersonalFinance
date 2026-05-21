@@ -4,6 +4,10 @@ import { Container, FooterBox, FooterButton, LogoBox, NavigationBox, NavigationB
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
+// PAGES
+import Settings from '../../pages/settings/settings';
+import User from '../../pages/user/user';
+
 // ICONS
 import { User as UserIcon } from 'lucide-react';
 import { Settings as SettingsIcon } from 'lucide-react';
@@ -22,6 +26,9 @@ const Sidebar = () => {
     const location = useLocation()
 
     const [selectedPage, setSelectedPage] = useState(0)
+
+    const [showSettings, setShowSettings] = useState(false)
+    const [showUser, setShowUser] = useState(true)
 
     const navigation = [
         {
@@ -114,7 +121,9 @@ const Sidebar = () => {
                     <h2>User</h2>
                 </FooterButton>
 
-                <FooterButton>
+                <FooterButton
+                    onClick={() => setShowSettings(true)}
+                >
                     <SettingsIcon
                         size={25}
                         color='currentColor'
@@ -124,6 +133,14 @@ const Sidebar = () => {
                     <h2>Settings</h2>
                 </FooterButton>
             </FooterBox>
+
+            {showSettings &&
+                <Settings />
+            }
+
+            {showUser &&
+                <User />
+            }
         </Container>
     )
 }

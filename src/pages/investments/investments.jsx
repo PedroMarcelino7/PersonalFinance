@@ -7,7 +7,7 @@ const Investments = () => {
     return (
         <PageContainer name="Investments">
             <InvestmentsContainer>
-                Investments Page
+                
             </InvestmentsContainer>
         </PageContainer>
     )
