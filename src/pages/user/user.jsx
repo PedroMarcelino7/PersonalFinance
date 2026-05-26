@@ -1,11 +1,16 @@
 import { useState } from 'react'
-import DatePicker from '../../components/datePicker/datePicker'
-import Modal from '../../components/modal/modal'
-import PageContainer from '../../components/pageContainer/pageContainer'
-import DefaultInput from '../../ui/input/defaultInput/defaultInput'
 
+/// STYLES
 import { Container } from './styles'
+
+/// COMPONENTS
+import Modal from '../../components/modal/modal'
+
+// UI
+import DefaultInput from '../../ui/input/defaultInput/defaultInput'
 import PasswordInput from '../../ui/input/passwordInput/passwordInput'
+import ImageButton from '../../ui/button/imageButton/imageButton'
+import DefaultButton from '../../ui/button/defaultButton/defaultButton'
 
 const User = () => {
     const [name, setName] = useState('')
@@ -20,27 +25,29 @@ const User = () => {
                     value={name}
                     setValue={setName}
                     required
-                />
+                    />
 
                 <DefaultInput
                     label='E-mail'
                     type='email'
                     value={email}
                     setValue={setEmail}
-                />
+                    required
+                    />
 
-                <PasswordInput
+                {/* <PasswordInput
                     label='Password'
                     value={password}
                     setValue={setPassword}
+                    required
+                /> */}
+
+                <ImageButton />
+
+                <DefaultButton
+                    label='Confirm'
+                    type='submit'
                 />
-
-
-                {/*
-                CRUD
-                > password
-                > avatar image
-                */}
             </Container>
         </Modal>
     )

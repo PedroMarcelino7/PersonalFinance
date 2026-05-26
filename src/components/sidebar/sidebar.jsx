@@ -138,9 +138,9 @@ const Sidebar = () => {
                 <Settings />
             }
 
-            {showUser &&
+            {/* {showUser &&
                 <User />
-            }
+            } */}
         </Container>
     )
 }
